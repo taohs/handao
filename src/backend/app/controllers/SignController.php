@@ -17,6 +17,15 @@
  */
 class SignController extends \Phalcon\Mvc\Controller
 {
+    /**
+     * 初始化
+     */
+    public function initialize(){
+
+        $this->tag->prependTitle("handao365");
+        $this->view->setMainView('login');
+        $this->view->setLayout('empty');
+    }
 
     public function indexAction()
     {
@@ -29,8 +38,8 @@ class SignController extends \Phalcon\Mvc\Controller
      *
      */
     public function inAction(){
-
-        $this->dispatcher->forward(array('action'=>'index'));
+        var_dump($_POST);
+//        $this->dispatcher->forward(array('action'=>'index'));
     }
 
     /**
