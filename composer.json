@@ -1,0 +1,7 @@
+{
+  "name": "acme/hello-world",
+  "require": {
+    "monolog/monolog": "1.0.*",
+    "twbs/bootstrap": "~3.3"
+  }
+}
