@@ -25,14 +25,12 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">仪表盘</a></li>
-                <li><a href="#">系统设置</a></li>
-                <li><a href="#">个人设置</a></li>
-                <li><a href="#">帮助文档</a></li>
+                <li><a>{{session.auth.username}}</a></li>
+                <li><a href="{{url('index/index')}}">我的仪表盘</a></li>
+                <li><a href="{{url('system/index')}}">系统设置</a></li>
+                <li><a href="{{url('admin/password')}}">修改密码</a></li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-            </form>
+
         </div>
     </div>
 </nav>

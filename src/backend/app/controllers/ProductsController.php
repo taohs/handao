@@ -1,6 +1,6 @@
 <?php
 
-class ProductsController extends \Phalcon\Mvc\Controller
+class ProductsController extends  ControllerBase
 {
 
     public function indexAction()

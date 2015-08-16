@@ -1,6 +1,6 @@
 <?php
 
-class AutoController extends \Phalcon\Mvc\Controller
+class AutoController extends  ControllerBase
 {
 
     public function indexAction()

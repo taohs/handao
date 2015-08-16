@@ -12,13 +12,17 @@
  * @package PHP
  */
 ?>
-<div class="container">
-    <form class="form-signin" action="in" method="post">
+{{content()}}
+    <div class="container">
+
+    <form class="form-signin" action="/sign/index" method="post">
+        {{flash.output()}}
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
         <div class="checkbox">
             <label>
                 <input type="checkbox" value="remember-me"> Remember me

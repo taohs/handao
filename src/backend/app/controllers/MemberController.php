@@ -1,6 +1,6 @@
 <?php
 
-class MemberController extends \Phalcon\Mvc\Controller
+class MemberController extends ControllerBase
 {
 
     public function indexAction()

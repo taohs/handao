@@ -12,6 +12,14 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Flash\Session as FlashSession;
+
+use Phalcon\Dispatcher;
+use Phalcon\Mvc\Dispatcher as MvcDispatcher;
+use Phalcon\Events\Manager as EventsManager;
+use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
+
+
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -78,4 +86,57 @@ $di->setShared('session', function () {
         $session->start();
     }
     return $session;
+});
+$di->setShared('flash',function(){
+    return new FlashSession(array(
+        'error'=>'alert alert-danger',
+        'notice'=>'alert alert-info',
+        'success'=>'alert alert-success',
+        'warning'=>'alert alert-warning',
+    ));
+});
+
+$di->setShared('config',$config);
+
+
+$di->setShared('dispatcher', function () {
+
+    $eventsManager = new EventsManager();
+    /**
+     * Check if the user is allowed to access certain action using the SecurityPlugin
+     */
+    $eventsManager->attach('dispatch:beforeDispatch', new SecurityPlugin);
+
+    $eventsManager->attach("dispatch:beforeException", function ($event, $dispatcher, $exception) {
+
+        if ($exception instanceof DispatcherException) {
+            switch ($exception->getCode()) {
+                case Dispatcher::EXCEPTION_HANDLER_NOT_FOUND:
+                case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
+                    $dispatcher->forward([
+                        'controller' => 'errors',
+                        'action'     => 'show404',
+                        'params'     => array('message' => $exception->getMessage())
+                    ]);
+                    return false;
+            }
+        }
+
+        $dispatcher->forward([
+            'controller' => 'errors',
+            'action'     => 'show500',
+            'params'=>array(
+                'message'=>$exception->getMessage(),
+                'code'=>$exception->getCode(),
+                'file'=>$exception->getFile(),
+                'line'=>$exception->getLine()
+            )
+        ]);
+        return false;
+    });
+
+    $dispatcher = new MvcDispatcher();
+//    $dispatcher->setDefaultNamespace('');
+    $dispatcher->setEventsManager($eventsManager);
+    return $dispatcher;
 });

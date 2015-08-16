@@ -1,6 +1,6 @@
 <?php
 
-class MaintenanceController extends \Phalcon\Mvc\Controller
+class MaintenanceController extends  ControllerBase
 {
 
     public function indexAction()

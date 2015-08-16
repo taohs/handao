@@ -7,7 +7,7 @@
  *      #app_root
  *      #app_vendor
  */
-error_reporting(E_ALL);
+error_reporting(E_ERROR|E_NOTICE | E_USER_ERROR);
 
 define('APP_PATH', realpath('..'));
 define('APP_ROOT',realpath('../../../'));
@@ -39,5 +39,7 @@ try {
     echo $application->handle()->getContent();
 
 } catch (\Exception $e) {
-    echo $e->getMessage();
+//    echo $e->getMessage();
+}catch(Exception $e){
+echo 1;
 }

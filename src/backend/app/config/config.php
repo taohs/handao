@@ -4,21 +4,35 @@ defined('APP_PATH') || define('APP_PATH', realpath('.'));
 
 return new \Phalcon\Config(array(
     'database' => array(
-        'adapter'     => 'Mysql',
-        'host'        => 'localhost',
-        'username'    => 'root',
-        'password'    => '',
-        'dbname'      => 'myautodb',
-        'charset'     => 'utf8',
+        'adapter' => 'Mysql',
+        'host' => 'localhost',
+        'username' => 'root',
+        'password' => '',
+        'dbname' => 'myautodb',
+        'charset' => 'utf8',
     ),
     'application' => array(
         'controllersDir' => APP_PATH . '/app/controllers/',
-        'modelsDir'      => APP_PATH . '/app/models/',
-        'migrationsDir'  => APP_PATH . '/app/migrations/',
-        'viewsDir'       => APP_PATH . '/app/views/',
-        'pluginsDir'     => APP_PATH . '/app/plugins/',
-        'libraryDir'     => APP_PATH . '/app/library/',
-        'cacheDir'       => APP_PATH . '/app/cache/',
-        'baseUri'        => '/',
-    )
+        'modelsDir' => APP_PATH . '/app/models/',
+        'migrationsDir' => APP_PATH . '/app/migrations/',
+        'viewsDir' => APP_PATH . '/app/views/',
+        'pluginsDir' => APP_PATH . '/app/plugins/',
+        'libraryDir' => APP_PATH . '/app/library/',
+        'helperDir' => APP_PATH . '/app/helper/',
+        'cacheDir' => APP_PATH . '/app/cache/',
+        'baseUri' => '/',
+    ),
+    'session' => array(
+        'loginKey' => 'auth'
+    ),
+    'paginate' => array(
+        'limit'=>10
+    ),
+    'user'=>array(
+        'password'=>array(
+            'default'=>'123456',
+            'minLength'=>'6',
+            'maxLength'=>'20'
+        )
+    ),
 ));
