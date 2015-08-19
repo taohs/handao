@@ -42,7 +42,10 @@ class CarsController extends ControllerBase
 
 
         $brands = HdBrands::find();
-        $autoModels = HdAutoModels::find();
+        $autoModels = HdAutoModels::find(array(
+            'conditions'=>'brands_id=:brandsId:',
+            'bind'=>array('brandsId'=>$brands[0]->id)
+        ));
 
         if ($this->request->isPost()) {
             $inputBrands = $this->request->getPost('inputBrands',\Phalcon\Filter::FILTER_INT);

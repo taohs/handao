@@ -32,7 +32,7 @@
             <div class="col-sm-10">
                 <select class="form-control" name="inputAutoModels"  id="inputAutoModels">
                     {% for models in autoModels %}
-                    <option value="{{models.id}}" {% if brand.id == model.brands_id %} selected {% endif %}>{{ models.name}}</option>
+                    <option value="{{models.id}}" {% if models.id == model.models_id %} selected {% endif %}>{{ models.name}}</option>
                     {% endfor %}
                 </select>
             </div>
