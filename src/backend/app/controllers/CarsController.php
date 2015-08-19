@@ -1,0 +1,87 @@
+<?php
+
+/**
+ * Created by PhpStorm.
+ * User: taohs
+ * Date: 8/17/15
+ * Time: 01:19
+ * @author taohaisong <taohaisong@gmail.com>
+ * @date: 8/17/15  Time: 01:19
+ * @link http://www.php4s.com/
+ * @copyright
+ * @license http://www.php4s.com/license/
+ * @package PHP
+ */
+class CarsController extends ControllerBase
+{
+
+    function indexAction()
+    {
+        return $this->response->redirect($this->dispatcher->getControllerName() . '/list');
+    }
+
+    function listAction()
+    {
+        $model = HdAutoModelsExact::find();
+        $page = $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT);
+        $paginateModel = new Phalcon\Paginator\Adapter\Model(array(
+            'data' => $model,
+            'limit' => $this->config->paginate->limit,
+            'page' => $page
+        ));
+        $this->view->setVar('model', $model);
+        $this->view->setVar('paginate', $paginateModel->getPaginate());
+    }
+
+    /**
+     * 关联汽车系列
+     * 关联汽车品牌
+     */
+    function createAction()
+    {
+
+
+        $brands = HdBrands::find();
+        $autoModels = HdAutoModels::find();
+
+        if ($this->request->isPost()) {
+            $inputBrands = $this->request->getPost('inputBrands',\Phalcon\Filter::FILTER_INT);
+            $inputAutoModels = $this->request->getPost('inputAutoModels',\Phalcon\Filter::FILTER_INT);
+            $inputName = $this->request->getPost('inputName',\Phalcon\Filter::FILTER_STRING);
+            $inputYears = $this->request->getPost('inputYears',\Phalcon\Filter::FILTER_STRING);
+
+            if(empty($inputName) or empty($inputAutoModels) or empty($inputBrands)){
+                $this->flash->error("输入信息问完整，请输入完整的品牌，系列和名称");
+                return $this->refresh();
+            }
+
+            $model = new HdAutoModelsExact();
+            $model->name = $inputName;
+            $model->brands_id = $inputBrands;
+            $model->models_id = $inputAutoModels;
+            $model->year = $inputYears;
+            $model->create_time = date('Y-m-d H:i:s');
+            $model->update_time = date('Y-m-d H:i:s');
+            if($model->save()){
+                $this->flash->success("保存成功");
+            }else{
+                $this->flash->error("保存失败");
+            }
+            return $this->refresh();
+
+
+        }
+
+
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+    }
+
+    function updateActon()
+    {
+    }
+
+    function deleteAction()
+    {
+    }
+}

@@ -82,9 +82,9 @@ $di->set('modelsMetadata', function () {
  */
 $di->setShared('session', function () {
     $session = new SessionAdapter();
-    if(!$session->isStarted()){
+//    if(!$session->isStarted()){
         $session->start();
-    }
+//    }
     return $session;
 });
 $di->setShared('flash',function(){

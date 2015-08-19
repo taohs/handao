@@ -7,11 +7,14 @@
  *      #app_root
  *      #app_vendor
  */
-error_reporting(E_ERROR|E_NOTICE | E_USER_ERROR);
+error_reporting(E_ALL);
 
 define('APP_PATH', realpath('..'));
 define('APP_ROOT',realpath('../../../'));
 define('APP_VENDOR',APP_ROOT.'/vendor');
+define('APP_PUBLIC',realpath(''));
+define('LOGO_PATH','/uploads/img/logo');
+//set_exception_handler()
 
 
 try {

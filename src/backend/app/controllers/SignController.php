@@ -49,8 +49,12 @@ class SignController extends ControllerBase
 
     public function indexAction()
     {
+
+
         if ($this->request->isPost()) {
-            if ($this->security->checkToken()) {
+
+            if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'),$this->security->getSessionToken())) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
+//            if ($this->security->checkToken()) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
 
                 $username = $this->request->getPost('inputEmail', 'email');
                 $password = $this->request->getPost('inputPassword', 'string');
@@ -59,62 +63,36 @@ class SignController extends ControllerBase
                         'conditions' => 'username=:username:',
                         'bind' => array(
                             'username' => $username,
-//                            'password' => $this->validPassword($password)
                         )
                     ));
                 if ($admin && $this->security->checkHash($password,$admin->password)) {
                     $this->session->set($this->config->session->loginKey, $admin);
-
+                    $this->flash->success("success");
                     //change the password in the database with hash different from earlier
                     //This situation should use the observer pattern
                     //$admin->password = $this->security->hash($password);
                     //$admin->save();
-                    return $this->response->redirect('index/index');
+                    return $this->response->redirect('admin/list');
                 } else {
                     $this->flash->error("password errors");
                 }
             } else {
-                $this->flash->error("password errors");
+                $this->flash->error("token errors");
             }
+            return $this->refresh();
         }
+
     }
 
 
 
-    /**
-     * deal form post
-     *
-     */
-    public function inAction()
-    {
-        if ($this->security->checkToken()) {
-            $username = $this->request->getPost('inputEmail', 'email');
-            $password = $this->request->getPost('inputPassword', 'string');
-
-            $admin = HdAdmin::findFirst(
-                array(
-                    'conditions' => 'username=:username: and password=:password:',
-                    'bind' => array(
-                        'username' => $username,
-                        'password' => $this->validPassword($password)
-                    )
-                ));
-            if ($admin) {
-                $this->session->set($this->config->session->loginKey, $admin);
-                return $this->response->redirect('index/index');
-            }
-
-        }
-        $this->flash->error("password errors");
-        return $this->response->redirect('sign/index');
-    }
 
     /**
      *
      */
     public function outAction()
     {
-        $this->session->destroy();
+        $this->session->remove($this->config->session->loginKey);
         $this->forceLogin();
     }
 

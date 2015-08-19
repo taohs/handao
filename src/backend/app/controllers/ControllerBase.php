@@ -108,4 +108,14 @@ class ControllerBase extends Controller
     public function refresh(){
         return $this->response->redirect($this->request->getURI());
     }
+
+    protected function _getModel($id)
+    {
+        $id = $this->filter->sanitize($id, \Phalcon\Filter::FILTER_INT_CAST);
+        $model = HdBrands::findFirst($id);
+        if (!$model) {
+            throw new \Phalcon\Mvc\Model\Exception("对象不存在");
+        }
+        return $model;
+    }
 }

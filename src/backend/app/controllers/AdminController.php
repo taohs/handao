@@ -13,7 +13,7 @@ class AdminController extends ControllerBase
      */
     public function indexAction()
     {
-        $this->response->redirect("admin/list");
+        return $this->response->redirect($this->dispatcher->getControllerName().'/list');
     }
 
     public function listAction()

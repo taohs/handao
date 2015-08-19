@@ -39,5 +39,7 @@
 <ul class="nav nav-sidebar">
     <li><a href="{{url('products')}}">商品管理</a></li>
     <li><a href="{{url('brands')}}">品牌管理</a></li>
+    <li><a href="{{url('models')}}">车系管理</a></li>
+    <li><a href="{{url('cars')}}">车型管理</a></li>
     <li><a href="{{url('industy/index')}}">行业</a></li>
 </ul>
