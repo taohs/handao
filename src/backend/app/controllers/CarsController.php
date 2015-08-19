@@ -22,12 +22,12 @@ class CarsController extends ControllerBase
 
     function listAction()
     {
-        $model = HdAutoModelsExact::find();
+        $model = HdAutoModelsExact::find(array( 'order'=>'brands_id asc,models_id asc'));
         $page = $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT);
         $paginateModel = new Phalcon\Paginator\Adapter\Model(array(
             'data' => $model,
             'limit' => $this->config->paginate->limit,
-            'page' => $page
+            'page' => $page,
         ));
         $this->view->setVar('model', $model);
         $this->view->setVar('paginate', $paginateModel->getPaginate());

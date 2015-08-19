@@ -108,7 +108,28 @@ class SignController extends ControllerBase
 
     }
 
-    public function createAdmin(){
+    public function createAdminAction(){
+
+        $time = date('Y-m-d H:i:s');
+        $role = new HdAdminRole();
+        $role->name = '终极管理员';
+        $role->is_valid = 1;
+        $role->create_time = $time;
+        $role->update_time = $time;
+        $role->create();
+        $role->id;
+
+
+        $admin = new HdAdmin();
+        $admin->username = 'taohaisong@gmail.com';
+        $admin->nickname = 'taohaisong';
+        $admin->is_valid = 1;
+        $admin->create_time = $time;
+        $admin->update_time = $time;
+        $admin->password = $this->security->hash($this->config->user->password->default);
+        $admin->role = $role->id;
+        $admin->create();
+
 
     }
 

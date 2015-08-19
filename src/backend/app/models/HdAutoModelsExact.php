@@ -75,7 +75,7 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
 
 
     public function initialize(){
-        $this->belongsTo('brands_id','HdBrands','id');
+        $this->belongsTo('brands_id','HdBrands','id',array('alias'=>'HdBrands'));
         $this->belongsTo('models_id','HdAutoModels','id');
     }
 
