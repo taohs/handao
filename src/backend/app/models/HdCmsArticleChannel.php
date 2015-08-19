@@ -10,6 +10,14 @@ class HdCmsArticleChannel extends \Phalcon\Mvc\Model
     public $id;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdCmsArticleInChannel', 'channel_id', array('alias' => 'HdCmsArticleInChannel'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

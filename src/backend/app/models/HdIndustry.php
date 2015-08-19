@@ -22,6 +22,15 @@ class HdIndustry extends \Phalcon\Mvc\Model
     public $parent_id;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdBrandsIndustry', 'industry_id', array('alias' => 'HdBrandsIndustry'));
+        $this->hasMany('id', 'HdProductCategory', 'industry_id', array('alias' => 'HdProductCategory'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

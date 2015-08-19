@@ -5,6 +5,60 @@ class HdProduct extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $id;
+
+    /**
+     *
+     * @var string
+     */
+    public $name;
+
+    /**
+     *
+     * @var integer
+     */
+    public $category;
+
+    /**
+     *
+     * @var double
+     */
+    public $mark_price;
+
+    /**
+     *
+     * @var double
+     */
+    public $member_price;
+
+    /**
+     *
+     * @var double
+     */
+    public $activity_price;
+
+    /**
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
+     *
+     * @var string
+     */
+    public $attributes;
+
+    /**
+     *
+     * @var integer
+     */
+    public $active;
+
+    /**
+     *
      * @var string
      */
     public $create_time;
@@ -16,10 +70,13 @@ class HdProduct extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
-     *
-     * @var integer
+     * Initialize method for model.
      */
-    public $id;
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdAutoProductRecommend', 'product_id', array('alias' => 'HdAutoProductRecommend'));
+        $this->belongsTo('category', 'HdProductCategory', 'id', array('alias' => 'HdProductCategory'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions

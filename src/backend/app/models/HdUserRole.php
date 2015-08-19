@@ -22,6 +22,14 @@ class HdUserRole extends \Phalcon\Mvc\Model
     public $description;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdUser', 'role', array('alias' => 'HdUser'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

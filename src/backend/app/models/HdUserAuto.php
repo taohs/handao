@@ -46,6 +46,15 @@ class HdUserAuto extends \Phalcon\Mvc\Model
     public $year;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdUserAutoReport', 'auto_id', array('alias' => 'HdUserAutoReport'));
+        $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

@@ -11,6 +11,18 @@ class HdProductCategory extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var string
+     */
+    public $name;
+
+    /**
+     *
+     * @var integer
+     */
+    public $parent_id;
+
+    /**
+     *
      * @var integer
      */
     public $industry_id;
@@ -26,6 +38,15 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * @var string
      */
     public $update_time;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
+        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions

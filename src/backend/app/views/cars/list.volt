@@ -20,6 +20,7 @@
         <tr>
             <th>#</th>
             <th>品牌</th>
+            <th>车型</th>
             <th>名称</th>
             <th>年份</th>
             <th>操作</th>
@@ -30,6 +31,7 @@
         <tr>
             <td>{{model.id}}</td>
             <td>{{model.HdBrands.name}} &nbsp;<img src="{{model.HdBrands.logo_path}}" width="40px" height="20px"></td>
+            <td>{{model.HdAutoModels.name}} &nbsp;</td>
             <td>{{model.name}}</td>
             <td>{{model.year}}</td>
             <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to(dispatcher.getControllerName()~"/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>

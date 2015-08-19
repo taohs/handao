@@ -108,5 +108,9 @@ class SignController extends ControllerBase
 
     }
 
+    public function createAdmin(){
+
+    }
+
 }
 

@@ -77,11 +77,58 @@ class CarsController extends ControllerBase
         $this->view->setVar('autoModels', $autoModels);
     }
 
-    function updateActon()
+    function updateAction($id)
     {
+        $model = $this->_getModel($id);
+        $brands = HdBrands::find();
+        $autoModels = HdAutoModels::find(array(
+            'conditions'=>'brands_id=:brandsId:',
+            'bind'=>array('brandsId'=>$model->brands_id)
+        ));
+
+        if ($this->request->isPost()) {
+            $inputBrands = $this->request->getPost('inputBrands',\Phalcon\Filter::FILTER_INT);
+            $inputAutoModels = $this->request->getPost('inputAutoModels',\Phalcon\Filter::FILTER_INT);
+            $inputName = $this->request->getPost('inputName',\Phalcon\Filter::FILTER_STRING);
+            $inputYears = $this->request->getPost('inputYears',\Phalcon\Filter::FILTER_STRING);
+
+            if(empty($inputName) or empty($inputAutoModels) or empty($inputBrands)){
+                $this->flash->error("输入信息问完整，请输入完整的品牌，系列和名称");
+                return $this->refresh();
+            }
+
+
+            $model->name = $inputName;
+            $model->brands_id = $inputBrands;
+            $model->models_id = $inputAutoModels;
+            $model->year = $inputYears;
+
+            $model->update_time = date('Y-m-d H:i:s');
+            if($model->save()){
+                $this->flash->success("保存成功");
+            }else{
+                $this->flash->error("保存失败");
+            }
+            return $this->refresh();
+
+
+        }
+
+
+        $this->view->setVar('model', $model);
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
     }
 
     function deleteAction()
     {
+    }
+
+    protected function _getModel($id){
+        $model = HdAutoModelsExact::findFirst($id);
+        if(!$model){
+            throw new \Phalcon\Exception("信息不匹配");
+        }
+        return $model;
     }
 }

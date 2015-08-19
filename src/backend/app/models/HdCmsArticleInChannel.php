@@ -22,13 +22,12 @@ class HdCmsArticleInChannel extends \Phalcon\Mvc\Model
     public $channel_id;
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
+     * Initialize method for model.
      */
-    public function getSource()
+    public function initialize()
     {
-        return 'hd_cms_article_in_channel';
+        $this->belongsTo('article_id', 'HdCmsArticle', 'id', array('alias' => 'HdCmsArticle'));
+        $this->belongsTo('channel_id', 'HdCmsArticleChannel', 'id', array('alias' => 'HdCmsArticleChannel'));
     }
 
     /**
@@ -51,6 +50,16 @@ class HdCmsArticleInChannel extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_cms_article_in_channel';
     }
 
 }

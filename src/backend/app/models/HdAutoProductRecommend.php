@@ -22,13 +22,12 @@ class HdAutoProductRecommend extends \Phalcon\Mvc\Model
     public $product_id;
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
+     * Initialize method for model.
      */
-    public function getSource()
+    public function initialize()
     {
-        return 'hd_auto_product_recommend';
+        $this->belongsTo('exact_id', 'HdAutoModelsExact', 'id', array('alias' => 'HdAutoModelsExact'));
+        $this->belongsTo('product_id', 'HdProduct', 'id', array('alias' => 'HdProduct'));
     }
 
     /**
@@ -51,6 +50,16 @@ class HdAutoProductRecommend extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_auto_product_recommend';
     }
 
 }

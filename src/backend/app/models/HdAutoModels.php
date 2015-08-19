@@ -61,6 +61,11 @@ class HdAutoModels extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    function initialize(){
+        $this->belongsTo('brands_id',"HdBrands",'id');
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -71,7 +76,4 @@ class HdAutoModels extends \Phalcon\Mvc\Model
         return 'hd_auto_models';
     }
 
-    function initialize(){
-        $this->belongsTo('brands_id',"HdBrands",'id');
-    }
 }

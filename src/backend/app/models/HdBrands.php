@@ -64,6 +64,17 @@ class HdBrands extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdAutoModels', 'brands_id', array('alias' => 'HdAutoModels'));
+        $this->hasMany('id', 'HdAutoModelsExact', 'brands_id', array('alias' => 'HdAutoModelsExact'));
+        $this->hasMany('id', 'HdBrandsIndustry', 'brands_id', array('alias' => 'HdBrandsIndustry'));
+        $this->hasMany('id', 'HdProductBrands', 'brands_id', array('alias' => 'HdProductBrands'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

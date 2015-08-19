@@ -73,6 +73,12 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public function initialize(){
+        $this->belongsTo('brands_id','HdBrands','id');
+        $this->belongsTo('models_id','HdAutoModels','id');
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -81,11 +87,6 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'hd_auto_models_exact';
-    }
-
-    public function initialize(){
-        $this->belongsTo('brands_id','HdBrands','id');
-        $this->belongsTo('models_id','HdAutoModels','id');
     }
 
 }

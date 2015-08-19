@@ -58,16 +58,6 @@ class HdAdmin extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'hd_admin';
-    }
-
-    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
@@ -89,9 +79,20 @@ class HdAdmin extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
     public function initialize()
     {
         $this->belongsTo('role',"HdAdminRole",'id');
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_admin';
     }
 
 }

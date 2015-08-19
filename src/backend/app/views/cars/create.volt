@@ -12,7 +12,8 @@
  * @package PHP
  */
 ?>
-<h2 class="sub-header">车系信息</h2>
+<h2 class="sub-header">车系信息 - 新增车系 </h2>
+
 <div class="container col-md-8 ">
     {{flash.output()}}
     <form class="form-horizontal" method="post" enctype="multipart/form-data">
@@ -32,7 +33,7 @@
             <div class="col-sm-10">
                 <select class="form-control" name="inputAutoModels"  id="inputAutoModels">
                     {% for models in autoModels %}
-                    <option value="{{brand.id}}">{{ models.name}}</option>
+                    <option value="{{models.id}}">{{ models.name}}</option>
                     {% endfor %}
                 </select>
             </div>

@@ -34,6 +34,14 @@ class HdUserAutoReport extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('auto_id', 'HdUserAuto', 'id', array('alias' => 'HdUserAuto'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

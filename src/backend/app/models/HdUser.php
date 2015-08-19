@@ -54,6 +54,17 @@ class HdUser extends \Phalcon\Mvc\Model
     public $role;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdUserAddress', 'user_id', array('alias' => 'HdUserAddress'));
+        $this->hasMany('id', 'HdUserAuto', 'user_id', array('alias' => 'HdUserAuto'));
+        $this->hasMany('id', 'HdUserLinkman', 'user_id', array('alias' => 'HdUserLinkman'));
+        $this->belongsTo('role', 'HdUserRole', 'id', array('alias' => 'HdUserRole'));
+    }
+
+    /**
      * Validations and business logic
      *
      * @return boolean

@@ -22,6 +22,15 @@ class HdBrandsIndustry extends \Phalcon\Mvc\Model
     public $industry_id;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('brands_id', 'HdBrands', 'id', array('alias' => 'HdBrands'));
+        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

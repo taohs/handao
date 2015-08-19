@@ -40,6 +40,14 @@ class HdUserAddress extends \Phalcon\Mvc\Model
     public $user_id;
 
     /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+    }
+
+    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters

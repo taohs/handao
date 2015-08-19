@@ -5,6 +5,18 @@ class HdProductBrands extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $brands_id;
+
+    /**
+     *
      * @var string
      */
     public $create_time;
@@ -16,10 +28,12 @@ class HdProductBrands extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
-     *
-     * @var integer
+     * Initialize method for model.
      */
-    public $id;
+    public function initialize()
+    {
+        $this->belongsTo('brands_id', 'HdBrands', 'id', array('alias' => 'HdBrands'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions

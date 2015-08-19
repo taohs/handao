@@ -34,13 +34,11 @@ class HdAdminLimit extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
+     * Initialize method for model.
      */
-    public function getSource()
+    public function initialize()
     {
-        return 'hd_admin_limit';
+        $this->hasMany('id', 'HdAdminRoleLimit', 'limit', array('alias' => 'HdAdminRoleLimit'));
     }
 
     /**
@@ -63,6 +61,16 @@ class HdAdminLimit extends \Phalcon\Mvc\Model
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_admin_limit';
     }
 
 }
