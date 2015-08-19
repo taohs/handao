@@ -37,6 +37,7 @@
     <li><a href="{{url('index/index')}}">More navigation</a></li>
 </ul>
 <ul class="nav nav-sidebar">
+    <li><a href="{{url('productsCategory')}}">商品类型</a></li>
     <li><a href="{{url('products')}}">商品管理</a></li>
     <li><a href="{{url('brands')}}">品牌管理</a></li>
     <li><a href="{{url('models')}}">车系管理</a></li>
