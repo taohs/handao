@@ -33,7 +33,7 @@ class MemberController extends ControllerBase
     public function deleteAction()
     {
             echo 222;
-        echo 333;
+            echo  556546456;
     }
 
     public function linkmanAction($id=null)
