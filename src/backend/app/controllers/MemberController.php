@@ -27,7 +27,7 @@ class MemberController extends ControllerBase
 
     public function updateAction()
     {
-
+        echo 'taohs';
     }
 
     public function deleteAction()
