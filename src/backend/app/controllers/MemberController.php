@@ -34,6 +34,7 @@ class MemberController extends ControllerBase
     {
             echo 222;
             echo  556546456;
+        echo 333;
     }
 
     public function linkmanAction($id=null)
