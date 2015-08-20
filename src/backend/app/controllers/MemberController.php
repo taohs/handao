@@ -13,8 +13,16 @@ class MemberController extends ControllerBase
      */
     public function listAction()
     {
-        $this->view->setVar('data',HdUser::find());
-        $this->view->setVar('b',0);
+        //分页设置
+        $numberPage = $this->request->getQuery("page", "int");
+        $paginator = new Paginator(array(
+            "data" => HdUser::find(),
+            "limit" => 1,
+            "page" => $numberPage,
+
+        ));
+        $this->view->setVar('page', $paginator->getPaginate());
+
     }
 
     public function updateAction()

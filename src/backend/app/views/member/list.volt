@@ -1,5 +1,3 @@
-
-
 <h2 class="sub-header">会员列表</h2>
 <div class="table-responsive">
     <a href="create" class="btn btn-primary">新增会员</a>
@@ -8,23 +6,23 @@
         <tr>
             <th>ID</th>
             <th>手机号</th>
-            <th>保养车辆（个数）</th>
+            <th>保养车辆</th>
             <th>保养次数</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        {% for row in data %}
+        {% for row in page.items %}
         <tr>
             <td>{{row.id}}</td>
             <td>{{row.mobile}}</td>
-            <td>{{row.HdUserAuto.count()}}</td>
+            <td>{{row.HdUserAuto.count()}}辆</td>
             <td>
                 {% set b = 0 %}
                 {% for a in row.HdUserAuto %}
                 {% set b += a.HdUserAutoReport.count()%}
                 {% endfor %}
-                {{b}}
+                {{b}}次
             </td>
             <td><a href="linkman/{{row.id}}">编辑</a></td>
         </tr>
@@ -37,10 +35,16 @@
 <div class="container">
     <div class="form-inline">
 
-        <a href="list">第一页</a>
-        <a href="list?page=">上一页</a>
-        <a href="list?page=">下一页</a>
-        <a href="list?page=">最后一页</a>
+
+
+
+
+
+        {{ link_to("member/list?page=1", '&lt;&lt;首页') }} &nbsp;&nbsp;
+        {{ link_to("member/list?page=" ~ page.before , '上一页') }}&nbsp;&nbsp;
+        {{ link_to("member/list?page=" ~ page.next, '下一页') }}&nbsp;&nbsp;
+        {{ link_to("member/list?page=" ~ page.last , '末页&gt;&gt;') }}
+
 
     </div>
 </div>
