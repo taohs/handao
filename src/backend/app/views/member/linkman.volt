@@ -5,27 +5,19 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>手机号</th>
             <th>姓名</th>
-            <th>省</th>
-            <th>城市</th>
-            <th>地区</th>
-            <th>地址</th>
-            <th>操作</th>
+            <th>手机号</th>
         </tr>
         </thead>
         <tbody>
-
+        {% for row in page.items %}
         <tr>
-            <td>{{data['id']}}</td>
-            <td>{{data['mobile']}}</td>
-            <td>{{data['name']}}</td>
-            <td>{{data['province']}}</td>
-            <td>{{data['city']}}</td>
-            <td>{{data['area']}}</td>
-            <td>{{data['address']}}</td>
+            <td>{{row.id}}</td>
+            <td>{{row.name}}</td>
+            <td>{{row.mobile}}</td>
             <td>编辑</td>
         </tr>
+        {% endfor %}
         </tbody>
 
     </table>
