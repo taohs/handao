@@ -1,7 +1,7 @@
 <?php
 
 
-class ProductsCategoryController extends ControllerBase
+class ProductsPropertyController extends ControllerBase
 {
 
     public function indexAction()
@@ -12,14 +12,11 @@ class ProductsCategoryController extends ControllerBase
     public function listAction()
     {
 
-        $productsCategory = HdProductCategory::find(array('order' => 'parent_id'));
-
         $paginate = new Phalcon\Paginator\Adapter\Model(array(
-            'data' => $productsCategory,
+            'data' => HdProductProperty::find(),
             'limit' => $this->config->paginate->limit,
             'page' => $this->request->getQuery('page')
         ));
-
 
         $this->view->setVar('paginate', $paginate->getPaginate());
     }
@@ -27,7 +24,8 @@ class ProductsCategoryController extends ControllerBase
 
     public function createAction()
     {
-
+        $industry = HdIndustry::find();
+        $property = HdProductProperty::find();
         $category = HdProductCategory::find();
 
         if ($this->request->isPost()) {
@@ -56,7 +54,8 @@ class ProductsCategoryController extends ControllerBase
             return $this->refresh();
         }
 
-        $this->view->setVar('category',$category);
+        $this->view->setVar('industry',$industry);
+        $this->view->setVar('property',$property);
     }
 
     public function updateAction($id)
