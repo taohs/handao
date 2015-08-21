@@ -15,7 +15,7 @@
         {% for row in page.items %}
         <tr>
             <td>{{row.id}}</td>
-            <td>{{row.mobile}}</td>
+            <td><a href="linkman/{{row.id}}">{{row.mobile}}</a></td>
             <td>{{row.HdUserAuto.count()}}辆</td>
             <td>
                 {% set b = 0 %}
@@ -24,7 +24,7 @@
                 {% endfor %}
                 {{b}}次
             </td>
-            <td><a href="linkman/{{row.id}}">编辑</a></td>
+            <td>编辑</td>
         </tr>
         {% endfor %}
 

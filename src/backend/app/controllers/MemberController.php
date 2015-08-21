@@ -1,7 +1,9 @@
 <?php
 use Phalcon\Paginator\Adapter\Model as Paginator;
+
 class MemberController extends ControllerBase
 {
+    public $pageLimit=10;
 
     public function indexAction()
     {
@@ -14,14 +16,14 @@ class MemberController extends ControllerBase
     public function listAction()
     {
         //分页设置
-        $numberPage = $this->request->getQuery("page", "int");
-        $paginator = new Paginator(array(
-            "data" => HdUser::find(),
-            "limit" => 1,
-            "page" => $numberPage,
+        $numberPage = $this->request->getQuery( "page", "int" );
+        $paginator = new Paginator( array(
+            "data"  => HdUser::find(),
+            "limit" => $this->pageLimit,
+            "page"  => $numberPage,
 
-        ));
-        $this->view->setVar('page', $paginator->getPaginate());
+        ) );
+        $this->view->setVar( 'page', $paginator->getPaginate() );
 
     }
 
@@ -32,17 +34,24 @@ class MemberController extends ControllerBase
 
     public function deleteAction()
     {
-            echo 222;
-            echo  556546456;
+        echo 222;
+        echo 556546456;
         echo 333;
     }
 
-    public function linkmanAction($id=null)
+    public function linkmanAction( $id = null )
     {
-        // $data=HdUserLinkman::find()->toArray();
+        $linkman= HdUserLinkman::findFirst( array(
+            "conditions" => "user_id = :id:",
+            "bind" => array('id' => $id),
+        ) )->toArray();
+        $address= HdUserAddress::findFirst( array(
+            "conditions" => "user_id = :id:",
+            "bind" => array('id' => $id),
+        ) )->toArray();
+        $data=$linkman+$address;
 
-
-        $this->view->setVar('data',HdUserLinkman::find());
+        $this->view->setVar( 'data', $data );
     }
 
 }

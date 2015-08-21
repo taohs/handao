@@ -49,8 +49,8 @@ class SignController extends ControllerBase
 
     public function indexAction()
     {
-
-
+            /*$a['username']='zsy';
+            $this->session->set('auth',(object)$a);*/
         if ($this->request->isPost()) {
 
             if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'),$this->security->getSessionToken())) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
