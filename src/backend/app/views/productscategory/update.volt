@@ -19,7 +19,8 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputName">名称：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputName" id="inputName"/>
+                <input type="text" class="form-control" name="inputName" id="inputName" value="{{model.name}}"/>
+                <input type="hidden" class="form-control" name="inputId" id="inputId" value="{{model.id}}"/>
             </div>
         </div>
         <div class="form-group">
@@ -27,7 +28,7 @@
             <div class="col-sm-10">
                 <select class="form-control" name="inputParent" id="inputParent">
                     {% for cate in category %}
-                    <option value="{{ cate.id }}" >{{ cate.name }}</option>
+                    <option value="{{ cate.id }}" {% if  model.parent_id ==cate.id %} selected="selected" {%endif%} >{{ cate.name }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -36,7 +37,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputDescription">描述：</label>
             <div class="col-sm-10">
-                <textarea type="text" class="form-control" name="inputDescription" id="inputDescription"/></textarea>
+                <textarea type="text" class="form-control" name="inputDescription" id="inputDescription" />{{model.description}}</textarea>
             </div>
         </div>
 

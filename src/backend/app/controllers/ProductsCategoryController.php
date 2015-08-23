@@ -28,13 +28,14 @@ class ProductsCategoryController extends ControllerBase
     public function createAction()
     {
 
-        $category = HdProductCategory::find(array('selected'=>'','group parent_id'));
+        $category = HdProductCategory::find(array('selected'=>'','parent_id'));
 
         if ($this->request->isPost()) {
 
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
-            $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
+            $inputDescription = $this->request->getPost('inputDescription', \Phalcon\Filter::FILTER_STRING);
+
 
             if (empty($inputName)) {
                 $this->flash->error("信息不完整");
@@ -45,9 +46,10 @@ class ProductsCategoryController extends ControllerBase
             $model = new HdProductCategory();
             $model->name = $inputName;
             $model->parent_id = $inputParent;
-            $model->industry_id = $inputIndustry;
-            $model->create_time = $this->now();
-            $model->update_time = $this->now();
+            $model->description = $inputDescription;
+            $model->property   = 1;
+
+
             if ($model->create()) {
                 $this->flash->success('保存成功');
             } else {
@@ -62,13 +64,17 @@ class ProductsCategoryController extends ControllerBase
     public function updateAction($id)
     {
         $model = $this->_getModel($id);
+        $category = HdProductCategory::find(array('selected'=>'','parent_id'));
+
 
         if ($this->request->isPost()) {
 
             $inputId = $this->request->getPost('inputId', \Phalcon\Filter::FILTER_INT);
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
+            $inputDescription = $this->request->getPost('inputDescription', \Phalcon\Filter::FILTER_STRING);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
+
 
             if (empty($inputName) or $model->id != $inputId) {
                 $this->flash->error("信息不完整");
@@ -78,8 +84,8 @@ class ProductsCategoryController extends ControllerBase
             $model->name = $inputName;
             $model->parent_id = $inputParent;
             $model->industry_id = $inputIndustry;
-            $model->create_time = $this->now();
-            $model->update_time = $this->now();
+            $model->description = $inputDescription;
+
             if ($model->save()) {
                 $this->flash->success('保存成功');
             } else {
@@ -88,6 +94,8 @@ class ProductsCategoryController extends ControllerBase
             return $this->refresh();
         }
         $this->view->setVar('model', $model);
+        $this->view->setVar('category',$category);
+
     }
 
     protected function _getModel($id)

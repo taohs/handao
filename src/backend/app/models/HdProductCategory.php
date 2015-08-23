@@ -29,6 +29,18 @@ class HdProductCategory extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $property;
+
+    /**
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
+     *
      * @var string
      */
     public $create_time;
@@ -38,12 +50,6 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * @var string
      */
     public $update_time;
-
-    /**
-     *
-     * @var integer
-     */
-    public $property;
 
     /**
      * Initialize method for model.
@@ -86,4 +92,15 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         return 'hd_product_category';
     }
 
+    public function beforeCreate()
+    {
+        // Set the creation date
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+    public function beforeUpdate()
+    {
+        // Set the modification date
+        $this->update_time = date('Y-m-d H:i:s');
+    }
 }
