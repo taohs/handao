@@ -82,6 +82,20 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public function beforeCreate()
+    {
+        // Set the creation date
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+
+    public function beforeUpdate()
+    {
+        // Set the modification date
+        $this->update_time = date('Y-m-d H:i:s');
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -92,15 +106,4 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         return 'hd_product_category';
     }
 
-    public function beforeCreate()
-    {
-        // Set the creation date
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate()
-    {
-        // Set the modification date
-        $this->update_time = date('Y-m-d H:i:s');
-    }
 }

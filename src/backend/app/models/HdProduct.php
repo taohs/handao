@@ -25,7 +25,7 @@ class HdProduct extends \Phalcon\Mvc\Model
      *
      * @var double
      */
-    public $mark_price;
+    public $market_price;
 
     /**
      *
@@ -109,5 +109,19 @@ class HdProduct extends \Phalcon\Mvc\Model
     {
         return 'hd_product';
     }
+
+    public function beforeCreate()
+    {
+        // Set the creation date
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+
+    public function beforeUpdate()
+    {
+        // Set the modification date
+        $this->update_time = date('Y-m-d H:i:s');
+    }
+
 
 }
