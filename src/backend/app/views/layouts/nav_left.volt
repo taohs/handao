@@ -43,4 +43,5 @@
     <li><a href="{{url('models')}}">车系管理</a></li>
     <li><a href="{{url('cars')}}">车型管理</a></li>
     <li><a href="{{url('industy/index')}}">行业</a></li>
+    <li><a href="{{url('order/index')}}">订单</a></li>
 </ul>

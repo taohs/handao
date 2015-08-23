@@ -19,11 +19,13 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>名称</th>
-            <th>市场价</th>
-            <th>会员价</th>
-            <th>所属分类</th>
-
+            <th>预约帐号</th>
+            <th>预约时间</th>
+            <th>预约地点</th>
+            <th>订单金额</th>
+            <th>折扣金额</th>
+            <th>实际金额</th>
+            <th>支付状态</th>
             <th>操作</th>
         </tr>
         </thead>
@@ -35,8 +37,10 @@
             <td>{{model.name}}</td>
             <td>{{model.market_price}}</td>
             <td>{{model.member_price}}</td>
-            <td>{%if model.HdProductCategory%}{{model.HdProductCategory.name}}{%endif%}</td>
-
+            <td>{{model.id}}</td>
+            <td>{{model.name}}</td>
+            <td>{{model.market_price}}</td>
+            <td>{{model.member_price}}</td>
             <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to(dispatcher.getControllerName()~"/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
         </tr>
         {% endfor %}
@@ -45,7 +49,7 @@
 
     </table>
 </div>
-<div class="container">
+<div class="">
     <div class="form-inline">
 
         <a href="list">第一页</a>
