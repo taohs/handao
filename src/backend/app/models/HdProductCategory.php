@@ -40,6 +40,12 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
+     *
+     * @var integer
+     */
+    public $property;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
