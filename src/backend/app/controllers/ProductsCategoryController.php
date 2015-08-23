@@ -28,7 +28,7 @@ class ProductsCategoryController extends ControllerBase
     public function createAction()
     {
 
-        $category = HdProductCategory::find();
+        $category = HdProductCategory::find(array('selected'=>'','group parent_id'));
 
         if ($this->request->isPost()) {
 

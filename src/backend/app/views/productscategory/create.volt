@@ -27,7 +27,7 @@
             <div class="col-sm-10">
                 <select class="form-control" name="inputParentId" id="inputParentId">
                     {% for cate in category %}
-                    <option value="{{ cate.id }}" {% if(model.category == cata.id) %} selected="selected" {% endif %}>{{ cate.name }}</option>
+                    <option value="{{ cate.id }}" >{{ cate.name }}</option>
                     {% endfor %}
                 </select>
             </div>
