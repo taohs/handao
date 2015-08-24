@@ -48,8 +48,7 @@
         <ul class="dropdown-menu">
 
             <li><a href="{{url('products')}}">综合品牌</a></li>
-            <li role="separator" class="divider"></li>
-            <li class="dropdown-header">Nav header</li>
+
             <li><a href="{{url('productsCategory')}}">汽车品牌</a></li>
             <li><a href="{{url('products')}}">配件品牌</a></li>
         </ul>
