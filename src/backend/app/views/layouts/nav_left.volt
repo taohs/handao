@@ -34,9 +34,11 @@
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品管理 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-header">Nav header</li>
+
             <li><a href="{{url('products')}}">商品管理</a></li>
             <li><a href="{{url('productsCategory')}}">类型管理</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
             <li><a href="{{url('products')}}">品牌管理</a></li>
         </ul>
     </li>
@@ -44,8 +46,10 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
            role="button" aria-haspopup="true" aria-expanded="false">品牌管理 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-header">Nav header</li>
+
             <li><a href="{{url('products')}}">综合品牌</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
             <li><a href="{{url('productsCategory')}}">汽车品牌</a></li>
             <li><a href="{{url('products')}}">配件品牌</a></li>
         </ul>
@@ -54,10 +58,12 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
            role="button" aria-haspopup="true" aria-expanded="false">汽车管理 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li class="dropdown-header">Nav header</li>
-            <li><a href="{{url('products')}}">汽车品牌</a></li>
+
             <li><a href="{{url('models')}}">汽车系列</a></li>
             <li><a href="{{url('cars')}}">汽车型号</a></li>
+            <li role="separator" class="divider"></li>
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="{{url('products')}}">汽车品牌</a></li>
         </ul>
     </li>
 
