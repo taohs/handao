@@ -42,29 +42,17 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputLogo">logo：</label>
             <div class="col-sm-10">
-                <input type="file" id="inputLogo" name="inputLogo">
+                <input type="file" id="inputLogo" name="inputLogo" >
                 <p class="help-block">请选择图片文件（jpg,png）</p>
             </div>
         </div>
         <div class="form-group" class="checkbox col-sm-2 control-label">
             <label class="col-sm-2 control-label" for="inputIndustry">行业：</label>
             <div class="col-sm-10 form-horizontal checkbox">
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="1" />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]"  value="2"/>汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="3" />汽车 &nbsp;&nbsp;</label> <label><input type="checkbox" name="inputIndustry[]"  />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]"  value="4"/>汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label> <label><input type="checkbox" name="inputIndustry[]"  />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]"  value="0"/>汽车 &nbsp;&nbsp;</label> <label><input type="checkbox" name="inputIndustry[]"  />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]"  value="0"/>汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputIndustry[]" value="0" />汽车 &nbsp;&nbsp;</label>
-                <input type="checkbox" name="inputIndustry[]"  />电脑&nbsp;&nbsp;
-                <input type="checkbox" name="inputIndustry[]"  />汽车&nbsp;&nbsp;
-                <input type="checkbox" name="inputIndustry[]"  />汽车&nbsp;&nbsp;
+
+                {% for industry in industries %}
+                <label><input type="checkbox" name="inputIndustry[]"  value="{{industry.id}}" />{{industry.name}}&nbsp;&nbsp;</label>
+                {% endfor %}
             </div>
         </div>
         <div  class="form-group">
