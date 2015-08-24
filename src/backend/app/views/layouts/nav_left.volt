@@ -32,6 +32,15 @@
 <ul class="nav nav-sidebar">
     <li><a href="{{url('industry/index')}}">行业管理</a></li>
     <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+           role="button" aria-haspopup="true" aria-expanded="false">品牌管理 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a href="{{url('products')}}">综合品牌</a></li>
+            <li><a href="{{url('productsCategory')}}">汽车品牌</a></li>
+            <li><a href="{{url('products')}}">商品品牌</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品管理 <span class="caret"></span></a>
         <ul class="dropdown-menu">
 
@@ -42,17 +51,7 @@
             <li><a href="{{url('products')}}">品牌管理</a></li>
         </ul>
     </li>
-    <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
-           role="button" aria-haspopup="true" aria-expanded="false">品牌管理 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
 
-            <li><a href="{{url('products')}}">综合品牌</a></li>
-
-            <li><a href="{{url('productsCategory')}}">汽车品牌</a></li>
-            <li><a href="{{url('products')}}">配件品牌</a></li>
-        </ul>
-    </li>
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
            role="button" aria-haspopup="true" aria-expanded="false">汽车管理 <span class="caret"></span></a>
