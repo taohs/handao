@@ -89,5 +89,22 @@ class TechnicianController extends ControllerBase
         $this->view->setVar( 'user', $user );
 
     }
+    public function deleteAction($id){
+        $user = HdTechnician::findFirstById($id);
+        if (!$user) {
+            $this->flash->error("Product was not found");
+            return $this->response->redirect("/technician/list");
+        }
+
+        if (!$user->delete()) {
+            foreach ($user->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->response->redirect("/technician/list");
+        }
+
+        $this->flash->success("删除成功");
+        return $this->response->redirect("/technician/list");
+    }
 }
 
