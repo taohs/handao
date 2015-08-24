@@ -16,32 +16,67 @@
     <li><a href="{{url('admin/index')}}">后台人员管理</a></li>
     <li><a href="{{url('technician')}}">技师管理</a></li>
 
+<!--    <li class="dropdown">-->
+<!--        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>-->
+<!--        <ul class="dropdown-menu">-->
+<!--            <li><a href="#">Action</a></li>-->
+<!--            <li><a href="#">Another action</a></li>-->
+<!--            <li><a href="#">Something else here</a></li>-->
+<!--            <li role="separator" class="divider"></li>-->
+<!--            <li class="dropdown-header">Nav header</li>-->
+<!--            <li><a href="#">Separated link</a></li>-->
+<!--            <li><a href="#">One more separated link</a></li>-->
+<!--        </ul>-->
+<!--    </li>-->
+</ul>
+<ul class="nav nav-sidebar">
+    <li><a href="{{url('industry/index')}}">行业管理</a></li>
     <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">商品管理 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li role="separator" class="divider"></li>
             <li class="dropdown-header">Nav header</li>
-            <li><a href="#">Separated link</a></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="{{url('products')}}">商品管理</a></li>
+            <li><a href="{{url('productsCategory')}}">类型管理</a></li>
+            <li><a href="{{url('products')}}">品牌管理</a></li>
         </ul>
     </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+           role="button" aria-haspopup="true" aria-expanded="false">品牌管理 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="{{url('products')}}">综合品牌</a></li>
+            <li><a href="{{url('productsCategory')}}">汽车品牌</a></li>
+            <li><a href="{{url('products')}}">配件品牌</a></li>
+        </ul>
+    </li>
+    <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+           role="button" aria-haspopup="true" aria-expanded="false">汽车管理 <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li class="dropdown-header">Nav header</li>
+            <li><a href="{{url('products')}}">汽车品牌</a></li>
+            <li><a href="{{url('models')}}">汽车系列</a></li>
+            <li><a href="{{url('cars')}}">汽车型号</a></li>
+        </ul>
+    </li>
+
+
 </ul>
+
 <ul class="nav nav-sidebar">
-    <li><a href="{{url('member')}}">平台会员</a></li>
-    <li><a href="{{url('order')}}">订单管理</a></li>
+<!--    <li class="dropdown">-->
+<!--        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">会员管理 <span class="caret"></span></a>-->
+<!--        <ul class="dropdown-menu">-->
+<!--            <li class="dropdown-header">Nav header</li>-->
+<!--            <li><a href="{{url('member')}}">会员信息</a></li>-->
+<!--            <li><a href="{{url('order')}}">会员订单</a></li>-->
+<!--            <li><a href="{{url('auto')}}">会员车辆</a></li>-->
+<!--        </ul>-->
+<!--    </li>-->
+    <li><a href="{{url('member')}}">会员信息</a></li>
+    <li><a href="{{url('order')}}">会员订单</a></li>
     <li><a href="{{url('auto')}}">会员车辆</a></li>
-    <li><a href="{{url('index/index')}}">Another nav item</a></li>
-    <li><a href="{{url('index/index')}}">More navigation</a></li>
-</ul>
-<ul class="nav nav-sidebar">
-    <li><a href="{{url('productsCategory')}}">商品类型</a></li>
-    <li><a href="{{url('products')}}">商品管理</a></li>
-    <li><a href="{{url('brands')}}">品牌管理</a></li>
-    <li><a href="{{url('models')}}">车系管理</a></li>
-    <li><a href="{{url('cars')}}">车型管理</a></li>
-    <li><a href="{{url('industy/index')}}">行业</a></li>
-    <li><a href="{{url('order/index')}}">订单</a></li>
+
+
 </ul>
