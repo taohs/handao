@@ -76,6 +76,9 @@ class IndustryController extends ControllerBase
         $this->view->setVar('model',$model);
     }
 
+    public function delete($id){
+        throw new \Phalcon\Exception('删除功能尚未启用');
+    }
 
     protected function _getModel($id)
     {
