@@ -35,7 +35,7 @@
         <a href="#" class="dropdown-toggle" data-toggle="dropdown"
            role="button" aria-haspopup="true" aria-expanded="false">品牌管理 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a href="{{url('products')}}">综合品牌</a></li>
+            <li><a href="{{url('brands')}}">综合品牌</a></li>
             <li><a href="{{url('productsCategory')}}">汽车品牌</a></li>
             <li><a href="{{url('products')}}">商品品牌</a></li>
         </ul>

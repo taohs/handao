@@ -140,3 +140,7 @@ $di->setShared('dispatcher', function () {
     $dispatcher->setEventsManager($eventsManager);
     return $dispatcher;
 });
+
+$di->setShared('element',function(){
+    return new Element();
+});

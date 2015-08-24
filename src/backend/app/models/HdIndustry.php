@@ -22,6 +22,24 @@ class HdIndustry extends \Phalcon\Mvc\Model
     public $parent_id;
 
     /**
+     *
+     * @var string
+     */
+    public $description;
+
+    /**
+     *
+     * @var string
+     */
+    public $create_time;
+
+    /**
+     *
+     * @var string
+     */
+    public $update_time;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
