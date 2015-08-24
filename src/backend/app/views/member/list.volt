@@ -1,6 +1,7 @@
 <h2 class="sub-header">会员列表</h2>
+{{flash.output()}}
 <div class="table-responsive">
-    <a href="create" class="btn btn-primary">新增会员</a>
+    <a href="/member/updateuser" class="btn btn-primary">新增会员</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -24,10 +25,11 @@
                 {% endfor %}
                 {{b}}次
             </td>
-            <td><a href="linkman/{{row.id}}">查看联系人</a>&nbsp;&nbsp;
-                <a href="linkman/{{row.id}}">查看地址</a>&nbsp;&nbsp;
-                <a href="linkman/{{row.id}}">查看车辆</a>&nbsp;&nbsp;
-                编辑</td>
+            <td><a href="/member/linkman/{{row.id}}">查看联系人</a>&nbsp;&nbsp;
+                <a href="/member/address/{{row.id}}">查看地址</a>&nbsp;&nbsp;
+                <a href="/member/auto/{{row.id}}">查看车辆</a>&nbsp;&nbsp;
+                <a href="/member/updateuser/{{row.id}}">编辑用户</a>
+            </td>
         </tr>
         {% endfor %}
 

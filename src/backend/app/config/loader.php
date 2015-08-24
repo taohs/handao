@@ -14,5 +14,6 @@ $loader->registerDirs(
         $config->application->libraryDir,
         $config->application->libraryDir . 'user/',
         $config->application->libraryDir . 'user/login',
+        $config->application->formsDir,
     )
 )->register();
