@@ -62,12 +62,119 @@ class OrderController extends ControllerBase
         return $model;
     }
 
+    /**
+     * @todo 代码盲写，需要验证；
+     * @throws \Phalcon\Exception
+     *
+     * #提交用户手机号码，进入库中查询，查找则带出用户信息车辆和联系人信息，用户不存在新建用户和联系人，在拉出用户信息和车辆
+     *
+     */
     public function createStepPassportAction(){
-        var_dump(1);
-        var_dump($_POST);
 
+        $userMobile = $this->request->getQuery('inputName',\Phalcon\Filter::FILTER_FLOAT);
+        $userName = $this->request->getQuery('inputName',\Phalcon\Filter::FILTER_STRING);
+
+        $user = HdUser::findFirst(array(
+            'conditions'=>'username=:username:',
+            'bind'=>array('username'=>$userMobile)
+        ));
+
+        if(!$user){
+            /**
+             * new a user and linkman
+             * @todo new a user and linkman
+             */
+            $user = new HdUser();
+            $user->username = $userMobile;
+            $user->password = $this->security->hash($this->config->user->password->default);
+            $user->mobile   = $userMobile;
+            if(!$user->save()){
+                throw new \Phalcon\Exception("新增会员失败");
+            }
+
+            $userLinkMan = new HdUserLinkman();
+            $userLinkMan->name    = $userName ? $userName : $userMobile ;
+            $userLinkMan->mobile  = $userMobile;
+            $userLinkMan->user_id = $user->id;
+            if(!$userLinkMan->save())
+                throw new \Phalcon\Exception("会员新增联系人失败");
+        }
+        $userLinkMans = HdUserLinkman::find(array(
+            'conditions'=>'user_id=:userId:',
+            'bind'=>array('userId'=>$user->id)
+        ));
+        /**
+         * get the people's cars
+         */
+        $userCars = HdUserAuto::find(array(
+            'conditions'=>'user_id=:userId:',
+            'bind'=>array('userId'=>$user->id),
+        ));
+
+        $this->persistent->set('orderStep',1);
+        $this->persistent->set('orderUser',$user);
+        $this->persistent->set('orderUserLinkMans',$userLinkMans);
+        $this->persistent->set('orderUserCars',$userCars);
     }
+
+    /**
+     * @todo 代码盲写，需要验证
+     *
+     * #后台输入联系人信息；联系人列表信息不可修改；后台下单只能选择联系人或者新增联系人
+     * #后台输入车辆信息；车辆列表信息不可修改；后台只能选择车辆或者新增车辆；
+     * #确定车辆
+     *
+     */
     protected function createStepCar(){
+        $linkmanId = $this->request->getPost('linkId',\Phalcon\Filter::FILTER_INT);
+        $carId = $this->request->getPost('carId',\Phalcon\Filter::FILTER_INT);
+        if(empty($linkmanId)){
+            /**
+             * 新增联系人
+             */
+            $linkmanName = $this->request->getPost('linkmanName',\Phalcon\Filter::FILTER_STRING);
+            $linkmanMobile = $this->request->getPost('linkmanName',\Phalcon\Filter::FILTER_FLOAT);
+
+            if(empty($linkmanMobile)){
+                throw new  \Phalcon\Exception('联系人号码');
+            }
+            $linkman = new HdUserLinkman();
+            /**
+             * @var $user HdUser
+             */
+            $user = $this->persistent->get('user');
+            $linkman->user_id = $user->id;
+            $linkman->mobile  = $linkmanMobile;
+            $linkman->name    = $linkmanName ? $linkmanName : $linkmanMobile;
+            if(!$linkman->save()){
+                throw new \Phalcon\Exception('联系人创建失败');
+            }
+        }else{
+            $linkman = HdUserLinkman::findFirst($linkmanId);
+        }
+
+        if(empty($carId)){
+            /**
+             * 新增联系人
+             */
+            $linkmanName = $this->request->getPost('linkmanName',\Phalcon\Filter::FILTER_STRING);
+            $linkmanMobile = $this->request->getPost('linkmanName',\Phalcon\Filter::FILTER_FLOAT);
+
+            if(empty($linkmanMobile)){
+                throw new  \Phalcon\Exception('联系人号码');
+            }
+            $linkman = new HdUserLinkman();
+            /**
+             * @var $user HdUser
+             */
+            $user = $this->persistent->get('user');
+            $linkman->user_id = $user->id;
+            $linkman->mobile  = $linkmanMobile;
+            $linkman->name    = $linkmanName ? $linkmanName : $linkmanMobile;
+            if(!$linkman->save()){
+                throw new \Phalcon\Exception('联系人创建失败');
+            }
+        }
 
     }
     protected function createStepProducts(){

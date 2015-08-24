@@ -119,4 +119,12 @@ class HdUser extends \Phalcon\Mvc\Model
         return 'hd_user';
     }
 
+    public function beforeCreate(){
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+    public function beforeUpdate(){
+        $this->update_time = date('Y-m-d H:i:s');
+    }
+
 }
