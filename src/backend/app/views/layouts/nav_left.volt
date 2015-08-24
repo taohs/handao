@@ -14,7 +14,7 @@
 <ul class="nav nav-sidebar">
     <li class="active"><a href="{{url('index/index')}}">我的仪表盘 <span class="sr-only">(current)</span></a></li>
     <li><a href="{{url('admin/index')}}">后台人员管理</a></li>
-    <li><a href="{{url('index/index')}}">技师管理</a></li>
+    <li><a href="{{url('technician')}}">技师管理</a></li>
 
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>

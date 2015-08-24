@@ -50,10 +50,10 @@ class MemberController extends ControllerBase
             $email = $this->request->getPost( 'email', 'email' );
             $uid = $this->request->getPost( 'id' );
 
-            if(!$mobile){
+            if (! $mobile) {
                 $this->flash->error( '电话必须填写' );
-                $this->response->redirect( '/member/updateuser/' . $uid );
-            }else{
+                return $this->response->redirect( '/member/updateuser/' . $uid );
+            } else {
                 $mobileData = HdUser::findFirst( array(
                     "conditions" => "mobile = :mobile:",
                     "bind"       => array( 'mobile' => $mobile )
@@ -64,21 +64,20 @@ class MemberController extends ControllerBase
                 $user->id = $uid;
                 if ($mobileData && $uid != $mobileData->id) {
                     $this->flash->error( '电话已存在' );
-                    $this->response->redirect( '/member/updateuser/' . $uid );
+                    return  $this->response->redirect( '/member/updateuser/' . $uid );
                 }
             } else {
                 $user->create_time = date( "Y-m-d H:i:s" );
                 if ($mobileData) {
                     $this->flash->error( '电话已存在' );
-                    $this->response->redirect( '/member/updateuser/' . $uid );
+                    return   $this->response->redirect( '/member/updateuser/' . $uid );
 
                 }
             }
             $user->username = $username;
-            $user->password = $this->security->hash($mobile);
+            $user->password = $this->security->hash( $mobile );
             $user->mobile = $mobile;
             $user->email = $email;
-            $user->role = 1;
             $user->update_time = date( "Y-m-d H:i:s" );
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
@@ -202,12 +201,12 @@ class MemberController extends ControllerBase
                 }
             } else {
                 $this->flash->success( '成功' );
-                $this->response->redirect( '/member/linkman/'.$user_id );
+                return     $this->response->redirect( '/member/linkman/' . $user_id );
             }
         }
         $this->view->setVar( 'form', $form );
         $this->view->setVar( 'user', $user );
-        $this->view->setVar('user_id',$user_id);
+        $this->view->setVar( 'user_id', $user_id );
 
     }
 
@@ -225,8 +224,8 @@ class MemberController extends ControllerBase
         if (! $user) {
             $user['address'] = '';
             $user['province'] = '';
-            $user['city']='';
-            $user['area']='';
+            $user['city'] = '';
+            $user['area'] = '';
             $user['id'] = '';
             $user['user_id'] = '';
             $user = (object)$user;
@@ -257,15 +256,14 @@ class MemberController extends ControllerBase
                 }
             } else {
                 $this->flash->success( '成功' );
-                $this->response->redirect( '/member/address/'.$user_id );
+                return   $this->response->redirect( '/member/address/' . $user_id );
             }
         }
         $this->view->setVar( 'form', $form );
         $this->view->setVar( 'user', $user );
-        $this->view->setVar('user_id',$user_id);
+        $this->view->setVar( 'user_id', $user_id );
 
     }
-
 
 
     public function updateAutoAction( $id = null )
@@ -282,8 +280,8 @@ class MemberController extends ControllerBase
         if (! $user) {
             $user['license'] = '';
             $user['number'] = '';
-            $user['models']='';
-            $user['year']='';
+            $user['models'] = '';
+            $user['year'] = '';
             $user['id'] = '';
             $user['user_id'] = '';
             $user = (object)$user;
@@ -314,12 +312,12 @@ class MemberController extends ControllerBase
                 }
             } else {
                 $this->flash->success( '成功' );
-                $this->response->redirect( '/member/auto/'.$user_id );
+                return   $this->response->redirect( '/member/auto/' . $user_id );
             }
         }
         $this->view->setVar( 'form', $form );
         $this->view->setVar( 'user', $user );
-        $this->view->setVar('user_id',$user_id);
+        $this->view->setVar( 'user_id', $user_id );
 
     }
 
