@@ -128,6 +128,11 @@ class OrderController extends ControllerBase
     protected function createStepCar(){
         $linkmanId = $this->request->getPost('linkId',\Phalcon\Filter::FILTER_INT);
         $carId = $this->request->getPost('carId',\Phalcon\Filter::FILTER_INT);
+        /**
+         * @var $user HdUser
+         */
+        $user = $this->persistent->get('user');
+
         if(empty($linkmanId)){
             /**
              * 新增联系人
@@ -139,10 +144,7 @@ class OrderController extends ControllerBase
                 throw new  \Phalcon\Exception('联系人号码');
             }
             $linkman = new HdUserLinkman();
-            /**
-             * @var $user HdUser
-             */
-            $user = $this->persistent->get('user');
+
             $linkman->user_id = $user->id;
             $linkman->mobile  = $linkmanMobile;
             $linkman->name    = $linkmanName ? $linkmanName : $linkmanMobile;
@@ -151,6 +153,9 @@ class OrderController extends ControllerBase
             }
         }else{
             $linkman = HdUserLinkman::findFirst($linkmanId);
+            if(!$linkman or $linkman->user_id != $user->id){
+                throw new \Phalcon\Exception('联系人不存在');
+            }
         }
 
         if(empty($carId)){
@@ -172,7 +177,12 @@ class OrderController extends ControllerBase
             $linkman->mobile  = $linkmanMobile;
             $linkman->name    = $linkmanName ? $linkmanName : $linkmanMobile;
             if(!$linkman->save()){
-                throw new \Phalcon\Exception('联系人创建失败');
+                throw new \Phalcon\Exception('车辆创建失败');
+            }
+        }else{
+            $car = HdUserAuto::findFirst($carId);
+            if(!$car or $car->user_id != $user->id){
+                throw new \Phalcon\Exception('该车辆不存在');
             }
         }
 
