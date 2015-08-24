@@ -2,8 +2,8 @@
  .col-md-8   .col-sm-10 , .col-md-8 .control-label{margin-top: 30px;}
 
 </style>
-<h2 class="sub-header">会员</h2> <a href="/member/list" class="btn btn-primary">返回</a>
-{{ form('member/updateuser', 'id': 'updateuser', 'onbeforesubmit': 'return false') }}
+<h2 class="sub-header">技师</h2> <a href="/technician/list" class="btn btn-primary">返回</a>
+{{ form('technician/updateuser', 'id': 'updateuser', 'onbeforesubmit': 'return false') }}
 <div class="container col-md-8 ">
     {{flash.output()}}
         <div class="form-group">
@@ -13,7 +13,13 @@
                 {{ form.render('username', ['class': 'form-control','value':user.username]) }}
             </div>
         </div>
+    <div class="form-group">
+        <label class="col-sm-2 control-label" for="inputName">姓名：</label>
 
+        <div class="col-sm-10">
+            {{ form.render('name', ['class': 'form-control','value':user.name]) }}
+        </div>
+    </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAutoMumber">电话：</label>
             <div class="col-sm-10">
@@ -39,5 +45,10 @@
     </form>
 </div>
 <script>
-
+        $('.submit').click(function(){
+            if(!$('#mobile').val()){
+                alert('电话必须填写');
+                return false;
+            }
+        })
 </script>
