@@ -27,10 +27,10 @@
 </div>
 
 <div class="height_10"></div>
-<div class="tiao c_fb4d00"><a href="#"></a>
+<div class="tiao c_fb4d00"><a href="/maintenance/autoselect"></a>
 
     <p>保养预约</p></div>
-<div class="tiao c_0070fb"><a href="#" class="btn1"></a>
+<div class="tiao c_0070fb"><a href="/maintenance/autoselect" class="btn1"></a>
 
     <p>订单查询</p></div>
 <div class="tiao c_01a92d"><a href="#" class="btn2"></a>
