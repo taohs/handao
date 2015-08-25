@@ -7,11 +7,12 @@
         <link rel="stylesheet" href="/m/style.css">
         <script type="text/javascript" src="/m/jquery1.42.min.js"></script>
         <script type="text/javascript" src="/m/jquery.min.js"></script>
-        <script type="text/javascript" src="/m/myJs.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
     </head>
     <body>
         {{ content() }}
 
+        <script type="text/javascript" src="/m/myJs.min.js"></script>
     </body>
 
 </html>

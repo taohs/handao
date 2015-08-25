@@ -1,5 +1,5 @@
 <div class="Hs">
-<h2 class="t"><em><a href="#">&lt;首页</a></em>选择型号</h2>
+<h2 class="t"><em><a href="/">&lt;首页</a></em>选择型号</h2>
 <!--品牌-->
 <ul class="m">
 <li class="li" id="A">A</li>
@@ -568,7 +568,7 @@
             <p class="p1">A6</p>
             <ul class="u">
                 <li>
-                    <a href="#">2.4L_1999.09-2005.12</a>
+                    <a href="/maintenance/serveselect">2.4L_1999.09-2005.12</a>
                 </li>
                 <li>
                     <a href="#">2.8L_2000.09-2005.07</a>
