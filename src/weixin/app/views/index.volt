@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Phalcon PHP Framework</title>
+        {{ get_title() }}
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+        <link rel="stylesheet" href="m/style.css">
+
     </head>
     <body>
         {{ content() }}
+
+        <script type="text/javascript" src="m/jquery.min.js"></script>
+        <script type="text/javascript" src="m/myJs.min.js"></script>
     </body>
+
 </html>
