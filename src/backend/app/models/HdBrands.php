@@ -106,20 +106,23 @@ class HdBrands extends \Phalcon\Mvc\Model
         return 'hd_brands';
     }
 
-    public function getIndustry(){
+    public function getIndustry()
+    {
         $modelIndustry = array();
         $industryArray = array();
         $brandsIndustry = HdBrandsIndustry::find(array(
-            'conditions'=>'brands_id=:brandsId:',
-            'bind'=>array('brandsId'=>$this->id)
+            'conditions' => 'brands_id=:brandsId:',
+            'bind' => array('brandsId' => $this->id)
         ));
 
-        foreach ($brandsIndustry as $industry){
+        foreach ($brandsIndustry as $industry) {
             $industryArray[] = $industry->industry_id;
         }
-        $temp = HdIndustry::find(array('conditions'=>'id in (:ids:)',array('ids'=>'1,2')));
 
-        return $temp;
+        if ($industryArray)
+            $modelIndustry = HdIndustry::find(array('conditions' => 'id in ({ids:array})', 'bind' => array('ids' => $industryArray)));
+
+        return $modelIndustry;
     }
 
     /**
@@ -144,11 +147,12 @@ class HdBrands extends \Phalcon\Mvc\Model
         return $modelCategory;
     }
 
-    public function getBrandCategoryName(){
+    public function getBrandCategoryName()
+    {
         $modelCategory = array();
-        $tempArray  = $this->getBrandCategory();
+        $tempArray = $this->getBrandCategory();
         $brandsComponent = new BrandsComponent();
-        foreach ($tempArray as $temp){
+        foreach ($tempArray as $temp) {
             $modelCategory[$temp] = $brandsComponent->categoryArray[$temp];
         }
         return $modelCategory;

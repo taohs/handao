@@ -96,7 +96,8 @@ class BrandsController extends ControllerBase
             }
         }
         $brandsComponent = new BrandsComponent();
-        $modelCategory = $brandsComponent->getBrandCategory($model->id);
+
+        $modelCategory = $model->getBrandCategory();
 
 
         if (!empty($modelIndustries)) {
