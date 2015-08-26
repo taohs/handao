@@ -13,6 +13,16 @@ class MaintenanceController extends ControllerBase
      */
     public function autoselectAction()
     {
+        $brands = HdBrands::find(array('order'=>'initials asc'));
+        $a_z=range('A','Z');
+
+        $autoModel=HdAutoModels::find();
+        $autoModelExact=HdAutoModelsExact::find();
+
+        $this->view->setvar('brands',$brands);
+        $this->view->setvar('a_z',$a_z);
+        $this->view->setvar('autoModelExact',$autoModelExact);
+        $this->view->setvar('autoModel',$autoModel);
 
     }
 
