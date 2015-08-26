@@ -13,7 +13,8 @@ class MaintenanceController extends ControllerBase
      */
     public function autoselectAction()
     {
-
+        $products = HdBrands::find();
+        var_dump($products);exit;
     }
 
     /**
