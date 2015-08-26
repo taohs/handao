@@ -36,7 +36,8 @@ $di->setShared('view', function () use ($config) {
     $view = new View();
 
     $view->setViewsDir($config->application->viewsDir);
-
+    $view->setLayoutsDir('../../common/layouts/');
+    $view->setLayout('main');
     $view->registerEngines(array(
         '.volt' => function ($view, $di) use ($config) {
 
