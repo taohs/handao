@@ -31,8 +31,13 @@
         <tr>
             <td>{{model.id}}</td>
             <td>{{model.name}}</td>
-            <td>{{model.parent_id}}</td>
-            <td>{% if model.HDIndustry is not empty %}{{model.HDIndustry.name}}{% endif %}</td>
+            <td>
+                {% set parent=model.getParentModel()%}
+                {%if parent%}
+                {{parent.name}}
+                {%endif%}
+            </td>
+            <td>{% if model.HDIndustry %}{{model.HDIndustry.name}}{% endif %}</td>
             <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to(dispatcher.getControllerName()~"/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
         </tr>
         {% endfor %}
@@ -41,14 +46,5 @@
 
     </table>
 </div>
-<div class="container">
-    <div class="form-inline">
-
-        <a href="list">第一页</a>
-        <a href="list?page=<?= $paginate->before; ?>">上一页</a>
-        <a href="list?page=<?= $paginate->next; ?>">下一页</a>
-        <a href="list?page=<?= $paginate->last; ?>">最后一页</a>
-        <?php echo "您正在第 ", $paginate->current, "/", $paginate->total_pages,'页';  ?>
-    </div>
-</div>
+{{element.getPaginateLink(paginate)}}
 

@@ -32,6 +32,17 @@
                 </select>
             </div>
         </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputIndustry">所属行业：</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="inputIndustry" id="inputIndustry">
+                    {% for row in industries %}
+                    <option value="{{ row.id }}" >{{ row.name }}</option>
+                    {% endfor %}
+
+                </select>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputDescription">描述：</label>

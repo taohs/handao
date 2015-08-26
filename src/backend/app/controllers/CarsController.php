@@ -39,9 +39,10 @@ class CarsController extends ControllerBase
      */
     function createAction()
     {
+        $brandsComponent = new BrandsComponent();
 
+        $brands = $brandsComponent->getAutoBrands();
 
-        $brands = HdBrands::find();
         $autoModels = HdAutoModels::find(array(
             'conditions'=>'brands_id=:brandsId:',
             'bind'=>array('brandsId'=>$brands[0]->id)
@@ -83,7 +84,10 @@ class CarsController extends ControllerBase
     function updateAction($id)
     {
         $model = $this->_getModel($id);
-        $brands = HdBrands::find();
+        $brandsComponent = new BrandsComponent();
+
+        $brands = $brandsComponent->getAutoBrands();
+
         $autoModels = HdAutoModels::find(array(
             'conditions'=>'brands_id=:brandsId:',
             'bind'=>array('brandsId'=>$model->brands_id)

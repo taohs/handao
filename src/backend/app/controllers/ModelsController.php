@@ -25,6 +25,7 @@ class ModelsController extends ControllerBase
     public function createAction()
     {
         $brands = $this->_getBrands();
+
         if ($this->request->isPost()) {
 
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
@@ -119,7 +120,10 @@ class ModelsController extends ControllerBase
 
     protected function _getBrands()
     {
-        return HdBrands::find();
+        $brandsComponent = new BrandsComponent();
+
+        return $brands = $brandsComponent->getAutoBrands();
+
     }
 
     protected function getModelsByBrandsID($brandsId){

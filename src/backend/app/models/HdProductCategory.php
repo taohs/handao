@@ -106,4 +106,8 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         return 'hd_product_category';
     }
 
+    public function getParentModel(){
+        return self::findFirst($this->parent_id);
+    }
+
 }

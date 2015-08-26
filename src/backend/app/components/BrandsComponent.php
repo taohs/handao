@@ -23,6 +23,25 @@ class BrandsComponent extends \Phalcon\Mvc\User\Component
     );
 
     /**
+     * PHP 5 allows developers to declare constructor methods for classes.
+     * Classes which have a constructor method call this method on each newly-created object,
+     * so it is suitable for any initialization that the object may need before it is used.
+     *
+     * Note: Parent constructors are not called implicitly if the child class defines a constructor.
+     * In order to run a parent constructor, a call to parent::__construct() within the child constructor is required.
+     *
+     * param [ mixed $args [, $... ]]
+     * @return void
+     * @link http://php.net/manual/en/language.oop5.decon.php
+     */
+    function onConstruct()
+    {
+
+        // TODO: Implement __construct() method.
+    }
+
+
+    /**
      * 获取品牌的类型数据
      *
      * @param $brandsId
@@ -57,6 +76,19 @@ class BrandsComponent extends \Phalcon\Mvc\User\Component
         $temp = HdIndustry::find(array('conditions'=>'id in (:ids:)',array('ids'=>'1,2')));
 
         return $temp;
+    }
+
+    public function getAutoBrands()
+    {
+        $autoBrandsArray = array();
+        $autoBrands = HdAutoBrands::find();
+        foreach($autoBrands as $brands){
+            $autoBrandsArray[] = $brands->brands_id;
+        }
+
+        if($autoBrandsArray)
+            return HdBrands::find(array('conditions'=>'id in ({id:array})','bind'=>array('id'=>$autoBrandsArray)));
+        return array();
     }
 
 //    public function
