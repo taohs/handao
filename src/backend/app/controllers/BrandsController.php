@@ -16,11 +16,12 @@ class BrandsController extends ControllerBase
     public function listAction()
     {
         $page = $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT_CAST);
-        $model = HdBrands::find();
+        $model = HdBrands::find(array('order'=>'initials asc'));
         $paginateModel = new Phalcon\Paginator\Adapter\Model(array(
             'data' => $model,
             'limit' => $this->config->paginate->limit,
-            'page' => $page
+            'page' => $page,
+
         ));
         $this->view->setVar('paginate', $paginateModel->getPaginate());
     }
@@ -36,7 +37,6 @@ class BrandsController extends ControllerBase
         $letter = new Letter();
         $initials = $letter->getInitialsArray();
         $industries = HdIndustry::find();
-
 
         if ($this->request->isPost()) {
 
@@ -61,22 +61,9 @@ class BrandsController extends ControllerBase
             $model->logo_path = $logoUrl;
 
             if ($model->save()) {
-                if (!is_null($inputIndustry)) {
-                    $rows = HdBrandsIndustry::find(array(
-                        'conditions' => 'brands_id=:brandsId: ',
-                        'bind' => array('brandsId' => $model->id)));
-                    foreach ($rows as $row) {
-                        $row->delete();
-                        unset($row);
-                    }
-                    foreach ($inputIndustry as $v) {
-                        $temp = new HdBrandsIndustry();
-                        $temp->brands_id = $model->id;
-                        $temp->industry_id = $v;
-                        $temp->save();
-                        unset($temp);
-                    }
-                }
+                $brandsComponent = new BrandsComponent();
+                $brandsComponent->resetBrandsIndustry($inputIndustry,$model);
+                $brandsComponent->resetBrandsCategory($inputBrandsCategory, $model);
 
                 $this->flash->success("保存成功");
             } else {
@@ -89,6 +76,7 @@ class BrandsController extends ControllerBase
         $this->view->setVar('model', $model);
         $this->view->setVar('initials', $initials);
         $this->view->setVar('industries', $industries);
+        $this->view->setVar('brandsComponent', new BrandsComponent());
         $this->view->setVar('brandsAuto', BrandsComponent::CATEGORY_AUTO);
         $this->view->setVar('brandsAutoParts', BrandsComponent::CATEGORY_AUTO_PARTS);
     }
@@ -100,10 +88,19 @@ class BrandsController extends ControllerBase
         $initials = $letter->getInitialsArray();
         $industries = HdIndustry::find();
         $industryArray = array();
-        $modelInustries = $model->getHdBrandsIndustry();
+        $modelIndustries = $model->getHdBrandsIndustry();
 
-        if (!empty($modelInustries)) {
-            foreach ($modelInustries as $in) {
+        if (!empty($modelIndustries)) {
+            foreach ($modelIndustries as $in) {
+                $industryArray[] = $in->industry_id;
+            }
+        }
+        $brandsComponent = new BrandsComponent();
+        $modelCategory = $brandsComponent->getBrandCategory($model->id);
+
+
+        if (!empty($modelIndustries)) {
+            foreach ($modelIndustries as $in) {
                 $industryArray[] = $in->industry_id;
             }
         }
@@ -115,6 +112,8 @@ class BrandsController extends ControllerBase
             $inputInitials = $this->request->getPost('inputInitials', \Phalcon\Filter::FILTER_ALPHANUM);
             $inputCountry = $this->request->getPost('inputCountry', \Phalcon\Filter::FILTER_STRING);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_STRING);
+            $inputBrandsCategory = $this->request->getPost('inputBrandsCategory', \Phalcon\Filter::FILTER_STRING);
+
 
             if ($inputId != $model->id) {
                 $this->flash->error("提交信息非法");
@@ -134,25 +133,11 @@ class BrandsController extends ControllerBase
             if (!is_null($logoUrl))
                 $model->logo_path = $logoUrl;
             if ($model->save()) {
-                if (!is_null($inputIndustry)) {
-                    $rows = HdBrandsIndustry::find(array(
-                        'conditions' => 'brands_id=:brandsId: ',
-                        'bind' => array('brandsId' => $model->id)));
-                    foreach ($rows as $row) {
-                        $row->delete();
-                        unset($row);
-                    }
-                    foreach ($inputIndustry as $v) {
 
+                $brandsComponent = new BrandsComponent();
+                $brandsComponent->resetBrandsIndustry($inputIndustry,$model);
+                $brandsComponent->resetBrandsCategory($inputBrandsCategory, $model);
 
-                        $temp = new HdBrandsIndustry();
-                        $temp->brands_id = $model->id;
-                        $temp->industry_id = $v;
-                        $temp->save();
-                        unset($temp);
-
-                    }
-                }
                 $this->flash->success("保存成功");
             } else {
                 $this->flash->error("保存失败");
@@ -165,6 +150,9 @@ class BrandsController extends ControllerBase
         $this->view->setVar('initials', $initials);
         $this->view->setVar('industries', $industries);
         $this->view->setVar('industryArray', $industryArray);
+        $this->view->setVar('brandsComponent', $brandsComponent);
+        $this->view->setVar('modelCategory', $modelCategory);
+
     }
 
     public function deleteAction($id)
@@ -175,19 +163,21 @@ class BrandsController extends ControllerBase
         }
     }
 
-    public function autoAction(){
+    public function autoAction()
+    {
 
         $paginate = new Phalcon\Paginator\Adapter\Model(array(
-            'data'=>HdBrandsIndustry::find(),
-            'page'=>$this->request->getQuery('page',\Phalcon\Filter::FILTER_INT),
-            'limit'=>$this->config->paginate->limit
+            'data' => HdBrandsIndustry::find(),
+            'page' => $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT),
+            'limit' => $this->config->paginate->limit
         ));
 
-        $this->view->setVar('paginate',$paginate->getPaginate());
+        $this->view->setVar('paginate', $paginate->getPaginate());
 
     }
 
-    public function productAction(){
+    public function productAction()
+    {
 
     }
 

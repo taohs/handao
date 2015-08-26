@@ -18,9 +18,10 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>#</th>
             <th>首字母</th>
             <th>名称</th>
+            <th>行业</th>
+            <th>类型</th>
             <th>国家</th>
             <th>操作</th>
         </tr>
@@ -28,9 +29,22 @@
         <tbody>
         {% for model in paginate.items %}
         <tr>
-            <td>{{model.id}}</td>
             <td>{{model.initials}}</td>
             <td>{{model.name}} &nbsp;<img src="{{model.logo_path}}" width="40px" height="20px"></td>
+            <td>{%if model.getIndustry()%}
+                {%  for bi in model.getIndustry() %}
+                {{      bi.name }}&nbsp;&nbsp;
+                {%  endfor %}
+                {#{model.HdBrandsIndustry.id}#}
+                {%endif%}
+            </td>
+            <td>{%if model.getBrandCategoryName()%}
+                {%  for categoryName in model.getBrandCategoryName() %}
+                {{      categoryName }}&nbsp;&nbsp;
+                {%  endfor %}
+                {#{model.HdBrandsIndustry.id}#}
+                {%endif%}
+            </td>
             <td>{{model.country}}</td>
             <td>{{link_to("brands/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to("brands/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
         </tr>
@@ -39,14 +53,6 @@
 
     </table>
 </div>
-<div class="container">
-    <div class="form-inline">
 
-        <a href="list">第一页</a>
-        <a href="list?page=<?= $paginate->before; ?>">上一页</a>
-        <a href="list?page=<?= $paginate->next; ?>">下一页</a>
-        <a href="list?page=<?= $paginate->last; ?>">最后一页</a>
-        <?php echo "您正在第 ", $paginate->current, "/", $paginate->total_pages,'页';  ?>
-    </div>
-</div>
+{{element.getPaginateLink(paginate)}}
 
