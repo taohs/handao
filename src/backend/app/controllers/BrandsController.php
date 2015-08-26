@@ -5,7 +5,7 @@ class BrandsController extends ControllerBase
 
     public function indexAction()
     {
-        return $this->response->redirect($this->dispatcher->getControllerName().'/list');
+        return $this->response->redirect($this->dispatcher->getControllerName() . '/list');
 
     }
 
@@ -35,12 +35,16 @@ class BrandsController extends ControllerBase
     {
         $letter = new Letter();
         $initials = $letter->getInitialsArray();
+        $industries = HdIndustry::find();
+
+
         if ($this->request->isPost()) {
 
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputInitials = $this->request->getPost('inputInitials', \Phalcon\Filter::FILTER_ALPHANUM);
             $inputCountry = $this->request->getPost('inputCountry', \Phalcon\Filter::FILTER_STRING);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_STRING);
+            $inputBrandsCategory = $this->request->getPost('inputBrandsCategory', \Phalcon\Filter::FILTER_STRING);
 
 
             if (empty($inputName) or empty($inputInitials)) {
@@ -55,7 +59,25 @@ class BrandsController extends ControllerBase
             $model->initials = $inputInitials;
             $model->country = $inputCountry;
             $model->logo_path = $logoUrl;
+
             if ($model->save()) {
+                if (!is_null($inputIndustry)) {
+                    $rows = HdBrandsIndustry::find(array(
+                        'conditions' => 'brands_id=:brandsId: ',
+                        'bind' => array('brandsId' => $model->id)));
+                    foreach ($rows as $row) {
+                        $row->delete();
+                        unset($row);
+                    }
+                    foreach ($inputIndustry as $v) {
+                        $temp = new HdBrandsIndustry();
+                        $temp->brands_id = $model->id;
+                        $temp->industry_id = $v;
+                        $temp->save();
+                        unset($temp);
+                    }
+                }
+
                 $this->flash->success("保存成功");
             } else {
                 $this->flash->error("保存失败");
@@ -66,6 +88,9 @@ class BrandsController extends ControllerBase
         $model = new HdBrands();
         $this->view->setVar('model', $model);
         $this->view->setVar('initials', $initials);
+        $this->view->setVar('industries', $industries);
+        $this->view->setVar('brandsAuto', BrandsComponent::CATEGORY_AUTO);
+        $this->view->setVar('brandsAutoParts', BrandsComponent::CATEGORY_AUTO_PARTS);
     }
 
     public function updateAction($id)
@@ -73,6 +98,16 @@ class BrandsController extends ControllerBase
         $model = $this->_getModel($id);
         $letter = new Letter();
         $initials = $letter->getInitialsArray();
+        $industries = HdIndustry::find();
+        $industryArray = array();
+        $modelInustries = $model->getHdBrandsIndustry();
+
+        if (!empty($modelInustries)) {
+            foreach ($modelInustries as $in) {
+                $industryArray[] = $in->industry_id;
+            }
+        }
+//exit;
         if ($this->request->isPost()) {
 
             $inputId = $this->request->getPost('inputId', \Phalcon\Filter::FILTER_INT);
@@ -96,9 +131,28 @@ class BrandsController extends ControllerBase
             $model->name = $inputName;
             $model->initials = $inputInitials;
             $model->country = $inputCountry;
-            if(!is_null($logoUrl))
-            $model->logo_path = $logoUrl;
+            if (!is_null($logoUrl))
+                $model->logo_path = $logoUrl;
             if ($model->save()) {
+                if (!is_null($inputIndustry)) {
+                    $rows = HdBrandsIndustry::find(array(
+                        'conditions' => 'brands_id=:brandsId: ',
+                        'bind' => array('brandsId' => $model->id)));
+                    foreach ($rows as $row) {
+                        $row->delete();
+                        unset($row);
+                    }
+                    foreach ($inputIndustry as $v) {
+
+
+                        $temp = new HdBrandsIndustry();
+                        $temp->brands_id = $model->id;
+                        $temp->industry_id = $v;
+                        $temp->save();
+                        unset($temp);
+
+                    }
+                }
                 $this->flash->success("保存成功");
             } else {
                 $this->flash->error("保存失败");
@@ -106,9 +160,11 @@ class BrandsController extends ControllerBase
 
             return $this->refresh();
         }
+
         $this->view->setVar('model', $model);
         $this->view->setVar('initials', $initials);
-
+        $this->view->setVar('industries', $industries);
+        $this->view->setVar('industryArray', $industryArray);
     }
 
     public function deleteAction($id)
@@ -117,6 +173,22 @@ class BrandsController extends ControllerBase
             $model = $this->_getModel($id);
             return $this->refresh();
         }
+    }
+
+    public function autoAction(){
+
+        $paginate = new Phalcon\Paginator\Adapter\Model(array(
+            'data'=>HdBrandsIndustry::find(),
+            'page'=>$this->request->getQuery('page',\Phalcon\Filter::FILTER_INT),
+            'limit'=>$this->config->paginate->limit
+        ));
+
+        $this->view->setVar('paginate',$paginate->getPaginate());
+
+    }
+
+    public function productAction(){
+
     }
 
     protected function _getModel($id)
