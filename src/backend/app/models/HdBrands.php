@@ -147,8 +147,9 @@ class HdBrands extends \Phalcon\Mvc\Model
     public function getBrandCategoryName(){
         $modelCategory = array();
         $tempArray  = $this->getBrandCategory();
+        $brandsComponent = new BrandsComponent();
         foreach ($tempArray as $temp){
-            $modelCategory[$temp] = BrandsComponent::$categoryArray[$temp];
+            $modelCategory[$temp] = $brandsComponent->categoryArray[$temp];
         }
         return $modelCategory;
     }

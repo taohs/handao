@@ -17,7 +17,7 @@ class BrandsComponent extends \Phalcon\Mvc\User\Component
     const CATEGORY_AUTO = 1;
     const CATEGORY_AUTO_PARTS = 2;
 
-    public static $categoryArray = array(
+    public  $categoryArray = array(
         self::CATEGORY_AUTO => '汽车品牌',
         self::CATEGORY_AUTO_PARTS => '配件品牌',
     );
