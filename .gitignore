@@ -2,3 +2,4 @@
 src/backend/app/cache/
 src/portal/app/cache/
 src/weixin/app/cache/
+.DS_Store
