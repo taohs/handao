@@ -100,15 +100,6 @@ class HdProduct extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'hd_product';
-    }
 
     public function beforeCreate()
     {
@@ -123,5 +114,14 @@ class HdProduct extends \Phalcon\Mvc\Model
         $this->update_time = date('Y-m-d H:i:s');
     }
 
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_product';
+    }
 
 }

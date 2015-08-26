@@ -36,12 +36,15 @@ class BrandsController extends ControllerBase
         $letter = new Letter();
         $initials = $letter->getInitialsArray();
         $industries = HdIndustry::find();
+
+
         if ($this->request->isPost()) {
 
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputInitials = $this->request->getPost('inputInitials', \Phalcon\Filter::FILTER_ALPHANUM);
             $inputCountry = $this->request->getPost('inputCountry', \Phalcon\Filter::FILTER_STRING);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_STRING);
+            $inputBrandsCategory = $this->request->getPost('inputBrandsCategory', \Phalcon\Filter::FILTER_STRING);
 
 
             if (empty($inputName) or empty($inputInitials)) {
@@ -86,6 +89,8 @@ class BrandsController extends ControllerBase
         $this->view->setVar('model', $model);
         $this->view->setVar('initials', $initials);
         $this->view->setVar('industries', $industries);
+        $this->view->setVar('brandsAuto', BrandsComponent::CATEGORY_AUTO);
+        $this->view->setVar('brandsAutoParts', BrandsComponent::CATEGORY_AUTO_PARTS);
     }
 
     public function updateAction($id)

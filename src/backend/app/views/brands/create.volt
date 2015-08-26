@@ -49,10 +49,16 @@
         <div class="form-group" class="checkbox col-sm-2 control-label">
             <label class="col-sm-2 control-label" for="inputIndustry">行业：</label>
             <div class="col-sm-10 form-horizontal checkbox">
-
                 {% for industry in industries %}
                 <label><input type="checkbox" name="inputIndustry[]"  value="{{industry.id}}" />{{industry.name}}&nbsp;&nbsp;</label>
                 {% endfor %}
+            </div>
+        </div>
+        <div class="form-group" class="checkbox col-sm-2 control-label">
+            <label class="col-sm-2 control-label" for="inputIndustry">品牌类型：</label>
+            <div class="col-sm-10 form-horizontal checkbox">
+                <label><input type="checkbox" name="inputBrandsCategory[]"  value="{{brandsAuto}}" />汽车品牌&nbsp;&nbsp;</label>
+                <label><input type="checkbox" name="inputBrandsCategory[]"  value="{{brandsAutoParts}}" />汽配品牌&nbsp;&nbsp;</label>
             </div>
         </div>
         <div  class="form-group">

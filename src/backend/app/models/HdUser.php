@@ -109,6 +109,16 @@ class HdUser extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public function beforeCreate(){
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+
+    public function beforeUpdate(){
+        $this->update_time = date('Y-m-d H:i:s');
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -117,14 +127,6 @@ class HdUser extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'hd_user';
-    }
-
-    public function beforeCreate(){
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate(){
-        $this->update_time = date('Y-m-d H:i:s');
     }
 
 }
