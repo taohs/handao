@@ -4,6 +4,7 @@
         <h1 class="name">{{brands.name}} {{models.name}} 上门保养</h1>
         <p class="pre">价格：<span>￥0元</span></p>
         <input type="hidden" name="models_id" value="{{models.id}}">
+        <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}}">
         <p class="xm">项目：</p>
         <ul class="m">
 

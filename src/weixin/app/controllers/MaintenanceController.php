@@ -3,17 +3,14 @@
 class MaintenanceController extends ControllerBase
 {
 
-    public $fees=150;//服务费
     public function initialize()
     {
-
-
         $this->view->setMainView( 'selectauto' );
 
     }
     public function indexAction()
     {
-
+        return $this->response->redirect('maintenance/autoselect');
     }
 
     /**
@@ -50,7 +47,10 @@ class MaintenanceController extends ControllerBase
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $models_id )
         ) );
-        $category = HdProductCategory::find();
+        $category = HdProductCategory::find(array(
+            "conditions" => "parent_id is not null"
+
+        ));
         $product = HdProduct::find();
 
         $this->view->setVar( 'brands', $brands );

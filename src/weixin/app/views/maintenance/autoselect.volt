@@ -63,7 +63,6 @@
 
     //展开关闭型号
     $('.Ms .p1').click(function () {
-        console.log(111);
         if ($(this).next().css('display') == 'block') {
             $(this).next().hide();
             $(this).removeClass('on');
