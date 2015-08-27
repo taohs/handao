@@ -74,7 +74,11 @@ class HdOrder extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $status;
-
+    /**
+     *
+     * @var integer
+     */
+    public $user_id;
     /**
      * Allows to query a set of records that match the specified conditions
      *

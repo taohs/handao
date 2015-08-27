@@ -1,19 +1,9 @@
-<form action="/e/ShopSys/CarOrder/shouji.php" method="post" id="startyyue">
-    <input name="xm" id="xm" value="" type="hidden">
-    <input name="pagecid" value="35" type="hidden">
-    <input name="pageid" value="284" type="hidden">
-
+<form action="/order" method="post" id="startyyue">
     <div class="Sh">
         <h2 class="t"><em><a href="/">&lt;首页</a></em>选择服务项目</h2>
-
         <h1 class="name">{{brands.name}} {{models.name}} 上门保养</h1>
-        <input name="title" value="奥迪(进口) A8L 上门保养" type="hidden">
-        <input name="carclassid" value="44" type="hidden">
-        <input name="carid" value="359" type="hidden">
-        <input name="cartitle" value="sDrive18i  2.0L_2012.03-2015" type="hidden">
-
         <p class="pre">价格：<span>￥0元</span></p>
-
+        <input type="hidden" name="models_id" value="{{models.id}}">
         <p class="xm">项目：</p>
         <ul class="m">
 
@@ -21,16 +11,15 @@
             <li>
                 <p class="p1">
                     <label>
-                        <input name="jiyouche" checked="checked" onclick="ChePre();" type="checkbox"><span>{{cate.name}}</span>
+                        <input  checked="checked" onclick="ChePre();" type="checkbox" class="category"><span>{{cate.name}}</span>
                     </label>
                 </p>
 
                 <p class="p2">
-                    <select name="jiyou" onchange="check(this);" id="jiyou">
+                    <select name="products[]" onchange="check(this);" id="jiyou">
                         {% for row in product %}
-
                         {% if cate.id==row.category %}
-                        <option value="{{row.member_price}}-{{row.id}}">{{row.name}}[￥{{row.member_price}}]</option>
+                        <option value="{{row.member_price}}-{{row.id}}-{{cate.id}}-{{cate.name}}-{{row.name}}">{{row.name}}[￥{{row.member_price}}]</option>
                         {%endif%}
                         {% endfor %}
                     </select>
@@ -40,7 +29,7 @@
         </ul>
         <p class="server">
             <label onclick="alert('服务费是必选项,无法取消！');return false;">
-                <input name="" value="1" checked="checked" type="checkbox">
+                <input name="server" value="{{fees}}" checked="checked" type="checkbox" readonly="readonly">
                 <span>服务费￥{{fees}}元</span>
             </label>
         </p>
@@ -83,6 +72,15 @@
 
 
     $("#btn_step2").click(function () {
+         var a=  $('.category').is(':checked');
+        $('.category').each(function(i,n){
+            if (!$(this)[0].checked) {
+               $(this).parent('label').parent('.p1').next().children('select').attr('name','');
+            }else{
+                $(this).parent('label').parent('.p1').next().children('select').attr('name','products[]');
+            }
+        })
+
         var p = "";
         var jiyou = $("#jiyou").val().split("-");
         p += "13:" + jiyou[0] + ",";
@@ -105,7 +103,7 @@
             return false;
         }
         $("#xm").val(p);
-        $("#startyyue").submit();
+
     });
 
 

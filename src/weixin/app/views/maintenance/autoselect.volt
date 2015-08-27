@@ -5,11 +5,11 @@
         {% for row in a_z%}
         <li class="li" id="{{row}}">{{row}}</li>
         {% for brand in brands %}
-        {% if brands.initials==row %}
-        <li onclick="DataShow({{ brands.id }},this)">
-            <p class="sp1"><img src="/images/1.jpg"></p>
+        {% if brand.initials == row %}
+        <li onclick="DataShow({{ brand.id }},this)">
+            <p class="sp1"><img src="{{brand.logo_path}}"></p>
 
-            <p class="sp2">{{ brands.name }}</p>
+            <p class="sp2">{{ brand.name }}</p>
         </li>
         {% endif %}
         {% endfor %}
@@ -24,17 +24,17 @@
 
     <!--系列选择，系列下有型号-->
     {% for brand in brands %}
-    <div class="Ms data{{ brands.id }}">
+    <div class="Ms data{{ brand.id }}">
         <ul>
             {% for model in autoModel %}
-            {% if brands.id==model.brands_id %}
+            {% if brand.id==model.brands_id %}
             <li>
                 <p class="p1">{{model.name}}</p>
                 <ul class="u">
                     {% for exact in autoModelExact %}
                     {% if model.id==exact.models_id %}
                     <li>
-                        <a href="#">{{exact.name}}</a>
+                        <a href="/maintenance/serveselect?brands_id={{exact.brands_id}}&models_id={{exact.models_id}}">{{exact.name}}</a>
                     </li>
                     {% endif %}
                     {% endfor%}
