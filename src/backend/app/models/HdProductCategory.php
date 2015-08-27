@@ -96,6 +96,11 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         $this->update_time = date('Y-m-d H:i:s');
     }
 
+
+    public function getParentModel(){
+        return self::findFirst($this->parent_id);
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -104,10 +109,6 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'hd_product_category';
-    }
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
     }
 
 }

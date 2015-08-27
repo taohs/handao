@@ -29,21 +29,28 @@ class OrderController extends ControllerBase
     public function createAction(){
         $model = new HdOrder();
         if($this->request->isPost()){
-            switch($this->request->getPost('step')){
-                case 1:
-                    return $this->dispatcher->forward(array('controller'=>'order','action'=>'createStepPassport','params'=>$this->dispatcher->getParams()));// $this->createStepPassport();
-                    break;
-                case 2:
-                    $this->createStepCar();
-                    break;
-                case 3:
-                    $this->createStepProducts();
-                    break;
-                case 4:
-                    $this->createStepFinish();
-                    break;
-                default:break;
-            }
+
+            var_dump($this->request->getPost());
+            $mobile = $this->request->getPost('inputName',\Phalcon\Filter::FILTER_FLOAT);
+            $member = $this->getOrderMember($mobile);
+            exit;
+
+
+//            switch($this->request->getPost('step')){
+//                case 1:
+//                    return $this->dispatcher->forward(array('controller'=>'order','action'=>'createStepPassport','params'=>$this->dispatcher->getParams()));// $this->createStepPassport();
+//                    break;
+//                case 2:
+//                    $this->createStepCar();
+//                    break;
+//                case 3:
+//                    $this->createStepProducts();
+//                    break;
+//                case 4:
+//                    $this->createStepFinish();
+//                    break;
+//                default:break;
+//            }
         }
         $this->view->setVar('model',$model);
     }
@@ -196,6 +203,47 @@ class OrderController extends ControllerBase
 
     }
 
+
+    protected function getOrderMember($mobile){
+        $member = HdUser::findFirst(array('conditions'=>'mobile=:mobile: or username=:mobile:','bind'=>array('mobile'=>$mobile)));
+        if(!$member){
+            $member = new HdUser();
+            $member->username = $mobile;
+            $member->mobile   = $mobile;
+            $member->password = $this->security->hash($this->config->user->password->default);
+            $member->save();
+        }
+        return $member;
+    }
+
+    /**
+     * @param $member HdUser
+     * @param $modelExact HdAutoModelsExact
+     */
+    protected function getOrderCar($member,$modelExact){
+        $cars = $member->getHdUserAuto();
+        $exist = false;
+        foreach($cars as $car){
+            /**
+             * @var $car HdUserAuto
+             */
+            if($car->models == $modelExact){
+                $exist = true;
+                break;
+            }
+        }
+        if(!$exist){
+            $car = new HdUserAuto();
+            $car->models = $modelExact;
+            $car->save();
+        }else{
+            $car = HdUserAuto::findFirst(array(
+                'conditions'=>'models=:modelExact: and user_id=:userId:',
+                'bind'=>array('modelExact'=>$modelExact,'userId'=>$member->id)
+            ));
+        }
+        return $car;
+    }
 
 }
 

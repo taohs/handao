@@ -44,16 +44,16 @@ class SignController extends ControllerBase
     function onConstruct()
     {
         // TODO: Implement __construct() method.
+
+
     }
 
 
     public function indexAction()
     {
-            /*$a['username']='zsy';
-            $this->session->set('auth',(object)$a);*/
         if ($this->request->isPost()) {
 
-            if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'),$this->security->getSessionToken())) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
+            if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'), $this->security->getSessionToken())) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
 //            if ($this->security->checkToken()) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
 
                 $username = $this->request->getPost('inputEmail', 'email');
@@ -65,7 +65,7 @@ class SignController extends ControllerBase
                             'username' => $username,
                         )
                     ));
-                if ($admin && $this->security->checkHash($password,$admin->password)) {
+                if ($admin && $this->security->checkHash($password, $admin->password)) {
                     $this->session->set($this->config->session->loginKey, $admin);
                     $this->flash->success("success");
                     //change the password in the database with hash different from earlier
@@ -83,8 +83,6 @@ class SignController extends ControllerBase
         }
 
     }
-
-
 
 
     /**
@@ -108,7 +106,8 @@ class SignController extends ControllerBase
 
     }
 
-    public function createAdminAction(){
+    public function createAdminAction()
+    {
 
         $time = date('Y-m-d H:i:s');
         $role = new HdAdminRole();

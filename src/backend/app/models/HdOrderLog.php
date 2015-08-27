@@ -11,6 +11,18 @@ class HdOrderLog extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $order_id;
+
+    /**
+     *
+     * @var string
+     */
+    public $contents;
+
+    /**
+     *
      * @var string
      */
     public $create_time;
@@ -20,6 +32,14 @@ class HdOrderLog extends \Phalcon\Mvc\Model
      * @var string
      */
     public $update_time;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->belongsTo('order_id', 'HdOrder', 'id', array('alias' => 'HdOrder'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions
