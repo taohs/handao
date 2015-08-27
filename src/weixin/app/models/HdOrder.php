@@ -13,6 +13,12 @@ class HdOrder extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
+    public $user_id;
+
+    /**
+     *
+     * @var integer
+     */
     public $auto_id;
 
     /**
@@ -73,7 +79,48 @@ class HdOrder extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
+    public $linkman_id;
+
+    /**
+     *
+     * @var string
+     */
+    public $linkman_info;
+
+    /**
+     *
+     * @var string
+     */
+    public $address_id;
+
+    /**
+     *
+     * @var string
+     */
+    public $address_info;
+
+    /**
+     *
+     * @var integer
+     */
     public $status;
+
+    /**
+     *
+     * @var string
+     */
+    public $logs;
+
+    /**
+     * Initialize method for model.
+     */
+    public function initialize()
+    {
+        $this->hasMany('id', 'HdOrderLog', 'order_id', array('alias' => 'HdOrderLog'));
+        $this->hasMany('id', 'HdOrderProduct', 'order_id', array('alias' => 'HdOrderProduct'));
+        $this->belongsTo('auto_id', 'HdUserAuto', 'id', array('alias' => 'HdUserAuto'));
+        $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions
