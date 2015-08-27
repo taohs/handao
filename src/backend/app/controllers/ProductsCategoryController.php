@@ -12,7 +12,7 @@ class ProductsCategoryController extends ControllerBase
     public function listAction()
     {
 
-        $productsCategory = HdProductCategory::find(array('order' => 'parent_id'));
+        $productsCategory = HdProductCategory::find(array('order' => 'parent_id asc'));
 
         $paginate = new Phalcon\Paginator\Adapter\Model(array(
             'data' => $productsCategory,
@@ -28,13 +28,17 @@ class ProductsCategoryController extends ControllerBase
     public function createAction()
     {
 
-        $category = HdProductCategory::find(array('selected'=>'','parent_id'));
+        $category = HdProductCategory::find(array());
+        $brandsComponent = new BrandsComponent();
+        $industries = HdIndustry::find();
+
 
         if ($this->request->isPost()) {
 
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
             $inputDescription = $this->request->getPost('inputDescription', \Phalcon\Filter::FILTER_STRING);
+            $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
 
 
             if (empty($inputName)) {
@@ -47,7 +51,8 @@ class ProductsCategoryController extends ControllerBase
             $model->name = $inputName;
             $model->parent_id = $inputParent;
             $model->description = $inputDescription;
-            $model->property   = 1;
+            $model->industry_id = $inputIndustry;
+//            $model->property   = 1;
 
 
             if ($model->create()) {
@@ -59,12 +64,17 @@ class ProductsCategoryController extends ControllerBase
         }
 
         $this->view->setVar('category',$category);
+        $this->view->setVar('brandsComponent', $brandsComponent);
+        $this->view->setVar('industries', $industries);
+
     }
 
     public function updateAction($id)
     {
         $model = $this->_getModel($id);
-        $category = HdProductCategory::find(array('selected'=>'','parent_id'));
+        $category = HdProductCategory::find(array());
+        $industries = HdIndustry::find();
+
 
 
         if ($this->request->isPost()) {
@@ -95,6 +105,8 @@ class ProductsCategoryController extends ControllerBase
         }
         $this->view->setVar('model', $model);
         $this->view->setVar('category',$category);
+        $this->view->setVar('industries', $industries);
+
 
     }
 

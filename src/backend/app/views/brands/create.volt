@@ -57,8 +57,10 @@
         <div class="form-group" class="checkbox col-sm-2 control-label">
             <label class="col-sm-2 control-label" for="inputIndustry">品牌类型：</label>
             <div class="col-sm-10 form-horizontal checkbox">
-                <label><input type="checkbox" name="inputBrandsCategory[]"  value="{{brandsAuto}}" />汽车品牌&nbsp;&nbsp;</label>
-                <label><input type="checkbox" name="inputBrandsCategory[]"  value="{{brandsAutoParts}}" />汽配品牌&nbsp;&nbsp;</label>
+                {% for index,row in brandsComponent.categoryArray %}
+                <label><input type="checkbox" name="inputBrandsCategory[]"  value="{{index}}" />{{row}}&nbsp;&nbsp;</label>
+                {% endfor %}
+
             </div>
         </div>
         <div  class="form-group">

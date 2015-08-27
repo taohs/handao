@@ -27,6 +27,7 @@ class OrderController extends ControllerBase
      * @4、下单成功生成短信发送至会员手机号码
      */
     public function createAction(){
+        $model = new HdOrder();
         if($this->request->isPost()){
             switch($this->request->getPost('step')){
                 case 1:
@@ -44,6 +45,7 @@ class OrderController extends ControllerBase
                 default:break;
             }
         }
+        $this->view->setVar('model',$model);
     }
 
     public function updateAction($id){

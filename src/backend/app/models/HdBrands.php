@@ -106,4 +106,56 @@ class HdBrands extends \Phalcon\Mvc\Model
         return 'hd_brands';
     }
 
+    public function getIndustry()
+    {
+        $modelIndustry = array();
+        $industryArray = array();
+        $brandsIndustry = HdBrandsIndustry::find(array(
+            'conditions' => 'brands_id=:brandsId:',
+            'bind' => array('brandsId' => $this->id)
+        ));
+
+        foreach ($brandsIndustry as $industry) {
+            $industryArray[] = $industry->industry_id;
+        }
+
+        if ($industryArray)
+            $modelIndustry = HdIndustry::find(array('conditions' => 'id in ({ids:array})', 'bind' => array('ids' => $industryArray)));
+
+        return $modelIndustry;
+    }
+
+    /**
+     * 获取品牌的类型数据
+     *
+     * @param $brandsId
+     * @return array
+     */
+    public function getBrandCategory()
+    {
+        $modelCategory = array();
+        $temp = HdAutoBrands::findFirst(array('conditions' => 'brands_id=:brandsId:', 'bind' => array('brandsId' => $this->id)));
+        if ($temp) {
+            $modelCategory[] = BrandsComponent::CATEGORY_AUTO;
+        }
+        $temp = HdProductBrands::findFirst(array('conditions' => 'brands_id=:brandsId:', 'bind' => array('brandsId' => $this->id)));
+        if ($temp) {
+            $modelCategory[] = BrandsComponent::CATEGORY_AUTO_PARTS;
+        }
+        unset($temp);
+
+        return $modelCategory;
+    }
+
+    public function getBrandCategoryName()
+    {
+        $modelCategory = array();
+        $tempArray = $this->getBrandCategory();
+        $brandsComponent = new BrandsComponent();
+        foreach ($tempArray as $temp) {
+            $modelCategory[$temp] = $brandsComponent->categoryArray[$temp];
+        }
+        return $modelCategory;
+    }
+
 }

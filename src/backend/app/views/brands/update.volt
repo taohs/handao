@@ -57,6 +57,14 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="form-group" class="checkbox col-sm-2 control-label">
+            <label class="col-sm-2 control-label" for="inputIndustry">品牌类型：</label>
+            <div class="col-sm-10 form-horizontal checkbox">
+                {% for index,row in brandsComponent.categoryArray %}
+                <label><input type="checkbox" name="inputBrandsCategory[]"  value="{{index}}" {%if index in modelCategory%} checked="checked" {%endif%}/>{{row}}&nbsp;&nbsp;</label>
+                {% endfor %}
+            </div>
+        </div>
         <div  class="form-group">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
