@@ -39,6 +39,7 @@ class ProductsCategoryController extends ControllerBase
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
             $inputDescription = $this->request->getPost('inputDescription', \Phalcon\Filter::FILTER_STRING);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
+            $inputActive = $this->request->getPost('inputActive', \Phalcon\Filter::FILTER_INT);
 
 
             if (empty($inputName)) {
@@ -52,6 +53,7 @@ class ProductsCategoryController extends ControllerBase
             $model->parent_id = $inputParent;
             $model->description = $inputDescription;
             $model->industry_id = $inputIndustry;
+            $model->active = $inputActive;
 //            $model->property   = 1;
 
 
@@ -84,6 +86,8 @@ class ProductsCategoryController extends ControllerBase
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
             $inputDescription = $this->request->getPost('inputDescription', \Phalcon\Filter::FILTER_STRING);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
+            $inputActive = $this->request->getPost('inputActive', \Phalcon\Filter::FILTER_INT);
+
 
 
             if (empty($inputName) or $model->id != $inputId) {
@@ -95,6 +99,8 @@ class ProductsCategoryController extends ControllerBase
             $model->parent_id = $inputParent;
             $model->industry_id = $inputIndustry;
             $model->description = $inputDescription;
+            $model->active = $inputActive;
+
 
             if ($model->save()) {
                 $this->flash->success('保存成功');
