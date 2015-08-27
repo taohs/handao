@@ -13,6 +13,7 @@ class MaintenanceController extends ControllerBase
      */
     public function autoselectAction()
     {
+        $this->view->setMainView('selectauto');
         $brands = HdBrands::find(array('order'=>'initials asc'));
         $a_z=range('A','Z');
 

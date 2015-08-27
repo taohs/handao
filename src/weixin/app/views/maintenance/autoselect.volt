@@ -2,24 +2,19 @@
     <h2 class="t"><em><a href="/">&lt;首页</a></em>选择型号</h2>
     <!--品牌-->
     <ul class="m">
-        <?php foreach ($a_z as $row) { ?>
-            <li class="li" id="<?php echo $row ?>"><?php echo $row ?></li>
-            <?php foreach ($brands as $b) {
-                if ($b->initials == $row) {
-                    ?>
-                    <li onclick="DataShow(<?php echo $b->id ?>,this)">
-                        <p class="sp1"><img src="/images/1.jpg"></p>
+        {% for row in a_z%}
+        <li class="li" id="{{row}}">{{row}}</li>
+        {% for brand in brands %}
+        {% if brands.initials==row %}
+        <li onclick="DataShow({{ brands.id }},this)">
+            <p class="sp1"><img src="/images/1.jpg"></p>
 
-                        <p class="sp2"><?php echo $b->name ?></p>
-                    </li>
-                <?php
-                }
-            } ?>
-        <?php } ?>
-
-
+            <p class="sp2">{{ brands.name }}</p>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
     </ul>
-
     <!--品牌导航-->
     <div class="pk">
         <p class="p">
@@ -28,30 +23,28 @@
     </div>
 
     <!--系列选择，系列下有型号-->
-    <?php foreach ($brands as $brand) { ?>
-        <div class="Ms data<?php echo $brand->id ?>">
-            <ul>
-                <?php foreach ($autoModel as $model) {
-                    if ($brand->id == $model->brands_id) {
-                        ?>
-                        <li>
-                            <p class="p1"><?php echo $model->name ?></p>
-                            <ul class="u">
-                                <?php foreach ($autoModelExact as $exact) {
-                                    if ($model->id == $exact->models_id) { ?>
-                                        <li>
-                                            <a href="#"><?php echo $exact->name ?></a>
-                                        </li>
-                                    <?php }
-                                } ?>
-                            </ul>
-                        </li>
-                    <?php
-                    }
-                } ?>
-            </ul>
-        </div>
-    <?php } ?>
+    {% for brand in brands %}
+    <div class="Ms data{{ brands.id }}">
+        <ul>
+            {% for model in autoModel %}
+            {% if brands.id==model.brands_id %}
+            <li>
+                <p class="p1">{{model.name}}</p>
+                <ul class="u">
+                    {% for exact in autoModelExact %}
+                    {% if model.id==exact.models_id %}
+                    <li>
+                        <a href="#">{{exact.name}}</a>
+                    </li>
+                    {% endif %}
+                    {% endfor%}
+                </ul>
+            </li>
+            {% endif %}
+            {% endfor%}
+        </ul>
+    </div>
+    {% endfor%}
 
 </div>
 <script>
