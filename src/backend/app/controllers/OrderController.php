@@ -28,12 +28,31 @@ class OrderController extends ControllerBase
      */
     public function createAction(){
         $model = new HdOrder();
+        $brandsComponent = new BrandsComponent();
+        $brands = $brandsComponent->getAutoBrands();
+        $autoModels = HdAutoModels::find(array(
+            'conditions'=>'brands_id=:brandsId:',
+            'bind'=>array('brandsId'=>$brands[0]->id)
+        ));
+
+        $autoModelExacts = HdAutoModelsExact::find(array(
+            'conditions'=>'models_id=:modelsId:',
+            'bind'=>array('modelsId'=>$autoModels[0]->id)
+        ));
+
+
+        $productsCategory = HdProductCategory::find(array(
+            'conditions'=>'active=:active:',
+            'bind'=>array('active'=>1)
+        ));
+
         if($this->request->isPost()){
 
             var_dump($this->request->getPost());
             $mobile = $this->request->getPost('inputName',\Phalcon\Filter::FILTER_FLOAT);
             $member = $this->getOrderMember($mobile);
-            exit;
+            var_dump($member->password);
+//            exit;
 
 
 //            switch($this->request->getPost('step')){
@@ -53,6 +72,10 @@ class OrderController extends ControllerBase
 //            }
         }
         $this->view->setVar('model',$model);
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+        $this->view->setVar('autoModelExacts', $autoModelExacts);
+        $this->view->setVar('productsCategory', $productsCategory);
     }
 
     public function updateAction($id){
@@ -212,6 +235,9 @@ class OrderController extends ControllerBase
             $member->mobile   = $mobile;
             $member->password = $this->security->hash($this->config->user->password->default);
             $member->save();
+            var_dump($member->save());
+            var_dump($member->getMessages());
+            exit;
         }
         return $member;
     }

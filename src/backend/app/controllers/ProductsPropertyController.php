@@ -33,6 +33,7 @@ class ProductsPropertyController extends ControllerBase
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
+            $inputActive = $this->request->getPost('inputActive', \Phalcon\Filter::FILTER_INT);
 
             if (empty($inputName)) {
                 $this->flash->error("信息不完整");
@@ -44,6 +45,7 @@ class ProductsPropertyController extends ControllerBase
             $model->name = $inputName;
             $model->parent_id = $inputParent;
             $model->industry_id = $inputIndustry;
+            $model->active  = $inputActive;
             $model->create_time = $this->now();
             $model->update_time = $this->now();
             if ($model->create()) {
@@ -68,6 +70,7 @@ class ProductsPropertyController extends ControllerBase
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputParent = $this->request->getPost('inputParent', \Phalcon\Filter::FILTER_INT);
             $inputIndustry = $this->request->getPost('inputIndustry', \Phalcon\Filter::FILTER_INT);
+            $inputActive = $this->request->getPost('inputActive', \Phalcon\Filter::FILTER_INT);
 
             if (empty($inputName) or $model->id != $inputId) {
                 $this->flash->error("信息不完整");
@@ -77,6 +80,7 @@ class ProductsPropertyController extends ControllerBase
             $model->name = $inputName;
             $model->parent_id = $inputParent;
             $model->industry_id = $inputIndustry;
+            $model->active  = $inputActive;
             $model->create_time = $this->now();
             $model->update_time = $this->now();
             if ($model->save()) {

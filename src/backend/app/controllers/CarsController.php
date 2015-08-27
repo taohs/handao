@@ -138,4 +138,21 @@ class CarsController extends ControllerBase
         }
         return $model;
     }
+
+    public function getModelExactByModelsIDAction($modelsId){
+
+        if(is_null($modelsId))
+            $modelsId = HdAutoModels::findFirst()->id;
+        $autoModels = $this->getModelExactByModelsID($modelsId);
+        $array = array();
+        foreach($autoModels as $models ){
+            $array[$models->id] = $models->name;
+        }
+        echo json_encode($array);
+        exit;
+    }
+
+    public function getModelExactByModelsID($modelsId){
+        return $autoModels = HdAutoModelsExact::find(array('conditions'=>'models_id=:modelsId:','bind'=>array('modelsId'=>$modelsId)));
+    }
 }

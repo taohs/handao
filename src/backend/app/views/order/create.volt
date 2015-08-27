@@ -40,45 +40,22 @@
                 <input type="text" class="form-control" name="inputAutoMumber" id="inputAutoMumber" value=""/>
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputCategory">汽车型号：</label>
-            <div class="col-sm-10">
-                <select class="form-control" name="inputCategory" id="inputCategory">
-                    {% for cate in category %}
-                    <option value="{{ cate.id }}" {% if model.category==cate.id %} selected="selected" {% endif %} >{{ cate.name }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" name="inputCategory" id="inputCategory">
-                    {% for cate in category %}
-                    <option value="{{ cate.id }}" {% if model.category==cate.id %} selected="selected" {% endif %} >{{ cate.name }}</option>
-                    {% endfor %}
-                </select>
-                <select class="form-control" name="inputCategory" id="inputCategory">
-                    {% for cate in category %}
-                    <option value="{{ cate.id }}" {% if model.category==cate.id %} selected="selected" {% endif %} >{{ cate.name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputMarketPrice">市场价：</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputMarketPrice" id="inputMarketPrice" value=""/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputMemberPrice">会员价：</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputMemberPrice" id="inputMemberPrice" value=""/>
-            </div>
-        </div>
 
+        {{partial('common/auto_tpl',['exact':true])}}
+
+        {%for category in productsCategory %}
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputDescription">描述：</label>
+            <label class="col-sm-2 control-label" for="inputProducts">{{category.name}}</label>
             <div class="col-sm-10">
-                <textarea type="text" class="form-control" name="inputDescription" id="inputDescription"/></textarea>
+                <select class="form-control" name="inputProducts[]">
+                    <option>请选择</option>
+                    {% for models in category.getHdProduct() %}
+                    <option value="{{models.id}}">{{ models.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="aligin:right;">￥{{models.market_price}}</strong></option>
+                    {% endfor %}
+                </select>
             </div>
         </div>
+        {% endfor %}
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAttributes">属性：</label>
             <div class="col-sm-10">
@@ -96,3 +73,5 @@
         </div>
     </form>
 </div>
+{{partial('common/auto_js')}}
+
