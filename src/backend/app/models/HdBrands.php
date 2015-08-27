@@ -96,15 +96,6 @@ class HdBrands extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'hd_brands';
-    }
 
     public function getIndustry()
     {
@@ -147,6 +138,7 @@ class HdBrands extends \Phalcon\Mvc\Model
         return $modelCategory;
     }
 
+
     public function getBrandCategoryName()
     {
         $modelCategory = array();
@@ -156,6 +148,16 @@ class HdBrands extends \Phalcon\Mvc\Model
             $modelCategory[$temp] = $brandsComponent->categoryArray[$temp];
         }
         return $modelCategory;
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_brands';
     }
 
 }

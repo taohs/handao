@@ -19,26 +19,25 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputName">预约人：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputName" id="inputName" value="{{model.name}}"/>
-                <input type="text" class="form-control" name="step" id="step" value="2"/>
+                <input type="text" class="form-control" name="inputName" id="inputName" value=""/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputTime">预约时间：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputTime" id="inputTime" value="{{model.time}}"/>
+                <input type="text" class="form-control" name="inputTime" id="inputTime" value=""/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAddress">预约地点：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputAddress" id="inputAddress" value="{{model.address}}"/>
+                <input type="text" class="form-control" name="inputAddress" id="inputAddress" value=""/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAutoMumber">车牌号码：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputAutoMumber" id="inputAutoMumber" value="{{model.autoMumber}}"/>
+                <input type="text" class="form-control" name="inputAutoMumber" id="inputAutoMumber" value=""/>
             </div>
         </div>
         <div class="form-group">
@@ -64,13 +63,13 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputMarketPrice">市场价：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputMarketPrice" id="inputMarketPrice" value="{{model.market_price}}"/>
+                <input type="text" class="form-control" name="inputMarketPrice" id="inputMarketPrice" value=""/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputMemberPrice">会员价：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputMemberPrice" id="inputMemberPrice" value="{{model.member_price}}"/>
+                <input type="text" class="form-control" name="inputMemberPrice" id="inputMemberPrice" value=""/>
             </div>
         </div>
 

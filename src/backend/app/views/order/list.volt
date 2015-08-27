@@ -12,9 +12,9 @@
  * @package PHP
  */?>
 
-<h2 class="sub-header">商品列表</h2>
+<h2 class="sub-header">订单列表</h2>
 <div class="table-responsive">
-    <a href="create" class="btn btn-primary">新增商品</a>
+    <a href="create" class="btn btn-primary">订单商品</a>
     <table class="table table-striped">
         <thead>
         <tr>
