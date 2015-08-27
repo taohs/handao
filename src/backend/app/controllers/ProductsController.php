@@ -21,7 +21,7 @@ class ProductsController extends ControllerBase
     public function createAction()
     {
         $model = new HdProduct();
-        $category = HdProductCategory::find(array('selected' => '', 'parent_id'));
+        $category = HdProductCategory::find();
 
         if ($this->request->isPost()) {
 
@@ -86,7 +86,7 @@ class ProductsController extends ControllerBase
     public function updateAction($id)
     {
         $model = $this->_getModel($id);
-        $category = HdProductCategory::find(array('selected' => '', 'parent_id'));
+        $category = HdProductCategory::find();
 
         if($this->request->isPost()){
             $inputId = $this->request->getPost('inputId', \Phalcon\Filter::FILTER_INT);

@@ -67,7 +67,7 @@ class SignController extends ControllerBase
                     ));
                 if ($admin && $this->security->checkHash($password, $admin->password)) {
                     $this->session->set($this->config->session->loginKey, $admin);
-                    $this->flash->success("success");
+//                    $this->flash->success("success");
                     //change the password in the database with hash different from earlier
                     //This situation should use the observer pattern
                     //$admin->password = $this->security->hash($password);

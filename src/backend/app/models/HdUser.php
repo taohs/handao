@@ -71,14 +71,14 @@ class HdUser extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
-        $this->validate(
-            new Email(
-                array(
-                    'field'    => 'email',
-                    'required' => true,
-                )
-            )
-        );
+//        $this->validate(
+//            new Email(
+//                array(
+//                    'field'    => 'email',
+//                    'required' => false,
+//                )
+//            )
+//        );
 
         if ($this->validationHasFailed() == true) {
             return false;
