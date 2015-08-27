@@ -1,5 +1,4 @@
 <h2 class="sub-header">会员列表</h2>
-{{flash.output()}}
 <div class="table-responsive">
     <a href="/member/updateuser" class="btn btn-primary">新增会员</a>
     <table class="table table-striped">

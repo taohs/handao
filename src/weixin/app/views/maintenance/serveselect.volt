@@ -1,82 +1,37 @@
-<form action="/e/ShopSys/CarOrder/shouji.php" method="post" id="startyyue">
-    <input name="xm" id="xm" value="" type="hidden">
-    <input name="pagecid" value="35" type="hidden">
-    <input name="pageid" value="284" type="hidden">
-
+<form action="/order" method="post" id="startyyue">
     <div class="Sh">
         <h2 class="t"><em><a href="/">&lt;首页</a></em>选择服务项目</h2>
-
-        <h1 class="name">奥迪(进口) A8L 上门保养</h1>
-        <input name="title" value="奥迪(进口) A8L 上门保养" type="hidden">
-        <input name="carclassid" value="44" type="hidden">
-        <input name="carid" value="359" type="hidden">
-        <input name="cartitle" value="sDrive18i  2.0L_2012.03-2015" type="hidden">
-
-        <p class="pre">价格：<span>￥1215元</span></p>
-
+        <h1 class="name">{{brands.name}} {{models.name}} 上门保养</h1>
+        <p class="pre">价格：<span>￥0元</span></p>
+        <input type="hidden" name="models_id" value="{{models.id}}">
+        <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}}">
         <p class="xm">项目：</p>
         <ul class="m">
+
+            {% for cate in category %}
             <li>
                 <p class="p1">
                     <label>
-                        <input name="jiyouche" checked="checked" onclick="ChePre();" type="checkbox"><span>机油</span>
+                        <input  checked="checked" onclick="ChePre();" type="checkbox" class="category"><span>{{cate.name}}</span>
                     </label>
                 </p>
 
                 <p class="p2">
-                    <select name="jiyou" onchange="check(this);" id="jiyou">
-                        <option value="265-496.00-嘉实多磁护 5W-40 SN/CF 7L[￥496.00]">嘉实多磁护 5W-40 SN/CF 7L[￥496.00]</option>
-                        <option value="266-560.00-嘉实多极护全合成 0w-40 SN/CF 7L[￥560.00]">嘉实多极护全合成 0w-40 SN/CF 7L[￥560.00]</option>
-                        <option value="267-624.00-美孚1号金装全合成 0W-40 SN/CF 7L[￥624.00]">美孚1号金装全合成 0W-40 SN/CF 7L[￥624.00]</option>
-                        <option value="269-528.00-壳牌超凡灰喜力全合成 5W-40 SN/CF 7L[￥528.00]">壳牌超凡灰喜力全合成 5W-40 SN/CF 7L[￥528.00]</option>
-                        <option value="264-290.00-嘉实多金嘉护 SN 10W-40 7L[￥290.00]">嘉实多金嘉护 SN 10W-40 7L[￥290.00]</option>
+                    <select name="products[]" onchange="check(this);" id="jiyou">
+                        {% for row in product %}
+                        {% if cate.id==row.category %}
+                        <option value="{{row.member_price}}-{{row.id}}-{{cate.id}}-{{cate.name}}-{{row.name}}">{{row.name}}[￥{{row.member_price}}]</option>
+                        {%endif%}
+                        {% endfor %}
                     </select>
                 </p>
             </li>
-            <li>
-                <p class="p1">
-                    <label>
-                        <input name="jilvche" checked="checked" onclick="ChePre();" type="checkbox"><span>机油滤清器</span>
-                    </label>
-                </p>
-
-                <p class="p2">
-                    <select name="jilv" onchange="check(this);" id="jilv">
-                        <option value="1298-139.00-暂无库存[￥139.00]">暂无库存[￥139.00]</option>
-                    </select>
-                </p>
-            </li>
-            <li>
-                <p class="p1">
-                    <label>
-                        <input name="kongqiche" checked="checked" onclick="ChePre();" type="checkbox"><span>空气滤清器</span>
-                    </label>
-                </p>
-
-                <p class="p2">
-                    <select name="kongqi" onchange="check(this);" id="kongqi">
-                        <option value="1299-200.00-暂无库存[￥200.00]">暂无库存[￥200.00]</option>
-                    </select>
-                </p>
-            </li>
-            <li>
-                <p class="p1">
-                    <label>
-                        <input name="kongtiaoche" checked="checked" onclick="ChePre();" type="checkbox"><span>空调滤清器</span>
-                    </label>
-                </p>
-
-                <p class="p2">
-                    <select name="kongtiao" onchange="check(this);" id="kongtiao">
-                        <option value="1300-230.00-暂无库存[￥230.00]">暂无库存[￥230.00]</option>
-                    </select>
-                </p>
-            </li>
+            {% endfor %}
         </ul>
         <p class="server">
             <label onclick="alert('服务费是必选项,无法取消！');return false;">
-                <input name="" value="1" checked="checked" type="checkbox">
-                <span>服务费￥150.00元</span>
+                <input name="server" value="{{fees}}" checked="checked" type="checkbox" readonly="readonly">
+                <span>服务费￥{{fees}}元</span>
             </label>
         </p>
 
@@ -98,13 +53,17 @@
     var mleng = $('.Sh .m select').length;
     //计算价格
     function ChePre() {
-        var pre = 150;
+        var pre = {{fees}};
         for (i = 0; i < mleng; i++) {
             var obj = $('.Sh .m select').eq(i);
             if ($('.Sh .m input').eq(i).attr('checked')) {
                 var val = obj.val();
-                s = val.split("-");
-                pre += parseInt(s[1]);
+                if(val){
+                    s = val.split("-");
+                    pre += parseInt(s[0]);
+
+                }
+
             }
 
         }
@@ -114,6 +73,15 @@
 
 
     $("#btn_step2").click(function () {
+         var a=  $('.category').is(':checked');
+        $('.category').each(function(i,n){
+            if (!$(this)[0].checked) {
+               $(this).parent('label').parent('.p1').next().children('select').attr('name','');
+            }else{
+                $(this).parent('label').parent('.p1').next().children('select').attr('name','products[]');
+            }
+        })
+
         var p = "";
         var jiyou = $("#jiyou").val().split("-");
         p += "13:" + jiyou[0] + ",";
@@ -136,7 +104,7 @@
             return false;
         }
         $("#xm").val(p);
-        $("#startyyue").submit();
+
     });
 
 

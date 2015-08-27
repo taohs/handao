@@ -81,28 +81,28 @@ $di->set('modelsMetadata', function () {
  */
 $di->setShared('session', function () {
     //files
-//    $session = new SessionAdapter();
-//    if (!$session->isStarted()) {
-//        $session->start();
-//    }
-//    return $session;
-
-//    redis
-    $session = new \Phalcon\Session\Adapter\Redis(array(
-        'uniqueId' => 'my-private-app',
-        'host' => '127.0.0.1',
-        'port' => 6379,
-//        'auth' => 'foobared',
-        'persistent' => false,
-        'lifetime' => 3600,
-        'prefix' => 'my_'
-    ));
+    $session = new SessionAdapter();
     if (!$session->isStarted()) {
         $session->start();
     }
-    $session->set('var', 'some-value');
-
     return $session;
+
+//    redis
+//    $session = new \Phalcon\Session\Adapter\Redis(array(
+//        'uniqueId' => 'my-private-app',
+//        'host' => '127.0.0.1',
+//        'port' => 6379,
+////        'auth' => 'foobared',
+//        'persistent' => false,
+//        'lifetime' => 3600,
+//        'prefix' => 'my_'
+//    ));
+//    if (!$session->isStarted()) {
+//        $session->start();
+//    }
+//    $session->set('var', 'some-value');
+//
+//    return $session;
 
 //    $session = new Phalcon\Session\Adapter\Libmemcached(array(
 //        'servers' => array(

@@ -104,7 +104,11 @@ class HdOrder extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $status;
-
+    /**
+     *
+     * @var integer
+     */
+    public $user_id;
     /**
      *
      * @var string

@@ -8,7 +8,6 @@
  *      #app_vendor
  */
 error_reporting(E_ALL);
-
 define('APP_PATH', realpath('..'));
 define('APP_ROOT',realpath('../../../'));
 define('APP_VENDOR',APP_ROOT.'/vendor');
