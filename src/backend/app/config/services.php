@@ -20,7 +20,6 @@ use Phalcon\Events\Manager as EventsManager;
 use Phalcon\Mvc\Dispatcher\Exception as DispatcherException;
 
 
-
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
@@ -81,22 +80,57 @@ $di->set('modelsMetadata', function () {
  * Start the session the first time some component request the session service
  */
 $di->setShared('session', function () {
-    $session = new SessionAdapter();
-//    if(!$session->isStarted()){
-        $session->start();
+    //files
+//    $session = new SessionAdapter();
+//    if (!$session->isStarted()) {
+//        $session->start();
 //    }
+//    return $session;
+
+//    redis
+    $session = new \Phalcon\Session\Adapter\Redis(array(
+        'uniqueId' => 'my-private-app',
+        'host' => '127.0.0.1',
+        'port' => 6379,
+//        'auth' => 'foobared',
+        'persistent' => false,
+        'lifetime' => 3600,
+        'prefix' => 'my_'
+    ));
+    if (!$session->isStarted()) {
+        $session->start();
+    }
+    $session->set('var', 'some-value');
+
     return $session;
+
+//    $session = new Phalcon\Session\Adapter\Libmemcached(array(
+//        'servers' => array(
+//            array('host' => 'localhost', 'port' => 11211, 'weight' => 1),
+//        ),
+//        'client' => array(
+//            Memcached::OPT_HASH => Memcached::HASH_MD5,
+//            Memcached::OPT_PREFIX_KEY => 'prefix.',
+//        ),
+//        'lifetime' => 3600,
+//        'prefix' => 'my_'
+//    ));
+//    $session->start();
+//    $session->set('var', 'some-value');
 });
-$di->setShared('flash',function(){
+$di->setShared('flash', function () {
     return new FlashSession(array(
-        'error'=>'alert alert-danger',
-        'notice'=>'alert alert-info',
-        'success'=>'alert alert-success',
-        'warning'=>'alert alert-warning',
+        'error' => 'alert alert-danger',
+        'notice' => 'alert alert-info',
+        'success' => 'alert alert-success',
+        'warning' => 'alert alert-warning',
     ));
 });
+$di->setShared('cache', function () {
 
-$di->setShared('config',$config);
+});
+
+$di->setShared('config', $config);
 
 
 $di->setShared('dispatcher', function () {
@@ -115,8 +149,8 @@ $di->setShared('dispatcher', function () {
                 case Dispatcher::EXCEPTION_ACTION_NOT_FOUND:
                     $dispatcher->forward([
                         'controller' => 'errors',
-                        'action'     => 'show404',
-                        'params'     => array('message' => $exception->getMessage())
+                        'action' => 'show404',
+                        'params' => array('message' => $exception->getMessage())
                     ]);
                     return false;
             }
@@ -124,12 +158,12 @@ $di->setShared('dispatcher', function () {
 
         $dispatcher->forward([
             'controller' => 'errors',
-            'action'     => 'show500',
-            'params'=>array(
-                'message'=>$exception->getMessage(),
-                'code'=>$exception->getCode(),
-                'file'=>$exception->getFile(),
-                'line'=>$exception->getLine()
+            'action' => 'show500',
+            'params' => array(
+                'message' => $exception->getMessage(),
+                'code' => $exception->getCode(),
+                'file' => $exception->getFile(),
+                'line' => $exception->getLine()
             )
         ]);
         return false;
@@ -141,6 +175,6 @@ $di->setShared('dispatcher', function () {
     return $dispatcher;
 });
 
-$di->setShared('element',function(){
+$di->setShared('element', function () {
     return new Element();
 });
