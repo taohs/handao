@@ -39,13 +39,18 @@ class MaintenanceController extends ControllerBase
     {
         $brands_id = $this->request->getQuery( 'brands_id' );
         $models_id = $this->request->getQuery( 'models_id' );
-        $brands = HdBrands::findFirst( array(
-            "conditions" => "id = :id:",
-            "bind"       => array( 'id' => $brands_id )
-        ) );
+
+
         $models = HdAutoModels::findFirst( array(
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $models_id )
+        ) );
+        if(!$models){
+            return $this->response->redirect('maintenance/autoselect');
+        }
+        $brands = HdBrands::findFirst( array(
+            "conditions" => "id = :id:",
+            "bind"       => array( 'id' => $brands_id )
         ) );
         $category = HdProductCategory::find(array(
             "conditions" => "parent_id is not null"

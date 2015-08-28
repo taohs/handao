@@ -71,7 +71,7 @@ class HdUser extends \Phalcon\Mvc\Model
      */
     public function validation()
     {
-        $this->validate(
+       /* $this->validate(
             new Email(
                 array(
                     'field'    => 'email',
@@ -82,7 +82,7 @@ class HdUser extends \Phalcon\Mvc\Model
 
         if ($this->validationHasFailed() == true) {
             return false;
-        }
+        }*/
 
         return true;
     }
