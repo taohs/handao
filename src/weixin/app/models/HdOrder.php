@@ -104,17 +104,27 @@ class HdOrder extends \Phalcon\Mvc\Model
      * @var integer
      */
     public $status;
-    /**
-     *
-     * @var integer
-     */
-    public $user_id;
+
     /**
      *
      * @var string
      */
     public $logs;
-
+    /**
+     *
+     * @var string
+     */
+    public $service_time;
+    /**
+     *
+     * @var string
+     */
+    public $book_time;
+    /**
+     *
+     * @var string
+     */
+    public $remark;
     /**
      * Initialize method for model.
      */

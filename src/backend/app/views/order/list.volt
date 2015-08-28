@@ -19,7 +19,7 @@
         <thead>
         <tr>
             <th>#</th>
-            <th>预约帐号</th>
+            <th>预约手机</th>
             <th>预约时间</th>
             <th>预约地点</th>
             <th>订单金额</th>
