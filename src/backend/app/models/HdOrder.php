@@ -154,4 +154,8 @@ class HdOrder extends \Phalcon\Mvc\Model
         return 'hd_order';
     }
 
+    public function getLinkman(){
+        return HdUserLinkman::findFirst($this->linkman_id);
+    }
+
 }

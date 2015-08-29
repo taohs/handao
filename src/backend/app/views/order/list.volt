@@ -14,7 +14,7 @@
 
 <h2 class="sub-header">订单列表</h2>
 <div class="table-responsive">
-    <a href="create" class="btn btn-primary">订单商品</a>
+    <a href="create" class="btn btn-primary">新建订单</a>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -32,15 +32,16 @@
         <tbody>
         {% if paginate.items is not empty %}
         {% for model in paginate.items %}
+        {% set linkman = model.getLinkman()%}
         <tr>
             <td>{{model.id}}</td>
-            <td>{{model.name}}</td>
-            <td>{{model.market_price}}</td>
-            <td>{{model.member_price}}</td>
-            <td>{{model.id}}</td>
-            <td>{{model.name}}</td>
-            <td>{{model.market_price}}</td>
-            <td>{{model.member_price}}</td>
+            <td>{%if linkman %}{{ linkman.mobile }}{% endif %}</td>
+            <td>{{model.book_time}}</td>
+            <td>{{model.address_info}}</td>
+            <td>{{model.total}}</td>
+            <td>{{model.discount_amount}}</td>
+            <td>{{model.price}}</td>
+            <td>{% if model.true_pay %} <strong style="color: green">已支付 ￥{{model.true_pay}}</strong> {% else %}<strong style="color: red" > 未支付</strong> {% endif %}</td>
             <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to(dispatcher.getControllerName()~"/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
         </tr>
         {% endfor %}

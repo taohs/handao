@@ -23,9 +23,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputTime">预约时间：</label>
+            <label class="col-sm-2 control-label" for="inputMobile">电话号码：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputTime" id="inputTime" value=""/>
+                <input type="text" class="form-control" name="inputMobile" id="inputMobile" value=""/>
             </div>
         </div>
         <div class="form-group">
@@ -35,9 +35,16 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputAutoMumber">车牌号码：</label>
+            <label class="col-sm-2 control-label" for="inputBookTime">预约时间：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputAutoMumber" id="inputAutoMumber" value=""/>
+                <input type="datetime" class="form-control" name="inputBookTime" id="inputBookTime" value=""/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputAutoNumber">车牌号码：</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="inputAutoNumber" id="inputAutoNumber" value=""/>
             </div>
         </div>
 
@@ -57,10 +64,10 @@
         </div>
         {% endfor %}
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputAttributes">属性：</label>
+            <label class="col-sm-2 control-label" for="inputRemark">属性：</label>
             <div class="col-sm-10">
-                <textarea type="text" class="form-control" name="inputAttributes" id="inputAttributes" rows="6"/></textarea>
-                <p class="help-block">每一行设置一个属性；以中文冒号'：'分隔属性名称和值（例如：长：100mm）</p>
+                <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6"/></textarea>
+
             </div>
         </div>
 
