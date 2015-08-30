@@ -108,6 +108,14 @@ class OrderController extends ControllerBase
 
     }
 
+    /**
+     * 指派订单技师
+     * @param $id
+     */
+    public function assignAction($id){
+
+    }
+
     protected function _getModel($id)
     {
         $model = HdOrder::findFirst($id);
