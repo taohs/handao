@@ -54,6 +54,12 @@ class HdTechnician extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
+     *
+     * @var string
+     */
+    public $initials;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()

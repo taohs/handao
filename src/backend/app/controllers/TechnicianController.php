@@ -21,6 +21,7 @@ class TechnicianController extends ControllerBase
         ) );
         $this->view->setVar( 'page', $paginator->getPaginate() );
     }
+
     public function updateUserAction( $id = null )
     {
         $user = array();
@@ -76,6 +77,7 @@ class TechnicianController extends ControllerBase
             $user->role = 1;
             $user->update_time = date( "Y-m-d H:i:s" );
             $user->name = $name;
+            $user->initials = strtoupper(substr(CUtf8::encode($name),0,1));
             if ($user->save() == false) {
                 foreach ($user->getMessages() as $message) {
                     $this->flash->error( (string)$message );
