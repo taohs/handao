@@ -64,10 +64,9 @@
         </div>
         {% endfor %}
         <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputRemark">属性：</label>
+            <label class="col-sm-2 control-label" for="inputRemark">备注：</label>
             <div class="col-sm-10">
                 <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6"/></textarea>
-
             </div>
         </div>
 
@@ -76,7 +75,6 @@
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">提交保存</button>
             </div>
-
         </div>
     </form>
 </div>

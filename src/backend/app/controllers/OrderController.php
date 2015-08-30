@@ -48,6 +48,77 @@ class OrderController extends ControllerBase
             'bind' => array('active' => 1)
         ));
 
+        $this->saveOrder(null);
+
+        $this->view->setVar('model', $model);
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+        $this->view->setVar('autoModelExacts', $autoModelExacts);
+        $this->view->setVar('productsCategory', $productsCategory);
+    }
+
+    public function updateAction($id)
+    {
+        $model = $this->_getModel($id);
+        $brandsComponent = new BrandsComponent();
+        $brands = $brandsComponent->getAutoBrands();
+        $autoModels = HdAutoModels::find(array(
+            'conditions' => 'brands_id=:brandsId:',
+            'bind' => array('brandsId' => $brands[0]->id)
+        ));
+
+        $autoModelExacts = HdAutoModelsExact::find(array(
+            'conditions' => 'models_id=:modelsId:',
+            'bind' => array('modelsId' => $autoModels[0]->id)
+        ));
+
+
+        $productsCategory = HdProductCategory::find(array(
+            'conditions' => 'active=:active:',
+            'bind' => array('active' => 1)
+        ));
+
+
+        $this->saveOrder($id);
+
+
+
+        $modelAuto = $model->getAuto();
+        $modelProducts = $model->getHdOrderProduct();
+        $this->view->setVar('model', $model);
+        $this->view->setVar('modelLinkman', $model->getLinkman());
+        $this->view->setVar('modelAuto', $modelAuto);
+        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelProducts', $model->getHdOrderProduct());
+
+        $productsIdArray= array();
+        foreach ($modelProducts as $v) {
+            $productsIdArray[] = $v->product_id;
+        }
+
+        $this->view->setVar('modelProductsIdArray', $productsIdArray);
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+        $this->view->setVar('autoModelExacts', $autoModelExacts);
+        $this->view->setVar('productsCategory', $productsCategory);
+    }
+
+    public function deleteAction($id)
+    {
+
+    }
+
+    protected function _getModel($id)
+    {
+        $model = HdOrder::findFirst($id);
+        if (!$model) {
+            throw new \Phalcon\Exception('该订单不存在');
+        }
+        return $model;
+    }
+
+    protected function saveOrder($id=null)
+    {
         if ($this->request->isPost()) {
 
             var_dump($this->request->getPost());
@@ -100,12 +171,10 @@ class OrderController extends ControllerBase
              */
             try {
 
-
-                $orderObject = new HdOrder();
+                $orderObject = is_null($id) ? new HdOrder() : HdOrder::findFirst($id);
                 $orderObject->user_id = $objectMember->id;
                 $orderObject->auto_id = $objectCar->id;
                 $orderObject->products = serialize($orderProduct);
-
 
                 $orderObject->price = $orderPrice;
                 $orderObject->total = $orderPrice;
@@ -116,6 +185,14 @@ class OrderController extends ControllerBase
                 $orderObject->address_info = $addressObject->address;
                 $orderObject->book_time = $inputBookTime;
                 $orderObject->save();
+
+
+                $orderProductSet = $orderObject->getHdOrderProduct();
+                if($orderProductSet){
+                    foreach($orderProductSet as $p){
+                        $p->delete();
+                    }
+                }
 
 
                 /**
@@ -140,7 +217,7 @@ class OrderController extends ControllerBase
                 }
                 $this->db->commit();
                 $this->flash->success("新增成功");
-            }catch (Exception $e){
+            } catch (Exception $e) {
                 $this->db->rollback();
                 $this->flash->error("新增失败");
 
@@ -148,48 +225,7 @@ class OrderController extends ControllerBase
 
             return $this->refresh();
 
-
-
-//            switch($this->request->getPost('step')){
-//                case 1:
-//                    return $this->dispatcher->forward(array('controller'=>'order','action'=>'createStepPassport','params'=>$this->dispatcher->getParams()));// $this->createStepPassport();
-//                    break;
-//                case 2:
-//                    $this->createStepCar();
-//                    break;
-//                case 3:
-//                    $this->createStepProducts();
-//                    break;
-//                case 4:
-//                    $this->createStepFinish();
-//                    break;
-//                default:break;
-//            }
         }
-        $this->view->setVar('model', $model);
-        $this->view->setVar('brands', $brands);
-        $this->view->setVar('autoModels', $autoModels);
-        $this->view->setVar('autoModelExacts', $autoModelExacts);
-        $this->view->setVar('productsCategory', $productsCategory);
-    }
-
-    public function updateAction($id)
-    {
-
-    }
-
-    public function deleteAction($id)
-    {
-
-    }
-
-    protected function _getModel($id)
-    {
-        $model = HdOrder::findFirst($id);
-        if (!$model) {
-            throw new \Phalcon\Exception('该订单不存在');
-        }
-        return $model;
     }
 
     /**

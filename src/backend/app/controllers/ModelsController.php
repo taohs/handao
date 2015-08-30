@@ -67,7 +67,7 @@ class ModelsController extends ControllerBase
             $inputBrands = $this->request->getPost('inputBrands', \Phalcon\Filter::FILTER_INT);
             $inputYears = $this->request->getPost('inputYears', \Phalcon\Filter::FILTER_STRING);
 
-            if($model->id != $inputId){
+            if ($model->id != $inputId) {
                 $this->flash->error("非法操作");
                 return $this->refresh();
             }
@@ -97,15 +97,25 @@ class ModelsController extends ControllerBase
 
     }
 
-    public function getModelsByBrandsIDAction($brandsId){
-        if(is_null($brandsId))
+    public function getModelsByBrandsIDAction($brandsId)
+    {
+        if (is_null($brandsId))
             $brandsId = HdBrands::findFirst()->id;
         $autoModels = $this->getModelsByBrandsID($brandsId);
-        $array = array();
-        foreach($autoModels as $models ){
+        $array = $modelExactArray = array();
+        $i = 0;
+        foreach ($autoModels as $models) {
+            if ($i == 0) {
+                $modelExact = $this->getModelExactByModelsId($models->id);
+                foreach ($modelExact as $exact) {
+                    $modelExactArray[$exact->id] = $exact->name;
+                }
+            }
             $array[$models->id] = $models->name;
+            $i++;
         }
-        echo json_encode($array);exit;
+        echo json_encode(array('models' => $array, 'modelExact' => $modelExactArray));
+        exit;
     }
 
     protected function _getModel($id)
@@ -126,9 +136,15 @@ class ModelsController extends ControllerBase
 
     }
 
-    protected function getModelsByBrandsID($brandsId){
-        return $autoModels = HdAutoModels::find(array('conditions'=>'brands_id=:brandsId:','bind'=>array('brandsId'=>$brandsId)));
+    protected function getModelsByBrandsID($brandsId)
+    {
+        return $autoModels = HdAutoModels::find(array('conditions' => 'brands_id=:brandsId:', 'bind' => array('brandsId' => $brandsId)));
         //todo 将brands_id 修改为 brands_id
+    }
+
+    public function getModelExactByModelsID($modelsId)
+    {
+        return $autoModels = HdAutoModelsExact::find(array('conditions' => 'models_id=:modelsId:', 'bind' => array('modelsId' => $modelsId)));
     }
 
 

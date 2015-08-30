@@ -86,4 +86,8 @@ class HdUserAuto extends \Phalcon\Mvc\Model
         return 'hd_user_auto';
     }
 
+    public function getModelExact(){
+        return HdAutoModelsExact::findFirst($this->models);
+    }
+
 }

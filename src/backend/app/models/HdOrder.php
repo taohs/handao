@@ -158,4 +158,8 @@ class HdOrder extends \Phalcon\Mvc\Model
         return HdUserLinkman::findFirst($this->linkman_id);
     }
 
+    public function getAuto(){
+        return HdUserAuto::findFirst($this->auto_id);
+    }
+
 }
