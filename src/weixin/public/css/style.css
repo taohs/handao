@@ -1,7 +1,7 @@
 @charset "utf-8";
 /* CSS Document */
 *{margin:0;padding:0;list-style-type:none;}
-body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font: normal 100%;background:#eef7fd; overflow:hidden;}
+body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font: normal 100%;background:#eef7fd;}
 input{font-family: "Microsoft YaHei";}
 .show{ display:block!important;}
 
@@ -121,7 +121,10 @@ input{font-family: "Microsoft YaHei";}
 					text-align:center;
 					font-size:14px;
 					color:#333333;
-					margin-right:2%;}		
+					margin-right:2%;}	
+@media screen and (max-width:414px){
+	.list .sx .time a{width:20%;}
+}						
 .list .sx .time a.today{ background:#FF5416;
 							border:1px solid #FF5416;
 							color:#FFFFFF;}		

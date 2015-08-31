@@ -8,14 +8,21 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 .top span{ text-align:center;
            font-size:3.75em;
 		   color:#f40;
-		   background:url(images/yibiaopan.png) no-repeat center; 
+		   background:url(../images/yibiaopan.png) no-repeat center; 
 		   display:block;
 		   width:100%; 
 		   height:264px; 
 		   line-height:450px; 
 		   margin-top:30px;
 		   }
-
+@media screen and (max-width:414px){
+.top span{ background-size:80% 70%;
+line-height:400px;}
+}
+@media screen and (max-width:320px){
+.top span{ background-size:80% 60%;
+			line-height:380px;}
+}
 .light{ width:100%;
         height:auto;
 		overflow:hidden;}
@@ -27,7 +34,7 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 		  background:#ff5416;
 		  font-size:1.125em;}
 .light h3 span{ float:left;
-                background:url(images/1.png) no-repeat 0 center;
+                background:url(../images/1.png) no-repeat 0 center;
 				width:38px;
 				height:50px;
 				margin-left:10px; }
@@ -57,7 +64,7 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 		  background:#ff5416;
 		  font-size:1.125em;}		
 .oil h3 span{ float:left;
-                background:url(images/2.png) no-repeat 0 center;
+                background:url(../images/2.png) no-repeat 0 center;
 				width:38px;
 				height:50px;
 				margin-left:10px; }		
@@ -86,7 +93,7 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 		  background:#ff5416;
 		  font-size:1.125em;}		
 .lunt h3 span{ float:left;
-                background:url(images/3.png) no-repeat 0 center;
+                background:url(../images/3.png) no-repeat 0 center;
 				width:38px;
 				height:50px;
 				margin-left:10px; }			
@@ -106,34 +113,7 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 	
 		
 		
-.light{ width:100%;
-        height:auto;
-		overflow:hidden;}
-.light h3{width:100%;
-	      height:50px;
-		  line-height:50px;
-		  color:#fff;
-		  text-align:center;
-		  background:#ff5416;
-		  font-size:1.125em;}
-.light h3 span{ float:left;
-                background:url(images/1.png) no-repeat 0 center;
-				width:38px;
-				height:50px;
-				margin-left:10px; }
-
-.light .light_list{ width:100%;}
-.light .light_list ul{ width:90%;
-					   padding:20px 5%; 
-				       }
-.light .light_list ul li{ height:40px;
-			  line-height:40px;
-			  width:100%;
-			  font-size:1em;
-			  text-align:left; 
-			  border-bottom:1px dashed #E1E1E1;
-			  }
-.light .light_list ul li span{ color:#189b02;}		
+	
 		
 		
 		
@@ -148,7 +128,7 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 		  background:#ff5416;
 		  font-size:1.125em;}
 .other h3 span{ float:left;
-                background:url(images/6.png) no-repeat 0 center;
+                background:url(../images/6.png) no-repeat 0 center;
 				width:38px;
 				height:50px; 
 				margin-left:10px;}
@@ -179,7 +159,7 @@ body{width:100%;height:100%;font-size:12px;font-family: "Microsoft YaHei"; font:
 		  background:#ff5416;
 		  font-size:1.125em;}
 .zongj h3 span{ float:left;
-                background:url(images/5.png) no-repeat 0 center;
+                background:url(../images/5.png) no-repeat 0 center;
 				width:38px;
 				height:50px;
 				margin-left:10px; }

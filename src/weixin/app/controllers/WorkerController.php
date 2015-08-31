@@ -39,6 +39,15 @@ class WorkerController extends ControllerBase
         $this->view->setMainView('');
     }
 
+    function getAuth(){
+        $auth = $this->session->get('auth');
+        if($auth){
+            return $auth;
+        }else{
+            return $this->response->redirect('worker/login');
+        }
+    }
+
 
     function indexAction()
     {
@@ -88,11 +97,32 @@ class WorkerController extends ControllerBase
         echo 1;
     }
 
+
     /**
-     * 生成订单报告
+     * @param $oid 订单id
+     * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
+     * @throws \Phalcon\Exception
      */
-    function createReportAction()
+    function createReportAction($oid=null)
     {
+        $order = HdOrder::findFirst($oid);
+        if(!$order){
+            throw new \Phalcon\Exception('该订单不存在');
+        }
+        $auth = $this->getAuth();
+        if($order->technician_id != $auth->id){
+            throw new \Phalcon\Exception('该订单未指派给您');
+        }
+
+
+        if($this->request->getPost()){
+
+            return $this->refresh();
+        }
+
+
+
+
 
     }
 

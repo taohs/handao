@@ -1,5 +1,5 @@
 *{margin:0;padding:0;list-style-type:none;}
-body{width:100%;height:100%;font-size:12px;font-family:"5FAE8F6F96C59ED1", "Microsoft Yahei", "Hiragino Sans GB", tahoma, arial, "5B8B4F53" !important;font: normal 100%;}
+body{width:100%;height:100%;font-size:12px;font-family:"5FAE8F6F96C59ED1", "Microsoft Yahei", "Hiragino Sans GB", tahoma, arial, "5B8B4F53" !important;font: normal 100%;margin-bottom:20px;}
 
 
 /*
@@ -211,7 +211,7 @@ img{width: 100%;}
 
 /** index样式 **/
 header{ height:65px; overflow:hidden; margin:0px 0px 10px; background:#f6f6f6}
-header .logo{ float:left; margin:5px 0 0 5px; float:left;}
+header .logo{ float:left; margin:16px 0 0 10px; float:left;}
 
 header .tel{float:right;margin:10px 0px 0px 10px;border-left:3px solid #ff4400; margin-right:10px;}
 header .tel .p1{width: 100%;height: 20px;overflow: hidden;line-height: 20px;font-size: 18px;text-indent:10px;color: #333;}
