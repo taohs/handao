@@ -12,6 +12,9 @@ class IndexController extends ControllerBase
 
     public function loginAction()
     {
+        if ( $this->session->get( 'auth' )) {
+            return $this->response->redirect( "index" );
+        }
         $reUrl = $this->request->getQuery( 'reUrl' );
         if ($this->request->isPost()) {
 
