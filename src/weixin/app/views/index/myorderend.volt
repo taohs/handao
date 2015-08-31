@@ -8,8 +8,8 @@
 <div class="content">
     <div class="qh">
         <p class="choice">
-            <a href="#" class="active">待养护</a>
-            <a href="/index/myorderend">已养护</a>
+            <a href="/index/myorder" >待养护</a>
+            <a href="#" class="active">已养护</a>
         </p>
     </div>
     <div class="list show">
@@ -22,39 +22,33 @@
         <div class="biao">
             <table>
                 <colgroup>
-                    <col width="13%">
-                    <col width="7%">
-                    <col width="15%">
-                    <col width="15%">
-                    <col width="25%">
-                    <col width="10%">
-                    <col width="15%">
+                    <col width="30%">
+                    <col width="30%">
+                    <col width="40%">
                 </colgroup>
                 <tbody>
                 <tr>
+                    <th>养护完成时间</th>
                     <th>订单号</th>
-                    <th>预约时间</th>
                     <th>养护项目</th>
-                    <th>订单金额</th>
-                    <th>联系地址</th>
-                    <th>联系人</th>
-                    <th>联系电话</th>
                 </tr>
-
                 {% for row in page.items %}
                 <tr>
-                    <td>{{row.id}}</td>
                     <td>{{row.service_time}}</td>
+                    <td>{{row.id}}</td>
+
                     <td>{% for product in row.getProducts(row.products)%}
                         {{product}}<hr>
                         {% endfor %}
                     </td>
-                    <td>{{row.total}}</td>
-                    <td>{{row.HdUserAddress.address}}</td>
-                    <td>{{row.HdUserLinkman.name}}</td>
-                    <td>{{row.HdUserLinkman.mobile}}</td>
+
                 </tr>
                 {% endfor %}
+
+                </tbody>
+            </table>
+
+
 
                 </tbody>
             </table>

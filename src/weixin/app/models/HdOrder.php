@@ -134,6 +134,8 @@ class HdOrder extends \Phalcon\Mvc\Model
         $this->hasMany('id', 'HdOrderProduct', 'order_id', array('alias' => 'HdOrderProduct'));
         $this->belongsTo('auto_id', 'HdUserAuto', 'id', array('alias' => 'HdUserAuto'));
         $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+        $this->belongsTo('address_id', 'HdUserAddress', 'id', array('alias' => 'HdUserAddress'));
+        $this->belongsTo('linkman_id', 'HdUserLinkman', 'id', array('alias' => 'HdUserLinkman'));
     }
 
     /**
@@ -168,4 +170,14 @@ class HdOrder extends \Phalcon\Mvc\Model
         return 'hd_order';
     }
 
+    /**
+     * 获取保养项目信息
+     * @param $json
+     *
+     * @return mixed3
+     */
+    function getProducts($json){
+        $array=unserialize($json);
+        return $array;
+    }
 }
