@@ -17,7 +17,10 @@ class OrderController extends ControllerBase
             'limit' => $this->config->paginate->limit
         ));
 
+
+
         $this->view->setVar('paginate', $paginate->getPaginate());
+        $this->view->setVar('orderComponent', new OrderComponent());
     }
 
     /**
@@ -167,6 +170,132 @@ class OrderController extends ControllerBase
         $this->view->setVar('autoModelExacts', $autoModelExacts);
         $this->view->setVar('productsCategory', $productsCategory);
     }
+
+    /**
+     * 指派订单技师
+     * @param $id
+     */
+    public function PayAction($id){
+
+
+        $model = $this->_getModel($id);
+        $brandsComponent = new BrandsComponent();
+        $brands = $brandsComponent->getAutoBrands();
+        $autoModels = HdAutoModels::find(array(
+            'conditions' => 'brands_id=:brandsId:',
+            'bind' => array('brandsId' => $brands[0]->id)
+        ));
+
+        $autoModelExacts = HdAutoModelsExact::find(array(
+            'conditions' => 'models_id=:modelsId:',
+            'bind' => array('modelsId' => $autoModels[0]->id)
+        ));
+
+        $productsCategory = HdProductCategory::find(array(
+            'conditions' => 'active=:active:',
+            'bind' => array('active' => 1)
+        ));
+
+
+        $workerSet = HdTechnician::find(array('order'=>'initials asc,name asc'));
+
+        if($this->request->isPost()){
+            $payed_amount = $this->request->getPost('inputPayedAmount',\Phalcon\Filter::FILTER_FLOAT);
+            $model->payed_amount = $payed_amount;
+            $model->payed_time = date('Y-m-d H:i:s');
+            $model->status = OrderComponent::STATUS_ASSIGN_PAYED;
+            if($model->save()){
+                $this->flash->success("支付成功");
+            }else{
+                $this->flash->error("支付失败");
+            }
+            return $this->refresh();
+        }
+
+        $modelAuto = $model->getAuto();
+        $modelProducts = $model->getHdOrderProduct();
+        $this->view->setVar('model', $model);
+        $this->view->setVar('workerSet', $workerSet);
+        $this->view->setVar('modelLinkman', $model->getLinkman());
+        $this->view->setVar('modelAuto', $modelAuto);
+        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelProducts', $model->getHdOrderProduct());
+
+        $productsIdArray= array();
+        foreach ($modelProducts as $v) {
+            $productsIdArray[] = $v->product_id;
+        }
+
+        $this->view->setVar('modelProductsIdArray', $productsIdArray);
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+        $this->view->setVar('autoModelExacts', $autoModelExacts);
+        $this->view->setVar('productsCategory', $productsCategory);
+    }
+
+    /**
+     * 指派订单技师
+     * @param $id
+     */
+    public function statusAction($id){
+
+
+        $model = $this->_getModel($id);
+        $brandsComponent = new BrandsComponent();
+        $brands = $brandsComponent->getAutoBrands();
+        $autoModels = HdAutoModels::find(array(
+            'conditions' => 'brands_id=:brandsId:',
+            'bind' => array('brandsId' => $brands[0]->id)
+        ));
+
+        $autoModelExacts = HdAutoModelsExact::find(array(
+            'conditions' => 'models_id=:modelsId:',
+            'bind' => array('modelsId' => $autoModels[0]->id)
+        ));
+
+        $productsCategory = HdProductCategory::find(array(
+            'conditions' => 'active=:active:',
+            'bind' => array('active' => 1)
+        ));
+
+
+        $workerSet = HdTechnician::find(array('order'=>'initials asc,name asc'));
+
+        if($this->request->isPost()){
+            $status = $this->request->getPost('inputStatus',\Phalcon\Filter::FILTER_INT);
+            $model->status = $status;
+            if($model->save()){
+                $this->flash->success("保存成功");
+            }else{
+                $this->flash->error("保存失败");
+            }
+            return $this->refresh();
+        }
+
+        $modelAuto = $model->getAuto();
+        $modelProducts = $model->getHdOrderProduct();
+        $this->view->setVar('model', $model);
+        $this->view->setVar('workerSet', $workerSet);
+        $this->view->setVar('modelLinkman', $model->getLinkman());
+        $this->view->setVar('modelAuto', $modelAuto);
+        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelProducts', $model->getHdOrderProduct());
+
+        $productsIdArray= array();
+        foreach ($modelProducts as $v) {
+            $productsIdArray[] = $v->product_id;
+        }
+
+        $this->view->setVar('modelProductsIdArray', $productsIdArray);
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+        $this->view->setVar('autoModelExacts', $autoModelExacts);
+        $this->view->setVar('productsCategory', $productsCategory);
+        $this->view->setVar('orderComponent', new OrderComponent());
+    }
+
+
+
 
     protected function _getModel($id)
     {

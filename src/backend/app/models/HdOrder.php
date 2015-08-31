@@ -130,6 +130,30 @@ class HdOrder extends \Phalcon\Mvc\Model
     public $technician_id;
 
     /**
+     *
+     * @var string
+     */
+    public $create_time;
+
+    /**
+     *
+     * @var string
+     */
+    public $update_time;
+
+    /**
+     *
+     * @var double
+     */
+    public $payed_amount;
+
+    /**
+     *
+     * @var string
+     */
+    public $payed_time;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
@@ -163,13 +187,62 @@ class HdOrder extends \Phalcon\Mvc\Model
     }
 
 
-    public function getLinkman(){
+    public function getLinkman()
+    {
+        if (empty ($this->linkman_id))
+            return false;
         return HdUserLinkman::findFirst($this->linkman_id);
     }
 
 
-    public function getAuto(){
+    public function getAuto()
+    {
+        if (empty ($this->auto_id))
+            return false;
         return HdUserAuto::findFirst($this->auto_id);
+    }
+
+
+    public function getTechnician()
+    {
+        if (empty ($this->technician_id))
+            return false;
+        return HdTechnician::findFirst($this->technician_id);
+    }
+
+
+    public function beforeCreate()
+    {
+        $this->status = OrderComponent::STATUS_NEW_CREATE;
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+
+    public function beforeUpdate()
+    {
+        $this->update_time = date('Y-m-d H:i:s');
+    }
+
+
+    public function getPayedStatus()
+    {
+        if ($this->payed_amount > 0) {
+            return $this->payed_amount;
+        } else {
+            return '未支付';
+        }
+    }
+
+
+    public function getStatus()
+    {
+        $orderComponent = new OrderComponent();
+        $statusArray = array_keys($orderComponent->statusArray);
+
+        if (!in_array($this->status, $statusArray))
+            $this->status = $orderComponent::STATUS_NEW_CREATE;
+        return $orderComponent->statusArray[$this->status];
+
     }
 
     /**
