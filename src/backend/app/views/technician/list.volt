@@ -21,6 +21,7 @@
 
             <td>
                 <a href="/technician/updateuser/{{row.id}}">编辑技师</a>
+                <a href="/technician/resetPassword/{{row.id}}">重置密码</a>
                 <a href="/technician/delete/{{row.id}}" class="delete">删除</a>
             </td>
         </tr>

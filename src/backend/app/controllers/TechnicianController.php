@@ -108,5 +108,30 @@ class TechnicianController extends ControllerBase
         $this->flash->success("删除成功");
         return $this->response->redirect("/technician/list");
     }
+
+
+    public function resetPasswordAction($id){
+
+        $model = HdTechnician::findFirst($id);
+        if(!$model)
+            throw new \Phalcon\Exception('该技师不存在');
+
+        if($this->request->getPost()){
+            $id = $this->request->getPost('id',\Phalcon\Filter::FILTER_INT);
+
+            if($id == $model->id){
+                $model->password = $this->security->hash($this->config->user->password->default);
+                if($model->save()){
+                    $this->flash->success('重置成功');
+                }else{
+                    $this->flash->error('重置失败');
+                }
+            }
+
+        }
+
+        $this->view->setVar('user',$model);
+        $this->view->setVar('model',$model);
+    }
 }
 

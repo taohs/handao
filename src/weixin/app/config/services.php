@@ -79,3 +79,11 @@ $di->setShared('session', function () {
 
     return $session;
 });
+$di->setShared('flash', function () {
+    return new Phalcon\Flash\Session(array(
+        'error' => 'alert alert-danger',
+        'notice' => 'alert alert-info',
+        'success' => 'alert alert-success',
+        'warning' => 'alert alert-warning',
+    ));
+});
