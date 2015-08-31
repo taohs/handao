@@ -16,9 +16,14 @@
     $('#inputBrands').change(function () {
         $.getJSON('/models/getModelsByBrandsID/'+$(this).val(),function(data){
             $('#inputAutoModels').html('');
-            $.each(data,function (v,n) {
+            $('#inputAutoModelExact').html('');
+            $.each(data.models,function (v,n) {
                 var option = '<option value="' + v +'">'+ n + '</option>';
                 $('#inputAutoModels').append(option);
+            });
+            $.each(data.modelExact,function (v,n) {
+                var option = '<option value="' + v +'">'+ n + '</option>';
+                $('#inputAutoModelExact').append(option);
             });
         });
     });

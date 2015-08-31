@@ -12,57 +12,65 @@
  * @package PHP
  */
 ?>
+{{content()}}
 <h2 class="sub-header">新建订单</h2>
 <div class="container col-md-8 ">
     {{flash.output()}}
     <form class="form-horizontal" method="post">
         <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputTechnician">技师：</label>
+            <div class="col-sm-10">
+                <select class="form-control" name="inputTechnician">
+                    <option>请选择</option>
+                    {% for worker in workerSet %}
+                    <option value="{{worker.id}}" {%if worker.id == model.technician_id %} selected="selected" {% endif %}>{{worker.initials ~ '&nbsp;&nbsp;&nbsp;' ~  worker.name}}&nbsp;&nbsp;</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
             <label class="col-sm-2 control-label" for="inputName">预约人：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputName" id="inputName" value=""/>
+                <input type="text" class="form-control" name="inputName" id="inputName" value="{{modelLinkman.name}}" disabled/>
+                <input type="hidden" class="form-control" name="inputId" id="inputId" value="{{model.id}}" disabled/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputMobile">电话号码：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputMobile" id="inputMobile" value=""/>
+                <input type="text" class="form-control" name="inputMobile" id="inputMobile" value="{{modelLinkman.mobile}}" disabled/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAddress">预约地点：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputAddress" id="inputAddress" value=""/>
+                <input type="text" class="form-control" name="inputAddress" id="inputAddress" value="{{model.address_info}}" disabled/>
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputBookTime">预约时间：</label>
             <div class="col-sm-10">
-<!--                <input type="datetime-local" class="form-control" name="inputBookTime" id="inputBookTime" value=""/>-->
-                <div class=" col-sm-12 input-append date " id="datetimepicker" data-date="{{date('Y-m-d H:i:s')}}" data-date-format="yyyy-mm-dd hh:ii:ss">
-                    <input name="inputBookTime" class="span2 form-control" size="16" type="text" value="{{date('Y-m-d H:i:s')}}">
-                    <span class="add-on"><i class="icon-remove"></i></span>
-                    <span class="add-on"><i class="icon-th"></i></span>
-                </div>
+                <input type="datetime" class="form-control" name="inputBookTime" id="inputBookTime" value="{{model.book_time}}" disabled/>
             </div>
         </div>
 
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAutoNumber">车牌号码：</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" name="inputAutoNumber" id="inputAutoNumber" value=""/>
+                <input type="text" class="form-control" name="inputAutoNumber" id="inputAutoNumber" value="{{modelAuto.number}}" disabled/>
             </div>
         </div>
 
-        {{partial('common/auto_tpl',['exact':true])}}
+        {{partial('common/auto_tpl',['exact':true,'disabled':true])}}
 
         {%for category in productsCategory %}
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputProducts">{{category.name}}</label>
             <div class="col-sm-10">
-                <select class="form-control" name="inputProducts[]">
+                <select class="form-control" name="inputProducts[]" disabled>
                     <option>请选择</option>
                     {% for models in category.getHdProduct() %}
-                    <option value="{{models.id}}">{{ models.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="aligin:right;">￥{{models.market_price}}</strong></option>
+                    <option value="{{models.id}}" {%if models.id in modelProductsIdArray %} selected="selected" {% endif %}>{{ models.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="aligin:right;">￥{{models.market_price}}</strong></option>
                     {% endfor %}
                 </select>
             </div>
@@ -71,7 +79,8 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputRemark">备注：</label>
             <div class="col-sm-10">
-                <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6"/></textarea>
+                <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6" disabled/></textarea>
+
             </div>
         </div>
 
@@ -80,15 +89,9 @@
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">提交保存</button>
             </div>
+
         </div>
     </form>
 </div>
 {{partial('common/auto_js')}}
-<link rel="stylesheet" href="/assets/js/datetimepicker/css/bootstrap-datetimepicker.css">
-{{javascript_include('assets/js/datetimepicker/js/bootstrap-datetimepicker.min.js')}}
-{{javascript_include('assets/js/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js')}}
 
-
-<script>
-    $('#datetimepicker').datetimepicker();
-</script>

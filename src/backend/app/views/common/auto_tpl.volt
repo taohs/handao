@@ -16,7 +16,7 @@
     <label class="col-sm-2 control-label" for="inputBrands">汽车型号：</label>
 
     <div class="col-sm-10">
-        <select class="form-control" name="inputBrands" id="inputBrands">
+        <select class="form-control" name="inputBrands" id="inputBrands" {% if disabled %} disabled {% endif %}>
             {% for brand in brands %}
             <option value="{{brand.id}}">{{brand.initials ~ '-' ~ brand.name}}</option>
             {% endfor %}
@@ -27,7 +27,7 @@
     <label class="col-sm-2 control-label" for="inputAutoModels"></label>
 
     <div class="col-sm-10">
-        <select class="form-control" name="inputAutoModels" id="inputAutoModels">
+        <select class="form-control" name="inputAutoModels" id="inputAutoModels" {% if disabled %} disabled {% endif %}>
             {% for models in autoModels %}
             <option value="{{models.id}}">{{ models.name}}</option>
             {% endfor %}
@@ -39,7 +39,7 @@
     <label class="col-sm-2 control-label" for="inputAutoModelExact"></label>
 
     <div class="col-sm-10">
-        <select class="form-control" name="inputAutoModelExact" id="inputAutoModelExact">
+        <select class="form-control" name="inputAutoModelExact" id="inputAutoModelExact" {% if disabled %} disabled {% endif %} >
             {% for models in autoModelExacts %}
             <option value="{{models.id}}">{{ models.name}}</option>
             {% endfor %}
