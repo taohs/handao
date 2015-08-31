@@ -52,6 +52,7 @@ class HdUserAuto extends \Phalcon\Mvc\Model
     {
         $this->hasMany('id', 'HdUserAutoReport', 'auto_id', array('alias' => 'HdUserAutoReport'));
         $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+        $this->belongsTo('models', 'HdAutoModels', 'id', array('alias' => 'HdAutoModels'));
     }
 
     /**
