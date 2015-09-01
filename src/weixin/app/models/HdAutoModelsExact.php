@@ -79,6 +79,13 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
         $this->belongsTo('models_id','HdAutoModels','id');
     }
 
+
+    public function getInfo(){
+        $brands = $this->getHdBrands();
+        $models = $this->getHdAutoModels();
+        return $brands->name . ' -- ' . $models->name . ' -- ' . $this->name;
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -87,12 +94,6 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'hd_auto_models_exact';
-    }
-
-    public function getInfo(){
-        $brands = $this->getHdBrands();
-        $models = $this->getHdAutoModels();
-        return $brands->name . ' -- ' . $models->name . ' -- ' . $this->name;
     }
 
 }

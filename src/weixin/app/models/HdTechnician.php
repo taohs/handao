@@ -15,6 +15,12 @@ class HdTechnician extends \Phalcon\Mvc\Model
      *
      * @var string
      */
+    public $name;
+
+    /**
+     *
+     * @var string
+     */
     public $username;
 
     /**
@@ -49,14 +55,10 @@ class HdTechnician extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     */
-    public $role;
-    /**
-     *
      * @var string
      */
-    public $name;
+    public $initials;
+
     /**
      * Initialize method for model.
      */
@@ -110,6 +112,16 @@ class HdTechnician extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public function beforeCreate(){
+        $this->create_time = date('Y-m-d H:i:s');
+    }
+
+
+    public function beforeUpdate(){
+        $this->update_time = date('Y-m-d H:i:s');
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -118,14 +130,6 @@ class HdTechnician extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'hd_technician';
-    }
-
-    public function beforeCreate(){
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-    public function beforeUpdate(){
-        $this->update_time = date('Y-m-d H:i:s');
     }
 
 }

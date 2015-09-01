@@ -17,6 +17,12 @@ class HdUserAutoReport extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $order_id;
+
+    /**
+     *
      * @var string
      */
     public $report;

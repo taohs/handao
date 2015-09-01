@@ -76,6 +76,13 @@ class HdUserAuto extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
+    public function getAutoInfo(){
+        $modelExact = HdAutoModelsExact::findFirst($this->models);
+
+        return $modelExact->getInfo();
+    }
+
     /**
      * Returns table name mapped in the model.
      *
@@ -84,12 +91,6 @@ class HdUserAuto extends \Phalcon\Mvc\Model
     public function getSource()
     {
         return 'hd_user_auto';
-    }
-
-    public function getAutoInfo(){
-        $modelExact = HdAutoModelsExact::findFirst($this->models);
-
-        return $modelExact->getInfo();
     }
 
 }

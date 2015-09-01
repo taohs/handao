@@ -86,16 +86,6 @@ class HdOrderProduct extends \Phalcon\Mvc\Model
     }
 
     /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'hd_order_product';
-    }
-
-    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
@@ -117,6 +107,7 @@ class HdOrderProduct extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+
     public function getProduct()
     {
         if (empty($this->product_id))
@@ -124,11 +115,22 @@ class HdOrderProduct extends \Phalcon\Mvc\Model
         return HdProduct::findFirst($this->product_id);
     }
 
+
     public function getProductCategory()
     {
         if (empty($this->product_category))
             return false;
         return HdProductCategory::findFirst($this->product_category);
+    }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_order_product';
     }
 
 }

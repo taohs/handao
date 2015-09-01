@@ -110,21 +110,48 @@ class HdOrder extends \Phalcon\Mvc\Model
      * @var string
      */
     public $logs;
-    /**
-     *
-     * @var string
-     */
-    public $service_time;
+
     /**
      *
      * @var string
      */
     public $book_time;
+
     /**
      *
      * @var string
      */
-    public $remark;
+    public $service_time;
+
+    /**
+     *
+     * @var integer
+     */
+    public $technician_id;
+
+    /**
+     *
+     * @var string
+     */
+    public $create_time;
+
+    /**
+     *
+     * @var string
+     */
+    public $update_time;
+
+    /**
+     *
+     * @var double
+     */
+    public $payed_amount;
+
+    /**
+     *
+     * @var string
+     */
+    public $payed_time;
 
     /**
      * Initialize method for model.
@@ -161,15 +188,6 @@ class HdOrder extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
-    /**
-     * Returns table name mapped in the model.
-     *
-     * @return string
-     */
-    public function getSource()
-    {
-        return 'hd_order';
-    }
 
     public function getLinkman()
     {
@@ -194,6 +212,7 @@ class HdOrder extends \Phalcon\Mvc\Model
         return HdTechnician::findFirst($this->technician_id);
     }
 
+
     public function getAddress()
     {
         if (empty ($this->address_id))
@@ -213,4 +232,15 @@ class HdOrder extends \Phalcon\Mvc\Model
         return $array;
 
     }
+
+    /**
+     * Returns table name mapped in the model.
+     *
+     * @return string
+     */
+    public function getSource()
+    {
+        return 'hd_order';
+    }
+
 }

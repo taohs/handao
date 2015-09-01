@@ -114,7 +114,7 @@ class WorkerController extends ControllerBase
         $auth = $this->getAuth();
 
         if (!$auth) {
-            return  $this->response->redirect('worker/login');
+            return $this->response->redirect('worker/login');
         }
         if ($order->technician_id != $auth->id) {
             throw new \Phalcon\Exception('该订单未指派给您');
@@ -124,18 +124,41 @@ class WorkerController extends ControllerBase
 
         if ($this->request->getPost()) {
 
+            /**
+             * report_lights
+             */
+            try{
+
+
+            $this->db->begin();
+            $model->auto_id = $order->auto_id;
+            $model->order_id = $order->id;
+            $model->create_time = date('Y-m-d H:i:s');
+            $model->save();
+
+            $report_lights = $this->saveLights($model);
+            $report_oilFilterBattery = $this->saveOilFilterBattery($model);
+            $report_tire = $this->saveTire($model);
+            $report_other = $this->saveOther($model);
+
+                $this->db->commit();
+            }catch (Exception $e){
+                $this->db->rollback();
+            }
+
+
             return $this->refresh();
         }
 
 
-        $this->view->setVar('order',$order);
-        $this->view->setVar('orderLinkman',$order->getLinkman());
-        $this->view->setVar('orderAuto',$order->getAuto());
-        $this->view->setVar('orderAddress',$order->getAddress());
-        $this->view->setVar('model',$model);
-
+        $this->view->setVar('order', $order);
+        $this->view->setVar('orderLinkman', $order->getLinkman());
+        $this->view->setVar('orderAuto', $order->getAuto());
+        $this->view->setVar('orderAddress', $order->getAddress());
+        $this->view->setVar('model', $model);
 
     }
+
 
     /**
      * 查看订单报告
@@ -143,6 +166,131 @@ class WorkerController extends ControllerBase
     function updateReportAction()
     {
 
+    }
+
+    /**
+     * 总分
+     * @return float 灯总分
+     */
+    protected function saveLights($model)
+    {
+        /**
+         * report_lights
+         */
+        $array = array();
+        $array['far_lights'] = $this->request->getPost('far_lights', \Phalcon\Filter::FILTER_FLOAT);
+        $array['rear_lights'] = $this->request->getPost('rear_lights', \Phalcon\Filter::FILTER_FLOAT);
+        $array['turn_light'] = $this->request->getPost('turn_light', \Phalcon\Filter::FILTER_FLOAT);
+        $array['brake_light'] = $this->request->getPost('brake_light', \Phalcon\Filter::FILTER_FLOAT);
+        $array['fog_light'] = $this->request->getPost('fog_light', \Phalcon\Filter::FILTER_FLOAT);
+        $array['small_light'] = $this->request->getPost('small_light', \Phalcon\Filter::FILTER_FLOAT);
+        $array['reversing_light'] = $this->request->getPost('reversing_light', \Phalcon\Filter::FILTER_FLOAT);
+
+        $object =new HdUserAutoReportLight();
+        $object->report_id = $model->id;
+        $object->order_id  = $model->order_id;
+        foreach($array as $k=>$v){
+            $object->$k = $v;
+        }
+        $object->save();
+
+        return $this->getSummary($array);
+
+    }
+
+    protected function saveOilFilterBattery($model)
+    {
+        /**
+         * report_lights
+         */
+        $array = array();
+        $array['spare_tire'] = $this->request->getPost('spare_tire', \Phalcon\Filter::FILTER_FLOAT);
+        $array['engine_oil_callout'] = $this->request->getPost('engine_oil_callout', \Phalcon\Filter::FILTER_FLOAT);
+        $array['engine_oil_old_analyzing'] = $this->request->getPost('engine_oil_old_analyzing', \Phalcon\Filter::FILTER_FLOAT);
+        $array['air_filter'] = $this->request->getPost('air_filter', \Phalcon\Filter::FILTER_FLOAT);
+        $array['air_conditioning_filter'] = $this->request->getPost('air_conditioning_filter', \Phalcon\Filter::FILTER_FLOAT);
+        $array['antifreeze_freezing'] = $this->request->getPost('antifreeze_freezing', \Phalcon\Filter::FILTER_FLOAT);
+        $array['antifreeze_visual'] = $this->request->getPost('antifreeze_visual', \Phalcon\Filter::FILTER_FLOAT);
+        $array['antifreeze_level'] = $this->request->getPost('antifreeze_level', \Phalcon\Filter::FILTER_FLOAT);
+        $array['steering_oil_visual'] = $this->request->getPost('steering_oil_visual', \Phalcon\Filter::FILTER_FLOAT);
+        $array['steering_oil_level'] = $this->request->getPost('steering_oil_level', \Phalcon\Filter::FILTER_FLOAT);
+        $array['transmission_oil_visual'] = $this->request->getPost('transmission_oil_visual', \Phalcon\Filter::FILTER_FLOAT);
+        $array['transmission_oil_level'] = $this->request->getPost('transmission_oil_level', \Phalcon\Filter::FILTER_FLOAT);
+        $array['glass_water'] = $this->request->getPost('glass_water', \Phalcon\Filter::FILTER_FLOAT);
+        $array['battery_appearance'] = $this->request->getPost('battery_appearance', \Phalcon\Filter::FILTER_FLOAT);
+        $array['battery_charge_level'] = $this->request->getPost('battery_charge_level', \Phalcon\Filter::FILTER_FLOAT);
+        $array['battery_health_index'] = $this->request->getPost('battery_health_index', \Phalcon\Filter::FILTER_FLOAT);
+        $array['battery_pile'] = $this->request->getPost('battery_pile', \Phalcon\Filter::FILTER_FLOAT);
+        $array['battery_led_color'] = $this->request->getPost('battery_led_color', \Phalcon\Filter::FILTER_FLOAT);
+        $array['hoses_lines'] = $this->request->getPost('hoses_lines', \Phalcon\Filter::FILTER_FLOAT);
+
+        $object =new HdUserAutoReportOilFilter();
+        $object->report_id = $model->id;
+        $object->order_id  = $model->order_id;
+        foreach($array as $k=>$v){
+            $object->$k = $v;
+        }
+        $object->save();
+
+        return $this->getSummary($array);
+    }
+
+    protected function saveTire($model)
+    {
+        /**
+         * report_lights
+         */
+        $array = array();
+        $array['pressure'] = $this->request->getPost('pressure', \Phalcon\Filter::FILTER_FLOAT);
+        $array['factory_day_checkable'] = $this->request->getPost('factory_day_checkable', \Phalcon\Filter::FILTER_FLOAT);
+        $array['factory_day'] = $this->request->getPost('factory_day', \Phalcon\Filter::FILTER_FLOAT);
+        $array['tread_depth'] = $this->request->getPost('tread_depth', \Phalcon\Filter::FILTER_FLOAT);
+        $array['aging'] = $this->request->getPost('aging', \Phalcon\Filter::FILTER_FLOAT);
+        $array['tread'] = $this->request->getPost('tread', \Phalcon\Filter::FILTER_FLOAT);
+        $array['sidewall'] = $this->request->getPost('sidewall', \Phalcon\Filter::FILTER_FLOAT);
+        $array['brake_pads_checkable'] = $this->request->getPost('brake_pads_checkable', \Phalcon\Filter::FILTER_FLOAT);
+        $array['brake_pads_thickness'] = $this->request->getPost('brake_pads_thickness', \Phalcon\Filter::FILTER_FLOAT);
+        $array['brake_dish'] = $this->request->getPost('brake_dish', \Phalcon\Filter::FILTER_FLOAT);
+
+        $object =new HdUserAutoReportTire();
+        $object->report_id = $model->id;
+        $object->order_id  = $model->order_id;
+        foreach($array as $k=>$v){
+            $object->$k = $v;
+        }
+        $object->save();
+
+        return $this->getSummary($array);
+    }
+
+
+    protected function saveOther($model)
+    {
+        /**
+         * report_lights
+         */
+        $array = array();
+        $array['wipers_front'] = $this->request->getPost('wipers_front', \Phalcon\Filter::FILTER_FLOAT);
+        $array['wipers_rear'] = $this->request->getPost('wipers_rear', \Phalcon\Filter::FILTER_FLOAT);
+        $array['fire_extinguisher'] = $this->request->getPost('fire_extinguisher', \Phalcon\Filter::FILTER_FLOAT);
+        $array['warning_sign'] = $this->request->getPost('warning_sign', \Phalcon\Filter::FILTER_FLOAT);
+
+        $object =new HdUserAutoReportOther();
+        $object->report_id = $model->id;
+        $object->order_id  = $model->order_id;
+        foreach($array as $k=>$v){
+            $object->$k = $v;
+        }
+        $object->save();
+        return $this->getSummary($array);
+    }
+
+    protected function getSummary($array)
+    {
+        if (!count($array)) {
+            return 0;
+        }
+        return $summary = floor((array_sum($array) / count($array)) * 100);
     }
 
 
