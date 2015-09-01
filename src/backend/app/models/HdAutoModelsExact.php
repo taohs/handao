@@ -89,4 +89,10 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
         return 'hd_auto_models_exact';
     }
 
+    public function getInfo(){
+        $brands = $this->getHdBrands();
+        $models = $this->getHdAutoModels();
+        return $brands->name . ' -- ' . $models->name . ' -- ' . $this->name;
+    }
+
 }

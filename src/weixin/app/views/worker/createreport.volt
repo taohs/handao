@@ -16,21 +16,26 @@
 <div class="content">
     <div class="bor-box infor-xq">
         <ul class="clearfix">
-            <li>订单编号：<span>012345678</span></li>
-            <li>预约时间：<span>2015-08-12 9:00</span></li>
-            <li>联系人：<span>张先生</span></li>
-            <li>联系电话：<span>13012345678</span></li>
-            <li>车牌号：<span>渝A6688</span></li>
+            <li>订单编号：<span>{{order.id}}</span></li>
+            <li>预约时间：<span>{{order.book_time}}</span></li>
+            <li>联系人：<span>{{orderLinkman.name}}</span></li>
+            <li>联系电话：<span>{{orderLinkman.mobile}}</span></li>
+            <li>车牌号：<span>{{orderAuto.number}}</span></li>
             <li>预约项目：<span>机油三滤</span></li>
         </ul>
-        <p>联系地址：<span>沙坪坝黄角园111路</span></p>
-        <p>备注：<span>请提前电话联系</span></p>
-        <p>车信息：<span>奥迪（进口）——A8L——2012.02-2014 - 2.0L</span></p>
+        <p>联系地址：<span>{{orderAddress.address}}</span></p>
+        <p>备注：<span>{{order.remark}}请提前电话联系</span></p>
+        <p>车信息：<span>{{orderAuto.getAutoInfo()}}奥迪（进口）——A8L——2012.02-2014 - 2.0L</span></p>
     </div>
     <h1>养护项目：</h1>
     <div class="bor-box yfxm">
-        <p class="clearfix"><span>空调滤——三效空调滤清器</span><label><input type="checkbox"><span>已更换</span></label></p>
-        <p class="clearfix"><span>机油——美孚 美孚1号 0W-40</span><label><input type="checkbox"><span>已更换</span></label></p>
+        {% for row in order.getHdOrderProduct() %}
+        {% set product = row.getProduct() %}
+        {% set category = row.getProductCategory() %}
+        <p class="clearfix"><span>{{category.name}}——{{product.name}}</span><label><input type="checkbox" value="{{row.id}}"><span>已更换</span></label></p>
+
+        {% endfor %}
+
     </div>
     <h1>安全监测</h1>
     <div class="aqjc">
@@ -39,10 +44,10 @@
             <div class="nr-xq">
                 <p>
                     <span>远光灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="high_lights" type="radio">亮</label>
+                    <label><input name="high_lights" type="radio">昏暗</label>
+                    <label><input name="high_lights" type="radio">不亮</label>
+                    <label><input name="high_lights" type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>近光灯：</span>

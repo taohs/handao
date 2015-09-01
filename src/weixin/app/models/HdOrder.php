@@ -168,4 +168,32 @@ class HdOrder extends \Phalcon\Mvc\Model
         return 'hd_order';
     }
 
+    public function getLinkman()
+    {
+        if (empty ($this->linkman_id))
+            return false;
+        return HdUserLinkman::findFirst($this->linkman_id);
+    }
+
+
+    public function getAuto()
+    {
+        if (empty ($this->auto_id))
+            return false;
+        return HdUserAuto::findFirst($this->auto_id);
+    }
+
+
+    public function getTechnician()
+    {
+        if (empty ($this->technician_id))
+            return false;
+        return HdTechnician::findFirst($this->technician_id);
+    }
+
+    public function getAddress(){
+        if (empty ($this->address_id))
+            return false;
+        return HdUserAddress::findFirst($this->address_id);
+    }
 }

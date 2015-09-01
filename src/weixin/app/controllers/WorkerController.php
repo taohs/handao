@@ -39,12 +39,13 @@ class WorkerController extends ControllerBase
         $this->view->setMainView('');
     }
 
-    function getAuth(){
+    function getAuth()
+    {
         $auth = $this->session->get('auth');
-        if($auth){
+        if ($auth) {
             return $auth;
-        }else{
-            return $this->response->redirect('worker/login');
+        } else {
+            $this->response->redirect('worker/login');
         }
     }
 
@@ -65,27 +66,28 @@ class WorkerController extends ControllerBase
      */
     function loginAction()
     {
-        if($this->request->isPost()){
-            if($this->security->checkToken()){
+        if ($this->request->isPost()) {
+            if ($this->security->checkToken()) {
 
-                $username = $this->request->getPost('username',\Phalcon\Filter::FILTER_STRING);
-                $id       = $this->request->getPost('number',\Phalcon\Filter::FILTER_STRING);
-                $password = $this->request->getPost('password',\Phalcon\Filter::FILTER_STRING);
+                $username = $this->request->getPost('username', \Phalcon\Filter::FILTER_STRING);
+                $id = $this->request->getPost('number', \Phalcon\Filter::FILTER_STRING);
+                $password = $this->request->getPost('password', \Phalcon\Filter::FILTER_STRING);
 
                 $worker = HdTechnician::findFirst($id);
-                if($username == $worker->username && $this->security->checkHash($password,$worker->password)){
-                    $this->session->set('auth',$worker);
+                if ($username == $worker->username && $this->security->checkHash($password, $worker->password)) {
+                    $this->session->set('auth', $worker);
                     $this->response->redirect('worker/dashboard');
-                }else{
+                } else {
                     $this->flash->error("登录失败");
                 }
-            }else{
+            } else {
                 $this->flash->error("令牌验证失效");
             }
         }
     }
 
-    function logoutAction(){
+    function logoutAction()
+    {
         $this->session->remove('auth');
     }
 
@@ -103,25 +105,34 @@ class WorkerController extends ControllerBase
      * @return \Phalcon\Http\Response|\Phalcon\Http\ResponseInterface
      * @throws \Phalcon\Exception
      */
-    function createReportAction($oid=null)
+    function createReportAction($oid = null)
     {
         $order = HdOrder::findFirst($oid);
-        if(!$order){
+        if (!$order) {
             throw new \Phalcon\Exception('该订单不存在');
         }
         $auth = $this->getAuth();
-        if($order->technician_id != $auth->id){
+
+        if (!$auth) {
+            return  $this->response->redirect('worker/login');
+        }
+        if ($order->technician_id != $auth->id) {
             throw new \Phalcon\Exception('该订单未指派给您');
         }
 
+        $model = new HdUserAutoReport();
 
-        if($this->request->getPost()){
+        if ($this->request->getPost()) {
 
             return $this->refresh();
         }
 
 
-
+        $this->view->setVar('order',$order);
+        $this->view->setVar('orderLinkman',$order->getLinkman());
+        $this->view->setVar('orderAuto',$order->getAuto());
+        $this->view->setVar('orderAddress',$order->getAddress());
+        $this->view->setVar('model',$model);
 
 
     }

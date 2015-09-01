@@ -117,4 +117,18 @@ class HdOrderProduct extends \Phalcon\Mvc\Model
         return parent::findFirst($parameters);
     }
 
+    public function getProduct()
+    {
+        if (empty($this->product_id))
+            return false;
+        return HdProduct::findFirst($this->product_id);
+    }
+
+    public function getProductCategory()
+    {
+        if (empty($this->product_category))
+            return false;
+        return HdProductCategory::findFirst($this->product_category);
+    }
+
 }
