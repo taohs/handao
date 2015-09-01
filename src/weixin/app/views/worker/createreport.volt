@@ -23,8 +23,8 @@
             <li>车牌号：<span>{{orderAuto.number}}</span></li>
             <li>预约项目：<span>机油三滤</span></li>
         </ul>
-        <p>联系地址：<span>{{orderAddress.address}}</span></p>
         <p>备注：<span>{{order.remark}}请提前电话联系</span></p>
+        <p>联系地址：<span>{{orderAddress.address}}</span></p>
         <p>车信息：<span>{{orderAuto.getAutoInfo()}}奥迪（进口）——A8L——2012.02-2014 - 2.0L</span></p>
     </div>
     <h1>养护项目：</h1>
@@ -44,52 +44,52 @@
             <div class="nr-xq">
                 <p>
                     <span>远光灯：</span>
-                    <label><input name="high_lights" type="radio">亮</label>
-                    <label><input name="high_lights" type="radio">昏暗</label>
-                    <label><input name="high_lights" type="radio">不亮</label>
-                    <label><input name="high_lights" type="radio">只亮一个</label>
+                    <label><input name="far_lights" type="radio">亮</label>
+                    <label><input name="far_lights" type="radio">昏暗</label>
+                    <label><input name="far_lights" type="radio">不亮</label>
+                    <label><input name="far_lights" type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>近光灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="rear_lights" type="radio">亮</label>
+                    <label><input name="rear_lights" type="radio">昏暗</label>
+                    <label><input name="rear_lights" type="radio">不亮</label>
+                    <label><input name="rear_lights" type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>转向灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="turn_light" type="radio">亮</label>
+                    <label><input name="turn_light" type="radio">昏暗</label>
+                    <label><input name="turn_light" type="radio">不亮</label>
+                    <label><input name="turn_light" type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>刹车灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="brake_light" type="radio">亮</label>
+                    <label><input name="brake_light" type="radio">昏暗</label>
+                    <label><input name="brake_light" type="radio">不亮</label>
+                    <label><input name="brake_light" type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>雾灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="fog_light"  type="radio">亮</label>
+                    <label><input name="fog_light"  type="radio">昏暗</label>
+                    <label><input name="fog_light"  type="radio">不亮</label>
+                    <label><input name="fog_light"  type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>小灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="small_light"  type="radio">亮</label>
+                    <label><input name="small_light"  type="radio">昏暗</label>
+                    <label><input name="small_light"  type="radio">不亮</label>
+                    <label><input name="small_light"  type="radio">只亮一个</label>
                 </p>
                 <p>
                     <span>倒车灯：</span>
-                    <label><input type="radio">亮</label>
-                    <label><input type="radio">昏暗</label>
-                    <label><input type="radio">不亮</label>
-                    <label><input type="radio">只亮一个</label>
+                    <label><input name="reversing_light"  type="radio">亮</label>
+                    <label><input name="reversing_light"  type="radio">昏暗</label>
+                    <label><input name="reversing_light"  type="radio">不亮</label>
+                    <label><input name="reversing_light"  type="radio">只亮一个</label>
                 </p>
             </div>
         </div>
@@ -98,19 +98,19 @@
             <div class="nr-xq">
                 <p>
                     <span>备胎：</span>
-                    <label><input type="text"></label>
+                    <label><input name="spare_tire" maxlength="10" type="text"></label>
                 </p>
                 <p>
                     <span>机油尺标注：</span>
-                    <label><input type="radio">高位</label>
-                    <label><input type="radio">中位</label>
-                    <label><input type="radio">低位</label>
+                    <label><input name="engine_oil_callout" type="radio">高位</label>
+                    <label><input name="engine_oil_callout" type="radio">中位</label>
+                    <label><input name="engine_oil_callout" type="radio">低位</label>
                 </p>
                 <p>
                     <span>旧机油判断：</span>
-                    <label><input type="radio">严重污浊</label>
-                    <label><input type="radio">浑浊</label>
-                    <label><input type="radio">清澈</label>
+                    <label><input name="engine_oil_old_analyzing" type="radio">严重污浊</label>
+                    <label><input name="engine_oil_old_analyzing" type="radio">浑浊</label>
+                    <label><input name="engine_oil_old_analyzing" type="radio">清澈</label>
                 </p>
                 <p>
                     <span>空气滤芯：</span>
