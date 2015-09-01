@@ -23,7 +23,11 @@
     <div class="form-group">
         <label class="col-sm-2 control-label" for="inputAutoMumber">车辆型号：</label>
         <div class="col-sm-10">
-            {{ form.render('models', ['class': 'form-control','value':user.models]) }}
+            <select name="models" class="form-control">
+                {% for row in autoModels%}
+                <option value="{{row.id}}" {% if row.id==user.models%}selected{%endif%}>{{row.name}}</option>
+                {% endfor %}
+            </select>
         </div>
     </div>
     <div class="form-group">

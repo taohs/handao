@@ -11,28 +11,30 @@ class OrderController extends ControllerBase
 
     public function indexAction()
     {
+
+        if($_POST){
+            $this->session->set('post',$_POST);
+        }
+        $post=$this->session->get('post');
+        if (! $this->session->get( 'auth' )) {
+            return $this->response->redirect( "index/login?reUrl=order" );
+        }
         $sumPrice = 0;
         $i = 0;
-
-        foreach ($_POST['products'] as $row) {
+        foreach ($post['products'] as $row) {
             $data = explode( '-', $row );
             $sumPrice += $data[0];
             $orderDataId[$i]['category_id'] = $data[2];
             $orderDataId[$i]['product_id'] = $data[1];
             $orderDataId[$i]['price'] = $data[0];
 
-
-
             $productName[] = $data[3] . ':' . $data[4];
             $i++;
-
         }
         $total = $sumPrice + $this->fees;//总价
-        $models_id = $this->request->getPost( 'models_id' );
-        $autoName = $this->request->getPost( 'autoName' );
-        /**
-         * 下单的时候取这些数据,还差auto_id
-         */
+        $models_id = $post[ 'models_id'];
+        $autoName = $post['autoName' ];
+
         $this->session->set( 'total', $total );
         $this->session->set( 'models_id', $models_id );
         $this->session->set( 'productName', $productName );
@@ -46,6 +48,7 @@ class OrderController extends ControllerBase
             $products[$j]['product']=$str[1];
                 $j++;
         }
+
         $this->view->setVar( 'products', $products );
         $this->view->setVar( 'autoName', $autoName );
         $this->view->setVar( 'orderDataId', $orderDataId );
@@ -59,6 +62,7 @@ class OrderController extends ControllerBase
     public function orderAction()
     {
 
+
         if (! $this->session->get( 'productName' )) {
             return $this->response->redirect( 'maintenance/autoselect' );
         }
@@ -67,13 +71,19 @@ class OrderController extends ControllerBase
         $productName = $this->session->get( 'productName' );
         $orderDataId = $this->session->get( 'orderDataId' );
 
+
         if ($_POST['mobile']) {
-            $user_id = $this->getUserId( $_POST['mobile'] );
+            $user_id = $this->session->get( 'auth' )->id;
             if ($user_id) {
-                $linkman_id = $this->getLinkmanId( $user_id, $_POST['mobile'], $_POST['name'] );
-                $linkman_info = $_POST['name'];
-                $address_id = $this->getAddressId( $user_id, $_POST['address'] );
                 $address_info = $_POST['address'];
+
+                $address_id = $this->getAddressId( $user_id, $address_info );
+
+
+                $linkman_info = $_POST['name'];
+
+                $linkman_id = $this->getLinkmanId( $user_id, $_POST['mobile'], $linkman_info );
+
                 $auto_id = $this->getAutoModelsId( $user_id, $models_id, $_POST['carnum'] );
             }
             $HdOrder = new HdOrder();
@@ -87,9 +97,8 @@ class OrderController extends ControllerBase
             $HdOrder->address_id = $address_id;
             $HdOrder->address_info = $address_info;
             $HdOrder->remark = $_POST['remark'];
-
-            $HdOrder->service_time = $_POST['serviceTime'][0] . '  ' . $_POST['serviceTime'][1];
-            $HdOrder->book_time = date( 'Y-m-d H:i:s' );
+            $HdOrder->status=11;
+            $HdOrder->book_time = $_POST['bookTime'][0] . '  ' . $_POST['bookTime'][1];
             if ($HdOrder->save()) {
                 $order_id=$HdOrder->id;
 
@@ -111,38 +120,7 @@ class OrderController extends ControllerBase
 
 
 
-    /**
-     * 获取用户ID ，如果是新手机号码，就生成一个新用户
-     *
-     * @param $mobile
-     *
-     * @return int
-     */
-    public function getUserId( $mobile )
-    {
-        $user = HdUser::findFirst( array( 'conditions' => 'mobile=:mobile:', 'bind' => array( 'mobile' => $mobile ) ) );
-        if ($user) {
-            $user_id = $user->id;
-        } else {
-            $HdUser = new HdUser();
-            $HdUser->mobile = $_POST['mobile'];
-            $HdUser->username = $_POST['mobile'];
-            $HdUser->password = $this->security->hash( $_POST['mobile'] );
-            $HdUser->update_time = date( "Y-m-d H:i:s" );
-            $HdUser->create_time = date( "Y-m-d H:i:s" );
-            if ($HdUser->save()) {
-                $user_id = $HdUser->id;
 
-            } else {
-                foreach ($HdUser->getMessages() as $message) {
-                    var_dump( $message );
-                    exit;
-                    //$this->flash->error( (string)$message );
-                }
-            }
-        }
-        return $user_id;
-    }
 
     /**
      * 获取联系ID
@@ -184,19 +162,20 @@ class OrderController extends ControllerBase
      *
      * @return int
      */
-    public function getAddressId( $user_id, $address )
+    public function getAddressId( $user_id, $address_info )
     {
         $address = HdUserAddress::findFirst(
             array(
                 'conditions' => 'user_id=:user_id: and address=:address:',
-                'bind'       => array( 'user_id' => $user_id, 'address' => $address )
+                'bind'       => array( 'user_id' => $user_id, 'address' => $address_info )
             ) );
+
         if ($address) {
             $addressId = $address->id;
         } else {
             $HdUserAddress = new HdUserAddress();
             $HdUserAddress->user_id = $user_id;
-            $HdUserAddress->address = $address;
+            $HdUserAddress->address = $address_info;
             if ($HdUserAddress->save()) {
                 $addressId = $HdUserAddress->id;
 

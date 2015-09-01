@@ -20,7 +20,7 @@
             <td>{{row.id}}</td>
             <td>{{row.license}}</td>
             <td>{{row.number}}</td>
-            <td>{{row.models}}</td>
+            <td>{{row.HdAutoModels.name}}</td>
             <td>{{row.year}}</td>
             <td><a href="/member/updateauto?user_id={{user_id}}&id={{row.id}}">编辑</a></td>
         </tr>

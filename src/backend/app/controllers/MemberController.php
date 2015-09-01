@@ -286,6 +286,7 @@ class MemberController extends ControllerBase
             $user['user_id'] = '';
             $user = (object)$user;
         }
+        $autoModels=HdAutoModels::find();
         $form = new UpdateUserForm();
         if ($this->request->isPost()) {
             $license = $this->request->getPost( 'license' );
@@ -318,7 +319,7 @@ class MemberController extends ControllerBase
         $this->view->setVar( 'form', $form );
         $this->view->setVar( 'user', $user );
         $this->view->setVar( 'user_id', $user_id );
-
+        $this->view->setVar('autoModels',$autoModels);
     }
 
 }

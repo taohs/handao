@@ -23,11 +23,11 @@
             </li>
             <li>
                 <p class="p1"><span class="sp1">*</span>服务日期：</p>
-                <input name="serviceTime[]" type="date">
+                <input name="bookTime[]" type="date">
             </li>
             <li>
                 <p class="p1"><span class="sp1">*</span>服务时间段：</p>
-                <select name="serviceTime[]">
+                <select name="bookTime[]">
                     <option value="8:00-12:00 上午">8:00 - 12:00 上午</option>
                     <option value="12:00-14:00 中午">12:00 - 14:00 中午</option>
                     <option value="14:00-18:00 下午">14:00 - 18:00 下午</option>
