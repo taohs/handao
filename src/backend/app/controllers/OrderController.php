@@ -347,7 +347,7 @@ class OrderController extends ControllerBase
             $orderPrice = 150;
             foreach ($products as $p) {
                 //初始化名称：
-                $orderProduct[$p->category][] = $p->name;
+                $orderProduct[$p->category] = $p->name;
                 //总价格：
                 $orderPrice += $p->member_price;
 
