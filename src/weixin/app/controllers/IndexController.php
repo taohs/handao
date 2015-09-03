@@ -130,7 +130,7 @@ class IndexController extends ControllerBase
         return false;
     }
 
-    public function logout(){
+    public function logoutAction(){
         $this->session->remove('auth');
         return $this->response->redirect('index/index');
     }

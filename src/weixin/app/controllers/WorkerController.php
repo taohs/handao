@@ -20,6 +20,8 @@
  */
 class WorkerController extends ControllerBase
 {
+
+    public $sessionName = 'worker';
     /**
      * PHP 5 allows developers to declare constructor methods for classes.
      * Classes which have a constructor method call this method on each newly-created object,
@@ -41,7 +43,7 @@ class WorkerController extends ControllerBase
 
     function getAuth()
     {
-        $auth = $this->session->get('auth');
+        $auth = $this->session->get($this->sessionName);
         if ($auth) {
             return $auth;
         } else {
@@ -75,7 +77,7 @@ class WorkerController extends ControllerBase
 
                 $worker = HdTechnician::findFirst($id);
                 if ($username == $worker->username && $this->security->checkHash($password, $worker->password)) {
-                    $this->session->set('auth', $worker);
+                    $this->session->set($this->sessionName, $worker);
                     $this->response->redirect('worker/dashboard');
                 } else {
                     $this->flash->error("登录失败");
@@ -88,7 +90,7 @@ class WorkerController extends ControllerBase
 
     function logoutAction()
     {
-        $this->session->remove('auth');
+        $this->session->remove($this->sessionName);
     }
 
     /**
@@ -145,6 +147,9 @@ class WorkerController extends ControllerBase
                 $model->order_id = $order->id;
                 $model->create_time = date('Y-m-d H:i:s');
                 $model->save();
+
+                $order->status = OrderComponent::STATUS_RESULT_SUCCESS;
+                $order->service_time = date('Y-m-d H:i:s');
 
                 /**
                  * 使用商品
