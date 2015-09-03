@@ -23,7 +23,7 @@
             <table>
                 <colgroup>
                     <col width="13%">
-                    <col width="22%">
+                    <col width="7%">
                     <col width="15%">
                     <col width="15%">
                     <col width="25%">
@@ -44,7 +44,7 @@
                 {% for row in page.items %}
                 <tr>
                     <td>{{row.id}}</td>
-                    <td>{{row.book_time}}</td>
+                    <td>{{element.getTime(row.book_time)}}</td>
                     <td>{% for product in row.getProducts(row.products)%}
 
                         {{product[0]}}<hr>

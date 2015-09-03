@@ -46,7 +46,7 @@
 
 <menu id="BottomNav">
     <ul>
-        <li><a href="#"><span class="a icon"></span><span>预约</span></a></li>
-        <li><a href="#"><span class="b icon"></span><span>查询</span></a></li>
+        <li><a href="/maintenance/autoselect"><span class="a icon"></span><span>预约</span></a></li>
+        <li><a href="/index/myorder"><span class="b icon"></span><span>查询</span></a></li>
     </ul>
 </menu>

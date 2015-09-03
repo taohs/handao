@@ -88,4 +88,6 @@ $di->setShared('flash', function () {
         'warning' => 'alert alert-warning',
     ));
 });
-
+$di->setShared('element', function () {
+    return new Element();
+});
