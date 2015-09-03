@@ -18,7 +18,6 @@ class OrderController extends ControllerBase
         ));
 
 
-
         $this->view->setVar('paginate', $paginate->getPaginate());
         $this->view->setVar('orderComponent', new OrderComponent());
     }
@@ -85,7 +84,6 @@ class OrderController extends ControllerBase
         $this->saveOrder($id);
 
 
-
         $modelAuto = $model->getAuto();
         $modelProducts = $model->getHdOrderProduct();
         $this->view->setVar('model', $model);
@@ -94,7 +92,7 @@ class OrderController extends ControllerBase
         $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
-        $productsIdArray= array();
+        $productsIdArray = array();
         foreach ($modelProducts as $v) {
             $productsIdArray[] = $v->product_id;
         }
@@ -115,7 +113,8 @@ class OrderController extends ControllerBase
      * 指派订单技师
      * @param $id
      */
-    public function assignAction($id){
+    public function assignAction($id)
+    {
 
 
         $model = $this->_getModel($id);
@@ -137,14 +136,14 @@ class OrderController extends ControllerBase
         ));
 
 
-        $workerSet = HdTechnician::find(array('order'=>'initials asc,name asc'));
+        $workerSet = HdTechnician::find(array('order' => 'initials asc,name asc'));
 
-        if($this->request->isPost()){
-            $tecknician = $this->request->getPost('inputTechnician',\Phalcon\Filter::FILTER_INT);
+        if ($this->request->isPost()) {
+            $tecknician = $this->request->getPost('inputTechnician', \Phalcon\Filter::FILTER_INT);
             $model->technician_id = $tecknician;
-            if($model->save()){
+            if ($model->save()) {
                 $this->flash->success("指派成功");
-            }else{
+            } else {
                 $this->flash->error("指派失败");
             }
             return $this->refresh();
@@ -159,7 +158,7 @@ class OrderController extends ControllerBase
         $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
-        $productsIdArray= array();
+        $productsIdArray = array();
         foreach ($modelProducts as $v) {
             $productsIdArray[] = $v->product_id;
         }
@@ -175,7 +174,8 @@ class OrderController extends ControllerBase
      * 指派订单技师
      * @param $id
      */
-    public function PayAction($id){
+    public function PayAction($id)
+    {
 
 
         $model = $this->_getModel($id);
@@ -197,16 +197,16 @@ class OrderController extends ControllerBase
         ));
 
 
-        $workerSet = HdTechnician::find(array('order'=>'initials asc,name asc'));
+        $workerSet = HdTechnician::find(array('order' => 'initials asc,name asc'));
 
-        if($this->request->isPost()){
-            $payed_amount = $this->request->getPost('inputPayedAmount',\Phalcon\Filter::FILTER_FLOAT);
+        if ($this->request->isPost()) {
+            $payed_amount = $this->request->getPost('inputPayedAmount', \Phalcon\Filter::FILTER_FLOAT);
             $model->payed_amount = $payed_amount;
             $model->payed_time = date('Y-m-d H:i:s');
             $model->status = OrderComponent::STATUS_ASSIGN_PAYED;
-            if($model->save()){
+            if ($model->save()) {
                 $this->flash->success("支付成功");
-            }else{
+            } else {
                 $this->flash->error("支付失败");
             }
             return $this->refresh();
@@ -221,7 +221,7 @@ class OrderController extends ControllerBase
         $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
-        $productsIdArray= array();
+        $productsIdArray = array();
         foreach ($modelProducts as $v) {
             $productsIdArray[] = $v->product_id;
         }
@@ -237,7 +237,8 @@ class OrderController extends ControllerBase
      * 指派订单技师
      * @param $id
      */
-    public function statusAction($id){
+    public function statusAction($id)
+    {
 
 
         $model = $this->_getModel($id);
@@ -259,14 +260,14 @@ class OrderController extends ControllerBase
         ));
 
 
-        $workerSet = HdTechnician::find(array('order'=>'initials asc,name asc'));
+        $workerSet = HdTechnician::find(array('order' => 'initials asc,name asc'));
 
-        if($this->request->isPost()){
-            $status = $this->request->getPost('inputStatus',\Phalcon\Filter::FILTER_INT);
+        if ($this->request->isPost()) {
+            $status = $this->request->getPost('inputStatus', \Phalcon\Filter::FILTER_INT);
             $model->status = $status;
-            if($model->save()){
+            if ($model->save()) {
                 $this->flash->success("保存成功");
-            }else{
+            } else {
                 $this->flash->error("保存失败");
             }
             return $this->refresh();
@@ -281,7 +282,7 @@ class OrderController extends ControllerBase
         $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
-        $productsIdArray= array();
+        $productsIdArray = array();
         foreach ($modelProducts as $v) {
             $productsIdArray[] = $v->product_id;
         }
@@ -295,8 +296,6 @@ class OrderController extends ControllerBase
     }
 
 
-
-
     protected function _getModel($id)
     {
         $model = HdOrder::findFirst($id);
@@ -306,11 +305,11 @@ class OrderController extends ControllerBase
         return $model;
     }
 
-    protected function saveOrder($id=null)
+    protected function saveOrder($id = null)
     {
         if ($this->request->isPost()) {
 
-            var_dump($this->request->getPost());
+
             $name = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $mobile = $this->request->getPost('inputMobile', \Phalcon\Filter::FILTER_FLOAT);
             $address = $this->request->getPost('inputAddress', \Phalcon\Filter::FILTER_STRING);
@@ -375,45 +374,101 @@ class OrderController extends ControllerBase
                 $orderObject->book_time = $inputBookTime;
                 $orderObject->save();
 
+                $this->saveOrderProducts($orderObject,$products);
 
-                $orderProductSet = $orderObject->getHdOrderProduct();
-                if($orderProductSet){
-                    foreach($orderProductSet as $p){
-                        $p->delete();
-                    }
-                }
-
-
-                /**
-                 * 初始化订单产品
-                 */
-                foreach ($products as $p) {
-                    //初始化名称：
-                    $orderProductObject = new HdOrderProduct();
-                    $orderProductObject->order_id = $orderObject->id;
-                    $orderProductObject->product_category = $p->category;
-                    $orderProductObject->product_id = $p->id;
-                    $orderProductObject->order_price = $p->member_price;
-                    $orderProductObject->market_price = $p->market_price;
-                    $orderProductObject->member_price = $p->member_price;
-                    $orderProductObject->attributes = $p->attributes;
-                    $orderProductObject->description = $p->description;
-                    $orderProductObject->active = $p->active;
-                    $orderProductObject->activity_price = $p->activity_price;
-                    $orderProductObject->logs = serialize($orderProductObject);
-                    $orderProductObject->save();
-                    unset($orderProductObject);
-                }
+//                $orderProductSet = $orderObject->getHdOrderProduct();
+//                if ($orderProductSet) {
+//                    foreach ($orderProductSet as $p) {
+//                        $p->delete();
+//                    }
+//                }
+//
+//
+//                /**
+//                 * 初始化订单产品
+//                 */
+//                foreach ($products as $p) {
+//                    //初始化名称：
+//                    $orderProductObject = new HdOrderProduct();
+//                    $orderProductObject->order_id = $orderObject->id;
+//                    $orderProductObject->product_category = $p->category;
+//                    $orderProductObject->product_id = $p->id;
+//                    $orderProductObject->order_price = $p->member_price;
+//                    $orderProductObject->market_price = $p->market_price;
+//                    $orderProductObject->member_price = $p->member_price;
+//                    $orderProductObject->attributes = $p->attributes;
+//                    $orderProductObject->description = $p->description;
+//                    $orderProductObject->active = $p->active;
+//                    $orderProductObject->activity_price = $p->activity_price;
+//                    $orderProductObject->logs = serialize($orderProductObject);
+//                    $orderProductObject->save();
+//                    unset($orderProductObject);
+//                }
                 $this->db->commit();
                 $this->flash->success("保存成功");
             } catch (Exception $e) {
                 $this->db->rollback();
-                $this->flash->error("保存失败");
+                $this->flash->error("保存失败" ."  ". $e->getMessage());
 
             }
 
             return $this->refresh();
 
+        }
+    }
+
+    protected function saveOrderProducts($orderObject, $products)
+    {
+        $orderProductSet = $orderObject->getHdOrderProduct();
+        $orderProductIdSet = array();
+        if ($orderProductSet) {
+            foreach ($orderProductSet as $p) {
+                $orderProductIdSet[] = $p->product_id;
+            }
+        }
+
+        $productsSet = array();
+        foreach ($products as $p){
+            $productsSet[]=$p->id;
+        }
+
+
+        $hander = array_intersect($productsSet,$orderProductIdSet);
+
+
+        if ($orderProductSet) {
+            foreach ($orderProductSet as $p) {
+               if(!in_array($p->product_id,$hander)){
+                   if($p->active == 1){
+                       throw new \Phalcon\Exception("已经被使用的商品不能被替换");
+                   }else{
+                       $p->delete();
+                   }
+               }
+            }
+        }
+
+        /**
+         * 初始化订单产品
+         */
+        foreach ($products as $p) {
+            //初始化名称：
+            if (!in_array($p->id, $hander)) {
+                $orderProductObject = new HdOrderProduct();
+                $orderProductObject->order_id = $orderObject->id;
+                $orderProductObject->product_category = $p->category;
+                $orderProductObject->product_id = $p->id;
+                $orderProductObject->order_price = $p->member_price;
+                $orderProductObject->market_price = $p->market_price;
+                $orderProductObject->member_price = $p->member_price;
+                $orderProductObject->attributes = $p->attributes;
+                $orderProductObject->description = $p->description;
+                $orderProductObject->active = $p->active;
+                $orderProductObject->activity_price = $p->activity_price;
+                $orderProductObject->logs = serialize($orderProductObject);
+                $orderProductObject->save();
+                unset($orderProductObject);
+            }
         }
     }
 
