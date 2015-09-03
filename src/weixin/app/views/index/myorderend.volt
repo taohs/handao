@@ -1,8 +1,14 @@
 <div class="top">
     <p>
+<<<<<<< HEAD
         <a href="/index/index" class="logo"><img src="{{url('images/logo.png')}}" width="98" height="44" alt=""/></a>
         {{date('Y-m-d')}}&nbsp;&nbsp;欢迎您，{{userData.mobile}}
         <a href="/index/logout">退出</a>
+=======
+        <a href="#" class="logo"><img src="images/logo.png" width="98" height="44" alt=""/></a>
+        {{date('Y-m-d')}}&nbsp;&nbsp;欢迎您，{{userData.mobile}}
+        <a href="#">退出</a>
+>>>>>>> a851b8c7358cf4f9b19b7fce89b042d27a86156c
     </p>
 </div>
 <div class="content">
