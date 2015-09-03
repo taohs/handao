@@ -13,6 +13,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Events\Manager as EventsManager;
+
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
  */
@@ -80,6 +81,7 @@ $di->setShared('session', function () {
     return $session;
 });
 
+
 $di->setShared('flash', function () {
     return new Phalcon\Flash\Session(array(
         'error' => 'alert alert-danger',
@@ -91,3 +93,4 @@ $di->setShared('flash', function () {
 $di->setShared('element', function () {
     return new Element();
 });
+

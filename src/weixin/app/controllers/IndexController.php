@@ -130,9 +130,5 @@ class IndexController extends ControllerBase
         return false;
     }
 
-    function logoutAction(){
-        $this->session->remove('auth');
-        return $this->response->redirect('index/index');
-    }
 }
 
