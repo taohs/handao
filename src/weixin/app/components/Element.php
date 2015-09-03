@@ -35,6 +35,6 @@ class Element
 
 
     function getTime($datetime){
-        return substr($datetime,10,10);
+        return substr($datetime,11,5);
     }
 }
