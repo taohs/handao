@@ -14,6 +14,7 @@
     <div class="user">2015-08-12  欢迎您，<span>张三</span></div>
 </header>
 <div class="content">
+    {{flash.output()}}
     <div class="bor-box infor-xq">
         <ul class="clearfix">
             <li>订单编号：<span>{{order.id}}</span></li>
@@ -32,7 +33,10 @@
         {% for row in order.getHdOrderProduct() %}
         {% set product = row.getProduct() %}
         {% set category = row.getProductCategory() %}
-        <p class="clearfix"><span>{{category.name}}——{{product.name}}</span><label><input type="checkbox" value="{{row.id}}"><span>已更换</span></label></p>
+        <p class="clearfix">
+            <span>{{category.name}}——{{product.name}}</span>
+            <label><input type="checkbox" name="products" value="{{row.id}}"><span>已更换</span></label>
+        </p>
 
         {% endfor %}
 
@@ -45,17 +49,17 @@
             <div class="nr-xq">
                 <p>
                     <span>远光灯：</span>
-                    <label><input name="far_lights" type="radio" value="1" checked>亮</label>
-                    <label><input name="far_lights" type="radio" value="0.8" >昏暗</label>
-                    <label><input name="far_lights" type="radio" value="0">不亮</label>
-                    <label><input name="far_lights" type="radio" value="0.5">只亮一个</label>
+                    <label><input name="far_light" type="radio" value="1" checked>亮</label>
+                    <label><input name="far_light" type="radio" value="0.8" >昏暗</label>
+                    <label><input name="far_light" type="radio" value="0">不亮</label>
+                    <label><input name="far_light" type="radio" value="0.5">只亮一个</label>
                 </p>
                 <p>
                     <span>近光灯：</span>
-                    <label><input name="rear_lights" type="radio" value="1" checked>亮</label>
-                    <label><input name="rear_lights" type="radio" value="0.8">昏暗</label>
-                    <label><input name="rear_lights" type="radio" value="0">不亮</label>
-                    <label><input name="rear_lights" type="radio" value="0.5">只亮一个</label>
+                    <label><input name="near_light" type="radio" value="1" checked>亮</label>
+                    <label><input name="near_light" type="radio" value="0.8">昏暗</label>
+                    <label><input name="near_light" type="radio" value="0">不亮</label>
+                    <label><input name="near_light" type="radio" value="0.5">只亮一个</label>
                 </p>
                 <p>
                     <span>转向灯：</span>
@@ -99,7 +103,8 @@
             <div class="nr-xq">
                 <p>
                     <span>备胎：</span>
-                    <label><input name="spare_tire" maxlength="10" type="text"></label>
+                    <label><input name="spare_tire" maxlength="10" type="radio" value="1" checked>正常</label>
+                    <label><input name="spare_tire" maxlength="10" type="radio" value="0">不正常</label>
                 </p>
                 <p>
                     <span>机油尺标注：</span>
@@ -109,30 +114,37 @@
                 </p>
                 <p>
                     <span>旧机油判断：</span>
-                    <label><input name="engine_oil_old_analyzing" type="radio" value="0" checked>严重污浊</label>
+                    <label><input name="engine_oil_old_analyzing" type="radio" value="1" checked>清澈</label>
                     <label><input name="engine_oil_old_analyzing" type="radio" value="0.5">浑浊</label>
-                    <label><input name="engine_oil_old_analyzing" type="radio" value="1">清澈</label>
+                    <label><input name="engine_oil_old_analyzing" type="radio" value="0" >严重污浊</label>
+
                 </p>
                 <p>
                     <span>空气滤芯：</span>
-                    <label><input name="air_filter" type="radio" value="0" checked>严重污浊</label>
+
+                    <label><input name="air_filter" type="radio" value="1" checked>清澈</label>
                     <label><input name="air_filter" type="radio" value="0.5">浑浊</label>
-                    <label><input name="air_filter" type="radio" value="1">清澈</label>
+                    <label><input name="air_filter" type="radio" value="0" >严重污浊</label>
+
                 </p>
                 <p>
                     <span>空调滤芯：</span>
-                    <label><input name="air_conditioning_filter" type="radio" value="0" checked>脏</label>
-                    <label><input name="air_conditioning_filter" type="radio" value="1">干净</label>
+                    <label><input name="air_conditioning_filter" type="radio" value="1" checked>干净</label>
+                    <label><input name="air_conditioning_filter" type="radio" value="0" >脏</label>
+
                 </p>
                 <p>
                     <span>防冻液冰点：</span>
-                    <label><input name="antifreeze_freezing" type="text placeholder="-1""></label>
+                    <label><input name="antifreeze_freezing" type="radio" value="1" checked >正常</label>
+                    <label><input name="antifreeze_freezing" type="radio" value="0" >不正常</label>
                 </p>
                 <p>
                     <span>防冻液目测：</span>
-                    <label><input name="antifreeze_visual" type="radio" value="0" checked>严重污浊</label>
+                    <label><input name="antifreeze_visual" type="radio" value="1" checked>清澈</label>
                     <label><input name="antifreeze_visual" type="radio" value="0.5">浑浊</label>
-                    <label><input name="antifreeze_visual" type="radio" value="1">清澈</label>
+
+                    <label><input name="antifreeze_visual" type="radio" value="0" >严重污浊</label>
+
                 </p>
                 <p>
                     <span>防冻液位:</span>
@@ -142,9 +154,11 @@
                 </p>
                 <p>
                     <span>转向助力油目测：</span>
-                    <label><input name="steering_oil_visual" type="radio" value="0" checked>严重污浊</label>
+                    <label><input name="steering_oil_visual" type="radio" value="1" checked>清澈</label>
                     <label><input name="steering_oil_visual" type="radio" value="0.5">浑浊</label>
-                    <label><input name="steering_oil_visual" type="radio" value="1">清澈</label>
+
+                    <label><input name="steering_oil_visual" type="radio" value="0" >严重污浊</label>
+
                 </p>
                 <p>
                     <span>转向助力油位：</span>
@@ -154,14 +168,17 @@
                 </p>
                 <p>
                     <span>变速箱油目测：</span>
-                    <label><input name="transmission_oil_visual" type="radio" value="0" checked>严重污浊</label>
+                    <label><input name="transmission_oil_visual"  type="radio" value="1" checked>清澈</label>
                     <label><input name="transmission_oil_visual" type="radio" value="0.5">浑浊</label>
-                    <label><input name="transmission_oil_visual"  type="radio" value="1">清澈</label>
+
+                    <label><input name="transmission_oil_visual" type="radio" value="0" >严重污浊</label>
+
                 </p>
                 <p>
                     <span>变速箱油位：</span>
-                    <label><input name="transmission_oil_level" type="radio" value="0" checked>无法检测</label>
-                    <label><input name="transmission_oil_level" type="radio" value="1">可检测</label>
+                    <label><input name="transmission_oil_level" type="radio" value="1" checked>可检测</label>
+
+                    <label><input name="transmission_oil_level" type="radio" value="0" >无法检测</label>
                 </p>
                 <p>
                     <span>玻璃水：</span>
@@ -201,7 +218,8 @@
                 </p>
                 <p>
                     <span>车内软管和线路：</span>
-                    <label><input name="hoses_lines" maxlength="10" type="text"></label>
+                    <label><input name="hoses_lines" maxlength="10" type="radio" value="1" checked>正常</label>
+                    <label><input name="hoses_lines" maxlength="10" type="radio" value="0">不正常</label>
                 </p>
             </div>
         </div>
@@ -211,7 +229,9 @@
                 <h3>左前:</h3>
                 <p>
                     <span>胎压：</span>
-                    <input name="pressure[1]" maxlength="10" type="text">
+
+                    <label><input name="pressure[1]" type="radio" value="1" checked>正常</label>
+                    <label><input name="pressure[1]" type="radio" value="0">不正常</label>
                 </p>
                 <p>
                     <span>出厂日子是否可检查：</span>
@@ -220,20 +240,24 @@
                 </p>
                 <p>
                     <span>出厂日期：</span>
-                    <input  name="factory_day[1] type="text">
+                    <input  name="factory_day[1]" type="radio" value="1" checked/>正常
+                    <input  name="factory_day[1]" type="radio" value="0">不正常
                 </p>
                 <p>
                     <span>花纹深度：</span>
-                    <input  name="tread_depth[1] type="text">
+                    <input  name="tread_depth[1]" type="radio" value="1" checked>正常
+                    <input  name="tread_depth[1]" type="radio" value="0">不正常
                 </p>
                 <p>
                     <span>老化程度：</span>
-                    <label><input name="aging[1]" type="radio" value="0" checked>严重</label>
-                    <label><input name="aging[1]" type="radio" value="1">轻微</label>
+                    <label><input name="aging[1]" type="radio" value="1" checked>轻微</label>
+                    <label><input name="aging[1]" type="radio" value="0" >严重</label>
+
                 </p>
                 <p>
                     <span>胎面：</span>
-                    <input name="tread[1]" maxlength="10" type="text">
+                    <input name="tread[1]" maxlength="10" type="radio" value="1" checked>正常
+                    <input name="tread[1]" maxlength="10" type="radio" value="0" >不正常
                 </p>
                 <p>
                     <span>胎侧：</span>
@@ -247,17 +271,20 @@
                 </p>
                 <p>
                     <span>刹车片厚度：</span>
-                    <input name="brake_pads_thickness[1]" type="text">
+                    <input name="brake_pads_thickness[1]" type="radio" value="1" checked>正常
+                    <input name="brake_pads_thickness[1]" type="radio" value="0">不正常
                 </p>
                 <p>
                     <span>刹车盘：</span>
-                    <input name="brake_dish[1]" type="text">
+                    <input name="brake_dish[1]" type="radio" value="1" checked>正常
+                    <input name="brake_dish[1]" type="radio" value="0">不正常
                 </p>
                 <h3>左后:</h3>
 
                 <p>
                     <span>胎压：</span>
-                    <input name="pressure[2]" maxlength="10" type="text">
+                    <input name="pressure[2]" maxlength="10" type="radio" value="1" checked>正常
+                    <input name="pressure[2]" maxlength="10" type="radio" value="0" >不正常
                 </p>
                 <p>
                     <span>出厂日子是否可检查：</span>
@@ -266,20 +293,24 @@
                 </p>
                 <p>
                     <span>出厂日期：</span>
-                    <input  name="factory_day[2] type="text">
+                    <input  name="factory_day[2]" type="radio" value="1" checked>正常
+                    <input  name="factory_day[2]" type="radio" value="0">不正常
                 </p>
                 <p>
                     <span>花纹深度：</span>
-                    <input  name="tread_depth[2] type="text">
+                    <input  name="tread_depth[2]" type="radio" value="1" checked>正常
+                    <input  name="tread_depth[2]" type="radio" value="0" >不正常
                 </p>
                 <p>
                     <span>老化程度：</span>
-                    <label><input name="aging[2]" type="radio" value="0" checked>严重</label>
-                    <label><input name="aging[2]" type="radio" value="1">轻微</label>
+                    <label><input name="aging[2]" type="radio" value="1" checked>轻微</label>
+                    <label><input name="aging[2]" type="radio" value="0" >严重</label>
+
                 </p>
                 <p>
                     <span>胎面：</span>
-                    <input name="tread[2]" maxlength="10" type="text">
+                    <input name="tread[2]" maxlength="10" type="radio" value="1" checked>正常
+                    <input name="tread[2]" maxlength="10" type="radio" value="0">正常
                 </p>
                 <p>
                     <span>胎侧：</span>
@@ -293,11 +324,13 @@
                 </p>
                 <p>
                     <span>刹车片厚度：</span>
-                    <input name="brake pads_thickness[2]" type="text">
+                    <input name="brake pads_thickness[2]" type="radio" value="1" checked>正常
+                    <input name="brake pads_thickness[2]" type="radio" value="0">不正常
                 </p>
                 <p>
                     <span>刹车盘：</span>
-                    <input name="brake_dish[2]" type="text">
+                    <input name="brake_dish[2]" type="radio" value="1" checked>正常
+                    <input name="brake_dish[2]" type="radio" value="0" >不正常
                 </p>
             </div>
         </div>

@@ -97,6 +97,7 @@ class WorkerController extends ControllerBase
     function dashboardAction()
     {
         echo 1;
+
     }
 
 
@@ -124,30 +125,58 @@ class WorkerController extends ControllerBase
 
         if ($this->request->getPost()) {
 
+            $modelExist = HdUserAutoReport::findFirst(array(
+                'conditions'=>'order_id=:orderId:',
+                'bind'=>array('orderId'=>$order->id)
+            ));
+
+            if($modelExist){
+                $this->flash->error("该订单已经提交报告");
+                return $this->refresh();
+            }
             /**
              * report_lights
              */
-            try{
+            try {
 
 
-            $this->db->begin();
-            $model->auto_id = $order->auto_id;
-            $model->order_id = $order->id;
-            $model->create_time = date('Y-m-d H:i:s');
-            $model->save();
+                $this->db->begin();
+                $model->auto_id = $order->auto_id;
+                $model->order_id = $order->id;
+                $model->create_time = date('Y-m-d H:i:s');
+                $model->save();
 
-            $report_lights = $this->saveLights($model);
-            $report_oilFilterBattery = $this->saveOilFilterBattery($model);
-            $report_tire = $this->saveTire($model);
-            $report_other = $this->saveOther($model);
+                /**
+                 * 使用商品
+                 */
+                $this->useProducts();
 
+                $report_lights = $this->saveLights($model);
+                $report_oilFilterBattery = $this->saveOilFilterBattery($model);
+                $report_tire = $this->saveTire($model);
+                $report_other = $this->saveOther($model);
+
+
+
+                $summaryObject = new HdUserAutoReportSummary();
+                $summaryObject->order_id = $model->order_id;
+                $summaryObject->report_id = $model->id;
+                $summaryObject->appearance_lighting = $report_lights;
+                $summaryObject->oil_filter_battery = $report_oilFilterBattery;
+                $summaryObject->tire_brake = $report_tire;
+                $summaryObject->other = $report_other;
+                $summaryObject->total = floor(0.25 * $report_lights + 0.3 * $report_oilFilterBattery + 0.3 * $report_tire + 0.15 * $report_other);
+                $summaryObject->save();
                 $this->db->commit();
-            }catch (Exception $e){
+                $this->flash->success('保存成功');
+            } catch (Exception $e) {
+                $this->flash->error('保存失败');
                 $this->db->rollback();
+
             }
 
 
-            return $this->refresh();
+//            return $this->refresh();
         }
 
 
@@ -168,6 +197,21 @@ class WorkerController extends ControllerBase
 
     }
 
+    protected function useProducts(){
+        $products= $this->request->getPost('products',\Phalcon\Filter::FILTER_INT);
+        if(!empty($products)){
+            $productsModel = HdOrderProduct::find(array(
+                'conditions'=>'id in (id:{array})',
+                'bind'=>array($products)
+            ));
+            foreach($productsModel as $p){
+                $p->active = 1;
+                $p->save();
+                unset($p);
+            }
+        }
+    }
+
     /**
      * 总分
      * @return float 灯总分
@@ -178,18 +222,18 @@ class WorkerController extends ControllerBase
          * report_lights
          */
         $array = array();
-        $array['far_lights'] = $this->request->getPost('far_lights', \Phalcon\Filter::FILTER_FLOAT);
-        $array['rear_lights'] = $this->request->getPost('rear_lights', \Phalcon\Filter::FILTER_FLOAT);
+        $array['far_light'] = $this->request->getPost('far_light', \Phalcon\Filter::FILTER_FLOAT);
+        $array['near_light'] = $this->request->getPost('near_light', \Phalcon\Filter::FILTER_FLOAT);
         $array['turn_light'] = $this->request->getPost('turn_light', \Phalcon\Filter::FILTER_FLOAT);
         $array['brake_light'] = $this->request->getPost('brake_light', \Phalcon\Filter::FILTER_FLOAT);
         $array['fog_light'] = $this->request->getPost('fog_light', \Phalcon\Filter::FILTER_FLOAT);
         $array['small_light'] = $this->request->getPost('small_light', \Phalcon\Filter::FILTER_FLOAT);
         $array['reversing_light'] = $this->request->getPost('reversing_light', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object =new HdUserAutoReportLight();
+        $object = new HdUserAutoReportLight();
         $object->report_id = $model->id;
-        $object->order_id  = $model->order_id;
-        foreach($array as $k=>$v){
+        $object->order_id = $model->order_id;
+        foreach ($array as $k => $v) {
             $object->$k = $v;
         }
         $object->save();
@@ -224,10 +268,10 @@ class WorkerController extends ControllerBase
         $array['battery_led_color'] = $this->request->getPost('battery_led_color', \Phalcon\Filter::FILTER_FLOAT);
         $array['hoses_lines'] = $this->request->getPost('hoses_lines', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object =new HdUserAutoReportOilFilter();
+        $object = new HdUserAutoReportOilFilter();
         $object->report_id = $model->id;
-        $object->order_id  = $model->order_id;
-        foreach($array as $k=>$v){
+        $object->order_id = $model->order_id;
+        foreach ($array as $k => $v) {
             $object->$k = $v;
         }
         $object->save();
@@ -252,15 +296,19 @@ class WorkerController extends ControllerBase
         $array['brake_pads_thickness'] = $this->request->getPost('brake_pads_thickness', \Phalcon\Filter::FILTER_FLOAT);
         $array['brake_dish'] = $this->request->getPost('brake_dish', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object =new HdUserAutoReportTire();
-        $object->report_id = $model->id;
-        $object->order_id  = $model->order_id;
-        foreach($array as $k=>$v){
-            $object->$k = $v;
-        }
-        $object->save();
+        foreach ($array['pressure'] as $key => $val) {
 
-        return $this->getSummary($array);
+            $object = new HdUserAutoReportTire();
+            $object->report_id = $model->id;
+            $object->order_id = $model->order_id;
+            $object->position = $key;
+            foreach ($array as $k => $v) {
+                $object->$k = $v[$key];
+            }
+            $object->save();
+        }
+
+        return $this->getTireSummary($array);
     }
 
 
@@ -275,10 +323,10 @@ class WorkerController extends ControllerBase
         $array['fire_extinguisher'] = $this->request->getPost('fire_extinguisher', \Phalcon\Filter::FILTER_FLOAT);
         $array['warning_sign'] = $this->request->getPost('warning_sign', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object =new HdUserAutoReportOther();
+        $object = new HdUserAutoReportOther();
         $object->report_id = $model->id;
-        $object->order_id  = $model->order_id;
-        foreach($array as $k=>$v){
+        $object->order_id = $model->order_id;
+        foreach ($array as $k => $v) {
             $object->$k = $v;
         }
         $object->save();
@@ -291,6 +339,31 @@ class WorkerController extends ControllerBase
             return 0;
         }
         return $summary = floor((array_sum($array) / count($array)) * 100);
+    }
+
+    protected function getTireSummary($array)
+    {
+        if (!count($array)) {
+            return 0;
+        }
+
+
+//        exit;
+        $tempArray = array();
+        $tempNumber = 0;
+        for ($i = 1; $i < 5; $i++) {
+            foreach ($array as $k => $v) {
+                if(isset($v[$i]))
+                $tempArray[$i][] = $v[$i];
+            }
+        }
+
+
+        foreach ($tempArray as $v) {
+            $tempNumber += $this->getSummary($v);
+        }
+
+        return floor($tempNumber/count($tempArray));
     }
 
 
