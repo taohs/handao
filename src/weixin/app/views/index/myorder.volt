@@ -1,8 +1,8 @@
 <div class="top">
     <p>
-        <a href="#" class="logo"><img src="images/logo.png" width="98" height="44" alt=""/></a>
+        <a href="/index/index" class="logo"><img src="{{url('images/logo.png')}}" width="98" height="44" alt=""/></a>
         {{date('Y-m-d')}}&nbsp;&nbsp;欢迎您，{{userData.mobile}}
-        <a href="#">退出</a>
+        <a href="/index/logout">退出</a>
     </p>
 </div>
 <div class="content">
@@ -23,7 +23,7 @@
             <table>
                 <colgroup>
                     <col width="13%">
-                    <col width="7%">
+                    <col width="22%">
                     <col width="15%">
                     <col width="15%">
                     <col width="25%">
@@ -44,9 +44,11 @@
                 {% for row in page.items %}
                 <tr>
                     <td>{{row.id}}</td>
-                    <td>{{row.service_time}}</td>
+                    <td>{{row.book_time}}</td>
                     <td>{% for product in row.getProducts(row.products)%}
-                        {{product}}<hr>
+
+                        {{product[0]}}<hr>
+
                         {% endfor %}
                     </td>
                     <td>{{row.total}}</td>

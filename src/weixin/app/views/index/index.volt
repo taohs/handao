@@ -10,17 +10,17 @@
     <div style="width: 5760px;" class="swipe-wrap">
         <figure data-index="0" style="width: 1920px; left: 0px; transition-duration: 300ms; transform: translateX(-1920px);">
             <div class="wrap">
-                <div class="image"><img src="./images/ad.jpg" alt=""></div>
+                <div class="image"><img src="{{url('images/ad.jpg')}}" alt=""></div>
             </div>
         </figure>
         <figure data-index="1" style="width: 1920px; left: -1920px; transition-duration: 300ms; transform: translateX(-1920px);">
             <div class="wrap">
-                <div class="image"><img src="./images/ad.jpg" alt=""></div>
+                <div class="image"><img src="{{url('images/ad.jpg')}}" alt=""></div>
             </div>
         </figure>
         <figure data-index="2" style="width: 1920px; left: -3840px; transition-duration: 300ms; transform: translateX(0px);">
             <div class="wrap">
-                <div class="image"><img src="./images/ad.jpg" alt=""></div>
+                <div class="image"><img src="{{url('images/ad.jpg')}}" alt=""></div>
             </div>
         </figure>
     </div>
