@@ -81,7 +81,7 @@ class IndexController extends ControllerBase
             "data"  => HdOrder::find(
                 array(
                     "conditions" => "user_id = :user_id: and status =:status:",
-                    "bind"       => array( 'user_id' => $user_id ,'status'=>41),
+                    "bind"       => array( 'user_id' => $user_id ,'status'=>OrderComponent::STATUS_RESULT_SUCCESS),
                     'order'      => 'id desc'
                 ) ),
             "limit" => 10,

@@ -16,8 +16,8 @@ class OrderComponent extends \Phalcon\Mvc\User\Component
 {
     const STATUS_NEW_CREATE = 11;
     const STATUS_NEW_CONFIRM = 12;
-    const STATUS_RESULT_CANCEL = 20;
-    const STATUS_RESULT_SUCCESS = 31;
+    const STATUS_RESULT_CANCEL = 30;
+    const STATUS_RESULT_SUCCESS = 41;
     const STATUS_ASSIGN_PAYED = 21;
     const STATUS_ASSIGN_STAFF = 22;
     const STATUS_ASSIGN_SERVICE = 23;
