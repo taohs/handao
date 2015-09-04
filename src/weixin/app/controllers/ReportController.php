@@ -141,7 +141,9 @@ class ReportController extends ControllerBase
         }
 
 
+//todo 将用户名称和车辆名称现实于报告顶部，确认车辆信息以便查看
         $this->view->setVar('order', $order);
+        $this->view->setVar('auth', $auth);
         $this->view->setVar('orderLinkman', $order->getLinkman());
         $this->view->setVar('orderAuto', $order->getAuto());
         $this->view->setVar('orderAddress', $order->getAddress());

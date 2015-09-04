@@ -10,7 +10,7 @@
 
 <body>
 <div class="top">
-    <p>2015-07-15&nbsp;&nbsp;18:16车辆体检报告</p>
+    <p>{{model.create_time}} 车辆体检报告</p>
     <span>86</span>
 </div>
 <div class="light">
