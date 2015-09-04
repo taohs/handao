@@ -324,15 +324,17 @@ class WorkerController extends ControllerBase
                  */
                 $this->updateUseProducts($order);
 
-                $report_lights = $this->saveLights($model);
-                $report_oilFilterBattery = $this->saveOilFilterBattery($model);
-                $report_tire = $this->saveTire($model);
-                $report_other = $this->saveOther($model);
+                $report_lights = $this->saveLights($model,$lightModel);
+                $report_oilFilterBattery = $this->saveOilFilterBattery($model,$oilFilterBatteryModel);
+                $report_tire = $this->saveTire($model,$tireModel);
+                $report_other = $this->saveOther($model,$otherModel);
 
 
-                $summaryObject = new HdUserAutoReportSummary();
-                $summaryObject->order_id = $model->order_id;
-                $summaryObject->report_id = $model->id;
+                $summaryObject =  HdUserAutoReportSummary::findFirst(array(
+                    'conditions'=>'report_id=:reportId: and order_id=:orderId:',
+                    'bind'=>array('reportId'=>$model->id,'orderId'=>$order->id)
+                ));
+
                 $summaryObject->appearance_lighting = $report_lights;
                 $summaryObject->oil_filter_battery = $report_oilFilterBattery;
                 $summaryObject->tire_brake = $report_tire;
