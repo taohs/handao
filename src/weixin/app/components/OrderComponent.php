@@ -30,8 +30,9 @@ class OrderComponent extends \Phalcon\Mvc\User\Component
         self::STATUS_ASSIGN_PAYED => '订单支付',
         self::STATUS_ASSIGN_STAFF => '指派技师',
         self::STATUS_ASSIGN_SERVICE => '技师服务',
-        self::STATUS_ASSIGN_FEEDBACK => '技师反馈',
+        self::STATUS_ASSIGN_FEEDBACK => '生成报告',
         self::STATUS_RESULT_CANCEL => '订单取消',
         self::STATUS_RESULT_SUCCESS => '订单完成',
     );
+
 }

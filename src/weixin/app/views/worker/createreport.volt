@@ -35,7 +35,7 @@
         {% set category = row.getProductCategory() %}
         <p class="clearfix">
             <span>{{category.name}}——{{product.name}}</span>
-            <label><input type="checkbox" name="products" value="{{row.id}}"><span>已更换</span></label>
+            <label><input type="checkbox" name="products" value="{{row.id}}" checked><span>已更换</span></label>
         </p>
 
         {% endfor %}
@@ -110,7 +110,7 @@
                     <span>机油尺标注：</span>
                     <label><input name="engine_oil_callout" type="radio" value="1" checked>高位</label>
                     <label><input name="engine_oil_callout" type="radio" value="0.5">中位</label>
-                    <label><input name="engine_oil_callout" type="radio" value="0.0">低位</label>
+                    <label><input name="engine_oil_callout" type="radio" value="0">低位</label>
                 </p>
                 <p>
                     <span>旧机油判断：</span>

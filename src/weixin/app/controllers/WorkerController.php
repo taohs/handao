@@ -22,6 +22,7 @@ class WorkerController extends ControllerBase
 {
 
     public $sessionName = 'worker';
+
     /**
      * PHP 5 allows developers to declare constructor methods for classes.
      * Classes which have a constructor method call this method on each newly-created object,
@@ -78,6 +79,7 @@ class WorkerController extends ControllerBase
                 $worker = HdTechnician::findFirst($id);
                 if ($username == $worker->username && $this->security->checkHash($password, $worker->password)) {
                     $this->session->set($this->sessionName, $worker);
+                    $this->session->remove('auth');
                     $this->response->redirect('worker/dashboard');
                 } else {
                     $this->flash->error("登录失败");
@@ -96,9 +98,56 @@ class WorkerController extends ControllerBase
     /**
      * 工作台 订单列表
      */
-    function dashboardAction()
+    function dashboardAction($status = 'todo')
     {
-        echo 1;
+
+        $finished = 'finished';
+
+        $auth = $this->getAuth();
+
+        if (!$auth) {
+            return $this->response->redirect('worker/login');
+        }
+
+        if ($status != $finished) {
+            $orders = HdOrder::find(array(
+                'conditions' => 'technician_id=:technician: and status in ({status:array})',
+                'bind' => array(
+                    'technician' => $auth->id,
+                    'status' => array(
+                        OrderComponent::STATUS_ASSIGN_PAYED,
+                        OrderComponent::STATUS_ASSIGN_SERVICE,
+                        OrderComponent::STATUS_ASSIGN_STAFF
+                    )
+                )
+            ));
+        } else {
+            $orders = HdOrder::find(array(
+                'conditions' => 'technician_id=:technician: and status in ({status:array})',
+                'bind' => array(
+                    'technician' => $auth->id,
+                    'status' => array(
+                        OrderComponent::STATUS_ASSIGN_FEEDBACK,
+                        OrderComponent::STATUS_RESULT_SUCCESS,
+                    )
+                )
+            ));
+        }
+
+        $paginate = new Phalcon\Paginator\Adapter\Model(array(
+            'data' => $orders,
+            'limit' => 1,
+            'page' => $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT)
+        ));
+
+
+        $this->view->setMainView('index');
+        $this->view->setVar('orders', $orders);
+        $this->view->setVar('page', $paginate->getPaginate());
+        $this->view->setVar('userData', $auth);
+        $this->view->setVar('status', $status);
+        $this->view->setVar('finished', $finished);
+        $this->view->setVar('orderSuccessStatus', OrderComponent::STATUS_RESULT_SUCCESS);
 
     }
 
@@ -125,15 +174,19 @@ class WorkerController extends ControllerBase
 
         $model = new HdUserAutoReport();
 
+        $modelExist = HdUserAutoReport::findFirst(array(
+            'conditions' => 'order_id=:orderId:',
+            'bind' => array('orderId' => $order->id)
+        ));
+
+        if ($modelExist) {
+            $this->flash->error("该订单已经提交报告");
+        }
+
         if ($this->request->getPost()) {
 
-            $modelExist = HdUserAutoReport::findFirst(array(
-                'conditions'=>'order_id=:orderId:',
-                'bind'=>array('orderId'=>$order->id)
-            ));
 
-            if($modelExist){
-                $this->flash->error("该订单已经提交报告");
+            if ($modelExist) {
                 return $this->refresh();
             }
             /**
@@ -148,8 +201,9 @@ class WorkerController extends ControllerBase
                 $model->create_time = date('Y-m-d H:i:s');
                 $model->save();
 
-                $order->status = OrderComponent::STATUS_RESULT_SUCCESS;
+                $order->status = OrderComponent::STATUS_ASSIGN_FEEDBACK;
                 $order->service_time = date('Y-m-d H:i:s');
+                $order->save();
 
                 /**
                  * 使用商品
@@ -160,7 +214,6 @@ class WorkerController extends ControllerBase
                 $report_oilFilterBattery = $this->saveOilFilterBattery($model);
                 $report_tire = $this->saveTire($model);
                 $report_other = $this->saveOther($model);
-
 
 
                 $summaryObject = new HdUserAutoReportSummary();
@@ -197,19 +250,171 @@ class WorkerController extends ControllerBase
     /**
      * 查看订单报告
      */
-    function updateReportAction()
+    function updateReportAction($oid)
     {
+        $order = HdOrder::findFirst($oid);
+        if (!$order) {
+            throw new \Phalcon\Exception('该订单不存在');
+        }
+        $auth = $this->getAuth();
 
+        if (!$auth) {
+            return $this->response->redirect('worker/login');
+        }
+        if ($order->technician_id != $auth->id) {
+            throw new \Phalcon\Exception('该订单未指派给您');
+        }
+
+
+        $modelExist = HdUserAutoReport::findFirst(array(
+            'conditions' => 'order_id=:orderId:',
+            'bind' => array('orderId' => $order->id)
+        ));
+        $model = $modelExist;
+
+        if (!$modelExist) {
+            $this->flash->error("该订单尚未已经提交报告");
+        }
+
+        $lightModel = HdUserAutoReportLight::findFirst(array(
+            'conditions' => 'report_id=:reportId:',
+            'bind' => array('reportId' => $model->id)
+        ));
+
+        $oilFilterBatteryModel = HdUserAutoReportOilFilter::findFirst(array(
+            'conditions' => 'report_id=:reportId:',
+            'bind' => array('reportId' => $model->id)
+        ));
+
+        $tireModel = HdUserAutoReportTire::find(array(
+            'conditions' => 'report_id=:reportId:',
+            'bind' => array('reportId' => $model->id)
+        ));
+
+        $otherModel = HdUserAutoReportOther::findFirst(array(
+            'conditions' => 'report_id=:reportId:',
+            'bind' => array('reportId' => $model->id)
+        ));
+
+
+        if ($this->request->getPost()) {
+
+
+            if (!$modelExist) {
+                return $this->refresh();
+            }
+            /**
+             * report_lights
+             */
+            try {
+
+
+                $this->db->begin();
+                $model->update_time = date('Y-m-d H:i:s');
+                $model->save();
+
+                $order->status = OrderComponent::STATUS_ASSIGN_FEEDBACK;
+                $order->service_time = date('Y-m-d H:i:s');
+                $order->save();
+
+                /**
+                 * 使用商品
+                 *
+                 * 只能修改其评价，不能修改商品使用情况；好像他妈的不合理，，
+                 */
+                $this->updateUseProducts($order);
+
+                $report_lights = $this->saveLights($model);
+                $report_oilFilterBattery = $this->saveOilFilterBattery($model);
+                $report_tire = $this->saveTire($model);
+                $report_other = $this->saveOther($model);
+
+
+                $summaryObject = new HdUserAutoReportSummary();
+                $summaryObject->order_id = $model->order_id;
+                $summaryObject->report_id = $model->id;
+                $summaryObject->appearance_lighting = $report_lights;
+                $summaryObject->oil_filter_battery = $report_oilFilterBattery;
+                $summaryObject->tire_brake = $report_tire;
+                $summaryObject->other = $report_other;
+                $summaryObject->total = floor(0.25 * $report_lights + 0.3 * $report_oilFilterBattery + 0.3 * $report_tire + 0.15 * $report_other);
+                $summaryObject->save();
+                $this->db->commit();
+                $this->flash->success('保存成功');
+            } catch (Exception $e) {
+                $this->flash->error('保存失败');
+                $this->db->rollback();
+
+            }
+
+
+//            return $this->refresh();
+        }
+
+
+        $this->view->setVar('order', $order);
+        $this->view->setVar('orderLinkman', $order->getLinkman());
+        $this->view->setVar('orderAuto', $order->getAuto());
+        $this->view->setVar('orderAddress', $order->getAddress());
+        $this->view->setVar('model', $model);
+        $this->view->setVar('lightModel', $lightModel);
+        $this->view->setVar('oilFilterBatteryModel', $oilFilterBatteryModel);
+        $this->view->setVar('tireModel', $tireModel);
+        $this->view->setVar('otherModel', $otherModel);
     }
 
-    protected function useProducts(){
-        $products= $this->request->getPost('products',\Phalcon\Filter::FILTER_INT);
-        if(!empty($products)){
+    protected function useProducts()
+    {
+        $products = $this->request->getPost('products', \Phalcon\Filter::FILTER_INT);
+        if (!empty($products)) {
             $productsModel = HdOrderProduct::find(array(
-                'conditions'=>'id in (id:{array})',
-                'bind'=>array($products)
+                'conditions' => 'id in (id:{array})',
+                'bind' => array($products)
             ));
-            foreach($productsModel as $p){
+            foreach ($productsModel as $p) {
+                $p->active = 1;
+                $p->save();
+                unset($p);
+            }
+        }
+    }
+    protected function updateUseProducts($orderModel){
+
+        $orderProductsIdArray = $postProductsIdArray = $resetProductsIdArray =  array();
+        $orderProducts = HdOrderProduct::find(array(
+            'conditions'=>'order_id=:orderId:',
+            'bind'=>array('orderId'=>$orderModel->id)
+        ));
+        foreach($orderProducts as $p){
+            $orderProductsIdArray[]=$p->id;
+        }
+
+
+        $products = $this->request->getPost('products', \Phalcon\Filter::FILTER_INT);
+        if (!empty($products)) {
+            $productsModel = HdOrderProduct::find(array(
+                'conditions' => 'id in (id:{array})',
+                'bind' => array($products)
+            ));
+            foreach($orderProducts as $p){
+                $postProductsIdArray[]=$p->id;
+            }
+
+            $resetProductsIdArray = array_diff($orderProductsIdArray,$postProductsIdArray);
+
+            if(!empty($resetProductsIdArray)){
+                $resetProducts = HdOrderProduct::find(array(
+                    'conditions' => 'id in (id:{array})',
+                    'bind' => array($products)
+                ));
+                foreach($resetProducts as $p){
+                    $p->active = 0;
+                    $p->save();
+                    unset($p);
+                }
+            }
+
+            foreach ($productsModel as $p) {
                 $p->active = 1;
                 $p->save();
                 unset($p);
@@ -221,7 +426,7 @@ class WorkerController extends ControllerBase
      * 总分
      * @return float 灯总分
      */
-    protected function saveLights($model)
+    protected function saveLights($model, $object = null)
     {
         /**
          * report_lights
@@ -235,9 +440,12 @@ class WorkerController extends ControllerBase
         $array['small_light'] = $this->request->getPost('small_light', \Phalcon\Filter::FILTER_FLOAT);
         $array['reversing_light'] = $this->request->getPost('reversing_light', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object = new HdUserAutoReportLight();
-        $object->report_id = $model->id;
-        $object->order_id = $model->order_id;
+        if (is_null($object)) {
+            $object = new HdUserAutoReportLight();
+            $object->report_id = $model->id;
+            $object->order_id = $model->order_id;
+        }
+
         foreach ($array as $k => $v) {
             $object->$k = $v;
         }
@@ -247,7 +455,7 @@ class WorkerController extends ControllerBase
 
     }
 
-    protected function saveOilFilterBattery($model)
+    protected function saveOilFilterBattery($model, $object = null)
     {
         /**
          * report_lights
@@ -273,9 +481,12 @@ class WorkerController extends ControllerBase
         $array['battery_led_color'] = $this->request->getPost('battery_led_color', \Phalcon\Filter::FILTER_FLOAT);
         $array['hoses_lines'] = $this->request->getPost('hoses_lines', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object = new HdUserAutoReportOilFilter();
-        $object->report_id = $model->id;
-        $object->order_id = $model->order_id;
+        if (is_null($object)) {
+            $object = new HdUserAutoReportOilFilter();
+            $object->report_id = $model->id;
+            $object->order_id = $model->order_id;
+        }
+
         foreach ($array as $k => $v) {
             $object->$k = $v;
         }
@@ -284,7 +495,7 @@ class WorkerController extends ControllerBase
         return $this->getSummary($array);
     }
 
-    protected function saveTire($model)
+    protected function saveTire($model, $object = null)
     {
         /**
          * report_lights
@@ -301,23 +512,37 @@ class WorkerController extends ControllerBase
         $array['brake_pads_thickness'] = $this->request->getPost('brake_pads_thickness', \Phalcon\Filter::FILTER_FLOAT);
         $array['brake_dish'] = $this->request->getPost('brake_dish', \Phalcon\Filter::FILTER_FLOAT);
 
-        foreach ($array['pressure'] as $key => $val) {
-
-            $object = new HdUserAutoReportTire();
-            $object->report_id = $model->id;
-            $object->order_id = $model->order_id;
-            $object->position = $key;
-            foreach ($array as $k => $v) {
-                $object->$k = $v[$key];
+        if(is_null($object)){
+            foreach ($array['pressure'] as $key => $val) {
+                $object = new HdUserAutoReportTire();
+                $object->report_id = $model->id;
+                $object->order_id = $model->order_id;
+                $object->position = $key;
+                foreach ($array as $k => $v) {
+                    $object->$k = $v[$key];
+                }
+                $object->save();
             }
-            $object->save();
+        }else{
+            foreach ($array['pressure'] as $key => $val) {
+                //循环对象
+                foreach($object as $row){
+                    if($key == $row->position){
+                        foreach ($array as $k => $v) {
+                            $row->$k = $v[$key];
+                        }
+                        $row->save();
+                    }
+                }
+
+            }
         }
 
         return $this->getTireSummary($array);
     }
 
 
-    protected function saveOther($model)
+    protected function saveOther($model, $object = null)
     {
         /**
          * report_lights
@@ -328,9 +553,12 @@ class WorkerController extends ControllerBase
         $array['fire_extinguisher'] = $this->request->getPost('fire_extinguisher', \Phalcon\Filter::FILTER_FLOAT);
         $array['warning_sign'] = $this->request->getPost('warning_sign', \Phalcon\Filter::FILTER_FLOAT);
 
-        $object = new HdUserAutoReportOther();
-        $object->report_id = $model->id;
-        $object->order_id = $model->order_id;
+        if (is_null($object)) {
+            $object = new HdUserAutoReportOther();
+            $object->report_id = $model->id;
+            $object->order_id = $model->order_id;
+        }
+
         foreach ($array as $k => $v) {
             $object->$k = $v;
         }
@@ -358,8 +586,8 @@ class WorkerController extends ControllerBase
         $tempNumber = 0;
         for ($i = 1; $i < 5; $i++) {
             foreach ($array as $k => $v) {
-                if(isset($v[$i]))
-                $tempArray[$i][] = $v[$i];
+                if (isset($v[$i]))
+                    $tempArray[$i][] = $v[$i];
             }
         }
 
@@ -368,7 +596,7 @@ class WorkerController extends ControllerBase
             $tempNumber += $this->getSummary($v);
         }
 
-        return floor($tempNumber/count($tempArray));
+        return floor($tempNumber / count($tempArray));
     }
 
 
