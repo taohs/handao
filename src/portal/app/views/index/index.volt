@@ -3,11 +3,11 @@
 <div class="fullSlide">
     <div class="bd">
         <ul>
-            <li style="background:#fff url(data-pic/banner1.jpg) center 0 no-repeat;"><a href="#"
+            <li style="background:#fff url(/data-pic/banner1.jpg) center 0 no-repeat;"><a href="#"
                                                                                          target="_blank"></a></li>
-            <li style="background:#fff url(data-pic/banner3.jpg) center 0 no-repeat;"><a href="#"
+            <li style="background:#fff url(/data-pic/banner3.jpg) center 0 no-repeat;"><a href="#"
                                                                                          target="_blank"></a></li>
-            <li style="background:#fff url(data-pic/banner2.jpg) center 0 no-repeat;"><a href="#"
+            <li style="background:#fff url(/data-pic/banner2.jpg) center 0 no-repeat;"><a href="#"
                                                                                          target="_blank"></a></li>
         </ul>
     </div>
@@ -23,26 +23,10 @@
 
     <div class="rmcx">选择品牌</div>
     <ul id="pc-chars">
-        <li><a href="#label">A</a></li>
-        <li><a href="#label">B</a></li>
-        <li><a href="#label">C</a></li>
-        <li><a href="#label">D</a></li>
-        <li><a href="#label">F</a></li>
-        <li><a href="#label">G</a></li>
-        <li><a href="#label">H</a></li>
-        <li><a href="#label">J</a></li>
-        <li><a href="#label">K</a></li>
-        <li><a href="#label">L</a></li>
-        <li><a href="#label">M</a></li>
-        <li><a href="#label">O</a></li>
-        <li><a href="#label">Q</a></li>
-        <li><a href="#label">R</a></li>
-        <li><a href="#label">S</a></li>
-        <li><a href="#label">T</a></li>
-        <li><a href="#label">W</a></li>
-        <li><a href="#label">X</a></li>
-        <li><a href="#label">Y</a></li>
-        <li><a href="#label">Z</a></li>
+        {% for row in a_z%}
+        <li><a href="#label">{{row}}</a></li>
+        {% endfor %}
+
     </ul>
 </div>
 
@@ -56,107 +40,27 @@
 
                     <input type="text" value="品牌" readonly name="pin"/>
                     <ul class="m" jq-area="CarBrand">
-                        <li data-bcid=32 data-type="1"><b>A</b><em>奥迪(一汽)</em></li>
-                        <li data-bcid=34 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>奥迪(进口)</em></li>
-                        <li data-bcid=38 data-type="1"><b>B</b><em>宝马(华晨)</em></li>
-                        <li data-bcid=45 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>宝骏(上汽通用五菱)</em></li>
-                        <li data-bcid=46 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>保时捷(进口)</em></li>
-                        <li data-bcid=68 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>北汽</em></li>
-                        <li data-bcid=69 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>宝马(进口)</em></li>
-                        <li data-bcid=74 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>奔驰(北京)</em></li>
-                        <li data-bcid=75 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>奔驰(福建)</em></li>
-                        <li data-bcid=76 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>奔驰(进口)</em></li>
-                        <li data-bcid=77 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>本田(东风)</em></li>
-                        <li data-bcid=78 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>本田(广汽)</em></li>
-                        <li data-bcid=79 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>本田(进口)</em></li>
-                        <li data-bcid=80 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>标致(东风)</em></li>
-                        <li data-bcid=81 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>标致(进口)</em></li>
-                        <li data-bcid=82 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>比亚迪</em></li>
-                        <li data-bcid=270 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>别克上海通用</em></li>
-                        <li data-bcid=83 data-type="1"><b>C</b><em>长安</em></li>
-                        <li data-bcid=84 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>长城</em></li>
-                        <li data-bcid=85 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>长丰</em></li>
-                        <li data-bcid=86 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>昌河</em></li>
-                        <li data-bcid=16 data-type="1"><b>D</b><em>大众(一汽)</em></li>
-                        <li data-bcid=57 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>大众(上海)</em></li>
-                        <li data-bcid=178 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>大宇雪佛兰（进口）</em></li>
-                        <li data-bcid=179 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>大众（进口）</em></li>
-                        <li data-bcid=180 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>东风汽车</em></li>
-                        <li data-bcid=181 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>东风裕隆</em></li>
-                        <li data-bcid=182 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>东南汽车</em></li>
-                        <li data-bcid=238 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>东风小康</em></li>
-                        <li data-bcid=272 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>道奇（进口）</em></li>
-                        <li data-bcid=148 data-type="1"><b>F</b><em>丰田(广汽)</em></li>
-                        <li data-bcid=155 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>丰田(一汽)</em></li>
-                        <li data-bcid=183 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>菲亚特（进口）</em></li>
-                        <li data-bcid=184 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>菲亚特（南京）</em></li>
-                        <li data-bcid=185 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>丰田（进口）</em></li>
-                        <li data-bcid=186 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>福特（长安）</em></li>
-                        <li data-bcid=187 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>福特（进口）</em></li>
-                        <li data-bcid=188 data-type="1"><b>G</b><em>广汽</em></li>
-                        <li data-bcid=189 data-type="1"><b>H</b><em>哈飞</em></li>
-                        <li data-bcid=190 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>海马</em></li>
-                        <li data-bcid=191 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>华泰现代</em></li>
-                        <li data-bcid=171 data-type="1"><b>J</b><em>吉普（进口）</em></li>
-                        <li data-bcid=192 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>江淮汽车</em></li>
-                        <li data-bcid=193 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>江铃</em></li>
-                        <li data-bcid=194 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>吉利（中国）</em></li>
-                        <li data-bcid=195 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>金杯</em></li>
-                        <li data-bcid=196 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>精灵（进口）</em></li>
-                        <li data-bcid=197 data-type="1"><b>K</b><em>凯迪拉克（进口）</em></li>
-                        <li data-bcid=198 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>克莱斯勒（进口）</em></li>
-                        <li data-bcid=199 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>凯迪拉克（上海通用）</em></li>
-                        <li data-bcid=200 data-type="1"><b>L</b><em>雷克萨斯（进口）</em></li>
-                        <li data-bcid=201 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>雷诺（进口）</em></li>
-                        <li data-bcid=202 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>铃木（长安）</em></li>
-                        <li data-bcid=203 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>铃木（昌河）</em></li>
-                        <li data-bcid=204 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>铃木（进口）</em></li>
-                        <li data-bcid=205 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>路虎（进口）</em></li>
-                        <li data-bcid=206 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>罗孚（进口）</em></li>
-                        <li data-bcid=207 data-type="1"><b>M</b><em>马自达（长安）</em></li>
-                        <li data-bcid=208 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>马自达（海南）</em></li>
-                        <li data-bcid=209 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>马自达（一汽）</em></li>
-                        <li data-bcid=210 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>马自达（进口）</em></li>
-                        <li data-bcid=211 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>名爵（上汽）</em></li>
-                        <li data-bcid=212 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>MINI（进口）</em></li>
-                        <li data-bcid=213 data-type="1"><b>O</b><em>欧宝（进口）</em></li>
-                        <li data-bcid=214 data-type="1"><b>Q</b><em>奇瑞</em></li>
-                        <li data-bcid=215 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>起亚（东风）</em></li>
-                        <li data-bcid=216 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>起亚（进口）</em></li>
-                        <li data-bcid=607 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>庆龄汽车</em></li>
-                        <li data-bcid=630 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>其它</em></li>
-                        <li data-bcid=39 data-type="1"><b>R</b><em>日产（东风）</em></li>
-                        <li data-bcid=217 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>日产（进口）</em></li>
-                        <li data-bcid=218 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>日产（郑州）</em></li>
-                        <li data-bcid=219 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>荣威（上汽）</em></li>
-                        <li data-bcid=220 data-type="1"><b>S</b><em>萨博（进口）</em></li>
-                        <li data-bcid=221 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>三菱（东南）</em></li>
-                        <li data-bcid=222 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>三菱（进口）</em></li>
-                        <li data-bcid=224 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>斯巴鲁（进口）</em></li>
-                        <li data-bcid=225 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>斯柯达（上海大众）</em></li>
-                        <li data-bcid=640 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>双龙</em></li>
-                        <li data-bcid=226 data-type="1"><b>T</b><em>特斯拉</em></li>
-                        <li data-bcid=227 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>天津（一汽）</em></li>
-                        <li data-bcid=228 data-type="1"><b>W</b><em>沃尔沃（长安福特）</em></li>
-                        <li data-bcid=229 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>沃尔沃（进口）</em></li>
-                        <li data-bcid=230 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>五菱（上汽通用）</em></li>
-                        <li data-bcid=56 data-type="1"><b>X</b><em>现代(北京)</em></li>
-                        <li data-bcid=231 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>夏利</em></li>
-                        <li data-bcid=232 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>现代（进口）</em></li>
-                        <li data-bcid=233 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>西雅特（进口）</em></li>
-                        <li data-bcid=234 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>雪铁龙（进口）</em></li>
-                        <li data-bcid=235 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>雪铁龙（东风）</em></li>
-                        <li data-bcid=271 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>雪佛兰（上海通用）</em></li>
-                        <li data-bcid=236 data-type="1"><b>Y</b><em>英菲尼迪（进口）</em></li>
-                        <li data-bcid=237 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>一汽轿车</em></li>
-                        <li data-bcid=239 data-type="1"><b>Z</b><em>中华（华晨）</em></li>
-                        <li data-bcid=240 data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>众泰</em></li>
+                        {% for row in a_z%}
+                        {% set i=0%}
+                        {% for brand in brands %}
+                        {% if brand.initials == row %}
+                        {% if i == 0 %}
+                        <li data-bcid={{ brand.id }} data-type="1"><b>{{row}}</b><em>{{ brand.name }}</em></li>
+                        {% else %}
+                        <li data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ brand.name }}</em></li>
+                        {% endif %}
+                        {% set i+=1%}
+                        {% endif %}
+                        {% endfor %}
+                        {% endfor %}
                     </ul>
                 </li>
                 <li>
 
                     <input type="text" value="系列" readonly name="che"/>
-                    <ul class="m" jq-area="Car-1"></ul>
+                    <ul class="m" jq-area="Car-1">
+
+                    </ul>
                 </li>
                 <li>
 
@@ -194,6 +98,7 @@
     jQuery(function ($) {
         var yyUrl = "";
         $(".js_main .m").delegate("li[data-type]", "click", function () {
+            alert(1);
             var that = $(this), bcid = pChen.intval(that.attr("data-bcid")), type = pChen.intval(that.attr("data-type")), value = that.text();
             value = that.find('em').text();
             yyUrl = "";
