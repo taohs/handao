@@ -41,6 +41,12 @@ class HdProductCategory extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $active;
+
+    /**
+     *
      * @var string
      */
     public $create_time;
@@ -50,12 +56,6 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * @var string
      */
     public $update_time;
-
-    /**
-     *
-     * @var integer
-     */
-    public $active;
 
     /**
      * Initialize method for model.

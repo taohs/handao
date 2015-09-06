@@ -154,6 +154,12 @@ class HdOrder extends \Phalcon\Mvc\Model
     public $payed_time;
 
     /**
+     *
+     * @var string
+     */
+    public $remark;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
