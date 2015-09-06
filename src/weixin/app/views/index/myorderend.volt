@@ -24,15 +24,17 @@
         <div class="biao">
             <table>
                 <colgroup>
-                    <col width="30%">
-                    <col width="30%">
+                    <col width="25%">
+                    <col width="25%">
                     <col width="40%">
+                    <col width="10%">
                 </colgroup>
                 <tbody>
                 <tr>
                     <th>养护完成时间</th>
                     <th>订单号</th>
                     <th>养护项目</th>
+                    <th>查看</th>
                 </tr>
                 {% for row in page.items %}
                 <tr>
@@ -43,6 +45,7 @@
                         {{product}}<hr>
                         {% endfor %}
                     </td>
+                    <td><a href="report/detail/{{row.id}}"></a></td>
 
                 </tr>
                 {% endfor %}

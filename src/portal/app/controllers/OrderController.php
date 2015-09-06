@@ -56,8 +56,8 @@ class OrderController extends ControllerBase
                     $HdOrderProduct->order_price=$order['price'];
                     $HdOrderProduct->save();
                 }
-                echo 222;exit;
-                return $this->response->redirect( 'index/myorder' );
+
+                return $this->response->redirect( 'index' );
             }
 
 
