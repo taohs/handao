@@ -9,21 +9,18 @@
             <div style="background:url(images/xxtx.png) no-repeat left center" class="cfxz">选择服务</div>
         </div>
         <div class="zy_ny wp">
-            <form action="/e/ShopSys/doaction.php" method="post" id="form-order" class="form-horizontal">
-                <input type="hidden" value="AddSubScribe" name="enews">
-                <input type="hidden" value="48" name="cxid">
-                <input type="hidden" value="289" name="ksid">
-                <input type="hidden" value="1.8T(B6)_2003.02-2004.04" name="ksname">
+            <form action="/order/order" method="post" id="form-order" class="form-horizontal">
+
                 <div class="hq">
                     <ul>
                         <li>
                             <span class="sp1">手机号：</span>
-                            <input type="text" placeholder="11位手机号" auto-member="2" id="phone" name="phone">
+                            <input type="text" placeholder="11位手机号" auto-member="2" id="phone" name="mobile">
                             <span class="sp2">*</span>
                         </li>
                         <li>
                             <span class="sp1">姓名：</span>
-                            <input type="text" placeholder="姓名" auto-member="1" id="truename" name="truename">
+                            <input type="text" placeholder="姓名" auto-member="1" id="truename" name="name">
                             <span class="sp2">*</span>
                         </li>
                         <li>
@@ -33,9 +30,9 @@
                         </li>
                         <li>
                             <span class="sp1">服务时间：</span>
-                            <input type="text" id="demo" name="fwdate">
+                            <input type="text" id="demo" name="bookTime[]">
                             <script>;!function(){laydate({elem: '#demo'})}();</script>
-                            <select name="fwdate1" id="time_select">
+                            <select name="bookTime[]" id="time_select">
                                 <option value="8:00-12:00 上午">9:00 - 12:00 上午</option>
                                 <option value="12:00-14:00 中午">12:00 - 18:00 中午</option>
                                 <option value="14:00-18:00 下午">18:00 - 22:00 下午</option>
@@ -49,7 +46,7 @@
                         </li>
                         <li>
                             <span class="sp1">备注：</span>
-                            <textarea name="bz"></textarea>
+                            <textarea name="remark"></textarea>
                         </li>
                     </ul>
                 </div>
@@ -63,14 +60,15 @@
                             <td>总计</td>
                         </tr>
                         <tr>
-                            <th class="th">奥迪(一汽) A4 上门保养</th>
+                            <th class="th">{{autoName}} 上门保养</th>
                             <td>
                                 <table>
                                     <tbody>
-                                    <tr><td>[机油]&nbsp;嘉实多金嘉护 SN 10W-40[￥174.0]</td></tr>
-                                    <tr><td>[机油滤清器]&nbsp;马勒[￥25.0]</td></tr>
-                                    <tr><td>[空气滤清器]&nbsp;马勒[￥69.0]</td></tr>
-                                    <tr><td>[空调滤清器]&nbsp;马勒活性炭空调滤清器[￥89.0]</td></tr>
+                                    {% for row in products %}
+                                    <tr>
+                                        <td>[  {{row['category']}}  ]&nbsp;  {{row['product']}}</td>
+                                    </tr>
+                                    {% endfor %}
                                     <tr><td>[其它]&nbsp;服务费</td></tr>
                                     </tbody>
                                 </table>
@@ -78,20 +76,16 @@
                             <td>
                                 <table class="table1">
                                     <tbody>
-                                    <tr><td>174.00</td></tr>
-                                    <input type="hidden" value="251" name="products[]">
-                                    <tr><td>25.00</td></tr>
-                                    <input type="hidden" value="811" name="products[]">
-                                    <tr><td>69.00</td></tr>
-                                    <input type="hidden" value="812" name="products[]">
-                                    <tr><td>89.00</td></tr>
-                                    <input type="hidden" value="813" name="products[]">
-                                    <tr><td>150.00</td></tr>
-                                    <input type="hidden" value="207" name="products[]">
+                                    {% for row in orderDataId %}
+                                    <tr>
+                                        <td>{{row['price']}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                    <tr><td>{{fees}}</td></tr>
                                     </tbody>
                                 </table>
                             </td>
-                            <th class="th1">507<span>元</span></th>
+                            <th class="th1">{{total}}<span>元</span></th>
                         </tr>
                         </tbody>
                     </table>

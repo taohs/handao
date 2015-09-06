@@ -78,7 +78,7 @@
         var $chars = $("#pc-chars"), $carbrand = $("ul[jq-area='CarBrand']");
         $carbrand.scrollTop(0).show();
         $chars.children().each(function () {
-            var that = $(this), c = that.text(), t = $carbrand.find("li>b:contains('" + c + "')").parent().position().top;
+            var that = $(this), c = that.text(), t = '';//$carbrand.find("li>b:contains('" + c + "')").parent().position().top;
             that.data("offsetY", t).bind("click", function () {
                 $carbrand.show().scrollTop($(this).data("offsetY"));
             });
@@ -98,7 +98,6 @@
     jQuery(function ($) {
         var yyUrl = "";
         $(".js_main .m").delegate("li[data-type]", "click", function () {
-            alert(1);
             var that = $(this), bcid = pChen.intval(that.attr("data-bcid")), type = pChen.intval(that.attr("data-type")), value = that.text();
             value = that.find('em').text();
             yyUrl = "";
@@ -110,7 +109,7 @@
                 yyUrl = that.attr("data-url");
                 return false;
             }
-            $.post("/e/ajax/getCarTypes.php", {"cid": bcid, "method": type}, function (data) {
+            $.post("/index/getauto", {"cid": bcid, "method": type}, function (data) {
                 var json = pChen.parseJson(data);
                 if (1 == json.status) {
                     var t = "";
@@ -118,7 +117,7 @@
                         t += '<li data-bcid="' + r.id + '" data-type="' + (type + 1) + '" data-url="' + r.url + '"><em>' + r.title + '</em></li>';
                     });
                     if (type == 2) {
-                        t += '<li data-bcid="10086" data-type="3" data-url="html/without.html"><em>没有找到自己的车型款式</em></li>';
+                        t += '<li data-bcid="10086" data-type="3" data-url="appointment/notauto"><em>没有找到自己的车型款式</em></li>';
                     }
                     $("ul[jq-area='Car-" + type + "']").html(t).prev().val("请选择！");
                 } else {
