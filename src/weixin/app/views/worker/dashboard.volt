@@ -60,7 +60,7 @@
                     <td>{{row.HdUserLinkman.mobile}}</td>
                     {% if row.status != orderSuccessStatus  %}
                         {% if status == 'finished' %}
-                        <td> <a href="/worker/updatereport/{{row.id}}">修改报告</a> </td>
+                        <td> <a href="/report/detail/{{row.id}}">查看</a> <a href="/worker/updatereport/{{row.id}}">修改</a> </td>
                         {% else %}
                         <td> <a href="/worker/createreport/{{row.id}}">填写报告</a> </td>
                         {% endif %}

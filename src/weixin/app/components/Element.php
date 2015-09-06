@@ -63,4 +63,24 @@ class Element
                 break;
         }
     }
+
+    public function getReportLight($value){
+        switch($value){
+            case 1:
+                return '亮';
+                break;
+            case 0.8:
+                return '昏暗';
+                break;
+            case 0.5:
+                return '只亮一个';
+                break;
+            case 0:
+                return '亮';
+                break;
+            default:
+                return '不亮';
+                break;
+        }
+    }
 }
