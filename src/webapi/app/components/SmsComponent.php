@@ -21,14 +21,14 @@ class SmsComponent extends \Phalcon\Mvc\User\Component
     protected $sdk;
 
     //主帐号,对应开官网发者主账号下的 ACCOUNT SID
-    protected $accountSid = 'aaf98f894fa5766f014fa5d222570088';// '8a48b5514f73ea32014fa0a0ae385509';
+    protected $accountSid = '8a48b5514f73ea32014fa0a0ae385509';//'aaf98f894fa5766f014fa5d222570088';// '8a48b5514f73ea32014fa0a0ae385509';
 
     //主帐号令牌,对应官网开发者主账号下的 AUTH TOKEN
-    protected $accountToken = '55d5bb04fbc64659ad53db983b7faa71';//'fd33e76a4191408fac2d5b0d9835b59d';
+    protected $accountToken = 'fd33e76a4191408fac2d5b0d9835b59d';//'55d5bb04fbc64659ad53db983b7faa71';//'fd33e76a4191408fac2d5b0d9835b59d';
 
     //应用Id，在官网应用列表中点击应用，对应应用详情中的APP ID
     //在开发调试的时候，可以使用官网自动为您分配的测试Demo的APP ID
-    protected $applicationId = 'aaf98f894fa5766f014fa67028f5013b';//'8a48b5514f73ea32014fa0a0e8e5550c';
+    protected $applicationId = '8a48b5514f73ea32014fa0a0e8e5550c';// 'aaf98f894fa5766f014fa67028f5013b';//'8a48b5514f73ea32014fa0a0e8e5550c';
 
 
     //请求地址

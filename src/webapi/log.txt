@@ -138,3 +138,12 @@ request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014
 request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=024E4BFA2F2DF9634567522589D2E73E
 response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
 >>>>>>> taohs-develop
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['7664','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=71EFF688BE6A6F3189504F4B01692810
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['7711','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=29CD1E44600788974ED9791C98B15C1C
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['3318','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=648CA27E5124E578363CD2523AFB5F3A
+response body = {"templateSMS":{"dateCreated":"20150907202441","smsMessageSid":"201509072024416381296"},"statusCode":"000000"}

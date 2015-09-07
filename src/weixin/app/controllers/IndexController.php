@@ -76,7 +76,7 @@ class IndexController extends ControllerBase
         $mobile = $this->request->getPost( 'mobile' );
         $webApi = new WebapiComponent();
         $re = $webApi->webApiGetCode( $mobile );
-        echo $re;
+        echo json_encode($re);
         exit;
     }
     public function logoutAction()
