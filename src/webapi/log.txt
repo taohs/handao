@@ -147,3 +147,6 @@ response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！"
 request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['3318','3',]}
 request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=648CA27E5124E578363CD2523AFB5F3A
 response body = {"templateSMS":{"dateCreated":"20150907202441","smsMessageSid":"201509072024416381296"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['1530','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=0F34CAF8AEF837E9B7EB389ACAC0A534
+response body = {"templateSMS":{"dateCreated":"20150908005030","smsMessageSid":"201509080050306484074"},"statusCode":"000000"}

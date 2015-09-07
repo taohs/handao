@@ -7,8 +7,12 @@
     <form action="" method="post">
         {{flash.output()}}
         <p><input type="text" placeholder="请输入电话" name="mobile" id="mobile"></p>
-        <p><input type="text" placeholder="请输入验证码" name="code"></p>
-        <p><input type="button" value="获取验证码" class="getCode"></p>
+        <p class="yzm">
+            <input type="text" placeholder="请输入验证码" name="code">
+            <input type="button" value="获取验证码" class="getCode" style="width: 200px;text-align: center;">
+
+        </p>
+
         <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
 
         <p class="sub">

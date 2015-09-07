@@ -30,6 +30,8 @@ class IndexController extends ControllerBase
                 $this->flash->error("token errors");
             }
         }
+        $this->view->setMainView('record');
+
     }
 
     public function myorderAction()
