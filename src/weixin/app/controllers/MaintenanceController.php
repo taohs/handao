@@ -53,7 +53,7 @@ class MaintenanceController extends ControllerBase
             "bind"       => array( 'id' => $brands_id )
         ) );
         $category = HdProductCategory::find(array(
-            "conditions" => "parent_id is not null"
+            "conditions" => "parent_id <>0"
 
         ));
         $product = HdProduct::find();

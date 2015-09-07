@@ -12,7 +12,7 @@ class IndexController extends ControllerBase
 
     public function loginAction()
     {
-        if ( $this->session->get( 'auth' )) {
+        if ($this->session->get( 'auth' )) {
             return $this->response->redirect( "index" );
         }
         $reUrl = $this->request->getQuery( 'reUrl' );
@@ -28,19 +28,17 @@ class IndexController extends ControllerBase
                             'mobile' => $mobile,
                         )
                     ) );
-                if ($this->userRegister( $user, $mobile )) {
-
-                    if ($user && $this->security->checkHash( $code, $user->password )) {
-                        $this->session->set( 'auth', $user );
-                        return $this->response->redirect( $reUrl );
-                    } else {
-                        $this->flash->error( "验证码不正确" );
-                    }
-                }
+                if ($user) {
+                     if ($user && $this->security->checkHash( $code, $user->password )) {
+                         $this->session->set( 'auth', $user );
+                         return $this->response->redirect( $reUrl );
+                     } else {
+                         $this->flash->error( "验证码不正确" );
+                     }
+                 }
 
             } else {
-
-                $this->flash->error( "token errors" );
+                $this->flash->error( "验证码不正确" );
             }
 
         }
@@ -81,7 +79,7 @@ class IndexController extends ControllerBase
             "data"  => HdOrder::find(
                 array(
                     "conditions" => "user_id = :user_id: and status =:status:",
-                    "bind"       => array( 'user_id' => $user_id ,'status'=>OrderComponent::STATUS_RESULT_SUCCESS),
+                    "bind"       => array( 'user_id' => $user_id, 'status' => OrderComponent::STATUS_RESULT_SUCCESS ),
                     'order'      => 'id desc'
                 ) ),
             "limit" => 10,
@@ -96,44 +94,33 @@ class IndexController extends ControllerBase
 
     public function getcodeAction()
     {
-        $code = mt_rand( 0, 9 ) . mt_rand( 0, 9 ) . mt_rand( 0, 9 ) . mt_rand( 0, 9 );
-        /**
-         * 短信发送到手机
-         */
-        $this->session->set( 'code', $code );
+        $mobile = $this->request->getPost( 'mobile' );
+        $post_data = array( "mobile" => $mobile );
 
-        echo $code;
-        exit;
+        $ch = curl_init();
+
+        curl_setopt( $ch, CURLOPT_URL, $this->loginCodeUrl );
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
+
+        curl_setopt( $ch, CURLOPT_POST, 1 );
+
+        curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_data );
+
+        $output = curl_exec( $ch );
+        curl_close( $ch );
+
+
+        var_dump( json_decode($output) );
 
     }
 
-    function userRegister( $user, $mobile )
+
+    public function logoutAction()
     {
-        $code = $this->session->get( 'code' );
-        if ($user) {
-            $user->password = $this->security->hash( $code );
-            if ($user->save()) {
-                return true;
-            }
-
-        } else {
-            $HdUser = new HdUser();
-            $HdUser->mobile = $mobile;
-            $HdUser->username = $mobile;
-            $HdUser->password = $this->security->hash( $code );
-            $HdUser->update_time = date( "Y-m-d H:i:s" );
-            $HdUser->create_time = date( "Y-m-d H:i:s" );
-            if ($HdUser->save()) {
-                return true;
-            }
-        }
-        return false;
+        $this->session->remove( 'auth' );
+        return $this->response->redirect( 'index/index' );
     }
-
-    public function logoutAction(){
-        $this->session->remove('auth');
-        return $this->response->redirect('index/index');
-    }
+    public function
 
 }
 

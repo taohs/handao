@@ -54,6 +54,7 @@
         $.ajax({
             type: 'POST',
             dataType: 'json',
+            data: {mobile: mobile},
             url:  'getcode',
             success: function (data) {
                 $.cookie('sms', new Date().getTime());
