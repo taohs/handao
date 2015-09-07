@@ -15,22 +15,25 @@
                     <ul>
                         <li>
                             <span class="sp1">手机号：</span>
-                            <input type="text" placeholder="11位手机号" auto-member="2" id="phone" name="mobile">
-                            <span class="sp2">*</span>
+                            <input type="text" placeholder="11位手机号" auto-member="2" id="mobile" name="mobile">
+                            <span class="sp2">*</span><span class="sp2">&nbsp;&nbsp;</span>&nbsp;&nbsp;
+                            <em id="mobile_em" style="color: red; display: none;">姓名不能为空</em>
                         </li>
                         <li>
                             <span class="sp1">姓名：</span>
-                            <input type="text" placeholder="姓名" auto-member="1" id="truename" name="name">
+                            <input type="text" placeholder="姓名" auto-member="1" id="name" name="name">
                             <span class="sp2">*</span>
+                            <em id="name_em" style="color: red; display: none;">姓名不能为空</em>
                         </li>
                         <li>
                             <span class="sp1">车牌号：</span>
                             <input type="text" placeholder="完整车牌号" name="carnum">
                             <span class="sp2">*</span>
+                            <em id="carnum_em" style="color: red; display: none;">姓名不能为空</em>
                         </li>
                         <li>
                             <span class="sp1">服务时间：</span>
-                            <input type="text" id="demo" name="bookTime[]">
+                            <input type="date" id="demo" name="bookTime[]">
                             <script>;!function(){laydate({elem: '#demo'})}();</script>
                             <select name="bookTime[]" id="time_select">
                                 <option value="8:00-12:00 上午">9:00 - 12:00 上午</option>
