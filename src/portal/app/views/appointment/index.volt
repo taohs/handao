@@ -62,7 +62,7 @@
                                 <input type="text" value="系列" readonly name="che"/>
                                 <ul style="text-align: left;" class="m" jq-area="Car-1">
 
-                                    <li>111</li>
+
                                 </ul>
                             </li>
                             <li>
@@ -154,8 +154,7 @@
                 </script>
 
             </div>
-            <p style="width:80%;overflow:hidden"><a style="font-size:12px;color:#999;float:right;"
-                                                    href="/appointment/notauto">未找到车型？</a></p>
+            <p style="width:80%;overflow:hidden"><a style="font-size:12px;color:#999;float:right;" href="/appointment/notauto">未找到车型？</a></p>
 
             <div class="d"><a href="javascript:void(0);" id="btn">下一步</a></div>
         </div>
