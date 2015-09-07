@@ -1,6 +1,6 @@
 <?php
 
-class HdProductCategory extends \Phalcon\Mvc\Model
+class HdAdminLimit extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,33 +17,9 @@ class HdProductCategory extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
-     */
-    public $parent_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $industry_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $property;
-
-    /**
-     *
      * @var string
      */
-    public $description;
-
-    /**
-     *
-     * @var integer
-     */
-    public $active;
+    public $value;
 
     /**
      *
@@ -62,15 +38,14 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
-        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+        $this->hasMany('id', 'HdAdminRoleLimit', 'limit', array('alias' => 'HdAdminRoleLimit'));
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory[]
+     * @return HdAdminLimit[]
      */
     public static function find($parameters = null)
     {
@@ -81,30 +56,11 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory
+     * @return HdAdminLimit
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-
-    public function beforeCreate()
-    {
-        // Set the creation date
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function beforeUpdate()
-    {
-        // Set the modification date
-        $this->update_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
     }
 
     /**
@@ -114,7 +70,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_product_category';
+        return 'hd_admin_limit';
     }
 
 }

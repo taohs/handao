@@ -1,6 +1,8 @@
 <?php
 
-class HdProductCategory extends \Phalcon\Mvc\Model
+use Phalcon\Mvc\Model\Validator\Email as Email;
+
+class HdTechnician extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -17,33 +19,27 @@ class HdProductCategory extends \Phalcon\Mvc\Model
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $parent_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $industry_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $property;
+    public $username;
 
     /**
      *
      * @var string
      */
-    public $description;
+    public $password;
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $active;
+    public $email;
+
+    /**
+     *
+     * @var string
+     */
+    public $mobile;
 
     /**
      *
@@ -58,19 +54,47 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
+     *
+     * @var string
+     */
+    public $initials;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
-        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+
+    }
+
+    /**
+     * Validations and business logic
+     *
+     * @return boolean
+     */
+    public function validation()
+    {
+//        $this->validate(
+//            new Email(
+//                array(
+//                    'field'    => 'email',
+//                    'required' => true,
+//                )
+//            )
+//        );
+//
+//        if ($this->validationHasFailed() == true) {
+//            return false;
+//        }
+//
+//        return true;
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory[]
+     * @return HdUser[]
      */
     public static function find($parameters = null)
     {
@@ -81,7 +105,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory
+     * @return HdUser
      */
     public static function findFirst($parameters = null)
     {
@@ -89,22 +113,13 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     }
 
 
-    public function beforeCreate()
-    {
-        // Set the creation date
+    public function beforeCreate(){
         $this->create_time = date('Y-m-d H:i:s');
     }
 
 
-    public function beforeUpdate()
-    {
-        // Set the modification date
+    public function beforeUpdate(){
         $this->update_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
     }
 
     /**
@@ -114,7 +129,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_product_category';
+        return 'hd_technician';
     }
 
 }

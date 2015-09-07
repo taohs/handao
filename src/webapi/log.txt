@@ -1,0 +1,105 @@
+request body = <TemplateSMS>
+                    <to>13883388101</to> 
+                    <appId>8a48b5514f73ea32014fa0a0e8e5550c</appId>
+                    <templateId>1</templateId>
+                    <datas><data>t</data></datas>
+                  </TemplateSMS>
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E374BB3BA0D28F0FA9826B203FE0E97B
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>000000</statusCode><TemplateSMS><dateCreated>20150906222752</dateCreated><smsMessageSid>201509062227525815241</smsMessageSid></TemplateSMS></Response>
+request body = <TemplateSMS>
+                    <to>13883388101</to> 
+                    <appId>8a48b5514f73ea32014fa0a0e8e5550c</appId>
+                    <templateId>1</templateId>
+                    <datas><data>t</data></datas>
+                  </TemplateSMS>
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=896CF4A34B42053B5CE4FFBB5326F453
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>160021</statusCode><statusMsg>同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是t，请于{2}分钟内正确输入</statusMsg></Response>
+request body = <TemplateSMS>
+                    <to>13883388101</to> 
+                    <appId>8a48b5514f73ea32014fa0a0e8e5550c</appId>
+                    <templateId>1</templateId>
+                    <datas><data>1</data></datas>
+                  </TemplateSMS>
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=FE4E86B31030E75675479CCFDAD0899B
+response body = <?xml version="1.0" encoding="UTF-8" standalone="yes"?><Response><statusCode>000000</statusCode><TemplateSMS><dateCreated>20150906224028</dateCreated><smsMessageSid>201509062240285822886</smsMessageSid></TemplateSMS></Response>
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['1',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=2720BBB41F17C3ECFFA8CAF1E7F5C225
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是1，请于{2}分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['','sadf123',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=722A00DFB7E6C42B36888AD4E6689EC5
+response body = {"templateSMS":{"dateCreated":"20150906224938","smsMessageSid":"201509062249385828155"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['sadf123','123213',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=C9E04A30631E6D26335AB4A2994F6CC7
+response body = {"templateSMS":{"dateCreated":"20150906225435","smsMessageSid":"201509062254355831027"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'2','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['sadf123','123213',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=588EE6D93557583740665D37A8D234C6
+response body = {"statusMsg":"【短信】短信模板不存在或审核未通过","statusCode":"112323"}
+request body = {'to':'13883388101','templateId':'2','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['sadf123','123213',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=15D75E53958F57FD9B17577CC8BFC812
+response body = {"statusMsg":"【短信】短信模板不存在或审核未通过","statusCode":"112323"}
+request body = {'to':'13883388101','templateId':'2','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['sadf123','123213',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=50FA012EB721121AC3EC8C866AB92E2B
+response body = {"statusMsg":"【短信】短信模板不存在或审核未通过","statusCode":"112323"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=9ADC243893068432BB00E2DF95CF5D04
+response body = {"templateSMS":{"dateCreated":"20150906232336","smsMessageSid":"201509062323365846566"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=480AFF5C46BA52710874C8EA5A15EED0
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['8627','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E0E75494B09344925D05C92CD5CE56A0
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['1358','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E186698788C772BC2DAA3DF9A5DAF92B
+response body = {"templateSMS":{"dateCreated":"20150907004620","smsMessageSid":"201509070046205872768"},"statusCode":"000000"}
+response body = {"templateSMS":{"dateCreated":"20150907004620","smsMessageSid":"201509070046205872769"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['0512','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E186698788C772BC2DAA3DF9A5DAF92B
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['4765','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=396E04885F2221F7B648F083BBD8E3F8
+response body = {"templateSMS":{"dateCreated":"20150907004621","smsMessageSid":"201509070046215872771"},"statusCode":"000000"}
+response body = {"templateSMS":{"dateCreated":"20150907004621","smsMessageSid":"201509070046215872772"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['2472','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=21D6ACD25DD5839D0AEE33B3AAAE7A19
+response body = {"templateSMS":{"dateCreated":"20150907004625","smsMessageSid":"201509070046255872785"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['3434','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=3035A72E92B8EC73BDD7DC32252E066F
+response body = {"templateSMS":{"dateCreated":"20150907004834","smsMessageSid":"201509070048345873061"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['5332','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E266400F77578AAA3F397B25333C6554
+response body = {"templateSMS":{"dateCreated":"20150907004952","smsMessageSid":"201509070049515873242"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['3713','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E15836C8C0D04456A28F4C8D2C41C879
+response body = {"templateSMS":{"dateCreated":"20150907005055","smsMessageSid":"201509070050555873373"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=A8F7973EA78030A903D941DA19DBDE18
+response body = {"templateSMS":{"dateCreated":"20150907011026","smsMessageSid":"201509070110265876113"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=4C6FD881F5334E7D94BA30B172CC2A23
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=BD2D56EE9AB2BEFBB12D4E2A0ADA87E5
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=BE7532225C9C6A9721A943FC10BB500C
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=D18AF54C9CECF1376F4E5549FF17D101
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=8A2F71A4369CC56C4AD550769D8DB099
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=D603DA62CABAEA745C170B5BE8BDF46B
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=B4D3ED7F27C0F33D497E08D9CC79F1B2
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=379C9AFA367305AEC6BDDA983E079DCE
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=B8C9DC8D59FF62394DF23012707AA961
+response body = {"statusMsg":"同一手机相同内容限定时间内应用限制次数:1:13883388101:【云通讯】您使用的是云通讯短信模板，您的验证码是大哥你好帅，请于3分钟内正确输入","statusCode":"160021"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅a','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=5CC347D4F343E4A00662CFE039B88A47
+response body = {"templateSMS":{"dateCreated":"20150907011518","smsMessageSid":"201509070115185877013"},"statusCode":"000000"}

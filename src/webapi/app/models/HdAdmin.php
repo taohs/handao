@@ -1,6 +1,6 @@
 <?php
 
-class HdProductCategory extends \Phalcon\Mvc\Model
+class HdAdmin extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,37 +13,37 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $name;
-
-    /**
-     *
-     * @var integer
-     */
-    public $parent_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $industry_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $property;
+    public $username;
 
     /**
      *
      * @var string
      */
-    public $description;
+    public $nickname;
+
+    /**
+     *
+     * @var string
+     */
+    public $password;
 
     /**
      *
      * @var integer
      */
-    public $active;
+    public $role;
+
+    /**
+     *
+     * @var string
+     */
+    public $limit;
+
+    /**
+     *
+     * @var integer
+     */
+    public $is_valid;
 
     /**
      *
@@ -58,19 +58,10 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     public $update_time;
 
     /**
-     * Initialize method for model.
-     */
-    public function initialize()
-    {
-        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
-        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
-    }
-
-    /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory[]
+     * @return HdAdmin[]
      */
     public static function find($parameters = null)
     {
@@ -81,7 +72,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory
+     * @return HdAdmin
      */
     public static function findFirst($parameters = null)
     {
@@ -89,22 +80,9 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     }
 
 
-    public function beforeCreate()
+    public function initialize()
     {
-        // Set the creation date
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function beforeUpdate()
-    {
-        // Set the modification date
-        $this->update_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
+        $this->belongsTo('role',"HdAdminRole",'id');
     }
 
     /**
@@ -114,7 +92,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_product_category';
+        return 'hd_admin';
     }
 
 }

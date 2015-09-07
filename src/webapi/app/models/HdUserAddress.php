@@ -1,6 +1,6 @@
 <?php
 
-class HdAutoModelsExact extends \Phalcon\Mvc\Model
+class HdUserAddress extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,49 +13,45 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $name;
+    public $address;
 
     /**
      *
      * @var string
      */
-    public $year;
+    public $province;
 
     /**
      *
      * @var string
      */
-    public $description;
+    public $city;
+
+    /**
+     *
+     * @var string
+     */
+    public $area;
 
     /**
      *
      * @var integer
      */
-    public $brands_id;
+    public $user_id;
 
     /**
-     *
-     * @var integer
+     * Initialize method for model.
      */
-    public $models_id;
-
-    /**
-     *
-     * @var string
-     */
-    public $create_time;
-
-    /**
-     *
-     * @var string
-     */
-    public $update_time;
+    public function initialize()
+    {
+        $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdAutoModelsExact[]
+     * @return HdUserAddress[]
      */
     public static function find($parameters = null)
     {
@@ -66,24 +62,11 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdAutoModelsExact
+     * @return HdUserAddress
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-
-    public function initialize(){
-        $this->belongsTo('brands_id','HdBrands','id',array('alias'=>'HdBrands'));
-        $this->belongsTo('models_id','HdAutoModels','id');
-    }
-
-
-    public function getInfo(){
-        $brands = $this->getHdBrands();
-        $models = $this->getHdAutoModels();
-        return $brands->name . ' -- ' . $models->name . ' -- ' . $this->name;
     }
 
     /**
@@ -93,7 +76,7 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_auto_models_exact';
+        return 'hd_user_address';
     }
 
 }

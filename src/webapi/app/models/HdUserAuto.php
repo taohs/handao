@@ -1,6 +1,6 @@
 <?php
 
-class HdProductCategory extends \Phalcon\Mvc\Model
+class HdUserAuto extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -13,64 +13,53 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $name;
-
-    /**
-     *
-     * @var integer
-     */
-    public $parent_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $industry_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $property;
+    public $license;
 
     /**
      *
      * @var string
      */
-    public $description;
+    public $number;
 
     /**
      *
      * @var integer
      */
-    public $active;
+    public $user_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $auto_cat_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $models;
 
     /**
      *
      * @var string
      */
-    public $create_time;
-
-    /**
-     *
-     * @var string
-     */
-    public $update_time;
+    public $year;
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
-        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+        $this->hasMany('id', 'HdUserAutoReport', 'auto_id', array('alias' => 'HdUserAutoReport'));
+        $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+        $this->belongsTo('models', 'HdAutoModels', 'id', array('alias' => 'HdAutoModels'));
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory[]
+     * @return HdUserAuto[]
      */
     public static function find($parameters = null)
     {
@@ -81,7 +70,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory
+     * @return HdUserAuto
      */
     public static function findFirst($parameters = null)
     {
@@ -89,22 +78,8 @@ class HdProductCategory extends \Phalcon\Mvc\Model
     }
 
 
-    public function beforeCreate()
-    {
-        // Set the creation date
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function beforeUpdate()
-    {
-        // Set the modification date
-        $this->update_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
+    public function getModelExact(){
+        return HdAutoModelsExact::findFirst($this->models);
     }
 
     /**
@@ -114,7 +89,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_product_category';
+        return 'hd_user_auto';
     }
 
 }

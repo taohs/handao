@@ -1,6 +1,6 @@
 <?php
 
-class HdProductCategory extends \Phalcon\Mvc\Model
+class HdProduct extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -19,25 +19,37 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      *
      * @var integer
      */
-    public $parent_id;
+    public $category;
 
     /**
      *
-     * @var integer
+     * @var double
      */
-    public $industry_id;
+    public $market_price;
 
     /**
      *
-     * @var integer
+     * @var double
      */
-    public $property;
+    public $member_price;
+
+    /**
+     *
+     * @var double
+     */
+    public $activity_price;
 
     /**
      *
      * @var string
      */
     public $description;
+
+    /**
+     *
+     * @var string
+     */
+    public $attributes;
 
     /**
      *
@@ -62,15 +74,15 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function initialize()
     {
-        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
-        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+        $this->hasMany('id', 'HdAutoProductRecommend', 'product_id', array('alias' => 'HdAutoProductRecommend'));
+        $this->belongsTo('category', 'HdProductCategory', 'id', array('alias' => 'HdProductCategory'));
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory[]
+     * @return HdProduct[]
      */
     public static function find($parameters = null)
     {
@@ -81,7 +93,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory
+     * @return HdProduct
      */
     public static function findFirst($parameters = null)
     {
@@ -102,11 +114,6 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         $this->update_time = date('Y-m-d H:i:s');
     }
 
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
-    }
-
     /**
      * Returns table name mapped in the model.
      *
@@ -114,7 +121,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_product_category';
+        return 'hd_product';
     }
 
 }

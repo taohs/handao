@@ -1,6 +1,6 @@
 <?php
 
-class HdAutoModelsExact extends \Phalcon\Mvc\Model
+class HdUserLinkman extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -19,43 +19,27 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $year;
-
-    /**
-     *
-     * @var string
-     */
-    public $description;
+    public $mobile;
 
     /**
      *
      * @var integer
      */
-    public $brands_id;
+    public $user_id;
 
     /**
-     *
-     * @var integer
+     * Initialize method for model.
      */
-    public $models_id;
-
-    /**
-     *
-     * @var string
-     */
-    public $create_time;
-
-    /**
-     *
-     * @var string
-     */
-    public $update_time;
+    public function initialize()
+    {
+        $this->belongsTo('user_id', 'HdUser', 'id', array('alias' => 'HdUser'));
+    }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdAutoModelsExact[]
+     * @return HdUserLinkman[]
      */
     public static function find($parameters = null)
     {
@@ -66,24 +50,11 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdAutoModelsExact
+     * @return HdUserLinkman
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-
-    public function initialize(){
-        $this->belongsTo('brands_id','HdBrands','id',array('alias'=>'HdBrands'));
-        $this->belongsTo('models_id','HdAutoModels','id');
-    }
-
-
-    public function getInfo(){
-        $brands = $this->getHdBrands();
-        $models = $this->getHdAutoModels();
-        return $brands->name . ' -- ' . $models->name . ' -- ' . $this->name;
     }
 
     /**
@@ -93,7 +64,7 @@ class HdAutoModelsExact extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_auto_models_exact';
+        return 'hd_user_linkman';
     }
 
 }

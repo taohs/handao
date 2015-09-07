@@ -1,6 +1,6 @@
 <?php
 
-class HdProductCategory extends \Phalcon\Mvc\Model
+class HdOrderProduct extends \Phalcon\Mvc\Model
 {
 
     /**
@@ -11,33 +11,57 @@ class HdProductCategory extends \Phalcon\Mvc\Model
 
     /**
      *
+     * @var integer
+     */
+    public $order_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $product_id;
+
+    /**
+     *
+     * @var integer
+     */
+    public $product_category;
+
+    /**
+     *
+     * @var double
+     */
+    public $order_price;
+
+    /**
+     *
      * @var string
      */
-    public $name;
+    public $market_price;
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $parent_id;
+    public $member_price;
 
     /**
      *
-     * @var integer
+     * @var string
      */
-    public $industry_id;
-
-    /**
-     *
-     * @var integer
-     */
-    public $property;
+    public $activity_price;
 
     /**
      *
      * @var string
      */
     public $description;
+
+    /**
+     *
+     * @var string
+     */
+    public $attributes;
 
     /**
      *
@@ -49,28 +73,23 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      *
      * @var string
      */
-    public $create_time;
-
-    /**
-     *
-     * @var string
-     */
-    public $update_time;
+    public $logs;
 
     /**
      * Initialize method for model.
      */
     public function initialize()
     {
-        $this->hasMany('id', 'HdProduct', 'category', array('alias' => 'HdProduct'));
-        $this->belongsTo('industry_id', 'HdIndustry', 'id', array('alias' => 'HdIndustry'));
+        $this->belongsTo('order_id', 'HdOrder', 'id', array('alias' => 'HdOrder'));
+        $this->belongsTo('product_category', 'HdProductCategory', 'id', array('alias' => 'HdProductCategory'));
+        $this->belongsTo('product_id', 'HdProduct', 'id', array('alias' => 'HdProduct'));
     }
 
     /**
      * Allows to query a set of records that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory[]
+     * @return HdOrderProduct[]
      */
     public static function find($parameters = null)
     {
@@ -81,30 +100,11 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      * Allows to query the first record that match the specified conditions
      *
      * @param mixed $parameters
-     * @return HdProductCategory
+     * @return HdOrderProduct
      */
     public static function findFirst($parameters = null)
     {
         return parent::findFirst($parameters);
-    }
-
-
-    public function beforeCreate()
-    {
-        // Set the creation date
-        $this->create_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function beforeUpdate()
-    {
-        // Set the modification date
-        $this->update_time = date('Y-m-d H:i:s');
-    }
-
-
-    public function getParentModel(){
-        return self::findFirst($this->parent_id);
     }
 
     /**
@@ -114,7 +114,7 @@ class HdProductCategory extends \Phalcon\Mvc\Model
      */
     public function getSource()
     {
-        return 'hd_product_category';
+        return 'hd_order_product';
     }
 
 }
