@@ -19,6 +19,6 @@ class TestController extends ControllerBase
 //        $restful = new Restful();
 //        $restful->init();
 //        echo $restful->get('http://api.handao365.dev/sms/sendMessage/13883388101/nihao',array());
-     echo    $this->restful->get('http://api.handao365.dev/sms/sendMessage/',array('mobile'=>'13883388101','code'=>'bugai'));
+     echo    $this->restful->post('http://api.handao365.dev/user/logincode',array('mobile'=>'13883388101','code'=>'bugai'));
     }
 }

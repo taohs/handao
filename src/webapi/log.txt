@@ -109,3 +109,6 @@ response body = {"statusMsg":"【短信】应用未上线，模板短信接收�
 request body = {'to':'13983198548','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['3843','3',]}
 request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E4E272BFC89AB62581A5061BA984F87C
 response body = {"statusMsg":"【短信】应用未上线，模板短信接收号码外呼受限","statusCode":"112310"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['6816','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=024E4BFA2F2DF9634567522589D2E73E
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}

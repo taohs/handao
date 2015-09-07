@@ -49,6 +49,8 @@ class UserController extends ControllerBase
                     $smsResult = $smsComponent->sendMessage($mobile, $code);
                     echo json_encode($smsResult);
                 }
+            }else{
+                echo 1;
             }
 
         }
