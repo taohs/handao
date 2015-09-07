@@ -18,7 +18,7 @@
 <div class="login ">
     <form action="" method="post">
 
-
+        <div class="container">{{flash.output()}}</div>
         <p><input type="text" name="username" maxlength="20" placeholder="请输入登录账号"></p>
         <p><input type="text" name="number" maxlength="4" placeholder="请输入工牌号"></p>
         <p><input type="password" name="password" maxlength="20" placeholder="请输入登录密码"></p>
@@ -28,7 +28,7 @@
 
             <input type="hidden" name="{{security.getTokenKey()}}"  value="{{security.getToken()}}">
         </p>
-        <div class="container">{{flash.output()}}</div>
+
     </form>
 </div>
 </body>

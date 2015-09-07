@@ -9,9 +9,9 @@
 </head>
 <body>
 <header>
-    <a href="#" class="logo"><img src="{{url('images/LOGO-white.png')}}" width="100" height="44" alt=""/></a>
-    <a href="#" class="tuic">退出</a>
-    <div class="user">2015-08-12  欢迎您，<span>张三</span></div>
+    <a href="/worker/dashboard" class="logo"><img src="{{url('images/LOGO-white.png')}}" width="100" height="44" alt=""/></a>
+    <a href="/worker/logout" class="tuic">退出</a>
+    <div class="user">2015-08-12  欢迎您，<span>{{userData.name}}</span></div>
 </header>
 <div class="content">
     {{flash.output()}}

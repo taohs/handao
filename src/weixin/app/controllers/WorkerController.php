@@ -39,7 +39,7 @@ class WorkerController extends ControllerBase
     {
         // TODO: Implement __construct() method.
 
-        $this->view->setMainView('');
+        $this->view->setMainView('record');
     }
 
     function getAuth()
@@ -93,6 +93,7 @@ class WorkerController extends ControllerBase
     function logoutAction()
     {
         $this->session->remove($this->sessionName);
+        $this->response->redirect('worker/index');
     }
 
     /**
@@ -100,6 +101,8 @@ class WorkerController extends ControllerBase
      */
     function dashboardAction($status = 'todo')
     {
+
+
 
         $finished = 'finished';
 
@@ -141,7 +144,7 @@ class WorkerController extends ControllerBase
         ));
 
 
-        $this->view->setMainView('index');
+        $this->view->setMainView('record');
         $this->view->setVar('orders', $orders);
         $this->view->setVar('page', $paginate->getPaginate());
         $this->view->setVar('userData', $auth);
@@ -243,6 +246,7 @@ class WorkerController extends ControllerBase
         $this->view->setVar('orderAuto', $order->getAuto());
         $this->view->setVar('orderAddress', $order->getAddress());
         $this->view->setVar('model', $model);
+        $this->view->setVar('userData', $auth);
 
     }
 
@@ -363,6 +367,7 @@ class WorkerController extends ControllerBase
         $this->view->setVar('oilFilterBatteryModel', $oilFilterBatteryModel);
         $this->view->setVar('tireModel', $tireModel);
         $this->view->setVar('otherModel', $otherModel);
+        $this->view->setVar('userData', $auth);
     }
 
     protected function useProducts()

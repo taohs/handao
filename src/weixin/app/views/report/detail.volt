@@ -10,8 +10,8 @@
 
 <body>
 <div class="top">
-    <p>{{model.create_time}} 车辆体检报告</p>
-    <span>86</span>
+    <p> {{orderAuto.number}} &nbsp; &nbsp;{{orderAuto.getAutoInfo()}}<br/> {{model.create_time}} &nbsp; &nbsp;车辆体检报告</p>
+    <span>{{summaryModel.total}}</span>
 </div>
 <div class="light">
     <h3>

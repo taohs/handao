@@ -9,9 +9,9 @@
 </head>
 <body>
 <header>
-    <a href="#" class="logo"><img src="{{url('images/LOGO-white.png')}}" width="100" height="44" alt=""/></a>
-    <a href="#" class="tuic">退出</a>
-    <div class="user">2015-08-12  欢迎您，<span>张三</span></div>
+    <a href="/worker/dashboard" class="logo"><img src="{{url('images/LOGO-white.png')}}" width="100" height="44" alt=""/></a>
+    <a href="/worker/logout" class="tuic">退出</a>
+    <div class="user">2015-08-12  欢迎您，<span>{{userData.name}}</span></div>
 </header>
 <div class="content">
     {{flash.output()}}
@@ -359,31 +359,31 @@
                 </p>
             </div>
         </div>
-        <div class="aqjc-nr">
-            <h2><span class="tb4">保养总结</span></h2>
-            <div class="nr-xq">
-                <p>
-                    <span>轮胎/刹车：</span>
-                    <input name="tire_brake" type="text">
-                </p>
-                <p>
-                    <span>外观/灯光：</span>
-                    <input name="appearance_lighting" type="text">
-                </p>
-                <p>
-                    <span>油液/滤芯/电瓶：</span>
-                    <input name="oil_filter_battery" type="text">
-                </p>
-                <p>
-                    <span>其他：</span>
-                    <input name="other" type="text">
-                </p>
-                <p>
-                    <span>总计：</span>
-                    <input name="total" type="text">
-                </p>
-            </div>
-        </div>
+<!--        <div class="aqjc-nr">-->
+<!--            <h2><span class="tb4">保养总结</span></h2>-->
+<!--            <div class="nr-xq">-->
+<!--                <p>-->
+<!--                    <span>轮胎/刹车：</span>-->
+<!--                    <input name="tire_brake" type="text">-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    <span>外观/灯光：</span>-->
+<!--                    <input name="appearance_lighting" type="text">-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    <span>油液/滤芯/电瓶：</span>-->
+<!--                    <input name="oil_filter_battery" type="text">-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    <span>其他：</span>-->
+<!--                    <input name="other" type="text">-->
+<!--                </p>-->
+<!--                <p>-->
+<!--                    <span>总计：</span>-->
+<!--                    <input name="total" type="text">-->
+<!--                </p>-->
+<!--            </div>-->
+<!--        </div>-->
     </div>
 </div>
 <footer>
