@@ -51,37 +51,26 @@ class IndexController extends ControllerBase
     }
     public function loginAction()
     {
-        if ( $this->session->get( 'auth' )) {
+        if ($this->session->get( 'auth' )) {
             return $this->response->redirect( "index" );
         }
         $reUrl = $this->request->getQuery( 'reUrl' );
         if ($this->request->isPost()) {
-
             if ($this->security->checkToken( $this->session->get( '$PHALCON/CSRF/KEY$' ), $this->security->getSessionToken() )) {
                 $mobile = $this->request->getPost( 'mobile' );
                 $code = $this->request->getPost( 'code' );
-                $user = HdUser::findFirst(
-                    array(
-                        'conditions' => 'mobile=:mobile:',
-                        'bind'       => array(
-                            'mobile' => $mobile,
-                        )
-                    ) );
-                if ($this->userRegister( $user, $mobile )) {
-
-                    if ($user && $this->security->checkHash( $code, $user->password )) {
-                        $this->session->set( 'auth', $user );
-                        return $this->response->redirect( $reUrl );
-                    } else {
-                        $this->flash->error( "验证码不正确" );
-                    }
+                $webApi = new WebapiComponent();
+                $re=$webApi->webApiLogin($mobile,$code);
+                if($re['statusCode']=='000000'){
+                    $this->session->set( 'auth', $re['content'] );
+                    return $this->response->redirect( $reUrl );
+                }else{
+                    $this->flash->error( $re['statusMsg'] );
                 }
 
             } else {
-
                 $this->flash->error( "token errors" );
             }
-
         }
     }
 
@@ -90,14 +79,11 @@ class IndexController extends ControllerBase
 
     public function getcodeAction()
     {
-        $code = mt_rand( 0, 9 ) . mt_rand( 0, 9 ) . mt_rand( 0, 9 ) . mt_rand( 0, 9 );
-        /**
-         * 短信发送到手机
-         */
-        $this->session->set( 'code', $code );
 
-        echo $code;
-        exit;
+        $mobile = $this->request->getPost( 'mobile' );
+        $webApi = new WebapiComponent();
+        $re = $webApi->webApiGetCode( $mobile );
+        var_dump( $re );
 
     }
 

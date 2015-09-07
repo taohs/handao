@@ -17,30 +17,21 @@ class IndexController extends ControllerBase
         }
         $reUrl = $this->request->getQuery( 'reUrl' );
         if ($this->request->isPost()) {
-
             if ($this->security->checkToken( $this->session->get( '$PHALCON/CSRF/KEY$' ), $this->security->getSessionToken() )) {
                 $mobile = $this->request->getPost( 'mobile' );
                 $code = $this->request->getPost( 'code' );
-                $user = HdUser::findFirst(
-                    array(
-                        'conditions' => 'mobile=:mobile:',
-                        'bind'       => array(
-                            'mobile' => $mobile,
-                        )
-                    ) );
-                if ($user) {
-                     if ($user && $this->security->checkHash( $code, $user->password )) {
-                         $this->session->set( 'auth', $user );
-                         return $this->response->redirect( $reUrl );
-                     } else {
-                         $this->flash->error( "验证码不正确" );
-                     }
-                 }
+                $webApi = new WebapiComponent();
+                $re=$webApi->webApiLogin($mobile,$code);
+                if($re['statusCode']=='000000'){
+                    $this->session->set( 'auth', $re['content'] );
+                    return $this->response->redirect( $reUrl );
+                }else{
+                    $this->flash->error( $re['statusMsg'] );
+                }
 
             } else {
-                $this->flash->error( "验证码不正确" );
+                $this->flash->error( "token errors" );
             }
-
         }
     }
 
@@ -95,22 +86,9 @@ class IndexController extends ControllerBase
     public function getcodeAction()
     {
         $mobile = $this->request->getPost( 'mobile' );
-        $post_data = array( "mobile" => $mobile );
-
-        $ch = curl_init();
-
-        curl_setopt( $ch, CURLOPT_URL, $this->loginCodeUrl );
-        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1 );
-
-        curl_setopt( $ch, CURLOPT_POST, 1 );
-
-        curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_data );
-
-        $output = curl_exec( $ch );
-        curl_close( $ch );
-
-
-        var_dump( json_decode($output) );
+        $webApi = new WebapiComponent();
+        $re = $webApi->webApiGetCode( $mobile );
+        var_dump( $re );
 
     }
 
@@ -120,7 +98,7 @@ class IndexController extends ControllerBase
         $this->session->remove( 'auth' );
         return $this->response->redirect( 'index/index' );
     }
-    public function
+
 
 }
 
