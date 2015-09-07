@@ -1,4 +1,4 @@
-<header><span class="logo"><a href="#"><img width="98" height="44" alt="" src="{{url('images/logo2.png')}}"></a></span>
+<header><span class="logo"><a href="/index/index"><img width="98" height="44" alt="" src="{{url('images/logo2.png')}}"></a></span>
 
     <div class="tel">
         <p class="p1">专业的汽车保养网站</p>
