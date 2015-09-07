@@ -13,7 +13,7 @@
  */
 ?>
 {{content()}}
-<h2 class="sub-header">新建订单</h2>
+<h2 class="sub-header">编辑订单</h2>
 <div class="container col-md-8 ">
     {{flash.output()}}
     <form class="form-horizontal" method="post">
