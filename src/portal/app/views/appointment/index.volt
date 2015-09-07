@@ -1,5 +1,7 @@
 <style>
-    body{background:url(/images/bg2.jpg)}
+    body {
+        background: url(/images/bg2.jpg)
+    }
 
 </style>
 <img src="/images/phone.png">
@@ -37,26 +39,28 @@
                             <li>
 
                                 <input type="text" value="品牌" readonly name="pin"/>
-                                <ul class="m" jq-area="CarBrand">
+                                <ul style="text-align: left;" class="m" jq-area="CarBrand">
                                     {% for row in a_z%}
                                     {% set i=0%}
                                     {% for brand in brands %}
                                     {% if brand.initials == row %}
                                     {% if i == 0 %}
-                                    <li data-bcid={{ brand.id }} data-type="1"><b>{{row}}</b><em>{{ brand.name }}</em></li>
-                            {% else %}
-                            <li data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ brand.name }}</em></li>
-                            {% endif %}
-                            {% set i+=1%}
-                            {% endif %}
-                            {% endfor %}
-                            {% endfor %}
+                                    <li style="text-align: left;" data-bcid={{ brand.id }} data-type="1"><b>{{row}}</b><em>{{ brand.name }}</em>
+                                    </li>
+                                    {% else %}
+                                    <li style="text-align: left;" data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ brand.name
+                                            }}</em></li>
+                                    {% endif %}
+                                    {% set i+=1%}
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endfor %}
                                 </ul>
                             </li>
-                            <li>
+                            <li >
 
                                 <input type="text" value="系列" readonly name="che"/>
-                                <ul class="m" jq-area="Car-1">
+                                <ul style="text-align: left;" class="m" jq-area="Car-1">
 
                                     <li>111</li>
                                 </ul>
@@ -64,7 +68,7 @@
                             <li>
 
                                 <input type="text" value="型号" readonly name="kuan"/>
-                                <ul class="m" jq-area="Car-2"></ul>
+                                <ul style="text-align: left;" class="m" jq-area="Car-2"></ul>
                             </li>
                         </ul>
 
@@ -74,11 +78,22 @@
                 </div>
 
                 <script type="text/javascript">
+                    //解决js兼容问题；
                     jQuery(function ($) {
                         var $chars = $("#pc-chars"), $carbrand = $("ul[jq-area='CarBrand']");
                         $carbrand.scrollTop(0).show();
+                        var last = '';
                         $chars.children().each(function () {
-                            var that = $(this), c = that.text(), t = '';//$carbrand.find("li>b:contains('" + c + "')").parent().position().top;
+                            var that = $(this), c = that.text();
+                            var position = $carbrand.find("li>b:contains('" + c + "')");
+                            var t = '';
+                            if (null != position.parent().position()) {
+                                last = position.parent().position().top;
+                                t = last;
+                            } else {
+                                t = last;
+                            }
+
                             that.data("offsetY", t).bind("click", function () {
                                 $carbrand.show().scrollTop($(this).data("offsetY"));
                             });
@@ -139,7 +154,8 @@
                 </script>
 
             </div>
-            <p style="width:80%;overflow:hidden"><a style="font-size:12px;color:#999;float:right;" href="/appointment/notauto">未找到车型？</a></p>
+            <p style="width:80%;overflow:hidden"><a style="font-size:12px;color:#999;float:right;"
+                                                    href="/appointment/notauto">未找到车型？</a></p>
 
             <div class="d"><a href="javascript:void(0);" id="btn">下一步</a></div>
         </div>
