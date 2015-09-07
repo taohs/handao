@@ -24,6 +24,7 @@ class SmsController extends ControllerBase
 
     function onConstruct()
     {
+        parent::onConstruct();
         $this->smsComponent = new SmsComponent();
     }
 
@@ -33,11 +34,11 @@ class SmsController extends ControllerBase
         $mobileValidator = new MobileValidator();
         if($mobileValidator->validate($mobile) && !is_null($content))
         {
-            $rel = $this->smsComponent->sendMessage($mobile,$content);
+            $result = $this->smsComponent->sendMessage($mobile,$content);
         }else{
-            $rel = json_encode(array('statusCode'=>'-1','statusMsg'=>'发送失败'));
+            $result = array('statusCode'=>'-1','statusMsg'=>'发送失败');
         }
-        var_dump($rel);
+        echo json_encode($result);
     }
 
 

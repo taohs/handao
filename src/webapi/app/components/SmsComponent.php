@@ -44,7 +44,7 @@ class SmsComponent extends \Phalcon\Mvc\User\Component
 
 
 
-    function onConstruct()
+    function __construct()
     {
         $this->getSdk();
     }
