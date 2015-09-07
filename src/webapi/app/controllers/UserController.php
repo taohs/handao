@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: taohs
@@ -14,24 +13,20 @@
  */
 class UserController extends ControllerBase
 {
-
     /**
      * 获取登录验证码
      * 用户存在，替换密码，不存在，生成新用户
      * @param $mobile
      */
-    function loginCodeAction($mobile=null)
+    function loginCodeAction()
     {
         $mobile = $this->request->getPost( 'mobile' );
-
         $user = $this->getUserByMobile($mobile);
         $smsComponent = new SmsComponent();
         if ($user) {
             $code = $this->getCode();
-
             $user->password = $this->security->hash($code);
             if ($user->save()) {
-
                 $smsResult = $smsComponent->sendMessage($mobile, $code);
                 echo json_encode($smsResult);
             }
@@ -49,28 +44,23 @@ class UserController extends ControllerBase
                     $smsResult = $smsComponent->sendMessage($mobile, $code);
                     echo json_encode($smsResult);
                 }
-            }else{
-                echo 1;
             }
-
         }
     }
-
     /**
      * 登录
      * @param null $mobile
      * @param null $code
      */
-    function loginAction($mobile=null, $code=null)
+    function loginAction()
     {
         $mobile = $this->request->getPost( 'mobile' );
         $code = $this->request->getPost( 'code' );
-
         $user = $this->getUserByMobile($mobile);
         if ($user) {
-            if(!$this->security->checkHash($code,$user->password)){
+            if($this->security->checkHash($code,$user->password)){
                 //登录成功
-                 echo $json = json_encode(array('statusCode' => '000000', 'statusMsg' => '登录成功','content'=>$user));
+                echo $json = json_encode(array('statusCode' => '000000', 'statusMsg' => '登录成功','content'=>$user));
             }else{
                 echo json_encode(array('statusCode' => '1000000', 'statusMsg' => '登录失败'));
             }
@@ -78,10 +68,6 @@ class UserController extends ControllerBase
             echo json_encode(array('statusCode' => '1000', 'statusMsg' => '用户不存在'));
         }
     }
-
     function orderAction($mobile,$page){
-
     }
-
-
 }

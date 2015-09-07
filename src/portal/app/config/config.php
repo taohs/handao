@@ -20,5 +20,8 @@ return new \Phalcon\Config(array(
         'libraryDir'     => APP_PATH . '/app/library/',
         'cacheDir'       => APP_PATH . '/app/cache/',
         'baseUri'        => '/',
+
+        'componentsDir'      => APP_PATH . '/app/components/',
+
     )
 ));

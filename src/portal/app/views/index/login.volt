@@ -1,6 +1,6 @@
 <div class="title">
     <p>
-       会员登录
+        会员登录
     </p>
 </div>
 <div class="login">
@@ -48,12 +48,13 @@
     $('.getCode').click(function(){
         var mobile =$('#mobile').val();
         if(!mobile){
-          alert('请输入电话');return  false;
+            alert('请输入电话');return  false;
         }
 
         $.ajax({
             type: 'POST',
             dataType: 'json',
+            data: {mobile: mobile},
             url:  'getcode',
             success: function (data) {
                 $.cookie('sms', new Date().getTime());
