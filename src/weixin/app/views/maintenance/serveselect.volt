@@ -35,7 +35,7 @@
         <input type="hidden" name="models_id" value="{{models.id}}">
         <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}}">
 
-        <p class="xm">项目：</p>
+        <p class="xm">项目：机油三滤</p>
         <ul class="m">
 
             {% for cate in category %}

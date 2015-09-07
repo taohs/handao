@@ -34,6 +34,8 @@ class IndexController extends ControllerBase
 
     public function myorderAction()
     {
+
+
         if (!$this->session->get('auth')) {
             return $this->response->redirect("index/login?reUrl=index/myorder");
         }
@@ -50,6 +52,7 @@ class IndexController extends ControllerBase
             "page" => $numberPage,
         ));
         $userData = $this->session->get('auth');
+        $this->view->setMainView('record');
         $this->view->setVar('userData', $userData);
         $this->view->setVar('page', $paginator->getPaginate());
     }
@@ -72,6 +75,7 @@ class IndexController extends ControllerBase
             "page" => $numberPage,
         ));
         $userData = $this->session->get('auth');
+        $this->view->setMainView('record');
         $this->view->setVar('userData', $userData);
         $this->view->setVar('page', $paginator->getPaginate());
     }

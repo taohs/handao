@@ -41,11 +41,14 @@
                     <td>{{row.service_time}}</td>
                     <td>{{row.id}}</td>
 
-                    <td>{% for product in row.getProducts(row.products)%}
-                        {{product}}<hr>
-                        {% endfor %}
+                    <td> {% set products = row.getProducts(row.products) %}
+                        {% if products %}
+                        {% for index,product in products %}
+                        {{product}}{%if index+1 < products|length %}<hr>{%endif%}
+                        {% endfor%}
+                        {% endif %}
                     </td>
-                    <td><a href="report/detail/{{row.id}}"></a></td>
+                    <td><a href="/report/detail/{{row.id}}"></a></td>
 
                 </tr>
                 {% endfor %}
