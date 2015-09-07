@@ -22,11 +22,11 @@ class IndexController extends ControllerBase
                 $code = $this->request->getPost( 'code' );
                 $webApi = new WebapiComponent();
                 $re=$webApi->webApiLogin($mobile,$code);
-                if($re['statusCode']=='000000'){
-                    $this->session->set( 'auth', $re['content'] );
+                if($re->statusCode=='000000'){
+                    $this->session->set( 'auth', $re->content );
                     return $this->response->redirect( $reUrl );
                 }else{
-                    $this->flash->error( $re['statusMsg'] );
+                    $this->flash->error( $re->statusMsg );
                 }
 
             } else {
@@ -88,7 +88,8 @@ class IndexController extends ControllerBase
         $mobile = $this->request->getPost( 'mobile' );
         $webApi = new WebapiComponent();
         $re = $webApi->webApiGetCode( $mobile );
-        var_dump( $re );
+        echo $re;
+        exit;
 
     }
 

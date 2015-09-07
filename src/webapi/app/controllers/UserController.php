@@ -20,7 +20,7 @@ class UserController extends ControllerBase
      * 用户存在，替换密码，不存在，生成新用户
      * @param $mobile
      */
-    function loginCodeAction($mobile=null)
+    function loginCodeAction()
     {
         $mobile = $this->request->getPost( 'mobile' );
 
@@ -59,14 +59,14 @@ class UserController extends ControllerBase
      * @param null $mobile
      * @param null $code
      */
-    function loginAction($mobile=null, $code=null)
+    function loginAction()
     {
         $mobile = $this->request->getPost( 'mobile' );
         $code = $this->request->getPost( 'code' );
 
         $user = $this->getUserByMobile($mobile);
         if ($user) {
-            if(!$this->security->checkHash($code,$user->password)){
+            if($this->security->checkHash($code,$user->password)){
                 //登录成功
                  echo $json = json_encode(array('statusCode' => '000000', 'statusMsg' => '登录成功','content'=>$user));
             }else{
