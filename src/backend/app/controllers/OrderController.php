@@ -318,6 +318,7 @@ class OrderController extends ControllerBase
             $inputRemark = $this->request->getPost('inputRemark', \Phalcon\Filter::FILTER_INT);
             $modelExact = $this->request->getPost('inputAutoModelExact', \Phalcon\Filter::FILTER_INT);
             $autoNumber = $this->request->getPost('inputAutoNumber', \Phalcon\Filter::FILTER_STRING);
+            $remark = $this->request->getPost('inputRemark', \Phalcon\Filter::FILTER_STRING);
 
             /**
              * 初始化用户和联系人
@@ -372,6 +373,7 @@ class OrderController extends ControllerBase
                 $orderObject->address_id = $addressObject->id;
                 $orderObject->address_info = $addressObject->address;
                 $orderObject->book_time = $inputBookTime;
+                $orderObject->remark = $remark;
                 $orderObject->save();
 
                 $this->saveOrderProducts($orderObject,$products);

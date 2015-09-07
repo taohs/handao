@@ -67,7 +67,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputRemark">备注：</label>
             <div class="col-sm-10">
-                <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6"/></textarea>
+                <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6"/>{{model.remark}}</textarea>
 
             </div>
         </div>
