@@ -38,6 +38,7 @@ class SmsController extends ControllerBase
         }else{
             $result = array('statusCode'=>'-1','statusMsg'=>'发送失败');
         }
+        var_dump($result);
         echo json_encode($result);
     }
 

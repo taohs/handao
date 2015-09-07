@@ -94,3 +94,9 @@ $di->setShared('element', function () {
     return new Element();
 });
 
+$di->setShared('restful', function () {
+    $restful = new Restful();
+    $restful->initialize();
+
+    return $restful;
+});

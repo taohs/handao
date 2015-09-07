@@ -103,3 +103,48 @@ response body = {"statusMsg":"同一手机相同内容限定时间内应用限�
 request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅a','3',]}
 request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=5CC347D4F343E4A00662CFE039B88A47
 response body = {"templateSMS":{"dateCreated":"20150907011518","smsMessageSid":"201509070115185877013"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514fa577af014fa5d2a5ae022b/SMS/TemplateSMS?sig=00991632ACE23ED2CF9E7225CD0BC244
+response body = {"statusMsg":"【账号】主账户不存在","statusCode":"111141"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514fa577af014fa5d2a5ae022b/SMS/TemplateSMS?sig=C9949D71098C6A27919DF8C90CEF4C9F
+response body = {"statusMsg":"【账号】主账户不存在","statusCode":"111141"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/c50cf73e552811e58b68ac853d9d52fd/SMS/TemplateSMS?sig=208DB8AA59147C09017232B971E0F25F
+response body = {"statusMsg":"【账号】主账户不存在","statusCode":"111141"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/c50cf73e552811e58b68ac853d9d52fd/SMS/TemplateSMS?sig=621087B592B25D9FD5E1025E289F1E2F
+response body = {"statusMsg":"【账号】主账户不存在","statusCode":"111141"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=2471E3C151FDEDE46A2EB0B6BCDD38C8
+response body = {"statusMsg":"【短信】应用未上线，模板短信接收号码外呼受限","statusCode":"112310"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=9BBF5EC2E34A23DFAFFC41EB296519C1
+response body = {"statusMsg":"【短信】应用未上线，模板短信接收号码外呼受限","statusCode":"112310"}
+request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514fa577af014fa5d2a58c022a','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=5BEB4FC6BE8ED78F265DB79A48DBBAD0
+response body = {"statusMsg":"【短信】应用未上线，模板短信接收号码外呼受限","statusCode":"112310"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=343991344CA33B4C2A470BFD889BE03A
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=4DE160C9ECEEF670E17C13108A33FC8E
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['大哥你好帅','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=E29A2740F1ABA70582BC63DFA2C594E9
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['nihao','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=FFCC3E8074EA2AA30A09B1C7D2D19ED6
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['大哥你好帅a','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=43FC82342B382A984C7F07B486A00618
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['nihao','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=7C8894BFD8F3E170EA5308E0FA4C791F
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['nihao','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=8D558A732F564FEA4DBFA0E5431E5990
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
+request body = {'to':'13883388101','templateId':'1','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['nihao','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=81F11FD391FCDE27FD24215EB784043D
+response body = {"statusMsg":"您正在使用云通讯测试模板,请更换！","statusCode":"113302"}
