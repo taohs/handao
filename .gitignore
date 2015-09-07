@@ -1,5 +1,10 @@
 .idea
 src/backend/app/cache/
+src/backend/cache/
 src/portal/app/cache/
+src/protal/cache/
 src/weixin/app/cache/
+src/weixin/cache/
+src/webapi/app/cache/
+src/webapi/cache/
 .DS_Store
