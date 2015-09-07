@@ -47,10 +47,13 @@
                     <td>{{row.id}}</td>
 
                     <td>{{element.getTime(row.book_time)}}</td>
-                    <td>{% for product in row.getProducts(row.products)%}
-
-                        {{product}}<hr>
+                    <td>
+                        {% set products = row.getProducts(row.products) %}
+                        {% if products %}
+                        {% for index,product in products %}
+                        {{product}}{%if index+1 < products|length %}<hr>{%endif%}
                         {% endfor%}
+                        {% endif %}
 
 
                     <td>{{row.total}}</td>
