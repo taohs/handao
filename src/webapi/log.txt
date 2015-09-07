@@ -103,3 +103,9 @@ response body = {"statusMsg":"同一手机相同内容限定时间内应用限�
 request body = {'to':'13883388101','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['大哥你好帅a','3',]}
 request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=5CC347D4F343E4A00662CFE039B88A47
 response body = {"templateSMS":{"dateCreated":"20150907011518","smsMessageSid":"201509070115185877013"},"statusCode":"000000"}
+request body = {'to':'13983198548','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['2958','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=D5990F215266911696E2469C1AF3C865
+response body = {"statusMsg":"【短信】应用未上线，模板短信接收号码外呼受限","statusCode":"112310"}
+request body = {'to':'13983198548','templateId':'1','appId':'8a48b5514f73ea32014fa0a0e8e5550c','datas':['3843','3',]}
+request url = https://sandboxapp.cloopen.com:8883/2013-12-26/Accounts/8a48b5514f73ea32014fa0a0ae385509/SMS/TemplateSMS?sig=E4E272BFC89AB62581A5061BA984F87C
+response body = {"statusMsg":"【短信】应用未上线，模板短信接收号码外呼受限","statusCode":"112310"}

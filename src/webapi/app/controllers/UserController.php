@@ -17,23 +17,40 @@ class UserController extends ControllerBase
 
     /**
      * 获取登录验证码
+     * 用户存在，替换密码，不存在，生成新用户
      * @param $mobile
      */
     function loginCodeAction($mobile=null)
     {
-        $user = $this->getUserByMobile($mobile);
+        $mobile = $this->request->getPost( 'mobile' );
 
+        $user = $this->getUserByMobile($mobile);
+        $smsComponent = new SmsComponent();
         if ($user) {
             $code = $this->getCode();
 
             $user->password = $this->security->hash($code);
             if ($user->save()) {
-                $smsComponent = new SmsComponent();
+
                 $smsResult = $smsComponent->sendMessage($mobile, $code);
                 echo json_encode($smsResult);
             }
         } else {
-            echo json_encode(array('statusCode' => '1000', 'statusMsg' => '用户不存在'));
+            $mobileValidator = new MobileValidator();
+            if($mobileValidator->validate($mobile)){
+                $code = $this->getCode();
+                $HdUser = new HdUser();
+                $HdUser->mobile = $mobile;
+                $HdUser->username = $mobile;
+                $HdUser->password = $this->security->hash( $code );
+                $HdUser->update_time = date( "Y-m-d H:i:s" );
+                $HdUser->create_time = date( "Y-m-d H:i:s" );
+                if ($HdUser->save()) {
+                    $smsResult = $smsComponent->sendMessage($mobile, $code);
+                    echo json_encode($smsResult);
+                }
+            }
+
         }
     }
 
@@ -44,6 +61,9 @@ class UserController extends ControllerBase
      */
     function loginAction($mobile=null, $code=null)
     {
+        $mobile = $this->request->getPost( 'mobile' );
+        $code = $this->request->getPost( 'code' );
+
         $user = $this->getUserByMobile($mobile);
         if ($user) {
             if(!$this->security->checkHash($code,$user->password)){
