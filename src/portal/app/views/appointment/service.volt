@@ -201,7 +201,8 @@
 
 
                     var products = $('.products').val();
-                    if (!products) {
+
+                    if (!products && $('#onlyqita').attr('checked')!='checked') {
                         alert('请选择商品');
                         return false;
                     }
