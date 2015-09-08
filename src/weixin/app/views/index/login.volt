@@ -56,7 +56,7 @@
         }
 
         $.ajax({
-            type: 'POST',
+            type: 'post',
             dataType: 'json',
             data: {mobile: mobile},
             url:  '/index/getcode',
