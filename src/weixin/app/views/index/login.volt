@@ -59,7 +59,7 @@
             type: 'POST',
             dataType: 'json',
             data: {mobile: mobile},
-            url:  'getcode',
+            url:  '/index/getcode',
             success: function (data) {
                 $.cookie('sms', new Date().getTime());
                 intervalSend();
