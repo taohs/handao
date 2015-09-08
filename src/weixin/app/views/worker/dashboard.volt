@@ -65,7 +65,7 @@
                         <td> <a href="/worker/createreport/{{row.id}}">填写报告</a> </td>
                         {% endif %}
                     {% else %}
-                        <td></td>
+                        <td><a href="/report/detail/{{row.id}}">查看</a> </td>
                     {% endif %}
                 </tr>
                 {% endfor %}

@@ -222,3 +222,6 @@ response body = {"templateSMS":{"dateCreated":"20150908204708","smsMessageSid":"
 request body = {'to':'13883388101','templateId':'35282','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['8076',]}
 request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=060C0B87681F93ADD2317D014B8C1D98
 response body = {"templateSMS":{"dateCreated":"20150908204811","smsMessageSid":"201509082048116962869"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'35282','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['6070',]}
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=B899B432BB8521BD759DC771B6730DDA
+response body = {"statusMsg":"【短信】短信下发超过当日发送限制","statusCode":"112314"}
