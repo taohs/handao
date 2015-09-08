@@ -34,11 +34,10 @@ class SmsController extends ControllerBase
         $mobileValidator = new MobileValidator();
         if($mobileValidator->validate($mobile) && !is_null($content))
         {
-            $result = $this->smsComponent->sendMessage($mobile,$content);
+            $result = $this->smsComponent->sendMessage($mobile,array($content),SmsComponent::LOGIN_CODE);
         }else{
             $result = array('statusCode'=>'-1','statusMsg'=>'发送失败');
         }
-        var_dump($result);
         echo json_encode($result);
     }
 
