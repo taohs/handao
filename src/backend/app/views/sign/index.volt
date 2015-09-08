@@ -17,18 +17,19 @@
 
     <form class="form-signin" action="/sign/index" method="post">
         {{flash.output()}}
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus="">
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" required="">
+        <h2 class="form-signin-heading"><img src="{{url('assets/img/logo_big.png')}}"></h2>
+
+        <label for="inputEmail" class="sr-only">登录邮箱</label>
+        <input type="email" name="inputEmail" id="inputEmail" class="form-control" placeholder="登录邮箱" required="" autofocus="">
+        <label for="inputPassword" class="sr-only">登录密码</label>
+        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="登录密码" required="">
+        <label for="图形验证码" class="sr-only">验证码</label>
+        <input type="password" name="inputCode" id="inputCode" class="form-control" placeholder="验证码" required="" style="width: 120px;">
+        <input type="password" name="inputCode" id="inputCode" readonly class="form-control" placeholder="{{code}}" required="" style="width: 200px;">
+
         <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
     </form>
 
 </div>

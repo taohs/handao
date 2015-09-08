@@ -82,6 +82,11 @@ class SignController extends ControllerBase
             return $this->refresh();
         }
 
+
+        $code = $this->security->getSessionToken();
+
+        $this->view->setVar('code',$code);
+
     }
 
 
