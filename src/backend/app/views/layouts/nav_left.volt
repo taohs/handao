@@ -46,7 +46,7 @@
         <ul class="dropdown-menu">
 
             <li><a href="{{url('products')}}">商品管理</a></li>
-            <li><a href="{{url('productsCategory')}}">类型管理</a></li>
+            <li><a href="{{url('productscategory')}}">类型管理</a></li>
             <li role="separator" class="divider"></li>
             <li class="dropdown-header">Nav header</li>
             <li><a href="{{url('products')}}">品牌管理</a></li>
