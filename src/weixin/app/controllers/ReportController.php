@@ -28,8 +28,8 @@ class ReportController extends ControllerBase
                 return $this->response->redirect('/worker/index');
             }
         }
-
-        if(is_null($oid) || empty(intval($oid))){
+        $oid = intval($oid);
+        if(is_null($oid) || empty($oid)){
 
             $this->flash->error("订单号错误");
 
