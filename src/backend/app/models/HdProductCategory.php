@@ -117,4 +117,11 @@ class HdProductCategory extends \Phalcon\Mvc\Model
         return 'hd_product_category';
     }
 
+    public function getProducts(){
+        return HdProduct::find(array(
+            'conditions'=>'category=:category:',
+            'bind'=>array('category'=>$this->id)
+        ));
+    }
+
 }
