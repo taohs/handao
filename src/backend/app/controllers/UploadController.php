@@ -97,12 +97,24 @@ class UploadController extends ControllerBase
             if (!$brandsModel) {
                 $brandsModel = new HdBrands();
                 $brandsModel->name = trim($brands);
-                $brandsModel->initials = substr(strtoupper(CUtf8::encode($brands)),0,1);
+                $brandsModel->initials = substr(strtoupper(CUtf8::encode($brands)), 0, 1);
                 $brandsModel->name_en = '';
                 $brandsModel->country = '';
                 $brandsModel->create_time = date('Y-m-d H:i:s');
                 $brandsModel->save();
             }
+            $autoBrands = HdAutoBrands::findFirst(array(
+                'conditions' => 'brands_id=:brandsId:',
+                'bind' => array('brandsId' => $brandsModel->id)
+            ));
+            if (!$autoBrands) {
+                $autoBrands = new HdAutoBrands();
+                $autoBrands->brands_id = $brandsModel->id;
+                $autoBrands->create_time = date('Y-m-d H:i:s');
+                $autoBrands->save();
+            }
+
+
             self::$brands = $brandsModel;
             return self::$brands;
         }
@@ -175,7 +187,7 @@ class UploadController extends ControllerBase
 
             $productsModel = HdProduct::findFirst(array(
                 'conditions' => 'name=:name: and member_price=:price:',
-                'bind' => array('name' => $productsName,'price'=>$productsPrice)
+                'bind' => array('name' => $productsName, 'price' => $productsPrice)
             ));
             if (!$productsModel) {
                 $productsModel = new HdProduct();
@@ -203,10 +215,10 @@ class UploadController extends ControllerBase
         $modelsExactModel = self::$modelsExact;
 
         $model = HdAutoProductRecommend::findFirst(array(
-            'conditions'=>'exact_id=:exact_id: and product_id=:pid:',
-            'bind'=>array('exact_id'=>$modelsExactModel->id,'pid'=>$productModel->id)
+            'conditions' => 'exact_id=:exact_id: and product_id=:pid:',
+            'bind' => array('exact_id' => $modelsExactModel->id, 'pid' => $productModel->id)
         ));
-        if(!$model){
+        if (!$model) {
             $model = new HdAutoProductRecommend();
             $model->exact_id = $modelsExactModel->id;
             $model->product_id = $productModel->id;
@@ -227,11 +239,11 @@ class UploadController extends ControllerBase
                 'conditions' => 'name=:name:',
                 'bind' => array('name' => $name)
             ));
-            if(!$model){
-                $model=new HdProductCategory();
-                $model->name=$name;
-                $model->parent_id=1;
-                $model->active=1;
+            if (!$model) {
+                $model = new HdProductCategory();
+                $model->name = $name;
+                $model->parent_id = 1;
+                $model->active = 1;
                 $model->save();
             }
             $category[$key] = $model->id;

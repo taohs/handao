@@ -59,8 +59,8 @@
                 {% set products = category.getProducts() %}
                 {% if products %}
                 {% for row in products %}
-                <label class="col-sm-4">
-                    <input type="checkbox" name="inputProducts[]" value="{{row.id}}" {% if(row.id in useProductRecommend) %} checked="checked" {%endif%}>{{row.name}}
+                <label class="col-sm-10">
+                    <input type="checkbox" name="inputProducts[]" value="{{row.id}}" {% if(row.id in useProductRecommend) %} checked="checked" {%endif%}>{{row.name}} ￥{{row.member_price}}
                 </label>
                 {% endfor %}
                 {% endif %}
