@@ -29,6 +29,7 @@
                 <li><a href="{{url('index/index')}}">我的仪表盘</a></li>
 <!--                <li><a href="{{url('system/index')}}">系统设置</a></li>-->
                 <li><a href="{{url('admin/password')}}">修改密码</a></li>
+                <li><a href="{{url('sign/out')}}">退出</a></li>
             </ul>
 
         </div>
