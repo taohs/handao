@@ -41,7 +41,7 @@
             </td>
             <td>{% if model.HDIndustry %}{{model.HDIndustry.name}}{% endif %}</td>
             <td>{% if model.active %}启用{%else%}禁用{% endif %}</td>
-            <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to(dispatcher.getControllerName()~"/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
+            <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}}</td>
         </tr>
         {% endfor %}
         {% endif %}

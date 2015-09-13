@@ -23,8 +23,8 @@
             <th>预约时间</th>
             <th>预约地点</th>
             <th>订单金额</th>
-            <th>折扣金额</th>
-            <th>实际金额</th>
+<!--            <th>折扣金额</th>-->
+<!--            <th>实际金额</th>-->
             <th>支付状态</th>
             <th>订单状态</th>
             <th>技师</th>
@@ -43,16 +43,16 @@
             <td>{%if linkman %}{{ linkman.mobile }}{% endif %}</td>
             <td>{{model.book_time}}</td>
             <td>{{model.address_info}}</td>
-            <td>{{model.total}}</td>
-            <td>{{model.discount_amount}}</td>
-            <td>{{model.price}}</td>
-            <td>{% if model.payed_amount > 0  %} <strong style="color: green">已支付 ￥{{model.payed_amount}}</strong> {% else %}<strong style="color: red" > 未支付</strong> {% endif %}</td>
+            <td>￥{{model.total}}</td>
+<!--            <td>{#{model.discount_amount}#}</td>-->
+<!--            <td>{#{model.price}#}</td>-->
+            <td>{% if model.payed_amount > 0  %} <strong style="color: green">已付￥{{model.payed_amount}}</strong> {% else %}<strong style="color: red" > 未支付</strong> {% endif %}</td>
             <td>{% if status %} {{status}} {% endif %}</td>
             <td>{% if technician %}  {{technician.name}} {% endif %}</td>
             <td>
-                {{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} |
-                {{link_to( dispatcher.getControllerName()~"/status/" ~ model.id,'状态',true,'class':'abc')}} |
-                {{link_to( dispatcher.getControllerName()~"/pay/" ~ model.id,'支付',true,'class':'abc')}} |
+                {{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}}
+                {{link_to( dispatcher.getControllerName()~"/status/" ~ model.id,'状态',true,'class':'abc')}}
+                {{link_to( dispatcher.getControllerName()~"/pay/" ~ model.id,'支付',true,'class':'abc')}}
                 {{link_to(dispatcher.getControllerName()~"/assign/" ~ model.id,'技师')}}
             </td>
         </tr>
