@@ -25,9 +25,9 @@
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="登录密码" required="">
         <label for="图形验证码" class="sr-only">验证码</label>
         <input type="password" name="inputCode" id="inputCode" class="form-control" placeholder="验证码" required="" style="width: 120px;">
-        <input type="password" name="inputCode" id="inputCode" readonly class="form-control" placeholder="{{code}}" required="" style="width: 200px;">
 
         <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
+        <img  title="点击刷新" src="/sign/captcha" align="absbottom" onclick="this.src='/sign/captcha?'+Math.random();"/>
 
         <button class="btn btn-lg btn-primary btn-block" type="submit">登 录</button>
     </form>
