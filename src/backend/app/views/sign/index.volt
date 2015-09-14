@@ -24,7 +24,7 @@
         <label for="inputPassword" class="sr-only">登录密码</label>
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="登录密码" required="">
         <label for="图形验证码" class="sr-only">验证码</label>
-        <input type="password" name="inputCode" id="inputCode" class="form-control" placeholder="验证码" required="" style="width: 120px;">
+        <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="验证码" required="" style="width: 120px;">
 
         <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
         <img  title="点击刷新" src="/sign/captcha" align="absbottom" onclick="this.src='/sign/captcha?'+Math.random();"/>

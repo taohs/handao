@@ -51,6 +51,7 @@ class SignController extends ControllerBase
 
     public function indexAction()
     {
+        session_start();
         if ($this->request->isPost()) {
 
             if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'), $this->security->getSessionToken())) {//todo 这里需要使用if ($this->security->checkToken()) 因为未知原因导致失败
@@ -58,6 +59,21 @@ class SignController extends ControllerBase
 
                 $username = $this->request->getPost('inputEmail', 'email');
                 $password = $this->request->getPost('inputPassword', 'string');
+                $inputCode = $this->request->getPost('inputCode', 'string');
+
+                if(isset($_POST["inputCode"])) {
+                    $validate = $_POST["inputCode"];
+
+                    if ($validate != $_SESSION["authnum_session"]) {
+//判断session值与用户输入的验证码是否一致;
+//                        echo "<font color=red>输入有误</font>";
+                        $this->flash->error('输入有无');
+                        return $this->refresh();
+                    } else {
+//                        echo "<font color=green>通过验证</font>";
+                    }
+                }
+
                 $admin = HdAdmin::findFirst(
                     array(
                         'conditions' => 'username=:username:',
