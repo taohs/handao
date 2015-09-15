@@ -12,6 +12,7 @@ class WebapiComponent extends \Phalcon\Mvc\User\Component
         curl_setopt( $ch, CURLOPT_POST, 1 );
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_data );
         $output = curl_exec( $ch );
+        var_dump($output);
         curl_close( $ch );
         var_dump($ch);
         return json_decode( $output );
