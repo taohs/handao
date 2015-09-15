@@ -25,11 +25,35 @@ class MaintenanceController extends ControllerBase
 
         $autoModel = HdAutoModels::find();
         $autoModelExact = HdAutoModelsExact::find();
+        $autoModelArray = array();
+        foreach($autoModel as $row){
+            /**
+             * @var $row HdAutoModels
+             */
+            $autoModelArray[$row->brands_id][] = $row;
+        }
+        $autoModelExactArray = array();
+        foreach($autoModelExact as $row){
+            /**
+             * @var $row HdAutoModelsExact
+             */
+            $autoModelExactArray[$row->models_id][] = $row;
+        }
+
+//        $autoModel->filter(function($autoModel){
+//            if($autoModel->id>1){
+//                return $autoModel;
+//            }
+//        });
 
         $this->view->setvar( 'brands', $brands );
         $this->view->setvar( 'a_z', $a_z );
         $this->view->setvar( 'autoModelExact', $autoModelExact );
+        $this->view->setvar( 'autoModelExactArray', $autoModelExactArray );
         $this->view->setvar( 'autoModel', $autoModel );
+        $this->view->setvar( 'autoModelArray', $autoModelArray );
+//        var_dump($autoModelArray);
+//        exit;
 
     }
 
