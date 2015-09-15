@@ -8,6 +8,16 @@ class IndexController extends ControllerBase
         //$this->session->set('auth','');
     }
 
+    function captchaAction()
+    {
+
+        $this->view->disable();
+        //先把类包含进来，实际路径根据实际情况进行修改。
+        $_vc = new ValidateCode();  //实例化一个对象
+        $_vc->doimg();
+        $this->session->set('authnum_session', $_vc->getCode());
+    }
+
     public function loginAction()
     {
         if ($this->session->get('auth')) {
@@ -16,6 +26,20 @@ class IndexController extends ControllerBase
         $reUrl = $this->request->getQuery('reUrl');
         if ($this->request->isPost()) {
             if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'), $this->security->getSessionToken())) {
+                if (isset($_POST["inputCode"])) {
+                    $validate = $_POST["inputCode"];
+
+                    if ($validate != $this->session->get("authnum_session")) {
+//判断session值与用户输入的验证码是否一致;
+//                        echo "<font color=red>输入有误</font>";
+                        $this->flash->error('验证码错误');
+                        return $this->refresh();
+                    } else {
+//                        echo "<font color=green>通过验证</font>";
+                    }
+                }
+
+
                 $mobile = $this->request->getPost('mobile');
                 $code = $this->request->getPost('code');
                 $webApi = new WebapiComponent();

@@ -12,6 +12,13 @@
             <input type="button" value="获取验证码" class="getCode" style="width: 200px;text-align: center;">
 
         </p>
+        <p class="yzm">
+            <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="验证码" required="" style="width: 120px;">
+
+            <img  title="点击刷新" src="/index/captcha" align="absbottom" onclick="this.src='/index/captcha?'+Math.random();"/>
+
+        </p>
+
 
         <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
 
