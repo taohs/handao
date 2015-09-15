@@ -1,8 +1,8 @@
 <?php
 class WebapiComponent extends \Phalcon\Mvc\User\Component
 {
-    public $loginCodeUrl = 'http://api.handao365.com/user/logincode';
-    public $loginUrl = 'http://api.handao365.com/user/login';
+    public $loginCodeUrl = 'http://api.handao365.dev/user/logincode';
+    public $loginUrl = 'http://api.handao365.dev/user/login';
     public function webApiGetCode( $mobile )
     {
         $post_data = array( "mobile" => $mobile );

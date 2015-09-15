@@ -44,6 +44,8 @@ class UserController extends ControllerBase
                     $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
                     echo json_encode($smsResult);
                 }
+            }else{
+                echo json_encode(array('statusCode'=>10000,'statusMsg'=>''));
             }
         }
     }
