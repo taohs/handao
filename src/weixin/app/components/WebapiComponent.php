@@ -1,8 +1,8 @@
 <?php
 class WebapiComponent extends \Phalcon\Mvc\User\Component
 {
-    public $loginCodeUrl = 'http://api.handao365.dev/user/logincode';
-    public $loginUrl = 'http://api.handao365.dev/user/login';
+    public $loginCodeUrl = 'http://api.handao365.com/user/logincode';
+    public $loginUrl = 'http://api.handao365.com/user/login';
     public function webApiGetCode( $mobile )
     {
         $post_data = array( "mobile" => $mobile );
@@ -12,9 +12,9 @@ class WebapiComponent extends \Phalcon\Mvc\User\Component
         curl_setopt( $ch, CURLOPT_POST, 1 );
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_data );
         $output = curl_exec( $ch );
-        var_dump($output);
+
         curl_close( $ch );
-        var_dump($ch);
+
         return json_decode( $output );
     }
     public function webApiLogin( $mobile, $code )
