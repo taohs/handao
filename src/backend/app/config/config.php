@@ -20,7 +20,7 @@ return new \Phalcon\Config( array(
         'pluginsDir'     => APP_PATH . '/app/plugins/',
         'libraryDir'     => APP_PATH . '/app/library/',
         'helperDir'      => APP_PATH . '/app/helper/',
-        'cacheDir'       => APP_PATH . '/app/cache/',
+        'cacheDir'       => APP_PATH . '/cache/',
         'baseUri'        => '/',
         'formsDir'       => APP_PATH . '/app/forms/'
     ),
