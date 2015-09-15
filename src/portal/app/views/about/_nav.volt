@@ -7,8 +7,9 @@
 <div class="tnav">
     <h1>公司简介</h1>
     <ul>
-        <li class="cid75"><a href="/about"><div class="hv">公司简介</div></a></li>
-        <li class="cid76"><a href="/about/cooperation"><div class="hv">合作伙伴</div></a></li>
-        <li class="cid77" style="background: none repeat scroll 0% 0% transparent;"><a href="/about/contact"><div class="hv">联系我们</div></a></li>
+        {% set ActionName=this.dispatcher.getActionName() %}
+        <li {% if ActionName == 'index' %}class="cid75"{% endif %}><a href="/about"><div class="hv">公司简介</div></a></li>
+        <li {% if ActionName == 'cooperation' %}class="cid75"{% endif %}><a href="/about/cooperation"><div class="hv">合作伙伴</div></a></li>
+        <li {% if ActionName == 'contact' %}class="cid75"{% endif %} style="background: none repeat scroll 0% 0% transparent;"><a href="/about/contact"><div class="hv">联系我们</div></a></li>
     </ul>
 </div>

@@ -26,6 +26,7 @@ class AppointmentController extends ControllerBase
     {
         $brands_id = $this->request->getQuery( 'brands_id' );
         $models_id = $this->request->getQuery( 'models_id' );
+        $exact_id = $this->request->getQuery( 'exact_id' );
 
 
         $models = HdAutoModels::findFirst( array(
@@ -39,16 +40,44 @@ class AppointmentController extends ControllerBase
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $brands_id )
         ) );
-        $category = HdProductCategory::find( array(
-            "conditions" => "parent_id =0"
+        $recommend = HdAutoProductRecommend::find( array( 'conditions' => 'exact_id = :exact_id:', 'bind' => array( 'exact_id' => $exact_id ) ) );
+        $product_id_str = "";
+        $i = 0;
+        foreach ($recommend as $row) {
+            $i==0?$dian = '':$dian = ',';
+            $product_id_str .= $dian . $row->product_id;
+            $i++;
 
-        ) );
-        $cates = HdProductCategory::find( array(
-            "conditions" => "parent_id <>0"
+        }
+        $product = HdProduct::find( array( 'conditions' => "id in ($product_id_str)" ) )->toArray();
 
-        ) );
-        $product = HdProduct::find()->toArray();
 
+        foreach ($product as $row) {
+            $category_id_array[]=  $row['category'];
+        }
+        $category_id_str="";
+        $category_id_array= array_unique($category_id_array);
+        $i = 0;
+        foreach ($category_id_array as $row){
+            $i==0?$dian = '':$dian = ',';
+            $category_id_str.=$dian.$row;
+            $i++;
+        }
+
+        $cates = HdProductCategory::find(array( 'conditions' => "id in ($category_id_str)" ) );
+
+        foreach ($cates as $row) {
+            $categoryAll_id_array[]=  $row->parent_id;
+        }
+        $categoryAll_id_str="";
+        $categoryAll_id_array= array_unique($categoryAll_id_array);
+        $i = 0;
+        foreach ($categoryAll_id_array as $row){
+            $i==0?$dian = '':$dian = ',';
+            $categoryAll_id_str.=$dian.$row;
+            $i++;
+        }
+        $category = HdProductCategory::find(array( 'conditions' => "id in ($categoryAll_id_str)" )  );
         $this->view->setVar( 'brands', $brands );
         $this->view->setVar( 'models', $models );
         $this->view->setVar( 'category', $category );

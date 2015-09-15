@@ -44,10 +44,11 @@ class IndexController extends ControllerBase
         $data['msg'] = '';
         $i = 0;
         foreach ($auto as $row) {
+
             $data['msg'][$i]['id'] = $row['id'];
             $data['msg'][$i]['title'] = $row['name'];
             if ($type == 2) {
-                $data['msg'][$i]['url'] = "/appointment/service?brands_id={$row['brands_id']}&models_id={$row['models_id']}";
+                $data['msg'][$i]['url'] = "/appointment/service?brands_id={$row['brands_id']}&models_id={$row['models_id']}&exact_id={$row['id']}";
             }
             $i++;
         }

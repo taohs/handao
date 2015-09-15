@@ -34,7 +34,7 @@
                     {% for exact in autoModelExact %}
                     {% if model.id==exact.models_id %}
                     <li>
-                        <a href="/maintenance/serveselect?brands_id={{exact.brands_id}}&models_id={{exact.models_id}}">{{exact.name}}</a>
+                        <a href="/maintenance/serveselect?brands_id={{exact.brands_id}}&models_id={{exact.models_id}}&exact_id={{exact.id}}">{{exact.name}}</a>
                     </li>
                     {% endif %}
                     {% endfor%}
