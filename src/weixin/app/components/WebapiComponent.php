@@ -13,6 +13,7 @@ class WebapiComponent extends \Phalcon\Mvc\User\Component
         curl_setopt( $ch, CURLOPT_POSTFIELDS, $post_data );
         $output = curl_exec( $ch );
         curl_close( $ch );
+        var_dump($ch);
         return json_decode( $output );
     }
     public function webApiLogin( $mobile, $code )
