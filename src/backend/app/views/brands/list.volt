@@ -46,7 +46,7 @@
                 {%endif%}
             </td>
             <td>{{model.country}}</td>
-            <td>{{link_to("brands/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to("brands/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
+            <td>{{link_to("brands/update/" ~ model.id,'编辑',true,'class':'abc')}} </td>
         </tr>
         {% endfor %}
         </tbody>

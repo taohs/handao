@@ -52,6 +52,23 @@
             </div>
         </div>
 
+        {% for category in productCategoryModels %}
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputYears">{{category.name}}：</label>
+            <div class="col-sm-10 form-horizontal checkbox">
+                {% set products = category.getProducts() %}
+                {% if products %}
+                {% for row in products %}
+                <label class="col-sm-10">
+                    <input type="checkbox" name="inputProducts[]" value="{{row.id}}" {% if(row.id in useProductRecommend) %} checked="checked" {%endif%}>{{row.name}} ￥{{row.member_price}}
+                </label>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+
+
         <div  class="form-group">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">

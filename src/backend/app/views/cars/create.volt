@@ -51,13 +51,25 @@
                 <p class="help-block">输入改车系版本各年用英文标点逗号分割 如：2003<strong style="color: red">,</strong>2004</p>
             </div>
         </div>
+        {% for category in productCategoryModels %}
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputYears">{{category.name}}：</label>
+            <div class="col-sm-10 form-horizontal checkbox">
+                {% set products = category.getProducts() %}
+                {% if products %}
+                {% for row in products %}
+                <label class="col-sm-10"><input type="checkbox" name="inputProducts[]" value="{{row.id}}">{{row.name}} ￥{{row.member_price}}</label>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
 
         <div  class="form-group">
             <div class="col-sm-2"></div>
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">提交保存</button>
             </div>
-
         </div>
     </form>
 </div>

@@ -34,7 +34,7 @@
             <td>{{model.HdAutoModels.name}} &nbsp;</td>
             <td>{{model.name}}</td>
             <td>{{model.year}}</td>
-            <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}} | {{link_to(dispatcher.getControllerName()~"/delete/" ~ model.id,'删除品牌(暂时不做)',true,'class':'abc')}} </td>
+            <td>{{link_to( dispatcher.getControllerName()~"/update/" ~ model.id,'编辑',true,'class':'abc')}}</td>
         </tr>
         {% endfor %}
         </tbody>

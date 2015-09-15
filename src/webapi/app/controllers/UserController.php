@@ -27,7 +27,7 @@ class UserController extends ControllerBase
             $code = $this->getCode();
             $user->password = $this->security->hash($code);
             if ($user->save()) {
-                $smsResult = $smsComponent->sendMessage($mobile, $code);
+                $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
                 echo json_encode($smsResult);
             }
         } else {
@@ -41,7 +41,7 @@ class UserController extends ControllerBase
                 $HdUser->update_time = date( "Y-m-d H:i:s" );
                 $HdUser->create_time = date( "Y-m-d H:i:s" );
                 if ($HdUser->save()) {
-                    $smsResult = $smsComponent->sendMessage($mobile, $code);
+                    $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
                     echo json_encode($smsResult);
                 }
             }
