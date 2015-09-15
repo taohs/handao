@@ -200,16 +200,16 @@
             <div class="syb2">
                 <div class="zc">
                     <h1>服务支持</h1>
-                    <a href="without.html">未找到车型</a>
+                    <a href="{{url('/appointment/notauto')}}">未找到车型</a>
                     <a href="63.html">产品保证</a>
-                    <a href="62.html">服务说明</a>
+                    <a href="{{url('/introduction')}}">服务说明</a>
                     <a href="61.html">售后政策</a>
                 </div>
                 <div class="zc">
                     <h1>关于我们</h1>
-                    <a href="contact-us.html">联系我们</a>
-                    <a href="Partners.html">合作伙伴</a>
-                    <a href="company-profile.html">公司简介</a>
+                    <a href="{{url('/about/contact')}}">联系我们</a>
+                    <a href="{{url('/about/cooperation')}}">合作伙伴</a>
+                    <a href="{{url('/about')}}">公司简介</a>
                 </div>
                 <div class="zc" style="width:350px">
                     <h1>联系我们</h1>
