@@ -3,13 +3,13 @@
     <div class="fullSlide">
         <div class="bd">
             <ul>
-                <li style="background:#fff url(/assets/data-pic/banner1.jpg) center 0 no-repeat;">
+                <li style="background:#fff url('/assets/data-pic/banner1.jpg') center 0 no-repeat;">
                     <a href="#" target="_blank"></a>
                 </li>
-                <li style="background:#fff url(/assets/data-pic/banner3.jpg) center 0 no-repeat;">
+                <li style="background:#fff url( '/assets/data-pic/banner3.jpg') center 0 no-repeat;">
                     <a href="#" target="_blank"></a>
                 </li>
-                <li style="background:#fff url(/assets/data-pic/banner2.jpg) center 0 no-repeat;">
+                <li style="background:#fff url('/assets/data-pic/banner2.jpg') center 0 no-repeat;">
                     <a href="#" target="_blank"></a>
                 </li>
             </ul>
