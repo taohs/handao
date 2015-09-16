@@ -15,8 +15,8 @@
                         </ul>
                     </div>
                     <div class="t122">
-                        <h1>专业的汽车上门保养服务！</h1>
-                        <p>养车新概念 上门心体验</p>
+                        <h1>立足重庆，专业的汽车上门保养服务！</h1>
+                        <p>服务有你 汉道爱车</p>
                     </div>
 
                     <div class="t123">
@@ -39,7 +39,7 @@
                         <h1>机油的更换周期</h1>
                         <p style="width:646px;line-height:25px">根据油品的不同而不同。一般来说，矿物油的更换周期为<b style="color:#0087d4">半年</b>或<b style="color:#ff6d00">5000</b>公里，半合成油是半年或<b style="color:#ff6d00">7500</b>公里，
                             全合成油则是半年或<b style="color:#ff6d00">10000</b>公里。如果驾驶环境恶劣，应适当缩短机油更换周期。 </p>
-                        <img style="position:absolute;right:0;top:90px" src="/assets/images/jiy1.jpg">
+      
                     </div>
 
 
@@ -59,8 +59,7 @@
                         <h1>更换周期</h1>
                         <p style="color:#ff6d00">与机油更换周期相同甚至频率更高。</p>
                     </div>
-                    <h1 style="float:left;font-size:18px;color:#666;line-height:100px;margin-right:30px">合作品牌</h1>
-                    <img style="float:left" src="/assets/images/jjy2.jpg">
+                    
                 </div>
                 <div class="t10">
                     <div style="float:right" class="tt1">
@@ -77,8 +76,7 @@
                         <p style="">通常建议客户每行驶<b style="color:#0087d4">1.5</b>万公里或<b style="color:#ffa67d">1</b>年更换一次；<br>
                             经常在恶劣环境中工作的车辆应当<b style="color:#ffa67d">1万</b>公里内更换一次。 </p>
                     </div>
-                    <h1 style="float:left;font-size:18px;color:#666;line-height:100px;margin-right:30px">合作品牌</h1>
-                    <img style="float:left" src="/assets/images/jjy2.jpg">
+                 
                 </div>
                 <div class="t10">
                     <div style="float:right" class="tt1">
@@ -94,8 +92,7 @@
                         <h1>更换周期</h1>
                         <p style=""><b style="color:#ffa67d">3-6</b>个月，可根据空气污染程度决定更换周期。 </p>
                     </div>
-                    <h1 style="float:left;font-size:18px;color:#666;line-height:100px;margin-right:30px">合作品牌</h1>
-                    <img style="float:left" src="/assets/images/hz1.jpg">
+                  
                 </div>
 
                 <div class="t5">
