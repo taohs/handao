@@ -222,7 +222,7 @@
 
             </div>
             <div class="syb3">
-                <img src="images/ewm.jpg">
+                <img src="/assets/images/ewm.jpg">
 
             </div>
         </div>
@@ -232,6 +232,8 @@
 
 
 </div>
+<script type="text/javascript" src="/assets/js/superslide.2.1.js"></script>
+
 <script type="text/javascript">
     jQuery(".fullSlide").hover(function () {
             jQuery(this).find(".prev,.next").stop(true, true).fadeTo("show", 1)
