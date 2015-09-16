@@ -1,10 +1,10 @@
 <style>
     body {
-        background: url(/images/bg2.jpg)
+        background: url('/assets/images/bg2.jpg');
     }
 
 </style>
-<img src="/images/phone.png">
+<img src="{{url('assets/images/phone.png')}}">
 400-023-6621
 </div>
 </div>

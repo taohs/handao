@@ -1,5 +1,5 @@
 <style>
-    body{background:url(/images/bg2.jpg)}
+    body{background:url(/assets/images/bg2.jpg)}
 
 </style>
 <div class="content">
@@ -31,7 +31,7 @@
                             <li><p>备注：</p><textarea name="saytext"></textarea></li>
                             <li>
                                 <p>验证码：</p><input type="text" class="key" name="key"/>
-                                <img src="images/number.jpg" name="KeyImg" id="KeyImg" onclick="KeyImg.src='/e/ShowKey/?v=feedback&amp;t='+Math.random()" alt="看不清楚,点击刷新" title="看不清楚,点击刷新" align="absmiddle"  style="float:left;margin-left:10px;margin-top:2px;cursor:pointer;">
+                                <img src="{{url('assets/images/number.jpg'}}" name="KeyImg" id="KeyImg" onclick="KeyImg.src='/e/ShowKey/?v=feedback&amp;t='+Math.random()" alt="看不清楚,点击刷新" title="看不清楚,点击刷新" align="absmiddle"  style="float:left;margin-left:10px;margin-top:2px;cursor:pointer;">
                             </li>
                             <li><p>&nbsp;</p><input type="submit" value="提 交" class="tj" /></li>
                         </ul>

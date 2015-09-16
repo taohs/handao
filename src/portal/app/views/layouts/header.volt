@@ -8,15 +8,15 @@
             <li class="lid664"><a href="/joinus">加入我们</a></li>
             <li class="lid665"><a href="/about">关于我们</a></li>
         </ul>
-        <script>document.write('<script src="/e/member/login/loginjs.php?t=' + Math.random() + '"><' + '/script>');</script>
+<!--        <script>document.write('<script src="/e/member/login/loginjs.php?t=' + Math.random() + '"><' + '/script>');</script>-->
         <div class="wx">
             <p>
                 <span>扫描关注汉道微信</span>
-                <img src="/data-pic/wx.jpg" alt="">
+                <img src="/assets/data-pic/wx.jpg" alt="">
             </p>
         </div>
         <div class="tell">
-            <img src="/images/phone.png">
+            <img src="/assets/images/phone.png">
             400-023-6621
         </div>
 

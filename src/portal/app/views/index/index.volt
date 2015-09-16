@@ -3,13 +3,13 @@
     <div class="fullSlide">
         <div class="bd">
             <ul>
-                <li style="background:#fff url(/data-pic/banner1.jpg) center 0 no-repeat;">
+                <li style="background:#fff url(/assets/data-pic/banner1.jpg) center 0 no-repeat;">
                     <a href="#" target="_blank"></a>
                 </li>
-                <li style="background:#fff url(/data-pic/banner3.jpg) center 0 no-repeat;">
+                <li style="background:#fff url(/assets/data-pic/banner3.jpg) center 0 no-repeat;">
                     <a href="#" target="_blank"></a>
                 </li>
-                <li style="background:#fff url(/data-pic/banner2.jpg) center 0 no-repeat;">
+                <li style="background:#fff url(/assets/data-pic/banner2.jpg) center 0 no-repeat;">
                     <a href="#" target="_blank"></a>
                 </li>
             </ul>
@@ -162,27 +162,27 @@
             <h1>我们的服务</h1>
             <ul>
                 <li>
-                    <a href="/introduction/oilfilter"><img src="images/jy.jpg"></a>
+                    <a href="/introduction/oilfilter"><img src="{{url('/assets/images/jy.jpg')}}"></a>
                     <p>机油三滤</p>
                     <span>更换机油、机滤、空气滤、空调滤及32项全车检测</span>
                 </li>
                 <li>
-                    <a href="/introduction/filter"><img src="images/jy22.jpg"></a>
+                    <a href="/introduction/filter"><img src="{{url('/assets/images/jy22.jpg')}}"></a>
                     <p>机油机滤</p>
                     <span>去除机油中的灰尘、金属颗粒、碳沉淀物和煤烟颗粒等杂质，保护发动机。</span>
                 </li>
                 <li>
-                    <a href="/introduction/airconditioner"><img src="images/jy55.jpg"></a>
+                    <a href="/introduction/airconditioner"><img src="{{url('/assets/images/jy55.jpg')}}"></a>
                     <p>空调过滤清洗</p>
                     <span>空调管道清洗，还您健康、清新的空气</span>
                 </li>
                 <li>
-                    <a href="/introduction/engine"><img src="images/jy33.jpg"></a>
+                    <a href="/introduction/engine"><img src="{{url('/assets/images/jy33.jpg')}}"></a>
                     <p>发动机舱清洗</p>
                     <span>专业清洗发动机舱，延长爱车寿命</span>
                 </li>
                 <li>
-                    <a href="/introduction/tires"><img src="images/jy44.jpg"></a>
+                    <a href="/introduction/tires"><img src="{{url('/assets/images/jy44.jpg')}}"></a>
                     <p>换胎服务</p>
                     <span>更换轮胎，解您燃眉之急</span>
                 </li>
@@ -213,10 +213,10 @@
                 </div>
                 <div class="zc" style="width:350px">
                     <h1>联系我们</h1>
-                    <a><img src="images/tel.png">400 - 023 - 6621</a>
-                    <a><img src="images/wz.png" style="margin-right:12px;margin-left:3px">重庆市渝北区宝石路14号6栋-1-20</a>
-                    <a><img src="images/qq.png">2546698866</a>
-                    <a><img src="images/wx.png">handao365</a>
+                    <a><img src="/assets/images/tel.png">400 - 023 - 6621</a>
+                    <a><img src="/assets/images/wz.png" style="margin-right:12px;margin-left:3px">重庆市渝北区宝石路14号6栋-1-20</a>
+                    <a><img src="/assets/images/qq.png">2546698866</a>
+                    <a><img src="/assets/images/wx.png">handao365</a>
                 </div>
 
 

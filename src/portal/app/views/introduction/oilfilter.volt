@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="t123">
-                        <img src="/images/lc.jpg">
+                        <img src="/assets/images/lc.jpg">
 
                     </div>
                 </div>
@@ -30,7 +30,7 @@
                         <p>机油，即发动机润滑油，作为汽车的血液，它有润滑减磨、冷却降温、清洗清洁、密封防漏、防锈防蚀等作用。经过长期的使用，机油被空气腐蚀，加之混入的灰尘杂质等会产生油泥，所以需要定期更换。 </p>
                     </div>
                     <div class="tt2">
-                        <img src="/images/jiy.jpg">
+                        <img src="/assets/images/jiy.jpg">
 
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                         <h1>机油的更换周期</h1>
                         <p style="width:646px;line-height:25px">根据油品的不同而不同。一般来说，矿物油的更换周期为<b style="color:#0087d4">半年</b>或<b style="color:#ff6d00">5000</b>公里，半合成油是半年或<b style="color:#ff6d00">7500</b>公里，
                             全合成油则是半年或<b style="color:#ff6d00">10000</b>公里。如果驾驶环境恶劣，应适当缩短机油更换周期。 </p>
-                        <img style="position:absolute;right:0;top:90px" src="/images/jiy1.jpg">
+                        <img style="position:absolute;right:0;top:90px" src="/assets/images/jiy1.jpg">
                     </div>
 
 
@@ -60,7 +60,7 @@
                         <p style="color:#ff6d00">与机油更换周期相同甚至频率更高。</p>
                     </div>
                     <h1 style="float:left;font-size:18px;color:#666;line-height:100px;margin-right:30px">合作品牌</h1>
-                    <img style="float:left" src="/images/jjy2.jpg">
+                    <img style="float:left" src="/assets/images/jjy2.jpg">
                 </div>
                 <div class="t10">
                     <div style="float:right" class="tt1">
@@ -78,7 +78,7 @@
                             经常在恶劣环境中工作的车辆应当<b style="color:#ffa67d">1万</b>公里内更换一次。 </p>
                     </div>
                     <h1 style="float:left;font-size:18px;color:#666;line-height:100px;margin-right:30px">合作品牌</h1>
-                    <img style="float:left" src="/images/jjy2.jpg">
+                    <img style="float:left" src="/assets/images/jjy2.jpg">
                 </div>
                 <div class="t10">
                     <div style="float:right" class="tt1">
@@ -95,12 +95,12 @@
                         <p style=""><b style="color:#ffa67d">3-6</b>个月，可根据空气污染程度决定更换周期。 </p>
                     </div>
                     <h1 style="float:left;font-size:18px;color:#666;line-height:100px;margin-right:30px">合作品牌</h1>
-                    <img style="float:left" src="/images/hz1.jpg">
+                    <img style="float:left" src="/assets/images/hz1.jpg">
                 </div>
 
                 <div class="t5">
 
-                    <a class="yy" href="type/�servid=200000.html">立即预约</a>
+                    <a class="yy" href="/appointment">立即预约</a>
 
                 </div>
             </div>

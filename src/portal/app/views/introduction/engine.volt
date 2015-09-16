@@ -11,13 +11,13 @@
                         <p style="font-size:18px;color:#666;font-family:'微软雅黑';margin-top:30px">用德国弱碱药液清除发动机舱表面的油污、淤泥；<br>对橡胶件、线速、插头等进行养护 </p>
                     </div>
                     <div class="tt2">
-                        <img src="/images/qx.jpg">
+                        <img src="/assets/images/qx.jpg">
 
                     </div>
                 </div>
                 <div class="t2">
                     <div style="text-align:center;width:100%" class="tt2">
-                        <img src="/images/qx1.jpg">
+                        <img src="/assets/images/qx1.jpg">
 
                     </div>
 
@@ -29,9 +29,9 @@
                         <p style="float:left;width:50%;margin-bottom:40px">功效一：有效提高发动机散热功效
                         </p>
                         <p style="float:right;width:50%;margin-bottom:40px">功效二：延长使用寿命  持久如新</p>
-                        <img style="float:left" src="/images/qx2.jpg">
+                        <img style="float:left" src="/assets/images/qx2.jpg">
 
-                        <img style="float:right" src="/images/qx3.jpg">
+                        <img style="float:right" src="/assets/images/qx3.jpg">
                     </div>
 
                 </div>
@@ -40,9 +40,9 @@
                         <p style="float:left;width:50%;margin-bottom:40px">功效三：拒绝腐蚀 预防自燃
                         </p>
                         <p style="float:right;width:50%;margin-bottom:40px">功效四：提高信号输出 提升发动机动力</p>
-                        <img style="float:left" src="/images/qx4.jpg">
+                        <img style="float:left" src="/assets/images/qx4.jpg">
 
-                        <img style="float:right" src="/images/qx5.jpg">
+                        <img style="float:right" src="/assets/images/qx5.jpg">
                     </div>
 
                 </div>
@@ -60,11 +60,11 @@
                         <h1>专业工艺,专业技师</h1>
                         <div class="t43">
                             <ul>
-                                <li><img src="/images/jz.png"><p>使用全球顶尖品牌汽修辅料</p></li>
-                                <li style="margin-top:30px"><img src="/images/jz1.png"><p>环保工艺
+                                <li><img src="/assets/images/jz.png"><p>使用全球顶尖品牌汽修辅料</p></li>
+                                <li style="margin-top:30px"><img src="/assets/images/jz1.png"><p>环保工艺
                                         无臭无害无污染
                                         耐腐蚀，不损电路</p></li>
-                                <li style="margin-right: 0px;"><img src="/images/jz2.png"><p>4S店5年以上经验技师
+                                <li style="margin-right: 0px;"><img src="/assets/images/jz2.png"><p>4S店5年以上经验技师
                                         赫尔浦专项培训</p></li>
                             </ul>
 
@@ -75,7 +75,7 @@
                 </div>
                 <div class="t5">
 
-                    <a class="yy" href="type/�servid=200001.html">立即预约</a>
+                    <a class="yy" href="/appointment">立即预约</a>
 
                 </div>
             </div>

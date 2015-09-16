@@ -1,6 +1,6 @@
 <style>
     body {
-        background: url(/images/bg2.jpg)
+        background: url("/assets/images/bg2.jpg");
     }
 
     .jq-hide {

@@ -11,7 +11,7 @@
 
                 <div class="t5">
 
-                    <a class="yy" href="type/�servid=200004.html">立即预约</a>
+                    <a class="yy" href="/appointment">立即预约</a>
 
                 </div>
             </div>

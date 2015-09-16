@@ -1,12 +1,12 @@
 <style>
-    body{background:url(/images/bg2.jpg)}
+    body{background:url(/assets/images/bg2.jpg)}
 
 </style>
 <div class="content" style="min-height: 494px;">
     <div style="background:#fff;margin-top:20px;" class="center">
         <div class="cfont">
             <h1>3</h1>
-            <div style="background:url(images/xxtx.png) no-repeat left center" class="cfxz">选择服务</div>
+            <div style="background:url(/assets/images/xxtx.png) no-repeat left center" class="cfxz">选择服务</div>
         </div>
         <div class="zy_ny wp">
             <form action="/order/order" method="post" id="form-order" class="form-horizontal">

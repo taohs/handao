@@ -1,5 +1,5 @@
 <style>
-    body{background:url(/images/bg2.jpg)}
+    body{background:url(/assets//images/bg2.jpg)}
     .content .center .tnav ul li.cid64  a .hv{background: #FD642D;color: #fff;font-size: 14px}
     .top .nav ul li.lid654 a{background: #fd8c63}
 </style>
