@@ -2,7 +2,7 @@
 src/backend/app/cache/
 src/backend/cache/
 src/portal/app/cache/
-src/protal/cache/
+src/portal/cache/
 src/weixin/app/cache/
 src/weixin/cache/
 src/webapi/app/cache/
