@@ -18,6 +18,22 @@ class IndexController extends ControllerBase
         $this->session->set('authnum_session', $_vc->getCode());
     }
 
+    function checkCaptchaAction(){
+        if (isset($_POST["inputCode"])) {
+            $validate = $_POST["inputCode"];
+
+            if ($validate != $this->session->get("authnum_session")) {
+//判断session值与用户输入的验证码是否一致;
+//                        echo "<font color=red>输入有误</font>";
+                echo json_encode(array('rel'=>false));
+            } else {
+                echo json_encode(array('rel'=>true));
+//                        echo "<font color=green>通过验证</font>";
+            }
+        }
+        return null;
+    }
+
     public function loginAction()
     {
         if ($this->session->get('auth')) {
@@ -108,6 +124,16 @@ class IndexController extends ControllerBase
 
     public function getcodeAction()
     {
+        if (isset($_POST["captcha"])) {
+            $validate = $_POST["captcha"];
+
+            if ($validate != $this->session->get("authnum_session")) {
+//判断session值与用户输入的验证码是否一致;
+//                        echo "<font color=red>输入有误</font>";
+               echo json_encode(array('statusCode'=>1000,'statusMsg'=>'图形验证码输入错误'));
+              exit;
+            }
+        }
         $mobile = $this->request->getPost('mobile');
         $webApi = new WebapiComponent();
         $re = $webApi->webApiGetCode($mobile);

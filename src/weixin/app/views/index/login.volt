@@ -1,26 +1,27 @@
 <div class="title">
     <p>
-       会员登录
+        会员登录
     </p>
 </div>
 <div class="login">
     <form action="" method="post">
         {{flash.output()}}
-        <p><input type="text" placeholder="请输入电话" name="mobile" id="mobile"></p>
+        <p><input type="text" placeholder="请输入电话" name="mobile" id="mobile" maxlength="11"></p>
+
         <p class="yzm">
-            <input type="text" placeholder="请输入验证码" name="code">
-            <input type="button" value="获取验证码" class="getCode" style="width: 200px;text-align: center;">
-
-        </p>
-        <p class="yzm">
-            <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="验证码" required="" style="width: 120px;">
-
-            <img  title="点击刷新" src="/index/captcha" align="absbottom" onclick="this.src='/index/captcha?'+Math.random();"/>
-
+            <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="图形验证码"
+                   required="" style="width: 120px;">
+            <img title="点击刷新" src="/index/captcha" align="absbottom"
+                 onclick="this.src='/index/captcha?'+Math.random();"/>
         </p>
 
+        <p class="yzm">
+            <input type="text" placeholder="短信验证码" name="code" style="width: 120px;">
+            <input type="button" value="获取验证码" class="getCode" style="width: 200px;text-align: center;margin-left: 30px;">
+        </p>
 
-        <input type="hidden"  name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
+
+        <input type="hidden" name="{{this.security.getTokenKey()}}" value="{{this.security.getToken()}}">
 
         <p class="sub">
             <input type="submit" value="登录">
@@ -29,7 +30,7 @@
 </div>
 <script type="text/javascript" src="/js/jquery.cookie.js"></script>
 <script>
-    var send = $('.getCode'),interval = null;
+    var send = $('.getCode'), interval = null;
     function intervalSend() {
         var time = new Date().getTime(),
             sms = $.cookie('sms') || 0,
@@ -56,21 +57,30 @@
             }
         }
     }
-    $('.getCode').click(function(){
-        var mobile =$('#mobile').val();
-        if(!mobile){
-          alert('请输入电话');return  false;
+    intervalSend();
+    $('.getCode').click(function () {
+        var mobile = $('#mobile').val();
+        var captcha = $('#inputCode').val();
+        if (!mobile) {
+            alert('请输入电话');
+            return false;
         }
 
         $.ajax({
             type: 'post',
             dataType: 'json',
-            data: {mobile: mobile},
-            url:  '/index/getcode',
+            data: {mobile: mobile, captcha: captcha},
+            url: '/index/getcode',
             success: function (data) {
-                $.cookie('sms', new Date().getTime());
-                intervalSend();
+                if (data.statusCode != '000000') {
+                    alert(data.statusMsg);
+                } else {
+                    $.cookie('sms', new Date().getTime());
+                    intervalSend();
+                }
             }
         });
-    })
+    });
 </script>
+
+

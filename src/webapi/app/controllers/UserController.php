@@ -45,7 +45,7 @@ class UserController extends ControllerBase
                     echo json_encode($smsResult);
                 }
             }else{
-                echo json_encode(array('statusCode'=>10000,'statusMsg'=>''));
+                echo json_encode(array('statusCode'=>10000,'statusMsg'=>'手机格式不正确'));
             }
         }
     }

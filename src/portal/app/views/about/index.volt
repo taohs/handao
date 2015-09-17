@@ -4,7 +4,7 @@
         <div class="text">
 
             <div class="gsjj">
-                <div class="jjpic"><img width="294" height="207" alt="" src="images/1.jpg"></div>
+                <div class="jjpic"><img width="294" height="207" alt="" src="/assets/images/1.jpg"></div>
                 <div class="jjtext">
 
 
