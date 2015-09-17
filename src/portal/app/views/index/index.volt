@@ -45,18 +45,22 @@
                                 <ul class="m" jq-area="CarBrand">
                                     {% for row in a_z%}
                                     {% set i=0%}
-                                    {% for brand in brands %}
-                                    {% if brand.initials == row %}
-                                    {% if i == 0 %}
-                                    <li data-bcid={{ brand.id }} data-type="1"><b>{{row}}</b><em>{{ brand.name }}</em>
-                                    </li>
-                                    {% else %}
-                                    <li data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ brand.name
-                                            }}</em></li>
+                                    {% set brandsSet = brandsArray[row] %}
+                                    {% if brandsSet %}
+                                        {% for brand in brandsSet %}
+                                        {% if brand.initials == row %}
+                                        {% if i == 0 %}
+                                        <li data-bcid={{ brand.id }} data-type="1"><b>{{row}}</b><em>{{ brand.name }}</em>
+                                        </li>
+                                        {% else %}
+                                        <li data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>
+                                                {{ brand.name}}</em></li>
+                                        {% endif %}
+                                        {% set i+=1%}
+                                        {% endif %}
+                                        {% endfor %}
                                     {% endif %}
-                                    {% set i+=1%}
-                                    {% endif %}
-                                    {% endfor %}
+
                                     {% endfor %}
                                 </ul>
 

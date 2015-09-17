@@ -8,12 +8,16 @@ class AppointmentController extends ControllerBase
         $a_z=range('A','Z');
         $brands = HdBrands::find( array( 'order' => 'initials asc' ) );
         $brandsInitials= array();
+        $brandsArray  = array();
         foreach($brands as $b){
             $brandsInitials[] = $b->initials;
+            $brandsArray[$b->initials][]=$b;
         }
 
         $a_z = array_intersect($a_z,$brandsInitials);
         $this->view->setvar( 'brands', $brands );
+        $this->view->setvar('brandsArray', $brandsArray);
+
         $this->view->setVar('a_z',$a_z);
     }
 
