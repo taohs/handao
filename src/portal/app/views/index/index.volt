@@ -53,8 +53,7 @@
                                         <li data-bcid={{ brand.id }} data-type="1"><b>{{row}}</b><em>{{ brand.name }}</em>
                                         </li>
                                         {% else %}
-                                        <li data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>
-                                                {{ brand.name}}</em></li>
+                                        <li data-bcid={{ brand.id }} data-type="1">&nbsp;&nbsp;&nbsp;&nbsp;<em>{{ brand.name}}</em></li>
                                         {% endif %}
                                         {% set i+=1%}
                                         {% endif %}
