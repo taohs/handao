@@ -69,6 +69,7 @@ class OrderController extends ControllerBase
         $this->view->setVar('total', $total);
         $this->view->setVar('fees', $this->fees);
         $this->view->setVar('remark', $this->session->get('remark'));
+
     }
 
     public function getcodeAction()
@@ -135,6 +136,22 @@ class OrderController extends ControllerBase
             return $this->response->redirect('order/index');
         }
 
+        $data = array(
+            'mobile'=>$mobile,'captcha'=>$captcha,'name'=>$name,'address'=>$address,'carnum'=>$carnum,'bookTime'=>$bookTime,'remark'=>$remark,
+            'total'=>$total,'models_id'=>$models_id,'productName'=>$productName,'orderDataId'=>$orderDataId
+        );
+
+        $response  = $this->restful->post('http://api.handao365.dev/order/order',$data);
+
+        $json = json_decode($response,true);
+        if($json['statusCode']=='000000'){
+            return $this->response->redirect('/order/success/'.$json['order_id']);
+        }else{
+            return $this->response->redirect('/order/fail');
+        }
+        echo ($res);
+
+        exit;
 
         if ($mobile) {
             $user = $this->getUser($mobile);

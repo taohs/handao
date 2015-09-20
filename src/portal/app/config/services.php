@@ -88,3 +88,9 @@ $di->setShared('flash', function () {
         'warning' => 'alert alert-warning',
     ));
 });
+$di->setShared('restful', function () {
+    $restful = new Restful();
+    $restful->initialize();
+
+    return $restful;
+});

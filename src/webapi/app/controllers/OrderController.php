@@ -47,8 +47,8 @@ class OrderController extends ControllerBase
 
 
 
-    function responseJson($statusCode = '100000',$statusMsg='用户不存在'){
-        $array = array('statusCode'=>$statusCode,'statusMsg'=>$statusMsg);
+    function responseJson($statusCode = '100000',$statusMsg='用户不存在',$data = array()){
+        $array = array('statusCode'=>$statusCode,'statusMsg'=>$statusMsg,'data'=>$data);
         echo json_encode($array);
         exit;
     }
@@ -66,6 +66,7 @@ class OrderController extends ControllerBase
         $models_id = $this->request->getPost('models_id');
         $productName = $this->request->getPost('productName');
         $orderDataId = $this->request->getPost('orderDataId');
+
 
         /**
          * 新加入过滤
@@ -113,7 +114,7 @@ class OrderController extends ControllerBase
             if ($this->security->checkHash($captcha, $user->password)) {
                 $user_id = $user->id;
                 $user->password = $this->security->hash($this->security->getSaltBytes());
-                $user->save();
+//                $user->save();
             } else {
                 return $this->responseJson(self::PARAMS_ERROR_CODE,"手机验证码错误");
             }
@@ -153,7 +154,7 @@ class OrderController extends ControllerBase
                     $HdOrderProduct->order_price = $order['price'];
                     $HdOrderProduct->save();
                 }
-                return $this->responseJson(self::SUCCESS_CODE,"预约成功");
+                return $this->responseJson(self::SUCCESS_CODE,"预约成功",array('order_id'=>$order_id));
             }
         }
     }
