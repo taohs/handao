@@ -71,6 +71,15 @@ class OrderController extends ControllerBase
         $this->view->setVar('remark', $this->session->get('remark'));
     }
 
+    public function getcodeAction()
+    {
+        $mobile = $this->request->getPost('mobile');
+        $webApi = new WebapiComponent();
+        $re = $webApi->webApiGetCode($mobile);
+        echo json_encode($re);
+        exit;
+    }
+
     public function orderAction()
     {
 
@@ -89,6 +98,7 @@ class OrderController extends ControllerBase
          * 新加入过滤
          */
         $mobile = $this->request->getPost('mobile', \Phalcon\Filter::FILTER_FLOAT);
+        $captcha = $this->request->getPost('captcha', \Phalcon\Filter::FILTER_FLOAT);
         $name = $this->request->getPost('name', \Phalcon\Filter::FILTER_STRING);
         $address = $this->request->getPost('address', \Phalcon\Filter::FILTER_STRING);
         $carnum = $this->request->getPost('carnum', \Phalcon\Filter::FILTER_STRING);
@@ -101,34 +111,52 @@ class OrderController extends ControllerBase
 
         if (!preg_match('/^1[3-9]{1}[0-9]{9}$/', $mobile)) {
             $this->flash->error("手机格式不正确");
-            return $this->response->redirect('appointment/order');
+            return $this->response->redirect('order/index');
         }
+        if(!preg_match('/^[0-9]{4}$/',$captcha)){
+            $this->flash->error("手机验证码格式不正确");
+            return $this->response->redirect('order/index');
+        }
+
         if (empty($name)) {
             $this->flash->error("姓名不能为空");
-            return $this->response->redirect('appointment/order');
+            return $this->response->redirect('order/index');
         }
         if (empty($address)) {
             $this->flash->error("地址不能为空");
-            return $this->response->redirect('appointment/order');
+            return $this->response->redirect('order/index');
         }
         if (empty($carnum)) {
             $this->flash->error("车牌号不能为空");
-            return $this->response->redirect('appointment/order');
+            return $this->response->redirect('order/index');
         }
         if (empty($bookTime)) {
             $this->flash->error("预约时间不能为空");
-            return $this->response->redirect('appointment/order');
+            return $this->response->redirect('order/index');
         }
 
 
-        if ($_POST['mobile']) {
-            $user_id = $this->session->get('auth')->id;
+        if ($mobile) {
+            $user = $this->getUser($mobile);
+            if(empty($user) or ! $user){
+                $this->flash->error("用户不存在");
+                return $this->response->redirect('order/index');
+            }
+
+            if($this->security->checkHash($captcha,$user->password)){
+                $user_id = $user->id;
+            }else{
+                $this->flash->error("手机验证码错误");
+                return $this->response->redirect('order/index');
+            }
+
+
             if ($user_id) {
                 $address_info = $_POST['address'];
                 $address_id = $this->getAddressId($user_id, $address_info);
                 $linkman_info = $_POST['name'];
-                $linkman_id = $this->getLinkmanId($user_id, $_POST['mobile'], $linkman_info);
-                $auto_id = $this->getAutoModelsId($user_id, $models_id, $_POST['carnum']);
+                $linkman_id = $this->getLinkmanId($user_id, $mobile, $linkman_info);
+                $auto_id = $this->getAutoModelsId($user_id, $models_id, $carnum);
             }
             $HdOrder = new HdOrder();
             $HdOrder->user_id = $user_id;
@@ -154,12 +182,31 @@ class OrderController extends ControllerBase
                     $HdOrderProduct->order_price = $order['price'];
                     $HdOrderProduct->save();
                 }
-                return $this->response->redirect('index/myorder');
+                return $this->response->redirect('/order/success/'.$order_id);
             }
         }
         $this->view->setVar('productName', $productName);
     }
 
+    public function successAction($oid){
+        $order = HdOrder::findFirst($oid);
+        if(!$order){
+            return $this->response->redirect('/order/fail');
+        }
+    }
+
+    public function failAction(){
+
+    }
+
+    function getUser($mobile){
+        $user = HdUser::findFirst(array('conditions'=>'mobile=:mobile:','bind'=>array('mobile'=>$mobile)));
+        if(! $user){
+//            throw new \Phalcon\Exception("用户不存在");
+//            return null;
+        }
+        return $user;
+    }
 
     /**
      * 获取联系ID

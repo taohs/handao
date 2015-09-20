@@ -12,6 +12,8 @@ use Phalcon\Db\Adapter\Pdo\Mysql as DbAdapter;
 use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
+use Phalcon\Flash\Session as FlashSession;
+
 
 /**
  * The FactoryDefault Dependency Injector automatically register the right services providing a full stack framework
@@ -77,4 +79,12 @@ $di->setShared('session', function () {
     $session->start();
 
     return $session;
+});
+$di->setShared('flash', function () {
+    return new FlashSession(array(
+        'error' => 'alert alert-danger',
+        'notice' => 'alert alert-info',
+        'success' => 'alert alert-success',
+        'warning' => 'alert alert-warning',
+    ));
 });

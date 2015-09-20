@@ -53,7 +53,7 @@ class SmsComponent extends \Phalcon\Mvc\User\Component
         'order-repay' => 25286
     );
 
-    const LOGIN_CODE = 35282;
+    const LOGIN_CODE = 37645;
     const LOGIN = 1;
     const ORDER_CREATE = 35282;
     const ORDER_PAYED = 35283;

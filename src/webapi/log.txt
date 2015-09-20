@@ -246,3 +246,15 @@ response body = {"templateSMS":{"dateCreated":"20150917223451","smsMessageSid":"
 request body = {'to':'14312312311','templateId':'35282','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['3251',]}
 request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=E472467EA390EAA64D99E4DC099B54D1
 response body = {"templateSMS":{"dateCreated":"20150917223527","smsMessageSid":"201509172235271847023"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'35282','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['4249',]}
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=E0698A7D56125731B2571C1DFAC5C5D3
+response body = {"templateSMS":{"dateCreated":"20150920164253","smsMessageSid":"201509201642534052897"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'35282','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['9833',]}
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=85E7DB06CFE85E9762995309E6B3B4D1
+response body = {"templateSMS":{"dateCreated":"20150920164553","smsMessageSid":"201509201645534055042"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'35282','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['2019',]}
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=BDAFF94426E7456AC870B90F5CEDAF61
+response body = {"templateSMS":{"dateCreated":"20150920170726","smsMessageSid":"201509201707264071267"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'37645','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['9076',]}
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=52636629DBC02367C3336470AE165DE7
+response body = {"templateSMS":{"dateCreated":"20150920170858","smsMessageSid":"201509201708584072327"},"statusCode":"000000"}

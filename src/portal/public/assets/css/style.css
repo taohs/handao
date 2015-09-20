@@ -363,3 +363,16 @@ img{border:none;}
 	height: 109px;
 	margin-top: 6px;
 }
+
+/*友情提示页面*/
+.content .success{ text-align:center; padding-top:100px; padding-bottom:100px;}
+.content .success .tip1{font-size:28px; height:48px; line-height:48px; margin:0 auto; text-align:center;}
+.content .success .tip1 span{display:inline-block; background:url(../images/success.png) no-repeat 0 0; height: 48px;padding-left:65px;}
+.content .success .tip1.wrong span{display:inline-block; background:url(../images/wrong.png) no-repeat 0 0; height: 48px;padding-left:65px;}
+.content .success .tip2{height:48px; line-height:48px; color:#333;}
+
+
+
+
+
+
