@@ -138,8 +138,7 @@ class OrderController extends ControllerBase
 
 
         $response  = $this->restful->post('http://api.handao365.dev/order/order',$data);
-        var_dump($response);
-        exit;
+
 
         $json = json_decode($response,true);
         if($json['statusCode']=='000000'){

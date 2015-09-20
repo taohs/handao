@@ -50,7 +50,7 @@
                     <td>{{element.getTime(row.book_time)}}</td>
                     <td>{% for product in row.getProducts(row.products)%}
 
-                        {{product}}<hr>
+                        {{product}} <hr>
                         {% endfor%}
 
 

@@ -48,7 +48,7 @@
                     <td>{{element.getTime(row.book_time)}}</td>
                     <td>
                         {% set products = row.getProducts(row.products) %}
-                        {% if products %}
+                        {% if products is not empty %}
                         {% for index,product in products %}
                         {{product}}{%if index+1 < products|length %}<hr>{%endif%}
                         {% endfor%}

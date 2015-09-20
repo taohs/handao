@@ -1,11 +1,26 @@
+<style>
+    .alert-danger {
+        border: 1px solid #fadb4b;
+        background:#ffffcc;
+        color: #ff9900;
+        font-size: 13px;
+        height: 38px;
+        line-height: 38px;
+        text-align:center;
+        width: 80%;
+        margin-left: 10%;
+    }
+</style>
 <div class="title">
     <p>
         会员登录
     </p>
 </div>
 <div class="login">
+    <p>{{flash.output()}}</p>
+
     <form action="" method="post">
-        {{flash.output()}}
+
         <p><input type="text" placeholder="请输入电话" name="mobile" id="mobile" maxlength="11"></p>
 
         <p class="yzm">
