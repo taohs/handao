@@ -87,7 +87,7 @@ class BrandsComponent extends \Phalcon\Mvc\User\Component
         }
 
         if($autoBrandsArray)
-            return HdBrands::find(array('conditions'=>'id in ({id:array})','bind'=>array('id'=>$autoBrandsArray)));
+            return HdBrands::find(array('conditions'=>'id in ({id:array})','bind'=>array('id'=>$autoBrandsArray),'order'=>'initials asc'));
         return array();
     }
 
