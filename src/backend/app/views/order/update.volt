@@ -49,7 +49,7 @@
             </div>
         </div>
 
-        {{partial('common/auto_tpl',['exact':true])}}
+        {{partial('common/auto_tpl',['exact':true,'disabled':false])}}
 
         {%for category in productsCategory %}
         <div class="form-group">

@@ -4,6 +4,8 @@ class OrderController extends ControllerBase
 {
 
 
+    const ORIGIN = 'portal';
+
     public function indexAction()
     {
         //todo bug,数据没过滤
@@ -137,6 +139,7 @@ class OrderController extends ControllerBase
         }
 
         $data = array(
+            'origin'=> self::ORIGIN,
             'mobile'=>$mobile,'captcha'=>$captcha,'name'=>$name,'address'=>$address,'carnum'=>$carnum,'bookTime'=>$bookTime,'remark'=>$remark,
             'total'=>$total,'models_id'=>$models_id,'productName'=>$productName,'orderDataId'=>$orderDataId
         );

@@ -62,16 +62,23 @@ class OrderController extends ControllerBase
     public function updateAction($id)
     {
         $model = $this->_getModel($id);
+
+        $modelAuto = $model->getAuto();
+        $modelAutoExact = $modelAuto->getModelExact();
+        $modelBrands = $modelAutoExact->getHdBrands();
+        $modelModels = $modelAutoExact->getHdAutoModels();
+
+
         $brandsComponent = new BrandsComponent();
         $brands = $brandsComponent->getAutoBrands();
         $autoModels = HdAutoModels::find(array(
             'conditions' => 'brands_id=:brandsId:',
-            'bind' => array('brandsId' => $brands[0]->id)
+            'bind' => array('brandsId' => $modelBrands->id)
         ));
 
         $autoModelExacts = HdAutoModelsExact::find(array(
             'conditions' => 'models_id=:modelsId:',
-            'bind' => array('modelsId' => $autoModels[0]->id)
+            'bind' => array('modelsId' => $modelModels->id)
         ));
 
 
@@ -84,12 +91,14 @@ class OrderController extends ControllerBase
         $this->saveOrder($id);
 
 
-        $modelAuto = $model->getAuto();
+
         $modelProducts = $model->getHdOrderProduct();
         $this->view->setVar('model', $model);
         $this->view->setVar('modelLinkman', $model->getLinkman());
         $this->view->setVar('modelAuto', $modelAuto);
-        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelAutoExact', $modelAutoExact);
+        $this->view->setVar('modelBrands', $modelBrands);
+        $this->view->setVar('modelModels', $modelModels);
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
         $productsIdArray = array();

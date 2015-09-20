@@ -82,7 +82,7 @@ class Restful extends \Phalcon\Mvc\User\Component
     public function post($url, $data = array())
     {
         $this->setOption(CURLOPT_POST, true);
-        $this->setOption(CURLOPT_POSTFIELDS, $data);
+        $this->setOption(CURLOPT_POSTFIELDS, http_build_query($data));
 
         return $this->exec($url);
     }
@@ -133,7 +133,7 @@ class Restful extends \Phalcon\Mvc\User\Component
 
     public function setOption($option, $value)
     {
-        curl_setopt($this->_ch, $option, $value);
+        @curl_setopt($this->_ch, $option, $value);
 
         return $this;
     }
