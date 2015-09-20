@@ -106,10 +106,10 @@ class AppointmentController extends ControllerBase
             $this->session->set('other', $this->request->getPost('other', \Phalcon\Filter::FILTER_STRING));
         }
 
-
-        if (!$this->session->get('auth')) {
-            return $this->response->redirect("index/login?reUrl=order");
-        }
+        //PC端不需要登录页面；下单流程需要修改；
+//        if (!$this->session->get('auth')) {
+//            return $this->response->redirect("index/login?reUrl=order");
+//        }
         $sumPrice = 0;
         $i = 0;
         $orderDataId = $productName = array();

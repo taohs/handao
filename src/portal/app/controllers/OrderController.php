@@ -4,9 +4,71 @@ class OrderController extends ControllerBase
 {
 
 
+    public function indexAction()
+    {
+        //todo bug,数据没过滤
+        if ($_POST) {
+            $this->session->set('post', $_POST);
+        }
+        //提交时刷新数据，非提交报错返回提示信息时不刷新
+        if ($this->request->isPost()) {
+            $this->session->set('products', $this->request->getPost('products', \Phalcon\Filter::FILTER_STRING));
+            $this->session->set('models_id', $this->request->getPost('models_id', \Phalcon\Filter::FILTER_STRING));
+            $this->session->set('autoName', $this->request->getPost('autoName', \Phalcon\Filter::FILTER_STRING));
+            $this->session->set('other', $this->request->getPost('other', \Phalcon\Filter::FILTER_STRING));
+        }
 
-    public function indexAction(){
+        //PC端不需要登录页面；下单流程需要修改；
+//        if (!$this->session->get('auth')) {
+//            return $this->response->redirect("index/login?reUrl=order");
+//        }
+        $sumPrice = 0;
+        $i = 0;
+        $orderDataId = $productName = array();
 
+        //todo 我操，，太懒了饿；；
+        //todo 重新从数据库里面取
+        if ('on' == $this->session->get('other')) {
+            $this->session->set('remark', '已有配件，仅购买上门服务');
+        } else {
+            $this->session->set('remark', '');
+            foreach ($this->session->get('products') as $row) {
+                $data = explode('-', $row);
+                $sumPrice += $data[0];
+                $orderDataId[$i]['category_id'] = $data[2];
+                $orderDataId[$i]['product_id'] = $data[1];
+                $orderDataId[$i]['price'] = $data[0];
+
+                $productName[] = $data[3] . ':' . $data[4];
+                $i++;
+            }
+        }
+
+        $total = $sumPrice + $this->fees;//总价
+        $models_id = $this->session->get('models_id');
+        $autoName = $this->session->get('autoName');
+
+        $this->session->set('total', $total);
+        $this->session->set('models_id', $models_id);
+        $this->session->set('productName', $productName);
+        $this->session->set('orderDataId', $orderDataId);
+
+        $this->view->setVar('total', $total);
+        $j = 0;
+        $products = array();
+        foreach ($productName as $row) {
+            $str = explode(':', $row);
+            $products[$j]['category'] = $str[0];
+            $products[$j]['product'] = $str[1];
+            $j++;
+        }
+
+        $this->view->setVar('products', $products);
+        $this->view->setVar('autoName', $autoName);
+        $this->view->setVar('orderDataId', $orderDataId);
+        $this->view->setVar('total', $total);
+        $this->view->setVar('fees', $this->fees);
+        $this->view->setVar('remark', $this->session->get('remark'));
     }
 
     public function orderAction()
@@ -99,9 +161,6 @@ class OrderController extends ControllerBase
     }
 
 
-
-
-
     /**
      * 获取联系ID
      *
@@ -111,13 +170,13 @@ class OrderController extends ControllerBase
      *
      * @return int
      */
-    public function getLinkmanId( $user_id, $mobile, $name )
+    public function getLinkmanId($user_id, $mobile, $name)
     {
         $linkman = HdUserLinkman::findFirst(
             array(
                 'conditions' => 'user_id=:user_id: and mobile=:mobile: and name=:name:  ',
-                'bind'       => array( 'user_id' => $user_id, 'mobile' => $mobile, 'name' => $name )
-            ) );
+                'bind' => array('user_id' => $user_id, 'mobile' => $mobile, 'name' => $name)
+            ));
         if ($linkman) {
             $linkmanId = $linkman->id;
         } else {
@@ -142,13 +201,13 @@ class OrderController extends ControllerBase
      *
      * @return int
      */
-    public function getAddressId( $user_id, $address_info )
+    public function getAddressId($user_id, $address_info)
     {
         $address = HdUserAddress::findFirst(
             array(
                 'conditions' => 'user_id=:user_id: and address=:address:',
-                'bind'       => array( 'user_id' => $user_id, 'address' => $address_info )
-            ) );
+                'bind' => array('user_id' => $user_id, 'address' => $address_info)
+            ));
 
         if ($address) {
             $addressId = $address->id;
@@ -172,20 +231,20 @@ class OrderController extends ControllerBase
      *
      * @return int
      */
-    public function getAutoModelsId( $user_id, $models, $number )
+    public function getAutoModelsId($user_id, $models, $number)
     {
         $autoData = HdUserAuto::findFirst(
             array(
                 'conditions' => 'models=:models: and user_id=:user_id: and number=:number:',
-                'bind'       => array( 'models' => $models, 'user_id' => $user_id ,'number'=>$number)
-            ) );
+                'bind' => array('models' => $models, 'user_id' => $user_id, 'number' => $number)
+            ));
         if ($autoData) {
             $auto_id = $autoData->id;
         } else {
             $HdUserAuto = new HdUserAuto;
             $HdUserAuto->user_id = $user_id;
             $HdUserAuto->models = $models;
-            $HdUserAuto->number=$number;
+            $HdUserAuto->number = $number;
             if ($HdUserAuto->save()) {
                 $auto_id = $HdUserAuto->id;
             }

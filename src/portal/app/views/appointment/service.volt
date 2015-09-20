@@ -33,7 +33,7 @@
 
             <div class="cfxz">选择服务</div>
         </div>
-        <form method="post" action="/appointment/order" id="startyyue">
+        <form method="post" action="/order/index" id="startyyue">
             <input type="hidden" name="models_id" value="{{models.id}}">
             <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}}">
 
