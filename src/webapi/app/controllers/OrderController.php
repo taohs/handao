@@ -1,82 +1,55 @@
 <?php
 
+/**
+ * Created by PhpStorm.
+ * User: taohs
+ * Date: 15/9/20
+ * Time: 18:20
+ * @author taohaisong <taohaisong@gmail.com>
+ * @date: 15/9/20  Time: 18:20
+ * @link http://www.php4s.com/
+ * @copyright
+ * @license http://www.php4s.com/license/
+ * @package PHP
+ */
 class OrderController extends ControllerBase
 {
 
+    const SUCCESS_CODE = '000000';
+    const PARAMS_ERROR_CODE = '100000';
+    const LOGIC_ERROR_CODE = '200000';
 
+    /**
+     * the apply interface;
+     *
+     * only accept post information;
+     */
     public function indexAction()
     {
-        //todo bug,数据没过滤
-        if ($_POST) {
-            $this->session->set('post', $_POST);
-        }
-        //提交时刷新数据，非提交报错返回提示信息时不刷新
         if ($this->request->isPost()) {
-            $this->session->set('products', $this->request->getPost('products', \Phalcon\Filter::FILTER_STRING));
-            $this->session->set('models_id', $this->request->getPost('models_id', \Phalcon\Filter::FILTER_STRING));
-            $this->session->set('autoName', $this->request->getPost('autoName', \Phalcon\Filter::FILTER_STRING));
-            $this->session->set('other', $this->request->getPost('other', \Phalcon\Filter::FILTER_STRING));
-        }
 
-        //PC端不需要登录页面；下单流程需要修改；
-//        if (!$this->session->get('auth')) {
-//            return $this->response->redirect("index/login?reUrl=order");
-//        }
-        $sumPrice = 0;
-        $i = 0;
-        $orderDataId = $productName = array();
-
-        //todo 我操，，太懒了饿；；
-        //todo 重新从数据库里面取
-        if ('on' == $this->session->get('other')) {
-            $this->session->set('remark', '已有配件，仅购买上门服务');
         } else {
-            $this->session->set('remark', '');
-            foreach ($this->session->get('products') as $row) {
-                $data = explode('-', $row);
-                $sumPrice += $data[0];
-                $orderDataId[$i]['category_id'] = $data[2];
-                $orderDataId[$i]['product_id'] = $data[1];
-                $orderDataId[$i]['price'] = $data[0];
-
-                $productName[] = $data[3] . ':' . $data[4];
-                $i++;
-            }
+            //exception
+            throw new \Phalcon\Exception("only accept post information");
         }
-
-        $total = $sumPrice + $this->fees;//总价
-        $models_id = $this->session->get('models_id');
-        $autoName = $this->session->get('autoName');
-
-        $this->session->set('total', $total);
-        $this->session->set('models_id', $models_id);
-        $this->session->set('productName', $productName);
-        $this->session->set('orderDataId', $orderDataId);
-
-        $this->view->setVar('total', $total);
-        $j = 0;
-        $products = array();
-        foreach ($productName as $row) {
-            $str = explode(':', $row);
-            $products[$j]['category'] = $str[0];
-            $products[$j]['product'] = $str[1];
-            $j++;
-        }
-
-        $this->view->setVar('products', $products);
-        $this->view->setVar('autoName', $autoName);
-        $this->view->setVar('orderDataId', $orderDataId);
-        $this->view->setVar('total', $total);
-        $this->view->setVar('fees', $this->fees);
-        $this->view->setVar('remark', $this->session->get('remark'));
     }
 
-    public function getcodeAction()
+    function pcAction()
     {
-        $mobile = $this->request->getPost('mobile');
-        $webApi = new WebapiComponent();
-        $re = $webApi->webApiGetCode($mobile);
-        echo json_encode($re);
+
+    }
+
+
+    function wxAction()
+    {
+
+    }
+
+
+
+    function responseJson($statusCode = '100000',$statusMsg='用户不存在'){
+        $array = array('statusCode'=>$statusCode,'statusMsg'=>$statusMsg);
+        echo json_encode($array);
         exit;
     }
 
@@ -89,10 +62,10 @@ class OrderController extends ControllerBase
         }
         //todo 注入bug，
         //todo 注入bug，未验证汽车型号，
-        $total = $this->session->get('total');
-        $models_id = $this->session->get('models_id');
-        $productName = $this->session->get('productName');
-        $orderDataId = $this->session->get('orderDataId');
+        $total = $this->request->getPost('total');
+        $models_id = $this->request->getPost('models_id');
+        $productName = $this->request->getPost('productName');
+        $orderDataId = $this->request->getPost('orderDataId');
 
         /**
          * 新加入过滤
@@ -110,46 +83,39 @@ class OrderController extends ControllerBase
         //todo 大爷的，通宵改bug；；
 
         if (!preg_match('/^1[3-9]{1}[0-9]{9}$/', $mobile)) {
-            $this->flash->error("手机格式不正确");
-            return $this->response->redirect('order/index');
+            return $this->responseJson(self::PARAMS_ERROR_CODE,"手机格式不正确");
         }
-        if(!preg_match('/^[0-9]{4}$/',$captcha)){
-            $this->flash->error("手机验证码格式不正确");
-            return $this->response->redirect('order/index');
+        if (!preg_match('/^[0-9]{4}$/', $captcha)) {
+            return $this->responseJson(self::PARAMS_ERROR_CODE,"手机验证码格式不正确");
         }
 
         if (empty($name)) {
-            $this->flash->error("姓名不能为空");
-            return $this->response->redirect('order/index');
+            return $this->responseJson(self::PARAMS_ERROR_CODE,"姓名不能为空");
         }
         if (empty($address)) {
-            $this->flash->error("地址不能为空");
-            return $this->response->redirect('order/index');
+            return $this->responseJson(self::PARAMS_ERROR_CODE,"地址不能为空");
         }
         if (empty($carnum)) {
-            $this->flash->error("车牌号不能为空");
-            return $this->response->redirect('order/index');
+            return $this->responseJson(self::PARAMS_ERROR_CODE,"车牌号不能为空");
         }
         if (empty($bookTime)) {
-            $this->flash->error("预约时间不能为空");
-            return $this->response->redirect('order/index');
+            return $this->responseJson(self::PARAMS_ERROR_CODE,"预约时间不能为空");
         }
 
 
         if ($mobile) {
             $user = $this->getUser($mobile);
-            if(empty($user) or ! $user){
-                $this->flash->error("用户不存在");
-                return $this->response->redirect('order/index');
+            if (empty($user) or !$user) {
+                return $this->responseJson(self::PARAMS_ERROR_CODE,"用户不存在");
+
             }
 
-            if($this->security->checkHash($captcha,$user->password)){
+            if ($this->security->checkHash($captcha, $user->password)) {
                 $user_id = $user->id;
                 $user->password = $this->security->hash($this->security->getSaltBytes());
                 $user->save();
-            }else{
-                $this->flash->error("手机验证码错误");
-                return $this->response->redirect('order/index');
+            } else {
+                return $this->responseJson(self::PARAMS_ERROR_CODE,"手机验证码错误");
             }
 
 
@@ -159,7 +125,10 @@ class OrderController extends ControllerBase
                 $linkman_info = $_POST['name'];
                 $linkman_id = $this->getLinkmanId($user_id, $mobile, $linkman_info);
                 $auto_id = $this->getAutoModelsId($user_id, $models_id, $carnum);
+            }else{
+                return $this->responseJson(self::PARAMS_ERROR_CODE,'用户不存在');
             }
+
             $HdOrder = new HdOrder();
             $HdOrder->user_id = $user_id;
             $HdOrder->auto_id = $auto_id;
@@ -184,26 +153,28 @@ class OrderController extends ControllerBase
                     $HdOrderProduct->order_price = $order['price'];
                     $HdOrderProduct->save();
                 }
-                return $this->response->redirect('/order/success/'.$order_id);
+                return $this->responseJson(self::SUCCESS_CODE,"预约成功");
             }
         }
-        $this->view->setVar('productName', $productName);
     }
 
-    public function successAction($oid){
+    public function successAction($oid)
+    {
         $order = HdOrder::findFirst($oid);
-        if(!$order){
+        if (!$order) {
             return $this->response->redirect('/order/fail');
         }
     }
 
-    public function failAction(){
+    public function failAction()
+    {
 
     }
 
-    function getUser($mobile){
-        $user = HdUser::findFirst(array('conditions'=>'mobile=:mobile:','bind'=>array('mobile'=>$mobile)));
-        if(! $user){
+    function getUser($mobile)
+    {
+        $user = HdUser::findFirst(array('conditions' => 'mobile=:mobile:', 'bind' => array('mobile' => $mobile)));
+        if (!$user) {
 //            throw new \Phalcon\Exception("用户不存在");
 //            return null;
         }
@@ -301,5 +272,6 @@ class OrderController extends ControllerBase
         return $auto_id;
 
     }
-}
 
+
+}

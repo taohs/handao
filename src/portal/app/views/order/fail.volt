@@ -1,4 +1,3 @@
-
 <style>
     body {
         background: url('/assets/images/bg2.jpg');
