@@ -153,58 +153,6 @@ class OrderController extends ControllerBase
 
         exit;
 
-        if ($mobile) {
-            $user = $this->getUser($mobile);
-            if(empty($user) or ! $user){
-                $this->flash->error("用户不存在");
-                return $this->response->redirect('order/index');
-            }
-
-            if($this->security->checkHash($captcha,$user->password)){
-                $user_id = $user->id;
-                $user->password = $this->security->hash($this->security->getSaltBytes());
-                $user->save();
-            }else{
-                $this->flash->error("手机验证码错误");
-                return $this->response->redirect('order/index');
-            }
-
-
-            if ($user_id) {
-                $address_info = $_POST['address'];
-                $address_id = $this->getAddressId($user_id, $address_info);
-                $linkman_info = $_POST['name'];
-                $linkman_id = $this->getLinkmanId($user_id, $mobile, $linkman_info);
-                $auto_id = $this->getAutoModelsId($user_id, $models_id, $carnum);
-            }
-            $HdOrder = new HdOrder();
-            $HdOrder->user_id = $user_id;
-            $HdOrder->auto_id = $auto_id;
-            $HdOrder->products = serialize($productName);
-            $HdOrder->price = $total;//目前没得折扣
-            $HdOrder->total = $total;
-            $HdOrder->linkman_id = $linkman_id;
-            $HdOrder->linkman_info = $linkman_info;
-            $HdOrder->address_id = $address_id;
-            $HdOrder->address_info = $address_info;
-            $HdOrder->remark = $remark;
-            $HdOrder->status = 11;
-            $HdOrder->book_time = $bookTime[0] . '  ' . $bookTime[1];
-            if ($HdOrder->save()) {
-                $order_id = $HdOrder->id;
-
-                foreach ($orderDataId as $order) {
-                    $HdOrderProduct = new HdOrderProduct;
-                    $HdOrderProduct->order_id = $order_id;
-                    $HdOrderProduct->product_id = $order['product_id'];
-                    $HdOrderProduct->product_category = $order['category_id'];
-                    $HdOrderProduct->order_price = $order['price'];
-                    $HdOrderProduct->save();
-                }
-                return $this->response->redirect('/order/success/'.$order_id);
-            }
-        }
-        $this->view->setVar('productName', $productName);
     }
 
     public function successAction($oid){
