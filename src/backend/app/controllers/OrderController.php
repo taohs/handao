@@ -127,17 +127,25 @@ class OrderController extends ControllerBase
 
 
         $model = $this->_getModel($id);
+        $modelAuto = $model->getAuto();
+        $modelAutoExact = $modelAuto->getModelExact();
+        $modelBrands = $modelAutoExact->getHdBrands();
+        $modelModels = $modelAutoExact->getHdAutoModels();
+
+
         $brandsComponent = new BrandsComponent();
         $brands = $brandsComponent->getAutoBrands();
         $autoModels = HdAutoModels::find(array(
             'conditions' => 'brands_id=:brandsId:',
-            'bind' => array('brandsId' => $brands[0]->id)
+            'bind' => array('brandsId' => $modelBrands->id)
         ));
 
         $autoModelExacts = HdAutoModelsExact::find(array(
             'conditions' => 'models_id=:modelsId:',
-            'bind' => array('modelsId' => $autoModels[0]->id)
+            'bind' => array('modelsId' => $modelModels->id)
         ));
+
+
 
         $productsCategory = HdProductCategory::find(array(
             'conditions' => 'active=:active:',
@@ -150,6 +158,7 @@ class OrderController extends ControllerBase
         if ($this->request->isPost()) {
             $tecknician = $this->request->getPost('inputTechnician', \Phalcon\Filter::FILTER_INT);
             $model->technician_id = $tecknician;
+            $model->status = OrderComponent::STATUS_ASSIGN_STAFF;
             if ($model->save()) {
                 $this->flash->success("指派成功");
             } else {
@@ -164,7 +173,9 @@ class OrderController extends ControllerBase
         $this->view->setVar('workerSet', $workerSet);
         $this->view->setVar('modelLinkman', $model->getLinkman());
         $this->view->setVar('modelAuto', $modelAuto);
-        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelAutoExact', $modelAutoExact);
+        $this->view->setVar('modelBrands', $modelBrands);
+        $this->view->setVar('modelModels', $modelModels);
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
         $productsIdArray = array();
@@ -188,17 +199,25 @@ class OrderController extends ControllerBase
 
 
         $model = $this->_getModel($id);
+        $modelAuto = $model->getAuto();
+        $modelAutoExact = $modelAuto->getModelExact();
+        $modelBrands = $modelAutoExact->getHdBrands();
+        $modelModels = $modelAutoExact->getHdAutoModels();
+
+
         $brandsComponent = new BrandsComponent();
         $brands = $brandsComponent->getAutoBrands();
         $autoModels = HdAutoModels::find(array(
             'conditions' => 'brands_id=:brandsId:',
-            'bind' => array('brandsId' => $brands[0]->id)
+            'bind' => array('brandsId' => $modelBrands->id)
         ));
 
         $autoModelExacts = HdAutoModelsExact::find(array(
             'conditions' => 'models_id=:modelsId:',
-            'bind' => array('modelsId' => $autoModels[0]->id)
+            'bind' => array('modelsId' => $modelModels->id)
         ));
+
+
 
         $productsCategory = HdProductCategory::find(array(
             'conditions' => 'active=:active:',
@@ -227,7 +246,9 @@ class OrderController extends ControllerBase
         $this->view->setVar('workerSet', $workerSet);
         $this->view->setVar('modelLinkman', $model->getLinkman());
         $this->view->setVar('modelAuto', $modelAuto);
-        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelAutoExact', $modelAutoExact);
+        $this->view->setVar('modelBrands', $modelBrands);
+        $this->view->setVar('modelModels', $modelModels);
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
         $productsIdArray = array();
@@ -251,17 +272,25 @@ class OrderController extends ControllerBase
 
 
         $model = $this->_getModel($id);
+        $modelAuto = $model->getAuto();
+        $modelAutoExact = $modelAuto->getModelExact();
+        $modelBrands = $modelAutoExact->getHdBrands();
+        $modelModels = $modelAutoExact->getHdAutoModels();
+
+
         $brandsComponent = new BrandsComponent();
         $brands = $brandsComponent->getAutoBrands();
         $autoModels = HdAutoModels::find(array(
             'conditions' => 'brands_id=:brandsId:',
-            'bind' => array('brandsId' => $brands[0]->id)
+            'bind' => array('brandsId' => $modelBrands->id)
         ));
 
         $autoModelExacts = HdAutoModelsExact::find(array(
             'conditions' => 'models_id=:modelsId:',
-            'bind' => array('modelsId' => $autoModels[0]->id)
+            'bind' => array('modelsId' => $modelModels->id)
         ));
+
+
 
         $productsCategory = HdProductCategory::find(array(
             'conditions' => 'active=:active:',
@@ -288,7 +317,9 @@ class OrderController extends ControllerBase
         $this->view->setVar('workerSet', $workerSet);
         $this->view->setVar('modelLinkman', $model->getLinkman());
         $this->view->setVar('modelAuto', $modelAuto);
-        $this->view->setVar('modelAutoExact', $modelAuto->getModelExact());
+        $this->view->setVar('modelAutoExact', $modelAutoExact);
+        $this->view->setVar('modelBrands', $modelBrands);
+        $this->view->setVar('modelModels', $modelModels);
         $this->view->setVar('modelProducts', $model->getHdOrderProduct());
 
         $productsIdArray = array();
