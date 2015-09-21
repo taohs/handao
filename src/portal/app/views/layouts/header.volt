@@ -10,7 +10,7 @@
         </ul>
 <!--        <script>document.write('<script src="/e/member/login/loginjs.php?t=' + Math.random() + '"><' + '/script>');</script>-->
         <div class="wx">
-            <p>
+            <p style="display: none;">
                 <span>扫描关注汉道微信</span>
                 <img src="/assets/data-pic/wx.jpg" alt="">
             </p>

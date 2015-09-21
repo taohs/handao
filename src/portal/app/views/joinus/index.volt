@@ -1,5 +1,5 @@
 <style>
-    body{background:url(/images/bg2.jpg)}
+    body{background:url(/assets/images/bg2.jpg)}
     .top .nav ul li.lid664 a{background: #fd8c63}
     .content .center .tnav ul li.lid[!--classid--]  a .hv{background: #339fdd;color: #fff;font-size: 14px}
 </style>
@@ -21,14 +21,10 @@
                     </div>
 
 
-                    <ul>
-                        此栏目暂无任何新增信息
-                    </ul>
+
 
                     <div class="xs" style="display: none;">
-                        <a href="javascript:;">更多信息 <br><img src="images/xjt.jpg"></a>
-
-
+                        <a href="javascript:;">更多信息 <br><img src="/assets/images/xjt.jpg"></a>
                     </div>
 
                 </div>

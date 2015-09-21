@@ -47,14 +47,14 @@
 
                 </div>
                 <div class="t4">
-                    <div class="t41">
-                        <h1>服务保障</h1>
-                        <p><span style="color:#ff6d00">顶尖</span>物料</p>
-                        <span class="sp">只使用全球顶尖汽修品牌工具及辅料</span>
-                        <p><span style="color:#339fdd">专业</span>技师</p>
-                        <span class="sp">5年以上4S店维修经验，并经过专项培训</span>
-                        <p><span style="color:#66cc33">环保</span>工艺</p>
-                        <span class="sp">原装进口辅料，无毒、无害、无污染</span>
+                   <div class="t41">
+                        <h1>汉道养车 服务保障</h1>
+                        <p><span style="color:#ff6d00">顶尖，放心</span>物料</p>
+                        <span class="sp">只使用当今市场上最好的汽修品牌工具及辅料</span>
+                        <p><span style="color:#339fdd">专业，优秀</span>技师</p>
+                        <span class="sp">4年以上4S店维修工作经验，经过专项培训</span>
+                        <p><span style="color:#66cc33">安全，环保</span>工艺</p>
+                        <span class="sp">原装进口环保辅料，无毒、无害、无污染</span>
                     </div>
                     <div class="t42">
                         <h1>专业工艺,专业技师</h1>

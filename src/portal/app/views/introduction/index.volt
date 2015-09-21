@@ -15,7 +15,7 @@
                 <div class="t8">
                     <h1>服务流程</h1>
                     <ul>
-                        <li><a href="javascript:;"><img src="/assets/images/79a25fd4e81f225bade31ba1195c3343.jpg"></a> <span><img src="images/yjt.jpg"></span>
+                        <li><a href="javascript:;"><img src="/assets/images/79a25fd4e81f225bade31ba1195c3343.jpg"></a> <span><img src="/assets/images/yjt.jpg"></span>
 
                             <div class="fk" style="display: none;">
                                 <div class="sj" id="sj"></div>
@@ -24,7 +24,7 @@
                             </div>
 
                         </li>
-                        <li><a href="javascript:;"><img src="/assets/images/be26282ea38cefa7b5d75dd1a0df00ad.jpg"></a> <span><img src="images/yjt.jpg"></span>
+                        <li><a href="javascript:;"><img src="/assets/images/be26282ea38cefa7b5d75dd1a0df00ad.jpg"></a> <span><img src="/assets/images/yjt.jpg"></span>
 
                             <div class="fk" style="display: none;">
                                 <div class="sj" id="sj"></div>
@@ -33,7 +33,7 @@
                             </div>
 
                         </li>
-                        <li><a href="javascript:;"><img src="/assets/images/c8340e97c817bef85399e75c5179e318.jpg"></a> <span><img src="images/yjt.jpg"></span>
+                        <li><a href="javascript:;"><img src="/assets/images/c8340e97c817bef85399e75c5179e318.jpg"></a> <span><img src="/assets/images/yjt.jpg"></span>
 
                             <div class="fk" style="display: block;">
                                 <div class="opts" id="sj" style="left: 415px;"></div>
@@ -42,7 +42,7 @@
                             </div>
 
                         </li>
-                        <li><a href="javascript:;"><img src="/assets/images/a10f518b85618066a633ac087f647dfe.jpg"></a> <span><img src="images/yjt.jpg"></span>
+                        <li><a href="javascript:;"><img src="/assets/images/a10f518b85618066a633ac087f647dfe.jpg"></a> <span><img src="/assets/images/yjt.jpg"></span>
 
                             <div class="fk" style="display: none;">
                                 <div class="sj" id="sj"></div>
@@ -51,7 +51,7 @@
                             </div>
 
                         </li>
-                        <li><a href="javascript:;"><img src="/assets/images/4a1527393a9a10fc184fc11546c76457.jpg"></a> <span style="display: none;"><img src="images/yjt.jpg"></span>
+                        <li><a href="javascript:;"><img src="/assets/images/4a1527393a9a10fc184fc11546c76457.jpg"></a> <span style="display: none;"><img src="/assets/images/yjt.jpg"></span>
 
                             <div class="fk" style="display: none;">
                                 <div class="sj" id="sj"></div>
