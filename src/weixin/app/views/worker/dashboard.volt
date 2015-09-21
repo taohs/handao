@@ -1,6 +1,6 @@
 <div class="top">
     <p>
-        <a href="/worker/index" class="logo"><img src="{{url('images/logo.png')}}" width="98" height="44" alt=""/></a>
+        <a href="/worker/index" class="logo"><img src="{{url('/assets/images/logo.png')}}" width="98" height="44" alt=""/></a>
         {{date('Y-m-d')}}&nbsp;&nbsp;欢迎您，{{userData.name}}
         <a href="/worker/logout">退出</a>
     </p>

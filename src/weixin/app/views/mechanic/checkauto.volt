@@ -1,6 +1,6 @@
 
 <header>
-    <a href="#" class="logo"><img src="./images/logo.png" alt=""></a>
+    <a href="#" class="logo"><img src="/assets/images/logo.png" alt=""></a>
     <a href="#" class="tuic">退出</a>
     <div class="user">2015-08-12  欢迎您，<span>张三</span></div>
 </header>

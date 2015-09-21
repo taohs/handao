@@ -1,7 +1,7 @@
 <div class="top">
     <p>
 
-        <a href="/index/index" class="logo"><img src="{{url('images/logo.png')}}" width="98" height="44" alt=""/></a>
+        <a href="/index/index" class="logo"><img src="{{url('/assets/images/logo.png')}}" width="98" height="44" alt=""/></a>
         {{date('Y-m-d')}}&nbsp;&nbsp;欢迎您，{{userData.mobile}}
         <a href="/index/logout">退出</a>
     </p>

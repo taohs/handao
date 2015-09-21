@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>登录</title>
-    <link rel="stylesheet" type="text/css" href="{{url('css/style.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style.css')}}">
     <!-- 新 Bootstrap 核心 CSS 文件 -->
     <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
 

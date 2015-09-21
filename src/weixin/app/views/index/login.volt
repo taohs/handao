@@ -43,7 +43,7 @@
         </p>
     </form>
 </div>
-<script type="text/javascript" src="/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/assets/js/jquery.cookie.js"></script>
 <script>
     var send = $('.getCode'), interval = null;
     function intervalSend() {

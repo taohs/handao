@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>车辆体检报告</title>
-    <link rel="stylesheet" type="text/css" href="{{url('css/style1.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url('/assets/css/style1.css')}}">
 </head>
 
 <body>

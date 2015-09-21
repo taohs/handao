@@ -1,6 +1,6 @@
 <div class="top">
     <p>
-        <a href="/index/index" class="logo"><img src="{{url('images/logo.png')}}" width="98" height="44" alt=""/></a>
+        <a href="/index/index" class="logo"><img src="{{url('/assets/images/logo.png')}}" width="98" height="44" alt=""/></a>
        欢迎您，{{userData.mobile}}
         <a href="/index/logout">退出</a>
     </p>
@@ -59,10 +59,10 @@
                 </tbody>
             </table>
             <div class="page">
-                {{ link_to("index/myorder?page=1", '&lt;&lt;首页') }} &nbsp;&nbsp;
-                {{ link_to("index/myorder?page=" ~ page.before , '上一页') }}&nbsp;&nbsp;
-                {{ link_to("index/myorder?page=" ~ page.next, '下一页') }}&nbsp;&nbsp;
-                {{ link_to("index/myorder?page=" ~ page.last , '末页&gt;&gt;') }}
+                {{ link_to("index/myorderend?page=1", '&lt;&lt;首页') }} &nbsp;&nbsp;
+                {{ link_to("index/myorderend?page=" ~ page.before , '上一页') }}&nbsp;&nbsp;
+                {{ link_to("index/myorderend?page=" ~ page.next, '下一页') }}&nbsp;&nbsp;
+                {{ link_to("index/myorderend?page=" ~ page.last , '末页&gt;&gt;') }}
             </div>
         </div>
     </div>
