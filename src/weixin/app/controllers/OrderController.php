@@ -136,61 +136,75 @@ class OrderController extends ControllerBase
             'total'=>$total,'models_id'=>$models_id,'productName'=>$productName,'orderDataId'=>$orderDataId
         );
 
-
+        $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
+        $fileLogger->log('request',json_encode($data));
         $response  = $this->restful->post('http://api.handao365.dev/order/order',$data);
-
+        $fileLogger->log('response',$response);
 
         $json = json_decode($response,true);
         if($json['statusCode']=='000000'){
-            return $this->response->redirect('/order/success/'.$json['order_id']);
+            return $this->response->redirect('/order/success/'.$json['data']['order_id']);
         }else{
             return $this->response->redirect('/order/fail');
         }
-        echo ($res);
+//        echo ($res);
+//
+//        exit;
 
-        exit;
 
 
-
-        if ($_POST['mobile']) {
-            $user_id = $this->session->get('auth')->id;
-            if ($user_id) {
-                $address_info = $_POST['address'];
-                $address_id = $this->getAddressId($user_id, $address_info);
-                $linkman_info = $_POST['name'];
-                $linkman_id = $this->getLinkmanId($user_id, $_POST['mobile'], $linkman_info);
-                $auto_id = $this->getAutoModelsId($user_id, $models_id, $_POST['carnum']);
-            }
-            $HdOrder = new HdOrder();
-            $HdOrder->user_id = $user_id;
-            $HdOrder->auto_id = $auto_id;
-            $HdOrder->products = serialize($productName);
-            $HdOrder->price = $total;//目前没得折扣
-            $HdOrder->total = $total;
-            $HdOrder->linkman_id = $linkman_id;
-            $HdOrder->linkman_info = $linkman_info;
-            $HdOrder->address_id = $address_id;
-            $HdOrder->address_info = $address_info;
-            $HdOrder->remark = $remark;
-            $HdOrder->status = 11;
-            $HdOrder->book_time = $bookTime[0] . '  ' . $bookTime[1];
-            if ($HdOrder->save()) {
-                $order_id = $HdOrder->id;
-
-                foreach ($orderDataId as $order) {
-                    $HdOrderProduct = new HdOrderProduct;
-                    $HdOrderProduct->order_id = $order_id;
-                    $HdOrderProduct->product_id = $order['product_id'];
-                    $HdOrderProduct->product_category = $order['category_id'];
-                    $HdOrderProduct->order_price = $order['price'];
-                    $HdOrderProduct->save();
-                }
-                return $this->response->redirect('index/myorder');
-            }
-        }
-        $this->view->setVar('productName', $productName);
+//        if ($_POST['mobile']) {
+//            $user_id = $this->session->get('auth')->id;
+//            if ($user_id) {
+//                $address_info = $_POST['address'];
+//                $address_id = $this->getAddressId($user_id, $address_info);
+//                $linkman_info = $_POST['name'];
+//                $linkman_id = $this->getLinkmanId($user_id, $_POST['mobile'], $linkman_info);
+//                $auto_id = $this->getAutoModelsId($user_id, $models_id, $_POST['carnum']);
+//            }
+//            $HdOrder = new HdOrder();
+//            $HdOrder->user_id = $user_id;
+//            $HdOrder->auto_id = $auto_id;
+//            $HdOrder->products = serialize($productName);
+//            $HdOrder->price = $total;//目前没得折扣
+//            $HdOrder->total = $total;
+//            $HdOrder->linkman_id = $linkman_id;
+//            $HdOrder->linkman_info = $linkman_info;
+//            $HdOrder->address_id = $address_id;
+//            $HdOrder->address_info = $address_info;
+//            $HdOrder->remark = $remark;
+//            $HdOrder->status = 11;
+//            $HdOrder->book_time = $bookTime[0] . '  ' . $bookTime[1];
+//            if ($HdOrder->save()) {
+//                $order_id = $HdOrder->id;
+//
+//                foreach ($orderDataId as $order) {
+//                    $HdOrderProduct = new HdOrderProduct;
+//                    $HdOrderProduct->order_id = $order_id;
+//                    $HdOrderProduct->product_id = $order['product_id'];
+//                    $HdOrderProduct->product_category = $order['category_id'];
+//                    $HdOrderProduct->order_price = $order['price'];
+//                    $HdOrderProduct->save();
+//                }
+//                return $this->response->redirect('index/myorder');
+//            }
+//        }
+//        $this->view->setVar('productName', $productName);
     }
 
+
+    public function successAction($oid)
+    {
+        $order = HdOrder::findFirst($oid);
+        if (!$order) {
+            return $this->response->redirect('/order/fail');
+        }
+    }
+
+    public function failAction()
+    {
+
+    }
 
     /**
      * 获取联系ID
