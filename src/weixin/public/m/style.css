@@ -210,10 +210,10 @@ img{width: 100%;}
 .wrap{ margin-top:5px; padding:0 2px; overflow:hidden;}
 
 /** index样式 **/
-header{ height:65px; overflow:hidden; margin:0px 0px 10px; background:#f6f6f6}
-header .logo{ float:left; margin:16px 0 0 10px; float:left;}
+header{ height:80px; overflow:hidden; margin:0px 0px 10px; background:#f6f6f6}
+header .logo{ float:left; margin:9px 0 0 10px; float:left;}
 
-header .tel{float:right;margin:10px 0px 0px 10px;border-left:3px solid #ff4400; margin-right:10px;}
+header .tel{float:right;margin:20px 0px 0px 10px;border-left:3px solid #ff4400; margin-right:10px;}
 header .tel .p1{width: 100%;height: 20px;overflow: hidden;line-height: 20px;font-size: 18px;text-indent:10px;color: #333;}
 header .tel .p2{width:100%;height:auto;overflow:hidden;font-size:22px;font-weight:bold;color:#ff4400;text-indent:10px;}
 
@@ -232,6 +232,9 @@ header .tel .p2{width:100%;height:auto;overflow:hidden;font-size:22px;font-weigh
 @media screen and (width:414px){
 	.tiao{margin-left:11.7%;}
 }
+@media screen and (min-width:414px){
+	.tiao{margin-left:13.7%;}
+}
 .tiao a img{ margin-top:30px;}
 #BottomNav ul li:nth-child(1){
 	border-right: 1px #fff solid;
@@ -248,6 +251,7 @@ header .tel .p2{width:100%;height:auto;overflow:hidden;font-size:22px;font-weigh
 
 .c_fb4d00{ background:-moz-linear-gradient(top,#90e0ea,#54C2D6);background:-webkit-linear-gradient(top,#90e0ea,#54C2D6);}
 .c_0070fb{ background:-moz-linear-gradient(top,#ff8860,#fd4f10);background:-webkit-linear-gradient(top,#ff8860,#fd4f10);}
+
 .c_01a92d{ background:-moz-linear-gradient(top,#b7dc5d,#72b92f);background:-webkit-linear-gradient(top,#b7dc5d,#72b92f);}
 .c_be00d4{ background:-moz-linear-gradient(top,#ef88b7,#e04a73);background:-webkit-linear-gradient(top,#ef88b7,#e04a73);}
 
@@ -316,3 +320,39 @@ article p{ font-size:15px; color:#000; line-height:26px; text-indent:2em; margin
 h2.t{width:100%;height:auto;overflow:hidden;line-height:40px;border-bottom:2px solid #ff4400; background:#ff4400; font-size:20px;color:#fff; padding:0px 10px; text-align:left}
 h2.t em{ float:right;}
 h2.t em a{ font-size:15px; color:#FFF; margin-right:30px; font-style:normal}
+p.ts {
+	width: 80%;
+	line-height: 40px;
+	margin: 150px auto 0 auto;
+	text-align:center;
+}
+p.ts3 {
+	width: 80%;
+	line-height: 40px;
+	margin: 150px auto 0 auto;
+	text-align:center;
+}
+p.ts2{
+	width: 80%;
+	line-height: 40px;
+	text-align:center; padding-left:35px;
+	color:#999;
+}
+p.ts span{
+	background: url(../images/right.png) no-repeat 0 0;
+	height: 48px;
+	display: inline-block;
+	padding-left: 55px;
+	line-height: 48px;
+	font-size: 2em;
+	margin: 0 auto;
+}
+p.ts3 span{
+	background: url(../images/wrong.png) no-repeat 0 0;
+	height: 48px;
+	display: inline-block;
+	padding-left: 55px;
+	line-height: 48px;
+	font-size: 2em;
+	margin: 0 auto;
+}
