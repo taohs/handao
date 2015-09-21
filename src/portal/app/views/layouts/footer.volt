@@ -6,4 +6,3 @@
 <script type="text/javascript" src="/assets/js/superslide.2.1.js"></script>
 <script type="text/javascript" src="/assets/js/Paichen.js" ></script>
 <script type="text/javascript" src="/assets/js/wx.js" ></script>
-{{get_title()}}
