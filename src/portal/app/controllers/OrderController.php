@@ -37,12 +37,13 @@ class OrderController extends ControllerBase
             foreach ($this->session->get('products') as $row) {
                 $data = explode('-', $row);
                 $sumPrice += $data[0];
-                $orderDataId[$i]['category_id'] = $data[2];
-                $orderDataId[$i]['product_id'] = $data[1];
-                $orderDataId[$i]['price'] = $data[0];
-
-                $productName[] = $data[3] . ':' . $data[4];
-                $i++;
+                if (isset($data[2]) && $data[2] != '') {
+                    $orderDataId[$i]['category_id'] = $data[2];
+                    $orderDataId[$i]['product_id'] = $data[1];
+                    $orderDataId[$i]['price'] = $data[0];
+                    $productName[] = $data[3] . ':' . $data[4];
+                    $i++;
+                }
             }
         }
 
@@ -116,7 +117,7 @@ class OrderController extends ControllerBase
             $this->flash->error("手机格式不正确");
             return $this->response->redirect('order/index');
         }
-        if(!preg_match('/^[0-9]{4}$/',$captcha)){
+        if (!preg_match('/^[0-9]{4}$/', $captcha)) {
             $this->flash->error("手机验证码格式不正确");
             return $this->response->redirect('order/index');
         }
@@ -139,39 +140,44 @@ class OrderController extends ControllerBase
         }
 
         $data = array(
-            'origin'=> self::ORIGIN,
-            'mobile'=>$mobile,'captcha'=>$captcha,'name'=>$name,'address'=>$address,'carnum'=>$carnum,'bookTime'=>$bookTime,'remark'=>$remark,
-            'total'=>$total,'models_id'=>$models_id,'productName'=>$productName,'orderDataId'=>$orderDataId
+            'origin' => self::ORIGIN,
+            'mobile' => $mobile, 'captcha' => $captcha, 'name' => $name, 'address' => $address, 'carnum' => $carnum, 'bookTime' => $bookTime, 'remark' => $remark,
+            'total' => $total, 'models_id' => $models_id, 'productName' => $productName, 'orderDataId' => $orderDataId
         );
 
-        $response  = $this->restful->post('http://api.handao365.dev/order/order',$data);
-
-        $json = json_decode($response,true);
-        if($json['statusCode']=='000000'){
-            return $this->response->redirect('/order/success/'.$json['order_id']);
-        }else{
+        $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH . '/cache/interface.log');
+        $fileLogger->log("request", json_encode($data));
+        $response = $this->restful->post('http://api.handao365.dev/order/order', $data);
+        $fileLogger->log("response", $response);
+        $json = json_decode($response, true);
+        if ($json['statusCode'] == '000000') {
+            return $this->response->redirect('/order/success/' . $json['order_id']);
+        } else {
             return $this->response->redirect('/order/fail');
         }
-        echo ($res);
+        echo($res);
 
         exit;
 
     }
 
-    public function successAction($oid){
+    public function successAction($oid)
+    {
         $order = HdOrder::findFirst($oid);
-        if(!$order){
+        if (!$order) {
             return $this->response->redirect('/order/fail');
         }
     }
 
-    public function failAction(){
+    public function failAction()
+    {
 
     }
 
-    function getUser($mobile){
-        $user = HdUser::findFirst(array('conditions'=>'mobile=:mobile:','bind'=>array('mobile'=>$mobile)));
-        if(! $user){
+    function getUser($mobile)
+    {
+        $user = HdUser::findFirst(array('conditions' => 'mobile=:mobile:', 'bind' => array('mobile' => $mobile)));
+        if (!$user) {
 //            throw new \Phalcon\Exception("用户不存在");
 //            return null;
         }
