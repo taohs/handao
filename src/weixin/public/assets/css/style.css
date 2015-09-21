@@ -32,7 +32,7 @@ input{font-family: "Microsoft YaHei";}
 		  	margin:22px 0px;
 		  	width:91%;
 			margin-left:9%;}
-.login p.yzm input{ width:50%;
+.login p.yzm input{ width:43%;
 					height:64px;
 					line-height:64px;
 					border:1px solid #bebebe;
@@ -71,7 +71,7 @@ input{font-family: "Microsoft YaHei";}
 		line-height:88px;}
 .top p{ color:#FFFFFF;
 		text-align:center;
-		font-size:20px;}		
+		font-size:1.25em;}		
 .top p a{ text-decoration:none;
 		  color:#fff;
 		  float:right;
@@ -173,8 +173,6 @@ input{font-family: "Microsoft YaHei";}
 .page span{font-size:14px;
 			color:#333;}	   
 
-	   
-	   
 	   
 	   
 	   
