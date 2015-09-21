@@ -2,7 +2,7 @@
 img{border:none;}
 .top{width: 100%;height: 80px;background: #FF5416;min-width: 1201px}
 .top .nav{width: 1201px;margin: 0 auto;}
-.top .nav .logo{background: url(../images/LOGO-white.png) center center no-repeat;width: 180px;height: 80px;float: left}
+.top .nav .logo{background: url(../images/LOGO-white.png) center center no-repeat;width: 223px;height: 80px;float: left}
 .top .nav ul{width: 590px;margin-left: 100px;float: left}
 .top .nav ul li{width:110px;height: 80px;float: left}
 .top .nav ul li a{display: block;width: 80px;height: 80px;text-align: center;line-height: 80px;font-size: 18px;color: #fff}
@@ -341,7 +341,7 @@ img{border:none;}
 	background: url(../images/wx-dj.png) no-repeat 0 0;
 	float: left;
 	margin-top: 22px;
-	margin-left: 50px;
+	margin-left: 10px;
 	cursor: pointer;
 	position: relative;
 }
