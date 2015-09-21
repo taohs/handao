@@ -4,14 +4,8 @@
     }
 
 </style>
-<img src="{{url('assets/images/phone.png')}}">
-400-023-6621
-</div>
-</div>
 
-</div>
 <div class="content">
-
 
     <div class="by1">
         <div class="center" style="background:#fff;">
