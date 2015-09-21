@@ -41,12 +41,13 @@ class OrderController extends ControllerBase
             foreach ($this->session->get('products') as $row) {
                 $data = explode('-', $row);
                 $sumPrice += $data[0];
-                $orderDataId[$i]['category_id'] = $data[2];
-                $orderDataId[$i]['product_id'] = $data[1];
-                $orderDataId[$i]['price'] = $data[0];
-
-                $productName[] = $data[3] . ':' . $data[4];
-                $i++;
+                if (isset($data[2]) && $data[2] != '') {
+                    $orderDataId[$i]['category_id'] = $data[2];
+                    $orderDataId[$i]['product_id'] = $data[1];
+                    $orderDataId[$i]['price'] = $data[0];
+                    $productName[] = $data[3] . ':' . $data[4];
+                    $i++;
+                }
             }
         }
 
