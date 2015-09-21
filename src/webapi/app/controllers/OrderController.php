@@ -87,7 +87,7 @@ class OrderController extends ControllerBase
 
         $_POST;
         $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH . '/cache/post.log');
-        $fileLogger->log(Phalcon\Logger::INFO,json_encode($_POST));
+        $fileLogger->log(Phalcon\Logger::INFO, json_encode($_POST));
         //filter the origin;
         if (!in_array($origin, array(self::ORIGIN_PORTAL, self::ORIGIN_API, self::ORIGIN_MOBILE, self::ORIGIN_BACKEND))) {
             $origin = self::ORIGIN_PORTAL;
@@ -128,7 +128,6 @@ class OrderController extends ControllerBase
             }
 
 
-
             if ($origin == self::ORIGIN_PORTAL) {
                 if ($this->security->checkHash($captcha, $user->password)) {
                     $user_id = $user->id;
@@ -137,7 +136,7 @@ class OrderController extends ControllerBase
                 } else {
                     return $this->responseJson(self::PARAMS_ERROR_CODE, "手机验证码错误");
                 }
-            }else{
+            } else {
                 $user_id = $user->id;
             }
 
@@ -169,12 +168,16 @@ class OrderController extends ControllerBase
                 $order_id = $HdOrder->id;
 
                 foreach ($orderDataId as $order) {
-                    $HdOrderProduct = new HdOrderProduct;
-                    $HdOrderProduct->order_id = $order_id;
-                    $HdOrderProduct->product_id = $order['product_id'];
-                    $HdOrderProduct->product_category = $order['category_id'];
-                    $HdOrderProduct->order_price = $order['price'];
-                    $HdOrderProduct->save();
+
+                    if ($productVerifyModel = HdProduct::findFirst($order['product_id'])) {
+
+                        $HdOrderProduct = new HdOrderProduct;
+                        $HdOrderProduct->order_id = $order_id;
+                        $HdOrderProduct->product_id = $order['product_id'];
+                        $HdOrderProduct->product_category = $order['category_id'];
+                        $HdOrderProduct->order_price = $order['price'];
+                        $HdOrderProduct->save();
+                    }
                 }
                 return $this->responseJson(self::SUCCESS_CODE, "预约成功", array('order_id' => $order_id));
             }
@@ -290,7 +293,7 @@ class OrderController extends ControllerBase
             $HdUserAuto->number = $number;
             if ($HdUserAuto->save()) {
                 $auto_id = $HdUserAuto->id;
-            }else{
+            } else {
                 throw new RuntimeException("用户汽车保存失败");
             }
         }
