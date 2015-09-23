@@ -19,7 +19,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputUsername">用户名：</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control" name="inputUsername" id="inputUsername"/>
+                <input type="email" class="form-control" name="inputUsername" id="inputUsername" maxlength="20" placeholder="请输入邮箱作为用户名"/>
             </div>
         </div>
         <div class="form-group">
@@ -35,13 +35,13 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputPassword">新密码：</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" name="inputPassword" id="inputPassword" />
+                <input type="password" class="form-control" name="inputPassword" id="inputPassword" maxlength="12" placeholder="请输入您的密码" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputConfirmPassword">确认密码：</label>
             <div class="col-sm-10">
-                <input type="password" class="form-control" name="inputConfirmPassword" id="inputConfirmPassword" />
+                <input type="password" class="form-control" name="inputConfirmPassword" id="inputConfirmPassword" maxlength="12" placeholder="请输入确认密码" />
             </div>
         </div>
         <div class="form-group" class="checkbox col-sm-2 control-label">

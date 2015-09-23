@@ -9,6 +9,8 @@ use Phalcon\Mvc\Controller;
 class ControllerBase extends Controller
 {
 
+    public $auth;
+
     /**
      * @inheritdoc
      * 初始化方法
@@ -17,8 +19,10 @@ class ControllerBase extends Controller
     {
         $this->view->setLayout('main');
         $this->forceLogin();
+        $this->auth = $this->getAuth();
 
         $this->view->setVar('controllerName',$this->dispatcher->getControllerName());
+        $this->view->setVar('auth',$this->auth);
 
     }
 
