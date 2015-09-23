@@ -10,28 +10,28 @@
             <label class="col-sm-2 control-label" for="inputName">用户名：</label>
 
             <div class="col-sm-10">
-                {{ form.render('username', ['class': 'form-control','value':user.username]) }}
+                {{ form.render('username', ['class': 'form-control','value':user.username,'maxlength':20]) }}
             </div>
         </div>
     <div class="form-group">
         <label class="col-sm-2 control-label" for="inputName">姓名：</label>
 
         <div class="col-sm-10">
-            {{ form.render('name', ['class': 'form-control','value':user.name]) }}
+            {{ form.render('name', ['class': 'form-control','value':user.name,'maxlength':20]) }}
         </div>
     </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputAutoMumber">电话：</label>
             <div class="col-sm-10">
-                {{ form.render('mobile', ['class': 'form-control','value':user.mobile]) }}
+                {{ form.render('mobile', ['class': 'form-control','value':user.mobile,'maxlength':11]) }}
             </div>
         </div>
-        <div class="form-group">
-            <label class="col-sm-2 control-label" for="inputAutoMumber">邮箱：</label>
-            <div class="col-sm-10">
-                {{ form.render('email', ['class': 'form-control','value':user.email]) }}
-            </div>
-        </div>
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-2 control-label" for="inputAutoMumber">邮箱：</label>-->
+<!--            <div class="col-sm-10">-->
+<!--                {{ form.render('email', ['class': 'form-control','value':user.email]) }}-->
+<!--            </div>-->
+<!--        </div>-->
 
         <div  class="form-group">
             <div class="col-sm-2"></div>

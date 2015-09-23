@@ -12,9 +12,9 @@
  * @package PHP
  */?>
 
-<h2 class="sub-header">管理人员列表</h2>
+<h2 class="sub-header">帐号列表</h2>
 <div class="table-responsive">
-    <a href="/admin/create" class="btn btn-primary">新增管理员</a>
+    <a href="/admin/create" class="btn btn-primary">新增帐号</a>
     <a href="/admin/rolelist" class="btn btn-primary">角色管理</a>
     <table class="table table-striped">
         <thead>

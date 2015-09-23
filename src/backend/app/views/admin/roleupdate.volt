@@ -1,5 +1,5 @@
 
-<h2 class="sub-header">修改角色</h2>
+<h2 class="sub-header">角色信息</h2>
 <a href="/admin/rolelist" class="btn btn-primary">返回</a>
 <div class="container col-md-8 ">
     {{flash.output()}}
@@ -25,7 +25,6 @@
             <div class="col-sm-10">
                 <button type="submit" class="btn btn-primary">提交保存</button>
             </div>
-
         </div>
     </form>
 </div>

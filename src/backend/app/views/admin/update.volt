@@ -12,7 +12,7 @@
  * @package PHP
  */
 ?>
-    <h2 class="sub-header">修改管理员信息</h2>
+    <h2 class="sub-header">修改帐号信息</h2>
 <div class="container col-md-8 ">
     {{flash.output()}}
     <form class="form-horizontal" method="post">

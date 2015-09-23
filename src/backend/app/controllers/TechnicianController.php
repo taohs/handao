@@ -94,11 +94,19 @@ class TechnicianController extends ControllerBase
     public function deleteAction($id){
         $user = HdTechnician::findFirstById($id);
         if (!$user) {
-            $this->flash->error("Product was not found");
+            $this->flash->error("该技师不存在");
             return $this->response->redirect("/technician/list");
         }
 
-        if (!$user->delete()) {
+        $relation = HdOrder::findFirst(array(
+            'conditions'=>'technician_id=:tech:',
+            'bind'=>array('tech'=>$user->id)
+        ));
+        if($relation){
+            $this->flash->error("技师 @".$user->name ." 已经分配了订单无法删除，可尝试停用该技师帐号");
+            return $this->response->redirect("/technician/list");
+        }
+        if ( !$user->delete()) {
             foreach ($user->getMessages() as $message) {
                 $this->flash->error($message);
             }
@@ -106,6 +114,25 @@ class TechnicianController extends ControllerBase
         }
 
         $this->flash->success("删除成功");
+        return $this->response->redirect("/technician/list");
+    }
+
+    public function activeAction($id){
+        $user = HdTechnician::findFirstById($id);
+        if (!$user) {
+            $this->flash->error("该技师不存在");
+            return $this->response->redirect("/technician/list");
+        }
+        $user->active = !$user->active;
+
+        if ( !$user->save()) {
+            foreach ($user->getMessages() as $message) {
+                $this->flash->error($message);
+            }
+            return $this->response->redirect("/technician/list");
+        }
+
+        $this->flash->success("操作成功");
         return $this->response->redirect("/technician/list");
     }
 

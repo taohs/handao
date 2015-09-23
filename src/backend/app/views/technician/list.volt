@@ -6,6 +6,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>用户名</th>
             <th>手机号</th>
             <th>姓名</th>
 
@@ -16,6 +17,7 @@
         {% for row in page.items %}
         <tr>
             <td>{{row.id}}</td>
+            <td>{{row.username}}</td>
             <td>{{row.mobile}}</td>
             <td>{{row.name}}</td>
 
@@ -23,6 +25,7 @@
                 <a href="/technician/updateuser/{{row.id}}">编辑技师</a>
                 <a href="/technician/resetPassword/{{row.id}}">重置密码</a>
                 <a href="/technician/delete/{{row.id}}" class="delete">删除</a>
+                <a href="/technician/active/{{row.id}}" class="active">{%if(row.active==0)%}激活{%else%}停用{%endif%}</a>
             </td>
         </tr>
         {% endfor %}
@@ -43,6 +46,14 @@
 <script>
 $('.delete').click(function(){
     if(confirm("确定要删除吗？")){
+
+    }else{
+        return false;
+    }
+});
+$('.active').click(function(){
+    var msg = $(this).html();
+    if(confirm("确定要"+msg+"吗？")){
 
     }else{
         return false;
