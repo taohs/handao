@@ -153,7 +153,7 @@ class OrderController extends ControllerBase
         ));
 
 
-        $workerSet = HdTechnician::find(array('order' => 'initials asc,name asc'));
+        $workerSet = HdTechnician::find(array('conditions'=>'active!=0','order' => 'initials asc,name asc'));
 
         if ($this->request->isPost()) {
             $tecknician = $this->request->getPost('inputTechnician', \Phalcon\Filter::FILTER_INT);

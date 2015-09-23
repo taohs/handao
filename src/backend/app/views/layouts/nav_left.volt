@@ -33,18 +33,18 @@
     <li controllername="industry"><a href="{{url('industry/index')}}">行业管理</a></li>
 
 
-    <li controllername="brands"><a href="{{url('brands')}}">综合品牌</a></li>
-
-
-
-            <li controllername="products"><a href="{{url('products')}}">商品管理</a></li>
-            <li controllername="productscategory"><a href="{{url('productscategory')}}">商品类型管理</a></li>
 
 
 
 
+
+    <li controllername="brands"><a href="{{url('brands')}}">汽车品牌</a></li>
             <li controllername="models"><a href="{{url('models')}}">汽车系列</a></li>
             <li controllername="cars"><a href="{{url('cars')}}">汽车型号</a></li>
+
+    <li controllername="products"><a href="{{url('products')}}">汽车配件列表</a></li>
+    <li controllername="productscategory"><a href="{{url('productscategory')}}">汽车配件类型</a></li>
+
 
 
 </ul>
