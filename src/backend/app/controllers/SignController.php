@@ -88,12 +88,12 @@ class SignController extends ControllerBase
                     //This situation should use the observer pattern
                     //$admin->password = $this->security->hash($password);
                     //$admin->save();
-                    return $this->response->redirect('admin/list');
+                    return $this->response->redirect('index/index');
                 } else {
-                    $this->flash->error("password errors");
+                    $this->flash->error("帐号密码错误");
                 }
             } else {
-                $this->flash->error("token errors");
+                $this->flash->error("登录令牌错误");
             }
             return $this->refresh();
         }

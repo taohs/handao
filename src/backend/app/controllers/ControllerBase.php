@@ -18,6 +18,8 @@ class ControllerBase extends Controller
         $this->view->setLayout('main');
         $this->forceLogin();
 
+        $this->view->setVar('controllerName',$this->dispatcher->getControllerName());
+
     }
 
     /**
