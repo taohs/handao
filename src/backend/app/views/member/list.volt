@@ -5,6 +5,7 @@
         <thead>
         <tr>
             <th>ID</th>
+            <th>会员姓名</th>
             <th>手机号</th>
             <th>保养车辆</th>
             <th>保养次数</th>
@@ -15,6 +16,17 @@
         {% for row in page.items %}
         <tr>
             <td>{{row.id}}</td>
+            <td>
+
+                {% set linkmans = row.getHdUserLinkman() %}
+                {%for link in linkmans %}
+                {%if loop.first%}
+                {{link.name}}
+                {%endif%}
+                {%endfor%}
+
+
+            </td>
             <td>{{row.mobile}}</td>
             <td>{{row.HdUserAuto.count()}}辆</td>
             <td>
