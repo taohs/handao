@@ -66,6 +66,9 @@ class OrderController extends ControllerBase
         $modelAuto = $model->getAuto();
         $modelAutoExact = $modelAuto->getModelExact();
         $modelBrands = $modelAutoExact->getHdBrands();
+//        var_dump($modelAutoExact);
+//        var_dump($modelBrands);
+//        exit;
         $modelModels = $modelAutoExact->getHdAutoModels();
 
 

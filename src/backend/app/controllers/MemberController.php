@@ -154,7 +154,7 @@ class MemberController extends ControllerBase
         $numberPage = $this->request->getQuery( "page", "int" );
         $paginator = new Paginator( array(
             "data"  => $auto,
-            "limit" => $this->pageLimit,
+            "limit" => 50,
             "page"  => $numberPage,
 
         ) );

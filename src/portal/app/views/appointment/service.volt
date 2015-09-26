@@ -35,7 +35,8 @@
         </div>
         <form method="post" action="/order/index" id="startyyue">
             <input type="hidden" name="models_id" value="{{models.id}}">
-            <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}}">
+            <input type="hidden" name="modelsExact_id" value="{{modelExact.id}}">
+            <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}} {{modelExact.name}}">
 
             <div class="hl">
                 <div class="main">
@@ -48,7 +49,7 @@
                         {% endfor %}
                     </div>
                     <div class="nd">
-                        <p class="p4">{{brands.name}} {{models.name}} 上门保养</p>
+                        <p class="p4">{{brands.name}}<br/>{{models.name}}<br/>{{modelExact.name}} <br/>上门保养</p>
                         <ul class="m js">
                             <span class="pc-pname">项目：</span>
                             {% set i=0 %}

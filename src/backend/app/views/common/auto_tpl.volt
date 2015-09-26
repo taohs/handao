@@ -21,7 +21,7 @@
             <option value="{{brand.id}}"
                     {%if modelBrands is not empty %}
 
-                    {%if modelBrands.id ==brand.id %} selected="selected"{%endif%}
+                    {%if modelBrands.id == brand.id %} selected="selected"{%endif%}
 
                     {%endif%} >{{brand.initials ~ '-' ~ brand.name}}</option>
             {% endfor %}
