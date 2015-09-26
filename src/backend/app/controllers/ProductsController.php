@@ -186,5 +186,68 @@ class ProductsController extends ControllerBase
         return trim($tempAttributesString);
     }
 
+    function getModelsExactRecommendAction($modelsExactId){
+        $productsRecommend = HdAutoProductRecommend::find(array(
+            'conditions'=>'exact_id=:exact_id:',
+            'bind'=>array('exact_id'=>$modelsExactId),
+        ))->toArray();
+
+        $productsIds = array();
+        $productsRecommendFeatured  = array();
+        $productsGroupByCategory = array();
+        $productsCategory = array();
+
+        foreach($productsRecommend as $row){
+            $productsIds[] = $row['product_id'];
+            if($row['featured']==1){
+                $productsRecommendFeatured[] = $row['product_id'];
+            }
+        }
+
+        $products = HdProduct::find(array(
+            'conditions'=>'id in ({ids:array})',
+            'bind'=>array('ids'=>$productsIds),
+            'order'=>'category',
+        ))->toarray();
+
+        foreach($products as $row){
+            /**
+             * @var $row HdProduct => array
+             */
+            if(in_array($row['id'],$productsRecommendFeatured)){
+                $row['featured'] = 1;
+            }else{
+                $row['featured'] = 0;
+            }
+
+            $productsGroupByCategory[$row['category']][] = $row;
+            if(!in_array($row['category'],$productsCategory)){
+                $productsCategory[]=$row['category'];
+            }
+        }
+
+        $productsCategoryData =HdProductCategory::find(array(
+            'conditions'=>'id in ({ids:array})',
+            'bind'=>array('ids'=>$productsCategory)
+        ))->toArray();
+
+        $finishData = array();
+        foreach($productsCategoryData as $key=>$row){
+            $row['data'] = $productsGroupByCategory[$row['id']];
+            $finishData[]=$row;
+        }
+        echo json_encode($finishData);exit;
+        var_export($finishData);exit;
+
+
+
+
+        var_dump($productsCategory);
+        var_dump($productsCategoryData);
+        var_dump($productsIds);
+        var_dump($products);
+        var_dump($productsGroupByCategory);
+    }
+
 }
 

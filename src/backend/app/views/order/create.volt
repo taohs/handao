@@ -56,7 +56,7 @@
         {{partial('common/auto_tpl',['exact':true])}}
 
         {%for category in productsCategory %}
-        <div class="form-group">
+        <div class="form-group productsCategory">
             <label class="col-sm-2 control-label" for="inputProducts">{{category.name}}</label>
             <div class="col-sm-10">
                 <select class="form-control" name="inputProducts[]">
@@ -68,7 +68,7 @@
             </div>
         </div>
         {% endfor %}
-        <div class="form-group">
+        <div class="form-group" id="form-remark">
             <label class="col-sm-2 control-label" for="inputRemark">备注：</label>
             <div class="col-sm-10">
                 <textarea type="text" class="form-control" name="inputRemark" id="inputRemark" rows="6"/></textarea>
