@@ -88,6 +88,7 @@ class MaintenanceController extends ControllerBase
 
 
         $recommend = HdAutoProductRecommend::find( array( 'conditions' => 'exact_id = :exact_id:', 'bind' => array( 'exact_id' => $exact_id ) ) );
+        $recommendFeatured = array();
         $product_id_str = "";
         $i = 0;
         foreach ($recommend as $row) {
@@ -95,12 +96,27 @@ class MaintenanceController extends ControllerBase
             $product_id_str .= $dian . $row->product_id;
             $i++;
 
+            if($row->featured==1){
+                $recommendFeatured[] = $row->product_id;
+            }
+
         }
         $product = HdProduct::find( array( 'conditions' => "id in ($product_id_str)" ) );
 
+        $productGroup = array();
+
         foreach ($product as $row) {
             $category_id_array[]=  $row->category;
+            $rowArray = $row->toArray();
+            if(in_array($row->id,$recommendFeatured)){
+                $rowArray['featured']=1;
+            }else{
+                $rowArray['featured']=0;
+            }
+            $productGroup[$row->category][] = $rowArray;
         }
+
+
         $category_id_str="";
         $category_id_array= array_unique($category_id_array);
         $i = 0;
@@ -114,11 +130,13 @@ class MaintenanceController extends ControllerBase
             "bind"       => array( 'id' => $brands_id )
         ) );
         $category = HdProductCategory::find(array( 'conditions' => "id in ($category_id_str)" ) );
+
         $this->view->setVar( 'brands', $brands );
         $this->view->setVar( 'models', $models );
         $this->view->setVar( 'modelsExact', $modelsExact );
         $this->view->setVar( 'category', $category );
         $this->view->setVar( 'product', $product );
+        $this->view->setVar( 'productGroup', $productGroup );
         $this->view->setVar( 'fees', $this->fees );
     }
 

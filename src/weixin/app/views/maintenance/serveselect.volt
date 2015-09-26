@@ -37,6 +37,59 @@
         <input type="hidden" name="autoName" value="{{brands.name}} {{models.name}} {{modelsExact.name}}">
 
         <p class="xm">项目：机油三滤</p>
+        <div class="xzxm">
+
+            {% for cate in category %}
+            {% if productGroup[cate.id] is not empty %}
+            {% for row in productGroup[cate.id] %}
+
+            {% if productGroup[cate.id]|length >1 %}
+                {% if loop.first%}
+                <dl>
+                    <dt class="active">
+                        <p class="tup">{{cate.name|e}}</p>
+
+                        <p class="nr-x">
+                            <span class="s-title" featured="1">{{row['name']|e}} <i>推荐</i></span>
+                            <span class="s-title-price">￥{{row['member_price']}}</span>
+                        </p>
+                        <a href="#">更换</a>
+                    </dt>
+                {%elseif loop.last%}
+                    <dd class="dd-product"  featured="{{row['featured']}}">
+                        <p>{{row['name']|e}}</p>
+                        <span>{%if row['featured']%}<i>推荐</i>{%endif%} ￥{{row['member_price']|e}}</span>
+                    </dd>
+                    <dd class="dd-cancel">
+                        <a href="#" class="qx">取消选择</a>
+                    </dd>
+                </dl>
+                {%else %}
+                    <dd  class="dd-product"  featured="{{row['featured']}}">
+                        <p>{{row['name']|e}}</p>
+                        <span>{%if row['featured']%}<i>推荐</i>{%endif%} ￥{{row['member_price']|e}}</span>
+                    </dd>
+                {%endif%}
+            {%else%}
+                <dl>
+                    <dt class="active">
+                        <p class="tup">{{cate.name}}</p>
+                        <p class="nr-x">
+                            <span class="s-title">{{row['name']}} <i>推荐</i></span>
+                            <span class="s-title-price">￥{{row['member_price']|e}}</span>
+                        </p>
+                    <a href="#" style="color: #ccc;border: 1px #ccc solid;">更换</a>
+                    </dt>
+                </dl>
+            {% endif%}
+
+            {% endfor %}
+            {%endif%}
+
+            {% endfor %}
+
+        </div>
+
         <ul class="m">
 
             {% for cate in category %}
@@ -81,6 +134,9 @@
         </p>
     </div>
 </form>
+<script type="text/javascript" src="/assets/js/jquery1.42.min.js"></script>
+<script type="text/javascript" src="/assets/js/xial.js"></script>
+
 <script type="text/javascript">
 
     var mleng = $('.Sh .m select').length;
