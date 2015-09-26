@@ -69,6 +69,7 @@ class OrderController extends ControllerBase
         //todo 注入bug，未验证汽车型号，
         $total = $this->request->getPost('total');
         $models_id = $this->request->getPost('models_id');
+        $modelsExact_id = $this->request->getPost('modelsExact_id');
         $productName = $this->request->getPost('productName');
         $orderDataId = $this->request->getPost('orderDataId');
 
@@ -146,7 +147,7 @@ class OrderController extends ControllerBase
                 $address_id = $this->getAddressId($user_id, $address_info);
                 $linkman_info = $_POST['name'];
                 $linkman_id = $this->getLinkmanId($user_id, $mobile, $linkman_info);
-                $auto_id = $this->getAutoModelsId($user_id, $models_id, $carnum);
+                $auto_id = $this->getAutoModelsId($user_id, $modelsExact_id, $carnum);
             } else {
                 return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
             }
