@@ -86,7 +86,7 @@ class OrderController extends ControllerBase
 
 
         $productsCategory = HdProductCategory::find(array(
-            'conditions' => 'active=:active:',
+            'conditions' => 'active=:active: and parent_id<>0',
             'bind' => array('active' => 1)
         ));
 
@@ -151,7 +151,7 @@ class OrderController extends ControllerBase
 
 
         $productsCategory = HdProductCategory::find(array(
-            'conditions' => 'active=:active:',
+            'conditions' => 'active=:active: and parent_id<>0',
             'bind' => array('active' => 1)
         ));
 
@@ -223,7 +223,7 @@ class OrderController extends ControllerBase
 
 
         $productsCategory = HdProductCategory::find(array(
-            'conditions' => 'active=:active:',
+            'conditions' => 'active=:active: and parent_id<>0',
             'bind' => array('active' => 1)
         ));
 
@@ -296,7 +296,7 @@ class OrderController extends ControllerBase
 
 
         $productsCategory = HdProductCategory::find(array(
-            'conditions' => 'active=:active:',
+            'conditions' => 'active=:active: and parent_id<>0',
             'bind' => array('active' => 1)
         ));
 
