@@ -44,7 +44,7 @@ class AppointmentController extends ControllerBase
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $brands_id )
         ) );
-        $modelExact = HdAutoModelsExact::findFirst(array(
+        $modelsExact = HdAutoModelsExact::findFirst(array(
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $exact_id )
         ));
@@ -92,7 +92,7 @@ class AppointmentController extends ControllerBase
         $category = HdProductCategory::find(array( 'conditions' => "id in ($categoryAll_id_str)" )  );
         $this->view->setVar( 'brands', $brands );
         $this->view->setVar( 'models', $models );
-        $this->view->setVar( 'modelExact', $modelExact );
+        $this->view->setVar( 'modelsExact', $modelsExact );
         $this->view->setVar( 'category', $category );
         $this->view->setVar( 'product', $product );
         $this->view->setVar( 'fees', $this->fees );

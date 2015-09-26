@@ -73,6 +73,20 @@ class MaintenanceController extends ControllerBase
         if (! $models) {
             return $this->response->redirect( 'maintenance/autoselect' );
         }
+
+        $brands = HdBrands::findFirst( array(
+            "conditions" => "id = :id:",
+            "bind"       => array( 'id' => $brands_id )
+        ) );
+        $modelExact = HdAutoModelsExact::findFirst(array(
+            "conditions" => "id = :id:",
+            "bind"       => array( 'id' => $exact_id )
+        ));
+        if (! $modelExact || $modelExact->models_id!=$models->id ) {
+            return $this->response->redirect( 'appointment/index' );
+        }
+
+
         $recommend = HdAutoProductRecommend::find( array( 'conditions' => 'exact_id = :exact_id:', 'bind' => array( 'exact_id' => $exact_id ) ) );
         $product_id_str = "";
         $i = 0;
@@ -102,6 +116,7 @@ class MaintenanceController extends ControllerBase
         $category = HdProductCategory::find(array( 'conditions' => "id in ($category_id_str)" ) );
         $this->view->setVar( 'brands', $brands );
         $this->view->setVar( 'models', $models );
+        $this->view->setVar( 'modelExact', $modelExact );
         $this->view->setVar( 'category', $category );
         $this->view->setVar( 'product', $product );
         $this->view->setVar( 'fees', $this->fees );
