@@ -48,7 +48,7 @@ class AppointmentController extends ControllerBase
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $exact_id )
         ));
-        if (! $modelExact || $modelExact->models_id!=$models->id ) {
+        if (! $modelsExact || $modelsExact->models_id!=$models->id ) {
             return $this->response->redirect( 'appointment/index' );
         }
 

@@ -20,6 +20,7 @@ class OrderController extends ControllerBase
         if ($this->request->isPost()) {
             $this->session->set('products', $this->request->getPost('products', \Phalcon\Filter::FILTER_STRING));
             $this->session->set('models_id', $this->request->getPost('models_id', \Phalcon\Filter::FILTER_STRING));
+            $this->session->set('modelsExact_id', $this->request->getPost('modelsExact_id', \Phalcon\Filter::FILTER_STRING));
             $this->session->set('autoName', $this->request->getPost('autoName', \Phalcon\Filter::FILTER_STRING));
             $this->session->set('other', $this->request->getPost('other', \Phalcon\Filter::FILTER_STRING));
         }
@@ -93,6 +94,7 @@ class OrderController extends ControllerBase
         //todo 注入bug，未验证汽车型号，
         $total = $this->session->get('total');
         $models_id = $this->session->get('models_id');
+        $modelsExact_id = $this->session->get('modelsExact_id');
         $productName = $this->session->get('productName');
         $orderDataId = $this->session->get('orderDataId');
 
@@ -134,7 +136,7 @@ class OrderController extends ControllerBase
         $data = array(
             'origin'=>self::ORIGIN,
             'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,'bookTime'=>$bookTime,'remark'=>$remark,
-            'total'=>$total,'models_id'=>$models_id,'productName'=>$productName,'orderDataId'=>$orderDataId
+            'total'=>$total,'models_id'=>$models_id,'modelsExact_id'=>$modelsExact_id,'productName'=>$productName,'orderDataId'=>$orderDataId
         );
 
         $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
