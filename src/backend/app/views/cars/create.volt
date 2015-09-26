@@ -54,11 +54,24 @@
         {% for category in productCategoryModels %}
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputYears">{{category.name}}：</label>
+            <div class="col-sm-4">
+                <label class="form-control" >特别推荐</label>
+            </div>
+            <div class="col-sm-6 form-group">
+                <select class="clo-sm-9  form-control" name="inputFeatured[]">
+                    <option value="0">请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="inputYears"></label>
             <div class="col-sm-10 form-horizontal checkbox">
                 {% set products = category.getProducts() %}
                 {% if products %}
                 {% for row in products %}
-                <label class="col-sm-10"><input type="checkbox" name="inputProducts[]" value="{{row.id}}">{{row.name}} ￥{{row.member_price}}</label>
+                <label class="col-sm-10">
+                    <input type="checkbox" class="inputProducts" name="inputProducts[]" value="{{row.id}}" rel="{{row.name}} ￥{{row.member_price}}" >{{row.name}} ￥{{row.member_price}}
+                </label>
                 {% endfor %}
                 {% endif %}
             </div>
@@ -82,5 +95,27 @@
                 $('#inputAutoModels').append(option);
             });
         });
-    })
+    });
+
+    $('.inputProducts').change(function () {
+        var thisCheckbox =  $(this);
+        if($(this).prop('checked')){
+            var options = '<option value="'+ $(this).val() + '">'+ $(this).attr('rel') +'</option>';
+            var select  = $(this).parent().parent().parent().prev().find('select');
+            select.append(options);
+            if(select.val()==0){
+                select.val(thisCheckbox.val());
+            }
+        }else{
+            var select  = $(this).parent().parent().parent().prev().find('select');
+            select.find('option').each(function (k,v) {
+                if($(v).val() == thisCheckbox.val() ){
+                    $(v).remove();
+                }
+
+            });
+        }
+    });
+
+
 </script>

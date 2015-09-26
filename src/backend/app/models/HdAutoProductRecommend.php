@@ -22,6 +22,12 @@ class HdAutoProductRecommend extends \Phalcon\Mvc\Model
     public $product_id;
 
     /**
+     *
+     * @var integer
+     */
+    public $featured;
+
+    /**
      * Initialize method for model.
      */
     public function initialize()

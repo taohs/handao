@@ -66,11 +66,19 @@ class CarsController extends ControllerBase
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputYears = $this->request->getPost('inputYears', \Phalcon\Filter::FILTER_STRING);
             $inputProducts = $this->request->getPost('inputProducts', \Phalcon\Filter::FILTER_STRING);
+            $inputFeatured = $this->request->getPost('inputFeatured', \Phalcon\Filter::FILTER_STRING);
 
             if (empty($inputName) or empty($inputAutoModels) or empty($inputBrands)) {
                 $this->flash->error("输入信息问完整，请输入完整的品牌，系列和名称");
                 return $this->refresh();
             }
+
+
+            if(empty($inputFeatured)){
+                $this->flash->error("请给车型选择特别推荐的配件");
+                return $this->refresh();
+            }
+
 
             $model = new HdAutoModelsExact();
             $model->name = $inputName;
@@ -81,6 +89,7 @@ class CarsController extends ControllerBase
             $model->update_time = date('Y-m-d H:i:s');
 
 
+
             if ($model->save()) {
                 $this->flash->success("保存成功");
                 if (!empty($inputProducts)) {
@@ -88,6 +97,11 @@ class CarsController extends ControllerBase
                         $tempProductRecommend = new HdAutoProductRecommend();
                         $tempProductRecommend->exact_id = $model->id;
                         $tempProductRecommend->product_id = $row;
+                        if(in_array($row,$inputFeatured)){
+                            $tempProductRecommend->featured = 1;
+                        }else{
+                            $tempProductRecommend->featured = 0;
+                        }
                         $tempProductRecommend->save();
                         unset($tempProductRecommend);
                     }
@@ -126,9 +140,15 @@ class CarsController extends ControllerBase
         ));
 
 
+
+
         $useProductRecommend = array();
+        $useProductFeatured = array();
         foreach ($productsRecommend as $row) {
             $useProductRecommend[] = $row->product_id;
+            if($row->featured==1){
+                $useProductFeatured[]=$row->product_id;
+            }
         }
 
 
@@ -138,12 +158,18 @@ class CarsController extends ControllerBase
             $inputName = $this->request->getPost('inputName', \Phalcon\Filter::FILTER_STRING);
             $inputYears = $this->request->getPost('inputYears', \Phalcon\Filter::FILTER_STRING);
             $inputProducts = $this->request->getPost('inputProducts', \Phalcon\Filter::FILTER_STRING);
+            $inputFeatured = $this->request->getPost('inputFeatured', \Phalcon\Filter::FILTER_STRING);
+
 
             if (empty($inputName) or empty($inputAutoModels) or empty($inputBrands)) {
                 $this->flash->error("输入信息问完整，请输入完整的品牌，系列和名称");
                 return $this->refresh();
             }
 
+            if(empty($inputFeatured)){
+                $this->flash->error("请给车型选择特别推荐的配件");
+                return $this->refresh();
+            }
 
             $model->name = $inputName;
             $model->brands_id = $inputBrands;
@@ -164,6 +190,11 @@ class CarsController extends ControllerBase
                         $tempProductRecommend = new HdAutoProductRecommend();
                         $tempProductRecommend->exact_id = $model->id;
                         $tempProductRecommend->product_id = $row;
+                        if(in_array($row,$inputFeatured)){
+                            $tempProductRecommend->featured = 1;
+                        }else{
+                            $tempProductRecommend->featured = 0;
+                        }
                         $tempProductRecommend->save();
                         unset($tempProductRecommend);
                     }
@@ -192,6 +223,7 @@ class CarsController extends ControllerBase
         $this->view->setVar('productCategoryModels', $productCategoryModels);
         $this->view->setVar('productsRecommand', $productsRecommend);
         $this->view->setVar('useProductRecommend', $useProductRecommend);
+        $this->view->setVar('useProductFeatured', $useProductFeatured);
         $this->view->setVar('brands', $brands);
         $this->view->setVar('autoModels', $autoModels);
     }
