@@ -146,7 +146,7 @@ class OrderController extends ControllerBase
         $data = array(
             'origin' => self::ORIGIN,
             'mobile' => $mobile, 'captcha' => $captcha, 'name' => $name, 'address' => $address, 'carnum' => $carnum, 'bookTime' => $bookTime, 'remark' => $remark,
-            'total' => $total, 'models_id' => $models_id,'modelsExact_id'=>$modelsExact_id, 'productName' => $productName, 'orderDataId' => $orderDataId
+            'total' => $total, 'models_id' => $modelsExact_id,'modelsExact_id'=>$modelsExact_id, 'productName' => $productName, 'orderDataId' => $orderDataId
         );
 
         $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH . '/cache/interface.log');
