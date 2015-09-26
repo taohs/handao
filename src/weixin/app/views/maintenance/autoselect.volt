@@ -33,14 +33,18 @@
                 <p class="p1">{{model.name}}</p>
                 <ul class="u">
                     {# 莫名其妙的bug ；赋值后不报错；应该属于初始化内容； #}
+                    {% if autoModelExactArray[model.id] is not empty %}
                     {% set autoModelExactSet = autoModelExactArray[model.id] %}
-                    {% for exact in autoModelExactArray[model.id] %}
+
+
+                    {% for exact in autoModelExactSet %}
                     {% if model.id==exact.models_id %}
                     <li>
                         <a href="/maintenance/serveselect?brands_id={{exact.brands_id}}&models_id={{exact.models_id}}&exact_id={{exact.id}}">{{exact.name}}</a>
                     </li>
                     {% endif %}
                     {% endfor%}
+                    {% endif %}
                 </ul>
             </li>
             {% endif %}
