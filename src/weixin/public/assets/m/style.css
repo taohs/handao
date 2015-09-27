@@ -85,7 +85,7 @@ img{width: 100%;}
 .Sh .xia{width:100%;text-align:center;margin-top:20px;}
 .Sh .xia input{width:90%;border:0px;background: #ff4400;cursor:pointer;font-size:18px;color:#fff; border-radius: 3px; height: 50px;}
 
-.Xd{width:100%;height:auto;overflow:hidden;margin-bottom:30px;}
+.Xd{width:100%;height:auto;overflow:hidden;margin-bottom:30px;text-align: center;}
 
 .Xd .m{width:auto;height:auto;overflow:hidden;margin:20px 10px 0px;}
 .Xd .m li{width:100%;height:auto;overflow:hidden;line-height:34px;margin-bottom:10px;}
@@ -325,8 +325,22 @@ h2.t em a{ font-size:15px; color:#FFF; margin-right:30px; font-style:normal}
 	line-height: 40px;
 	margin: 150px auto 0 auto;
 }
+.ts3{
+	width: 80%;
+	line-height: 40px;
+	margin: 150px auto 0 auto;
+}
 .ts span{
 	background: url(../images/right.png) no-repeat 0 0;
+	height: 48px;
+	display: inline-block;
+	padding-left: 55px;
+	line-height: 48px;
+	font-size: 2em;
+	margin: 0 auto;
+}
+p.ts3 span{
+	background: url(../images/wrong.png) no-repeat 0 0;
 	height: 48px;
 	display: inline-block;
 	padding-left: 55px;

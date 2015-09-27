@@ -100,3 +100,10 @@ $di->setShared('restful', function () {
 
     return $restful;
 });
+$di->setShared('cutf8', function () {
+    $cUtf8 = new CUtf8();
+
+
+    return $cUtf8;
+});
+

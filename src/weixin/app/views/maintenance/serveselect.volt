@@ -42,7 +42,7 @@
 
             <dl>
                 <dt class="active">
-                <p class="tup">{{cate.name|e}}</p>
+                <p class="tup {{cutf8.encode(cate.name)}}">{{cate.name|e}}</p>
 
                 <p class="nr-x">
                     <span class="s-title" featured="1" data-content="未选择{{cate.name|e}}">未选择{{cate.name|e}}</span>
