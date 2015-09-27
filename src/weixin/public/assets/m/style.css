@@ -462,7 +462,7 @@ h2.t em a{ font-size:15px; color:#FFF; margin-right:30px; font-style:normal}
 	font-size: 2em;
 	margin: 0 auto;
 }
-.ts2 span{
+.ts span.wrong{
 	background: url(../images/wrong.png) no-repeat 0 0;
 	height: 48px;
 	display: inline-block;
