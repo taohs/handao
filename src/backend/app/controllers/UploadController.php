@@ -18,6 +18,7 @@ class UploadController extends ControllerBase
     public static $brands = null;
     public static $models = null;
     public static $modelsExact = null;
+    public static $modelsExactIsNew = false;
 
     public static $dataMsg = array('品牌', '车系', '排量与年份', '机滤', '空调滤', '空气滤', '机油');
     public static $productCategory = array();
@@ -149,6 +150,7 @@ class UploadController extends ControllerBase
     function dealModelsExact($modelsExact = null)
     {
         if (is_null($modelsExact) or empty($modelsExact)) {
+            self::$modelsExactIsNew = false;
             return self::$modelsExact;
         } else {
             //查询 没有就新增
@@ -168,6 +170,8 @@ class UploadController extends ControllerBase
                 $modelsExactModel->update_time = date('Y-m-d H:i:s');
                 $modelsExactModel->save();
             }
+
+            self::$modelsExactIsNew = true;
             self::$modelsExact = $modelsExactModel;
             return self::$modelsExact;
         }
@@ -190,6 +194,7 @@ class UploadController extends ControllerBase
                 'bind' => array('name' => $productsName, 'price' => $productsPrice)
             ));
             if (!$productsModel) {
+                //新增商品
                 $productsModel = new HdProduct();
                 $productsModel->name = $productsName;
                 $productsModel->category = $this->getProductCategory($loopKey);
@@ -200,6 +205,18 @@ class UploadController extends ControllerBase
                 $productsModel->create_time = date('Y-m-d H:i:s');
                 $productsModel->save();
             }
+            //新增推荐
+            //汽车详情型号 第一行数据属于推荐数据
+            $modelsExact = self::$modelsExact;
+            $productRecommend = new HdAutoProductRecommend();
+            $productRecommend->exact_id = $modelsExact->id;
+            $productRecommend->product_id = $productsModel->id;
+            $productRecommend->featured = intval(self::$modelsExactIsNew);//新数据为1，老数据为0；
+            $productRecommend->save();
+
+
+
+
 
             $this->dealProductsRecommend($productsModel);
         }
