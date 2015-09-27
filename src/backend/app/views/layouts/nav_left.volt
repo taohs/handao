@@ -36,7 +36,7 @@
     <li controllername="models"><a href="{{url('models')}}">汽车系列</a></li>
     <li controllername="cars"><a href="{{url('cars')}}">汽车型号</a></li>
 
-    <li controllername="products"><a href="{{url('products')}}">汽车配件列表</a></li>
+    <li controllername="products"><a href="{{url('products')}}">汽车配件</a></li>
     <li controllername="productscategory"><a href="{{url('productscategory')}}">汽车配件类型</a></li>
 
 
