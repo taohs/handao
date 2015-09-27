@@ -4,15 +4,13 @@
 
         var pnumber = 0;
 
-        $('.category').each(function (i, n) {
-
-            if (!$(this).attr('checked')) {
-                $(this).parent().parent().next().children().attr('name', '');
-            } else {
-                $(this).parent().parent().next().children().attr('name', 'products[]');
-                pnumber++;
+        $('.s-title-price').each( function () {
+            if($(this).html()!=''){
+                var v=$ (this).html().split('￥');
+                pnumber +=parseFloat(v[1]);
             }
         });
+
 
         var p = '';
         if ($("#qita").is(':checked')) {
@@ -41,79 +39,64 @@
 
             {% for cate in category %}
             {% if productGroup[cate.id] is not empty %}
+
+            <dl>
+                <dt class="active">
+                <p class="tup">{{cate.name|e}}</p>
+
+                <p class="nr-x">
+                    <span class="s-title" featured="1" data-content="未选择{{cate.name|e}}">未选择{{cate.name|e}}</span>
+                    <span class="s-title-price" data-content=""></span>
+                    <input name="products[]" type="hidden" data-content="">
+                </p>
+                <a href="#">更换</a>
+                </dt>
+
+
+
+
             {% for row in productGroup[cate.id] %}
-
             {% if productGroup[cate.id]|length >1 %}
-                {% if loop.first%}
-                <dl>
-                    <dt class="active">
-                        <p class="tup">{{cate.name|e}}</p>
 
-                        <p class="nr-x">
-                            <span class="s-title" featured="1">{{row['name']|e}} <i>推荐</i></span>
-                            <span class="s-title-price">￥{{row['member_price']}}</span>
-                        </p>
-                        <a href="#">更换</a>
-                    </dt>
-                {%elseif loop.last%}
+
+                {%if loop.last%}
                     <dd class="dd-product"  featured="{{row['featured']}}">
-                        <p>{{row['name']|e}}</p>
-                        <span>{%if row['featured']%}<i>推荐</i>{%endif%} ￥{{row['member_price']|e}}</span>
+                        <p>{{row['name']|e}} {#%if row['featured']%}<i>推荐</i>{%endif%#}</p>
+                        <span> ￥{{row['member_price']|e}}</span>
+                        <input type="hidden" data-content="{{row['member_price']}}-{{row['id']}}-{{cate.id}}-{{cate.name}}-{{row['name']}}" value="{{row['member_price']}}-{{row['id']}}-{{cate.id}}-{{cate.name}}-{{row['name']}}">
                     </dd>
                     <dd class="dd-cancel">
                         <a href="#" class="qx">取消选择</a>
                     </dd>
-                </dl>
+
                 {%else %}
                     <dd  class="dd-product"  featured="{{row['featured']}}">
-                        <p>{{row['name']|e}}</p>
-                        <span>{%if row['featured']%}<i>推荐</i>{%endif%} ￥{{row['member_price']|e}}</span>
+                        <p>{{row['name']|e}} {#%if row['featured']%}<i>推荐</i>{%endif%#}</p>
+                        <span> ￥{{row['member_price']|e}}</span>
+                        <input type="hidden" data-content="{{row['member_price']}}-{{row['id']}}-{{cate.id}}-{{cate.name}}-{{row['name']}}" value="{{row['member_price']}}-{{row['id']}}-{{cate.id}}-{{cate.name}}-{{row['name']}}">
+
                     </dd>
                 {%endif%}
             {%else%}
-                <dl>
-                    <dt class="active">
-                        <p class="tup">{{cate.name}}</p>
-                        <p class="nr-x">
-                            <span class="s-title">{{row['name']}} <i>推荐</i></span>
-                            <span class="s-title-price">￥{{row['member_price']|e}}</span>
-                        </p>
-                    <a href="#" style="color: #ccc;border: 1px #ccc solid;">更换</a>
-                    </dt>
-                </dl>
+                <dd class="dd-product"  featured="{{row['featured']}}">
+                    <p>{{row['name']|e}} {#%if row['featured']%}<i>推荐</i>{%endif%#}</p>
+                    <span> ￥{{row['member_price']|e}}</span>
+                    <input type="hidden" data-content="{{row['member_price']}}-{{row['id']}}-{{cate.id}}-{{cate.name}}-{{row['name']}}" value="{{row['member_price']}}-{{row['id']}}-{{cate.id}}-{{cate.name}}-{{row['name']}}">
+
+                </dd>
+                <dd class="dd-cancel">
+                    <a href="#" class="qx">取消选择</a>
+                </dd>
             {% endif%}
-
             {% endfor %}
-            {%endif%}
+            </dl>
 
+            {%endif%}
             {% endfor %}
 
         </div>
 
-        <ul class="m">
 
-            {% for cate in category %}
-            <li>
-                <p class="p1">
-                    <label>
-                        <input checked="checked" onclick="ChePre();" type="checkbox" class="category"><span>{{cate.name}}</span>
-                    </label>
-                </p>
-
-                <p class="p2">
-                    <select name="products[]" onchange="check(this);" id="jiyou">
-                        {% for row in product %}
-                        {% if cate.id==row.category %}
-                        <option value="{{row.member_price}}-{{row.id}}-{{cate.id}}-{{cate.name}}-{{row.name}}">
-                            {{row.name}}[￥{{row.member_price}}]
-                        </option>
-                        {%endif%}
-                        {% endfor %}
-                    </select>
-                </p>
-            </li>
-            {% endfor %}
-        </ul>
         <p class="server">
             <label onclick="alert('服务费是必选项,无法取消！');return false;">
                 <input name="server" value="{{fees}}" checked="checked" type="checkbox" readonly="readonly" disabled>
@@ -134,7 +117,6 @@
         </p>
     </div>
 </form>
-<script type="text/javascript" src="/assets/js/jquery1.42.min.js"></script>
 <script type="text/javascript" src="/assets/js/xial.js"></script>
 
 <script type="text/javascript">
@@ -143,33 +125,20 @@
     //计算价格
     function ChePre() {
         var pre = parseFloat("{{fees}}");
-        for (i = 0; i < mleng; i++) {
-            var obj = $('.Sh .m select').eq(i);
-            if ($('.Sh .m input').eq(i).attr('checked')) {
-                var val = obj.val();
-                if (val) {
-                    s = val.split("-");
-                    pre += parseInt(s[0]);
-
-                }
-
+        $('.s-title-price').each( function () {
+            if($(this).html()!=''){
+                var v=$ (this).html().split('￥');
+                pre +=parseFloat(v[1]);
             }
+        });
 
-        }
         $('.pre span').html('￥' + pre + '元');
     }
     ChePre();
 
 
     $("#btn_step2").click(function () {
-        var a = $('.category').is(':checked');
-        $('.category').each(function (i, n) {
-            if (!$(this)[0].checked) {
-                $(this).parent('label').parent('.p1').next().children('select').attr('name', '');
-            } else {
-                $(this).parent('label').parent('.p1').next().children('select').attr('name', 'products[]');
-            }
-        })
+
 
         var p = "";
         var jiyou = $("#jiyou").val().split("-");
@@ -182,14 +151,16 @@
         p += "60:" + kongtiao[0] + ",";
 
         alert(jiyou);
+        alert(p);
         if ($("#qita").is(':checked') == true) {
             p = "59:207";
         }
         else {
             p += "59:207";
         }
-
+        alert(p);
         if ("" == p) {
+            alert(p);
             alert("请选择预约项目!");
             return false;
         }

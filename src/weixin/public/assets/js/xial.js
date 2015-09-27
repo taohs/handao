@@ -1,14 +1,19 @@
 $(document).ready(function(){
 
-    $(".xzxm dl dt a").click(function(){
+    $(".active").click(function(){
 		var self = $(this);
-		self.parent().parent().children("dd").slideToggle();
+		self.parent().children("dd").slideToggle();
 	});
     $(".qx").click(function(){
         //var self = $(this);
         //self.parent().parent().children("dd").slideUp();
     });
 
+    $('dd.dd-product').each(function (i) {
+        if($(this).attr('featured')==1){
+            $(this).find('p').css({color:'#ff3300',weight:'bold'});
+        }
+    });
 
     $('dd.dd-product').click(function () {
         var dd = $(this);
@@ -21,18 +26,22 @@ $(document).ready(function(){
 
         var p_name = dd.find('p').html();
         var p_price = dd.find('span').html();
+        var p_value = dd.find('input').val();
 
         var temp_name = dt.find('.s-title').html();
         var temp_featured =  dt.find('.s-title').attr('featured');
         var temp_price =  dt.find('.s-title-price').html();
 
-        dt.find('.s-title').html(p_name);
+        dt.find('.s-title').html(p_name + featuredMsg);
         dt.find('.s-title').attr('featured' ,featured);
         dt.find('.s-title-price').html(p_price);
+        dt.find('input').val(p_value);
 
-        dd.find('p').html(temp_name);
-        dd.attr('featured' ,temp_featured);
-        dd.find('span').html(temp_price);
+        dd.parent().find('dd').slideUp();
+        ChePre();
+        //dd.find('p').html(temp_name);
+        //dd.attr('featured' ,temp_featured);
+        //dd.find('span').html(temp_price);
 
     });
 
@@ -47,13 +56,22 @@ $(document).ready(function(){
         var temp_price =  dt.find('.s-title-price').html();
         json={featured:temp_featured,name:temp_name,price:temp_price};
 
-        var html = buildDd(json);
+        //var html = buildDd(json);
         //clearActive(dt);
-        dt.find('p').html('请选择');
-        dt.attr('featured' ,'0');
-        dt.find('span').html('');
+        $.each(dt.find('span'), function () {
+            $(this).html($(this).attr('data-content'));
+        });
+        $.each(dt.find('input'), function () {
+            $(this).val($(this).attr('data-content'));
+        });
 
-        dd.before(html);
+        dd.parent().find('dd').slideUp();
+        ChePre();
+        //dt.find('p').html(dt.find('p'));
+        //dt.attr('featured' ,'0');
+        //dt.find('span').html('');
+        //
+        //dd.before(html);
     });
 
     function clearActive(dt){
@@ -70,6 +88,15 @@ $(document).ready(function(){
        return dd;
     }
 
+    $("#qita").click(function(){
+        $.each($('dt').find('span'), function () {
+            $(this).html($(this).attr('data-content'));
+        });
+        $.each($('dt').find('input'), function () {
+            $(this).val($(this).attr('data-content'));
+        });
+        ChePre();
+    });
 
 
 });
