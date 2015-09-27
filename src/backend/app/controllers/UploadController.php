@@ -24,6 +24,27 @@ class UploadController extends ControllerBase
     public static $productCategory = array();
 
 
+    function directoryAction(){
+
+        $dir = APP_PATH.'/../../../';
+        $dir =  realpath($dir);
+        $dir = APP_PUBLIC . '/uploads/files/20150925/';
+        echo $dir;
+        var_dump(realpath($dir));
+
+//        $tree = array();
+        foreach(scandir($dir) as $single){
+            echo $single."<br/>\r\n";
+            $file = new SplFileInfo($single);
+            $stream = fopen($single,'r');
+            while($data = fgetcsv($stream)){
+                echo $data;
+            }
+        }
+    }
+
+
+
     function indexAction()
     {
         if ($this->request->isPost()) {
@@ -132,7 +153,8 @@ class UploadController extends ControllerBase
             return self::$models;
         } else {
             //查询 没有就新增
-            $modelsModel = HdAutoModels::findFirst(array('conditions' => 'name=:name:', 'bind' => array('name' => $models)));
+            $brands = self::$brands;
+            $modelsModel = HdAutoModels::findFirst(array('conditions' => 'name=:name: and brands_id=:brandsId:', 'bind' => array('name' => $models,'brandsId'=>$brands->id)));
             if (!$modelsModel) {
                 $brands = self::$brands;
                 $modelsModel = new HdAutoModels();
@@ -154,12 +176,13 @@ class UploadController extends ControllerBase
             return self::$modelsExact;
         } else {
             //查询 没有就新增
-            $modelsExactModel = HdAutoModelsExact::findFirst(array('conditions' => 'name=:name:', 'bind' => array('name' => $modelsExact)));
+            $models = self::$models;
+            $modelsExactModel = HdAutoModelsExact::findFirst(array('conditions' => 'name=:name: and models_id=:modelsId: ', 'bind' => array('name' => $modelsExact,'modelsId'=>$models->id)));
 
             if (!$modelsExactModel) {
                 $brands = self::$brands;
                 $models = self::$models;
-                echo 1;
+//                echo 1;
                 $modelsExactModel = new HdAutoModelsExact();
                 $modelsExactModel->name = trim($modelsExact);
                 $modelsExactModel->brands_id = $brands->id;
@@ -189,9 +212,10 @@ class UploadController extends ControllerBase
             $productsName = trim($productsNameArray[0]);
             $productsPrice = trim($productsNameArray[1]);
 
+            $category = $this->getProductCategory($loopKey);
             $productsModel = HdProduct::findFirst(array(
-                'conditions' => 'name=:name: and member_price=:price:',
-                'bind' => array('name' => $productsName, 'price' => $productsPrice)
+                'conditions' => 'name=:name: and member_price=:price: and category=:category:',
+                'bind' => array('name' => $productsName, 'price' => $productsPrice,'category'=>$category)
             ));
             if (!$productsModel) {
                 //新增商品
@@ -207,12 +231,12 @@ class UploadController extends ControllerBase
             }
             //新增推荐
             //汽车详情型号 第一行数据属于推荐数据
-            $modelsExact = self::$modelsExact;
-            $productRecommend = new HdAutoProductRecommend();
-            $productRecommend->exact_id = $modelsExact->id;
-            $productRecommend->product_id = $productsModel->id;
-            $productRecommend->featured = intval(self::$modelsExactIsNew);//新数据为1，老数据为0；
-            $productRecommend->save();
+//            $modelsExact = self::$modelsExact;
+//            $productRecommend = new HdAutoProductRecommend();
+//            $productRecommend->exact_id = $modelsExact->id;
+//            $productRecommend->product_id = $productsModel->id;
+//            $productRecommend->featured = intval(self::$modelsExactIsNew);//新数据为1，老数据为0；
+//            $productRecommend->save();
 
 
 
@@ -236,9 +260,12 @@ class UploadController extends ControllerBase
             'bind' => array('exact_id' => $modelsExactModel->id, 'pid' => $productModel->id)
         ));
         if (!$model) {
+            echo time();
             $model = new HdAutoProductRecommend();
             $model->exact_id = $modelsExactModel->id;
             $model->product_id = $productModel->id;
+            $model->featured = intval(self::$modelsExactIsNew);//新数据为1，老数据为0；
+
         }
         return $model->save();
     }

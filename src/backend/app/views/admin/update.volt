@@ -29,7 +29,7 @@
             <div class="col-sm-10">
             <select class="form-control" name="inputRole">
                 {%for role in adminRole%}
-                <option value="{{role.id}}">{{role.name}}</option>
+                <option value="{{role.id}}" {%if role.id ==admin.role %} selected="selected" {%endif%} >{{role.name}}</option>
                 {%endfor%}
             </select>
             </div>

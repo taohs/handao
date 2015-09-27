@@ -311,7 +311,7 @@ class AdminController extends ControllerBase
             $parent_id = $this->request->getPost('parent_id', \Phalcon\Filter::FILTER_INT);
             $adminRole = new HdAdminRole();
 
-            if (HdAdminRole::findFirst(array('conditions' => 'name=:name:', 'bind' => array('name' => $name)))) {
+            if (HdAdminRole::findFirst(array('conditions' => 'name=:name: and id!=:id:', 'bind' => array('name' => $name,'id'=>$id)))) {
                 $this->flash->error("该角色名称已经存在");
                 return $this->refresh();
             }
