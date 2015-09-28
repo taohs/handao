@@ -67,7 +67,7 @@
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputYears"></label>
             <div class="col-sm-10 form-horizontal checkbox">
-                {% set products = category.getProducts() %}
+                {% set products = category.getHdProduct("member_price>0") %}
                 {% if products %}
                 {% for row in products %}
                 <label class="col-sm-10">
