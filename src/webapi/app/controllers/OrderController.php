@@ -167,17 +167,19 @@ class OrderController extends ControllerBase
             $HdOrder->book_time = $bookTime[0] . '  ' . $bookTime[1];
             if ($HdOrder->save()) {
                 $order_id = $HdOrder->id;
+                if (!empty($orderDataId)) {
 
-                foreach ($orderDataId as $order) {
+                    foreach ($orderDataId as $order) {
 
-                    if ($productVerifyModel = HdProduct::findFirst($order['product_id'])) {
+                        if ($productVerifyModel = HdProduct::findFirst($order['product_id'])) {
 
-                        $HdOrderProduct = new HdOrderProduct;
-                        $HdOrderProduct->order_id = $order_id;
-                        $HdOrderProduct->product_id = $order['product_id'];
-                        $HdOrderProduct->product_category = $order['category_id'];
-                        $HdOrderProduct->order_price = $order['price'];
-                        $HdOrderProduct->save();
+                            $HdOrderProduct = new HdOrderProduct;
+                            $HdOrderProduct->order_id = $order_id;
+                            $HdOrderProduct->product_id = $order['product_id'];
+                            $HdOrderProduct->product_category = $order['category_id'];
+                            $HdOrderProduct->order_price = $order['price'];
+                            $HdOrderProduct->save();
+                        }
                     }
                 }
                 return $this->responseJson(self::SUCCESS_CODE, "预约成功", array('order_id' => $order_id));

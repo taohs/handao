@@ -101,10 +101,10 @@ class MaintenanceController extends ControllerBase
             }
 
         }
-        $product = HdProduct::find( array( 'conditions' => "id in ($product_id_str)" ) );
-
+        $product = HdProduct::find( array( 'conditions' => "id in ($product_id_str) and member_price > '0'" ) );
+//var_dump($product);exit;
         $productGroup = array();
-
+        $category_id_array = array();
         foreach ($product as $row) {
             $category_id_array[]=  $row->category;
             $rowArray = $row->toArray();
@@ -117,19 +117,27 @@ class MaintenanceController extends ControllerBase
         }
 
 
+
         $category_id_str="";
-        $category_id_array= array_unique($category_id_array);
+        $category_id_array= empty($category_id_array)? array() :array_unique($category_id_array);
         $i = 0;
-        foreach ($category_id_array as $row){
-            $i==0?$dian = '':$dian = ',';
-            $category_id_str.=$dian.$row;
-            $i++;
+        if(!empty($category_id_array)){
+//        var_dump(array_values($category_id_array));
+            $category = HdProductCategory::find(array(
+                'conditions' => 'id in ({id:array})',
+                'bind'=>array('id'=>array_values($category_id_array))
+            ) );
+
+        }else{
+            $category = HdProductCategory::find();
+
         }
         $brands = HdBrands::findFirst( array(
             "conditions" => "id = :id:",
             "bind"       => array( 'id' => $brands_id )
         ) );
-        $category = HdProductCategory::find(array( 'conditions' => "id in ($category_id_str)" ) );
+//        var_dump($category_id_str);exit;
+//        $category = HdProductCategory::find(array( 'conditions' => "id in ({array:array})",'bind'=>array('array'=>array()) ) );
 
         $this->view->setVar( 'brands', $brands );
         $this->view->setVar( 'models', $models );
