@@ -57,9 +57,12 @@
             <div class="col-sm-10">
                 <select class="form-control" name="inputProducts[]">
                     <option>请选择</option>
-                    {% for models in category.getHdProduct() %}
+                    {% for models in category.getHdProduct("member_price>0") %}
+                    {%if models.id in recommendArray  %}
                     <option value="{{models.id}}" {%if models.id in modelProductsIdArray %} selected="selected" {% endif %}>{{ models.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="aligin:right;">￥{{models.market_price}}</strong></option>
+                    {%endif%}
                     {% endfor %}
+
                 </select>
             </div>
         </div>

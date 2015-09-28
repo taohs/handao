@@ -61,7 +61,7 @@
             <div class="col-sm-10">
                 <select class="form-control" name="inputProducts[]">
                     <option>请选择</option>
-                    {% for models in category.getHdProduct() %}
+                    {% for models in category.getHdProduct("member_price > '0'") %}
                     <option value="{{models.id}}">{{ models.name}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="aligin:right;">￥{{models.market_price}}</strong></option>
                     {% endfor %}
                 </select>

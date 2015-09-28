@@ -186,6 +186,10 @@ class ProductsController extends ControllerBase
         return trim($tempAttributesString);
     }
 
+    /**
+     * 获取推荐的商品
+     * @param $modelsExactId
+     */
     function getModelsExactRecommendAction($modelsExactId){
         $productsRecommend = HdAutoProductRecommend::find(array(
             'conditions'=>'exact_id=:exact_id:',
@@ -205,10 +209,13 @@ class ProductsController extends ControllerBase
         }
 
         $products = HdProduct::find(array(
-            'conditions'=>'id in ({ids:array})',
+            'conditions'=>'id in ({ids:array}) and member_price>0 ',
             'bind'=>array('ids'=>$productsIds),
             'order'=>'category',
         ))->toarray();
+        if(empty($products)){
+            echo json_encode(array());exit;
+        }
 
         foreach($products as $row){
             /**

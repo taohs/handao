@@ -90,6 +90,16 @@ class OrderController extends ControllerBase
             'bind' => array('active' => 1)
         ));
 
+        $recommendTemp = HdAutoProductRecommend::find(array(
+            'columns'=>'product_id',
+            'conditions'=>'exact_id=:exact_id:',
+            'bind'=>array('exact_id'=>$modelAutoExact->id)
+        ))->toArray();
+        $recommendArray= array();
+        foreach($recommendTemp as $v){
+            $recommendArray[] = $v['product_id'];
+        }
+
 
         $this->saveOrder($id);
 
@@ -97,6 +107,7 @@ class OrderController extends ControllerBase
 
         $modelProducts = $model->getHdOrderProduct();
         $this->view->setVar('model', $model);
+        $this->view->setVar('recommendArray', $recommendArray);
         $this->view->setVar('modelLinkman', $model->getLinkman());
         $this->view->setVar('modelAuto', $modelAuto);
         $this->view->setVar('modelAutoExact', $modelAutoExact);
