@@ -1,6 +1,7 @@
 .idea
 src/backend/app/cache/
 src/backend/cache/
+src/backend/public/uploads/files/
 src/portal/app/cache/
 src/portal/cache/
 src/weixin/app/cache/
