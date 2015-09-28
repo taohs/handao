@@ -61,23 +61,20 @@ class AppointmentController extends ControllerBase
             $i++;
 
         }
-        $product = HdProduct::find( array( 'conditions' => "id in ($product_id_str)" ) )->toArray();
+        $product = HdProduct::find( array( 'conditions' => "id in ($product_id_str) and member_price>'0'"  ) )->toArray();
 
-
+        $category_id_array = array();//居然未初始化数据，我给你加上
         foreach ($product as $row) {
             $category_id_array[]=  $row['category'];
         }
         $category_id_str="";
         $category_id_array= array_unique($category_id_array);
-        $i = 0;
-        foreach ($category_id_array as $row){
-            $i==0?$dian = '':$dian = ',';
-            $category_id_str.=$dian.$row;
-            $i++;
+
+        if(!empty($category_id_array)) {
+            $cates = HdProductCategory::find(array('conditions' => "id in ({id:array})",'bind'=>array('id'=>array_values($category_id_array))));
+        }else{
+            $cates = HdProductCategory::find();
         }
-
-        $cates = HdProductCategory::find(array( 'conditions' => "id in ($category_id_str)" ) );
-
         foreach ($cates as $row) {
             $categoryAll_id_array[]=  $row->parent_id;
         }
