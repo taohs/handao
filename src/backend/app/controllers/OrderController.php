@@ -12,10 +12,10 @@ class OrderController extends ControllerBase
     {
 
         $paginate = new Phalcon\Paginator\Adapter\Model(array(
-            'data' => HdOrder::find(),
+            'data' => HdOrder::find(array('order'=>'id desc')),
             'page' => $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT),
             'limit' => $this->config->paginate->limit,
-            'order'=>'id desc'
+//            'order'=>'id desc'
         ));
 
 
