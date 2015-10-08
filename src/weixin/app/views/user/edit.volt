@@ -16,12 +16,14 @@
             <a href="/user/finish" {%if actionName=='finish'%} class="active" {%endif%}>已养护</a>
         </p>
     </div>
+    <form method="post" action="">
     <div class="list show">
 
 
         <div class="info-wapper control-form" >
             <h1>个人信息
-                <a href="/user/index" class="toUndo">返回</a></h1>
+                <a href="/user/index" class="toUndo">返回</a>
+            </h1>
             <ul class="clearfix">
                 <li>联系人：<span><input id="name" name="name" value="{%if linkman is not empty%}{{linkman.name}}{%endif%}"></span></li>
                 <li>联系电话：<span><input id="mobile" name="mobile" value="{%if linkman is not empty%}{{linkman.mobile}}{%endif%}"/></span></li>
@@ -39,7 +41,8 @@
         <input type="hidden" name="linkmanId" value="{%if linkman is not empty%}{{linkman.id}}{%endif%}" />
         <input type="submit" value="提交">
     </footer>
+    </form>
 
-
+</div>
 </body>
 </html>

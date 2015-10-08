@@ -34,19 +34,22 @@ class UserController extends ControllerBase
             'conditions'=>'user_id=:userId:',
             'bind'=>array(
                 'userId'=>$auth->id
-            )
+            ),
+            'order'=>'id desc'
         ));
         $linkAddress = HdUserAddress::findFirst(array(
             'conditions'=>'user_id=:userId:',
             'bind'=>array(
                 'userId'=>$auth->id
-            )
+            ),
+            'order'=>'id desc'
         ));
         $carInfo = HdUserAuto::findFirst(array(
             'conditions'=>'user_id=:userId:',
             'bind'=>array(
                 'userId'=>$auth->id
-            )
+            ),
+            'order'=>'id desc'
         ));
 
         $this->view->setVar('linkman',$linkman);
@@ -55,7 +58,65 @@ class UserController extends ControllerBase
     }
 
     function editAction(){
-        $this->indexAction();
+
+
+        if($this->request->isPost()){
+
+
+            /**
+             * 新加入过滤
+             */
+            $mobile = $this->request->getPost('mobile', \Phalcon\Filter::FILTER_FLOAT);
+            $name = $this->request->getPost('name', \Phalcon\Filter::FILTER_STRING);
+            $address = $this->request->getPost('address', \Phalcon\Filter::FILTER_STRING);
+            $carnum = $this->request->getPost('carnum', \Phalcon\Filter::FILTER_STRING);
+            $exact_id = $this->request->getPost('exact_id', \Phalcon\Filter::FILTER_STRING);
+
+
+            //todo 没有做 提交空信息处理；；
+            //todo 没有过滤手机号码；
+            //todo 大爷的，通宵改bug；；
+
+            if (!preg_match('/^1[3-9]{1}[0-9]{9}$/', $mobile)) {
+                $this->flash->error("手机格式不正确");
+                return $this->response->redirect('order/index');
+            }
+            if (empty($name)) {
+                $this->flash->error("姓名不能为空");
+                return $this->response->redirect('order/index');
+            }
+            if (empty($address)) {
+                $this->flash->error("地址不能为空");
+                return $this->response->redirect('order/index');
+            }
+            if (empty($carnum)) {
+                $this->flash->error("车牌号不能为空");
+                return $this->response->redirect('order/index');
+            }
+
+            $data = array(
+                'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,
+                'modelsExact_id'=>$exact_id
+            );
+
+            $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
+            $fileLogger->log('request',json_encode($data));
+//            $response  = $this->restful->post('http://api.handao365.dev/user/edit',$data);
+            $fileLogger->log('response',$response);
+
+            $json = json_decode($response,true);
+            if($json['statusCode']=='000000'){
+                return $this->response->redirect('/order/success/'.$json['data']['order_id']);
+            }else{
+                return $this->response->redirect('/order/fail');
+            }
+
+
+            return $this->refresh();
+        }else{
+            $this->indexAction();
+
+        }
     }
 
 

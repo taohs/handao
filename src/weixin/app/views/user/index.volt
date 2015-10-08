@@ -40,6 +40,6 @@
         <input type="submit" value="我要保养">
     </footer>
 
-
+</div>
 </body>
 </html>
