@@ -93,15 +93,15 @@ class UserController extends ControllerBase
                 $this->flash->error("车牌号不能为空");
                 return $this->response->redirect('order/index');
             }
-
+            $auth = $this->session->get('auth');
             $data = array(
                 'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,
-                'modelsExact_id'=>$exact_id
+                'modelsExact_id'=>$exact_id,'user_id'=>$auth->id
             );
 
             $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
             $fileLogger->log('request',json_encode($data));
-//            $response  = $this->restful->post('http://api.handao365.dev/user/edit',$data);
+            $response  = $this->restful->post('http://api.handao365.dev/user/edit',$data);
             $fileLogger->log('response',$response);
 
             $json = json_decode($response,true);
