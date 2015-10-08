@@ -91,6 +91,8 @@ class UserController extends ControllerBase
         $carnum = $this->request->getPost('carnum', \Phalcon\Filter::FILTER_STRING);
 
         $origin = $this->request->getPost('origin', \Phalcon\Filter::FILTER_STRING);
+        $linkman_id = $this->request->getPost('linkman_id', \Phalcon\Filter::FILTER_STRING);
+        $linkAddress_id = $this->request->getPost('linkAddress_id', \Phalcon\Filter::FILTER_STRING);
 
 
         $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH . '/cache/post.log');
@@ -154,9 +156,23 @@ class UserController extends ControllerBase
 
                 try {
                     $address_info = $_POST['address'];
-                    $address_id = $userComponent->getAddressId($user_id, $address_info);
+                    if(empty($linkAddress_id)){
+                        $address_id = $userComponent->getAddressId($user_id, $address_info);
+                    }else{
+                        $linkAddressModel = HdUserAddress::findFirst($linkAddress_id);
+                        $linkAddressModel->address = $address_info;
+                        $linkAddressModel->save();
+                    }
+
                     $linkman_info = $_POST['name'];
-                    $linkman_id = $userComponent->getLinkmanId($user_id, $mobile, $linkman_info);
+                    if(empty($linkman_id)){
+                        $linkman_id = $userComponent->getLinkmanId($user_id, $mobile, $linkman_info);
+                    }else{
+                        $linkmanModel = HdUserLinkman::findFirst($linkman_id);
+                        $linkmanModel->name = $linkman_info;
+                        $linkmanModel->mobile = $mobile;
+                        $linkmanModel->save();
+                    }
                     $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
                     return $this->responseJson(self::SUCCESS_CODE, '修改成功');
                 }catch (Exception $e){

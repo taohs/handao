@@ -60,6 +60,8 @@ class UserController extends ControllerBase
     function editAction(){
 
 
+
+
         if($this->request->isPost()){
 
 
@@ -71,6 +73,8 @@ class UserController extends ControllerBase
             $address = $this->request->getPost('address', \Phalcon\Filter::FILTER_STRING);
             $carnum = $this->request->getPost('carnum', \Phalcon\Filter::FILTER_STRING);
             $exact_id = $this->request->getPost('exact_id', \Phalcon\Filter::FILTER_STRING);
+            $linkman_id = $this->request->getPost('linkmanId', \Phalcon\Filter::FILTER_STRING);
+            $linkAddress_id = $this->request->getPost('linkAddressId', \Phalcon\Filter::FILTER_STRING);
 
 
             //todo 没有做 提交空信息处理；；
@@ -96,7 +100,7 @@ class UserController extends ControllerBase
             $auth = $this->session->get('auth');
             $data = array(
                 'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,
-                'modelsExact_id'=>$exact_id,'user_id'=>$auth->id
+                'modelsExact_id'=>$exact_id,'user_id'=>$auth->id,'linkman_id'=>$linkman_id,'linkAddress_id'=>$linkAddress_id
             );
 
             $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
@@ -113,10 +117,11 @@ class UserController extends ControllerBase
 
 
             return $this->refresh();
-        }else{
-            $this->indexAction();
-
         }
+
+        $this->indexAction();
+
+
     }
 
 

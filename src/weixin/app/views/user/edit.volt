@@ -37,8 +37,8 @@
     </div>
     <footer>
         <input type="hidden" name="linkmanId" value="{%if linkman is not empty%}{{linkman.id}}{%endif%}" />
-        <input type="hidden" name="linkmanId" value="{%if linkAddress is not empty%}{{linkAddress.id}}{%endif%}" />
-        <input type="hidden" name="linkmanId" value="{%if linkman is not empty%}{{linkman.id}}{%endif%}" />
+        <input type="hidden" name="linkAddressId" value="{%if linkAddress is not empty%}{{linkAddress.id}}{%endif%}" />
+        <input type="hidden" name="carId" value="{%if carInfo is not empty%}{{carInfo.id}}{%endif%}" />
         <input type="submit" value="提交">
     </footer>
     </form>
