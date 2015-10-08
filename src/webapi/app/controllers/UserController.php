@@ -49,6 +49,8 @@ class UserController extends ControllerBase
             }
         }
     }
+
+
     /**
      * 登录
      * @param null $mobile
@@ -71,5 +73,9 @@ class UserController extends ControllerBase
         }
     }
     function orderAction($mobile,$page){
+    }
+
+    function editLinkInfo(){
+
     }
 }
