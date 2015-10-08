@@ -29,7 +29,7 @@
                 <li>联系电话：<span><input id="mobile" name="mobile" value="{%if linkman is not empty%}{{linkman.mobile}}{%endif%}"/></span></li>
                 <li>联系地址：<span><input id="address" name="address" value="{%if linkAddress is not empty%}{{linkAddress.address}}{%endif%}"/></span></li>
 
-                <li>车牌号：<span><input id="carnum" name="carnum" value="{%if carInfo is not empty%}{{carInfo.number}}{%endif%}" /></span></li>
+                <li>车牌号：<span><input style="background: #e9e8e7;" disabled="disabled" id="carnum" name="carnum" value="{%if carInfo is not empty%}{{carInfo.number}}{%endif%}" /></span></li>
             </ul>
             <p>车信息：<span><input style="background: #e9e8e7;" disabled="disabled" value="{%if carInfo is not empty%}{{carInfo.getAutoInfo()}}{%endif%}"></span></p>
 

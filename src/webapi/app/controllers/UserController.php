@@ -124,9 +124,9 @@ class UserController extends ControllerBase
         if (empty($address)) {
             return $this->responseJson(self::PARAMS_ERROR_CODE, "地址不能为空");
         }
-        if (empty($carnum)) {
-            return $this->responseJson(self::PARAMS_ERROR_CODE, "车牌号不能为空");
-        }
+//        if (empty($carnum)) {
+//            return $this->responseJson(self::PARAMS_ERROR_CODE, "车牌号不能为空");
+//        }
 
         $userComponent = new UserComponent();
         if ($mobile) {
@@ -173,8 +173,9 @@ class UserController extends ControllerBase
                         $linkmanModel->mobile = $mobile;
                         $linkmanModel->save();
                     }
-                    $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
+//                    $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
                     return $this->responseJson(self::SUCCESS_CODE, '修改成功');
+                    exit;
                 }catch (Exception $e){
                     return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
                 }

@@ -37,9 +37,16 @@
 
     </div>
     <footer>
-        <input type="submit" value="我要保养">
+        <input id="submit" type="submit" value="我要保养">
     </footer>
 
 </div>
+<script type="text/javascript">
+    $('#submit').click(function () {
+
+        var url = "/maintenance/serveselect?brands_id={{modelExact.brands_id}}&models_id={{modelExact.models_id}}&exact_id={{modelExact.id}}";
+        window.open(url,'_self');
+    });
+</script>
 </body>
 </html>

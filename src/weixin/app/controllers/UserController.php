@@ -51,10 +51,12 @@ class UserController extends ControllerBase
             ),
             'order'=>'id desc'
         ));
+        $modelExact = HdAutoModelsExact::findFirst($carInfo->models);
 
         $this->view->setVar('linkman',$linkman);
         $this->view->setVar('linkAddress',$linkAddress);
         $this->view->setVar('carInfo',$carInfo);
+        $this->view->setVar('modelExact',$modelExact);
     }
 
     function editAction(){
@@ -83,20 +85,20 @@ class UserController extends ControllerBase
 
             if (!preg_match('/^1[3-9]{1}[0-9]{9}$/', $mobile)) {
                 $this->flash->error("手机格式不正确");
-                return $this->response->redirect('order/index');
+                return $this->response->redirect('user/index');
             }
             if (empty($name)) {
                 $this->flash->error("姓名不能为空");
-                return $this->response->redirect('order/index');
+                return $this->response->redirect('user/index');
             }
             if (empty($address)) {
                 $this->flash->error("地址不能为空");
-                return $this->response->redirect('order/index');
+                return $this->response->redirect('user/index');
             }
-            if (empty($carnum)) {
-                $this->flash->error("车牌号不能为空");
-                return $this->response->redirect('order/index');
-            }
+//            if (empty($carnum)) {
+//                $this->flash->error("车牌号不能为空");
+//                return $this->response->redirect('user/index');
+//            }
             $auth = $this->session->get('auth');
             $data = array(
                 'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,
