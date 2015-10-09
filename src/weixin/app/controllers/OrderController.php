@@ -79,6 +79,39 @@ class OrderController extends ControllerBase
         $this->view->setVar('remark', $this->session->get('remark'));
 
 
+
+
+        $auth = $this->session->get('auth');
+
+        $linkman = HdUserLinkman::findFirst(array(
+            'conditions'=>'user_id=:userId:',
+            'bind'=>array(
+                'userId'=>$auth->id
+            ),
+            'order'=>'id desc'
+        ));
+        $linkAddress = HdUserAddress::findFirst(array(
+            'conditions'=>'user_id=:userId:',
+            'bind'=>array(
+                'userId'=>$auth->id
+            ),
+            'order'=>'id desc'
+        ));
+        $carInfo = HdUserAuto::findFirst(array(
+            'conditions'=>'user_id=:userId:',
+            'bind'=>array(
+                'userId'=>$auth->id
+            ),
+            'order'=>'id desc'
+        ));
+
+        $this->view->setVar('auth',$auth);
+        $this->view->setVar('userData',$auth);
+        $this->view->setVar('linkman',$linkman);
+        $this->view->setVar('linkAddress',$linkAddress);
+        $this->view->setVar('carInfo',$carInfo);
+
+
     }
 
 

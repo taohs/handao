@@ -12,6 +12,8 @@
  * @package PHP
  */
 
+use Phalcon\Paginator\Adapter\Model as Paginator;
+
 class UserController extends ControllerBase
 {
 
@@ -54,6 +56,7 @@ class UserController extends ControllerBase
         $modelExact = HdAutoModelsExact::findFirst($carInfo->models);
 
         $this->view->setVar('auth',$auth);
+        $this->view->setVar('userData',$auth);
         $this->view->setVar('linkman',$linkman);
         $this->view->setVar('linkAddress',$linkAddress);
         $this->view->setVar('carInfo',$carInfo);
@@ -150,13 +153,49 @@ class UserController extends ControllerBase
     }
 
 
+    public function waitAction()
+    {
 
 
-    function waitAction(){
 
+        $user_id = $this->session->get('auth')->id;
+        $numberPage = $this->request->getQuery("page", "int");
+        $paginator = new Paginator(array(
+            "data" => HdOrder::find(
+                array(
+                    "conditions" => "user_id = :user_id: and status in (11,12,21,22,23,24)",
+                    "bind" => array('user_id' => $user_id),
+                    'order' => 'id desc'
+                )),
+            "limit" => 10,
+            "page" => $numberPage,
+        ));
+        $userData = $this->session->get('auth');
+        $this->view->setMainView('record');
+        $this->view->setVar('userData', $userData);
+        $this->view->setVar('page', $paginator->getPaginate());
     }
 
-    function finishAction(){
 
+
+    public function finishAction()
+    {
+
+        $user_id = $this->session->get('auth')->id;
+        $numberPage = $this->request->getQuery("page", "int");
+        $paginator = new Paginator(array(
+            "data" => HdOrder::find(
+                array(
+                    "conditions" => "user_id = :user_id: and status =:status:",
+                    "bind" => array('user_id' => $user_id, 'status' => OrderComponent::STATUS_RESULT_SUCCESS),
+                    'order' => 'id desc'
+                )),
+            "limit" => 10,
+            "page" => $numberPage,
+        ));
+        $userData = $this->session->get('auth');
+        $this->view->setMainView('record');
+        $this->view->setVar('userData', $userData);
+        $this->view->setVar('page', $paginator->getPaginate());
     }
 }

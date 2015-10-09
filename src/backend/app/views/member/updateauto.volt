@@ -20,16 +20,9 @@
             {{ form.render('number', ['class': 'form-control','value':user.number]) }}
         </div>
     </div>
-    <div class="form-group">
-        <label class="col-sm-2 control-label" for="inputAutoMumber">车辆型号：</label>
-        <div class="col-sm-10">
-            <select name="models" class="form-control">
-                {% for row in autoModels%}
-                <option value="{{row.id}}" {% if row.id==user.models%}selected{%endif%}>{{row.name}}</option>
-                {% endfor %}
-            </select>
-        </div>
-    </div>
+    {{partial('common/auto_tpl',['exact':true])}}
+    {{partial('common/auto_js')}}
+
     <div class="form-group">
         <label class="col-sm-2 control-label" for="inputAutoMumber">购买年份：</label>
         <div class="col-sm-10">

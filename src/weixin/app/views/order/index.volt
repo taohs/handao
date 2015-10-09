@@ -8,22 +8,22 @@
         <ul class="m">
             <li>
                 <p class="p1"><span class="sp1">*</span>姓名：</p>
-                <input name="name" id="name" type="text">
+                <input name="name" id="name" type="text" value="{%if linkman is not empty%}{{linkman.name}}{%endif%}">
                 <em id="name_em" style="color: red; display: none;">姓名不能为空</em>
             </li>
             <li>
                 <p class="p1"><span class="sp1">*</span>手机号：</p>
-                <input name="mobile" id="mobile" type="text">
+                <input name="mobile" id="mobile" type="text" value="{{auth.mobile}}" readonly="readonly" style="background: #f8f4f3;">
                 <em id="mobile_em" style="color: red; display: none;">手机号不能为空</em>
             </li>
             <li>
                 <p class="p1"><span class="sp1">*</span>服务地址：</p>
-                <input name="address" id="address" type="text">
+                <input name="address" id="address" type="text" value="{%if linkAddress is not empty%}{{linkAddress.address}}{%endif%}">
                 <em id="address_em" style="color: red; display: none;">服务地址不能为空</em>
             </li>
             <li>
                 <p class="p1"><span class="sp1">*</span>完整车牌号：</p>
-                <input name="carnum" id="carnum" type="text">
+                <input name="carnum" id="carnum" type="text" value="{%if carInfo is not empty%}{{carInfo.number}}{%endif%}">
                 <em id="carnum_em" style="color: red; display: none;">完整车牌号不能为空</em>
             </li>
             <li>
