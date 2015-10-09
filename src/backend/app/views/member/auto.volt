@@ -7,10 +7,10 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>许可证</th>
+<!--            <th>许可证</th>-->
             <th>车牌号</th>
             <th>汽车型号</th>
-            <th>购买年份</th>
+<!--            <th>购买年份</th>-->
             <th>操作</th>
         </tr>
         </thead>
@@ -18,10 +18,10 @@
         {% for row in page.items %}
         <tr>
             <td>{{row.id}}</td>
-            <td>{{row.license}}</td>
+<!--            <td>{{row.license}}</td>-->
             <td>{{row.number}}</td>
-            <td>{{row.getModelExact().name}}</td>
-            <td>{{row.year}}</td>
+            <td>{{row.getAutoInfo()}}</td>
+<!--            <td>{{row.year}}</td>-->
             <td><a href="/member/updateauto?user_id={{user_id}}&id={{row.id}}">编辑</a></td>
         </tr>
         {% endfor %}

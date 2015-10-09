@@ -291,7 +291,7 @@ class MemberController extends ControllerBase
         if ($this->request->isPost()) {
             $license = $this->request->getPost( 'license' );
             $number = $this->request->getPost( 'number' );
-            $models = $this->request->getPost( 'models' );
+            $models = $this->request->getPost( 'inputAutoModelExact' );
             $year = $this->request->getPost( 'year' );
 
 
@@ -316,8 +316,44 @@ class MemberController extends ControllerBase
                 return   $this->response->redirect( '/member/auto/' . $user_id );
             }
         }
+
+        if(!empty($id)){
+            $modelAutoExact = $user->getModelExact();
+            $modelBrands = $modelAutoExact->getHdBrands();
+
+            $modelModels = $modelAutoExact->getHdAutoModels();
+            $brandsComponent = new BrandsComponent();
+            $brands = $brandsComponent->getAutoBrands();
+            $autoModels = HdAutoModels::find(array(
+                'conditions' => 'brands_id=:brandsId:',
+                'bind' => array('brandsId' => $modelBrands->id)
+            ));
+
+            $autoModelExacts = HdAutoModelsExact::find(array(
+                'conditions' => 'models_id=:modelsId:',
+                'bind' => array('modelsId' => $modelModels->id)
+            ));
+        }else{
+            $brandsComponent = new BrandsComponent();
+            $brands = $brandsComponent->getAutoBrands();
+            $autoModels = HdAutoModels::find(array(
+                'conditions' => 'brands_id=:brandsId:',
+                'bind' => array('brandsId' => $brands[0]->id)
+            ));
+
+            $autoModelExacts = HdAutoModelsExact::find(array(
+                'conditions' => 'models_id=:modelsId:',
+                'bind' => array('modelsId' => $autoModels[0]->id)
+            ));
+        }
+
+        $this->view->setVar('brands', $brands);
+        $this->view->setVar('autoModels', $autoModels);
+        $this->view->setVar('autoModelExacts', $autoModelExacts);
+
         $this->view->setVar( 'form', $form );
         $this->view->setVar( 'user', $user );
+        $this->view->setVar( 'modelsExact', $user );
         $this->view->setVar( 'user_id', $user_id );
         $this->view->setVar('autoModels',$autoModels);
     }
