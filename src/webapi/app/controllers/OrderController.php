@@ -15,14 +15,7 @@
 class OrderController extends ControllerBase
 {
 
-    const SUCCESS_CODE = '000000';
-    const PARAMS_ERROR_CODE = '100000';
-    const LOGIC_ERROR_CODE = '200000';
 
-    const ORIGIN_MOBILE = 'mobile';
-    const ORIGIN_PORTAL = 'portal';
-    const ORIGIN_BACKEND = 'backend';
-    const ORIGIN_API = 'api';
 
     /**
      * the apply interface;
@@ -51,12 +44,7 @@ class OrderController extends ControllerBase
     }
 
 
-    function responseJson($statusCode = '100000', $statusMsg = '用户不存在', $data = array())
-    {
-        $array = array('statusCode' => $statusCode, 'statusMsg' => $statusMsg, 'data' => $data);
-        echo json_encode($array);
-        exit;
-    }
+
 
     public function orderAction()
     {
@@ -78,6 +66,7 @@ class OrderController extends ControllerBase
          * 新加入过滤
          */
         $mobile = $this->request->getPost('mobile', \Phalcon\Filter::FILTER_FLOAT);
+        $user_id = $this->request->getPost('user_id', \Phalcon\Filter::FILTER_FLOAT);
         $captcha = $this->request->getPost('captcha', \Phalcon\Filter::FILTER_FLOAT);
         $name = $this->request->getPost('name', \Phalcon\Filter::FILTER_STRING);
         $address = $this->request->getPost('address', \Phalcon\Filter::FILTER_STRING);
@@ -106,7 +95,11 @@ class OrderController extends ControllerBase
                 return $this->responseJson(self::PARAMS_ERROR_CODE, "手机验证码格式不正确");
             }
         }
-
+        if ($origin == self::ORIGIN_MOBILE) {
+            if (empty($user_id)) {
+                return $this->responseJson(self::PARAMS_ERROR_CODE, "用户ID不能为空");
+            }
+        }
         if (empty($name)) {
             return $this->responseJson(self::PARAMS_ERROR_CODE, "姓名不能为空");
         }
@@ -120,16 +113,20 @@ class OrderController extends ControllerBase
             return $this->responseJson(self::PARAMS_ERROR_CODE, "预约时间不能为空");
         }
 
+        $userComponent = new UserComponent();
 
         if ($mobile) {
-            $user = $this->getUser($mobile);
 
-            if (empty($user) or !$user) {
-                return $this->responseJson(self::PARAMS_ERROR_CODE, "用户不存在");
-            }
+
 
 
             if ($origin == self::ORIGIN_PORTAL) {
+                $user = $userComponent->getUserByMobile($mobile);
+
+                if (empty($user) or !$user) {
+                    return $this->responseJson(self::PARAMS_ERROR_CODE, "用户不存在");
+                }
+
                 if ($this->security->checkHash($captcha, $user->password)) {
                     $user_id = $user->id;
                     $user->password = $this->security->hash($this->security->getSaltBytes());
@@ -138,16 +135,22 @@ class OrderController extends ControllerBase
                     return $this->responseJson(self::PARAMS_ERROR_CODE, "手机验证码错误");
                 }
             } else {
+                $user = $userComponent->getUserById($user_id);
+
+                if (empty($user) or !$user) {
+                    return $this->responseJson(self::PARAMS_ERROR_CODE, "用户不存在");
+                }
+
                 $user_id = $user->id;
             }
 
 
             if ($user_id) {
                 $address_info = $_POST['address'];
-                $address_id = $this->getAddressId($user_id, $address_info);
+                $address_id = $userComponent->getAddressId($user_id, $address_info);
                 $linkman_info = $_POST['name'];
-                $linkman_id = $this->getLinkmanId($user_id, $mobile, $linkman_info);
-                $auto_id = $this->getAutoModelsId($user_id, $modelsExact_id, $carnum);
+                $linkman_id = $userComponent->getLinkmanId($user_id, $mobile, $linkman_info);
+                $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
             } else {
                 return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
             }
@@ -200,109 +203,7 @@ class OrderController extends ControllerBase
 
     }
 
-    function getUser($mobile)
-    {
-        $user = HdUser::findFirst(array('conditions' => 'mobile=:mobile:', 'bind' => array('mobile' => $mobile)));
-        if (!$user) {
-//            throw new \Phalcon\Exception("用户不存在");
-//            return null;
-        }
-        return $user;
-    }
 
-    /**
-     * 获取联系ID
-     *
-     * @param $user_id
-     * @param $mobile
-     * @param $name
-     *
-     * @return int
-     */
-    public function getLinkmanId($user_id, $mobile, $name)
-    {
-        $linkman = HdUserLinkman::findFirst(
-            array(
-                'conditions' => 'user_id=:user_id: and mobile=:mobile: and name=:name:  ',
-                'bind' => array('user_id' => $user_id, 'mobile' => $mobile, 'name' => $name)
-            ));
-        if ($linkman) {
-            $linkmanId = $linkman->id;
-        } else {
-            $HdUserLinkman = new HdUserLinkman();
-            $HdUserLinkman->mobile = $mobile;
-            $HdUserLinkman->name = $name;
-            $HdUserLinkman->user_id = $user_id;
-
-            if ($HdUserLinkman->save()) {
-                $linkmanId = $HdUserLinkman->id;
-
-            }
-        }
-        return $linkmanId;
-    }
-
-    /**
-     * 获取地址的ID
-     *
-     * @param $user_id
-     * @param $address
-     *
-     * @return int
-     */
-    public function getAddressId($user_id, $address_info)
-    {
-        $address = HdUserAddress::findFirst(
-            array(
-                'conditions' => 'user_id=:user_id: and address=:address:',
-                'bind' => array('user_id' => $user_id, 'address' => $address_info)
-            ));
-
-        if ($address) {
-            $addressId = $address->id;
-        } else {
-            $HdUserAddress = new HdUserAddress();
-            $HdUserAddress->user_id = $user_id;
-            $HdUserAddress->address = $address_info;
-            if ($HdUserAddress->save()) {
-                $addressId = $HdUserAddress->id;
-
-            }
-        }
-        return $addressId;
-    }
-
-    /**
-     * 获取车型的ID
-     * @param $user_id
-     * @param $models
-     * @param $number
-     *
-     * @return int
-     */
-    public function getAutoModelsId($user_id, $models, $number)
-    {
-        $autoData = HdUserAuto::findFirst(
-            array(
-                'conditions' => 'models=:models: and user_id=:user_id: and number=:number:',
-                'bind' => array('models' => $models, 'user_id' => $user_id, 'number' => $number)
-            ));
-        if ($autoData) {
-            $auto_id = $autoData->id;
-        } else {
-            $HdUserAuto = new HdUserAuto;
-            $HdUserAuto->user_id = $user_id;
-            $HdUserAuto->models = $models;
-            $HdUserAuto->number = $number;
-            if ($HdUserAuto->save()) {
-                $auto_id = $HdUserAuto->id;
-            } else {
-                throw new RuntimeException("用户汽车保存失败");
-            }
-        }
-        return $auto_id;
-
-    }
 
 
 }

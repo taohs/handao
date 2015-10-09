@@ -1,4 +1,9 @@
-<header><span class="logo"><a href="/index/index"><img width="98" height="44" alt="" src="{{url('/assets/images/logo2.png')}}"></a></span>
+<header>
+    <span class="logo">
+        <a href="/index/index">
+            <img width="186" height="55" alt="" src="{{url('/assets/images/logo2.png')}}">
+        </a>
+    </span>
 
     <div class="tel">
         <p class="p1">专业的汽车保养网站</p>
@@ -27,18 +32,22 @@
 </div>
 
 <div class="height_10"></div>
-<div class="tiao c_fb4d00"><a href="/maintenance/autoselect"></a>
-
-    <p>保养预约</p></div>
-<div class="tiao c_0070fb"><a href="/index/myorder" class="btn1"></a>
-
-    <p>订单查询</p></div>
-<div class="tiao c_01a92d"><a href="" class="btn2"></a>
-
-    <p>公司简介</p></div>
-<div class="tiao c_be00d4"><a href="#" class="btn3"></a>
-
-    <p>养护介绍</p></div>
+<div class="tiao c_fb4d00">
+    <a href="/maintenance/autoselect"></a>
+    <p>保养预约</p>
+</div>
+<div class="tiao c_0070fb">
+    <a href="/user/index" class="btn1"></a>
+    <p>个人信息</p>
+</div>
+<div class="tiao c_01a92d">
+    <a href="/about/index" class="btn2"></a>
+    <p>公司简介</p>
+</div>
+<div class="tiao c_be00d4">
+    <a href="http://u.eqxiu.com/s/3F8xNNer" class="btn3"></a>
+    <p>养护介绍</p>
+</div>
 <div class="height_10"></div>
 <div class="height_10"></div>
 <div class="height_10"></div>

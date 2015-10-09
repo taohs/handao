@@ -133,8 +133,10 @@ class OrderController extends ControllerBase
             return $this->response->redirect('order/index');
         }
 
+        $auth = $this->session->get('auth');
         $data = array(
             'origin'=>self::ORIGIN,
+            'user_id'=>$auth->id,
             'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,'bookTime'=>$bookTime,'remark'=>$remark,
             'total'=>$total,'models_id'=>$modelsExact_id,'modelsExact_id'=>$modelsExact_id,'productName'=>$productName,'orderDataId'=>$orderDataId
         );

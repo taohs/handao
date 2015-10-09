@@ -49,6 +49,8 @@ class UserController extends ControllerBase
             }
         }
     }
+
+
     /**
      * 登录
      * @param null $mobile
@@ -71,5 +73,125 @@ class UserController extends ControllerBase
         }
     }
     function orderAction($mobile,$page){
+    }
+
+    function editAction(){
+
+        /**
+         * 新加入过滤
+         */
+
+        $modelsExact_id = $this->request->getPost('modelsExact_id');
+        $mobile = $this->request->getPost('mobile', \Phalcon\Filter::FILTER_FLOAT);
+        $user_id = $this->request->getPost('user_id', \Phalcon\Filter::FILTER_FLOAT);
+        $captcha = $this->request->getPost('captcha', \Phalcon\Filter::FILTER_FLOAT);
+
+        $name = $this->request->getPost('name', \Phalcon\Filter::FILTER_STRING);
+        $address = $this->request->getPost('address', \Phalcon\Filter::FILTER_STRING);
+        $carnum = $this->request->getPost('carnum', \Phalcon\Filter::FILTER_STRING);
+
+        $origin = $this->request->getPost('origin', \Phalcon\Filter::FILTER_STRING);
+        $linkman_id = $this->request->getPost('linkman_id', \Phalcon\Filter::FILTER_STRING);
+        $linkAddress_id = $this->request->getPost('linkAddress_id', \Phalcon\Filter::FILTER_STRING);
+        $carid = $this->request->getPost('carid', \Phalcon\Filter::FILTER_STRING);
+
+
+        $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH . '/cache/post.log');
+        $fileLogger->log(Phalcon\Logger::INFO, json_encode($_POST));
+        //filter the origin;
+//        if (!in_array($origin, array(self::ORIGIN_PORTAL, self::ORIGIN_API, self::ORIGIN_MOBILE, self::ORIGIN_BACKEND))) {
+//            $origin = self::ORIGIN_PORTAL;
+//        }
+
+        //todo 没有做 提交空信息处理；；
+        //todo 没有过滤手机号码；
+        //todo 大爷的，通宵改bug；；
+
+        if (!preg_match('/^1[3-9]{1}[0-9]{9}$/', $mobile)) {
+            return $this->responseJson(self::PARAMS_ERROR_CODE, "手机格式不正确");
+        }
+//        if ($origin == self::ORIGIN_PORTAL) {
+//            if (!preg_match('/^[0-9]{4}$/', $captcha)) {
+//                return $this->responseJson(self::PARAMS_ERROR_CODE, "手机验证码格式不正确");
+//            }
+//        }
+
+        if (empty($user_id)) {
+            return $this->responseJson(self::PARAMS_ERROR_CODE, "用户ID不能为空");
+        }
+        if (empty($name)) {
+            return $this->responseJson(self::PARAMS_ERROR_CODE, "姓名不能为空");
+        }
+        if (empty($address)) {
+            return $this->responseJson(self::PARAMS_ERROR_CODE, "地址不能为空");
+        }
+//        if (empty($carnum)) {
+//            return $this->responseJson(self::PARAMS_ERROR_CODE, "车牌号不能为空");
+//        }
+
+        $userComponent = new UserComponent();
+        if ($mobile) {
+            $user = $userComponent->getUserById($user_id);
+
+            if (empty($user) or !$user) {
+                return $this->responseJson(self::PARAMS_ERROR_CODE, "用户不存在");
+            }
+
+
+//            if ($origin == self::ORIGIN_PORTAL) {
+//                if ($this->security->checkHash($captcha, $user->password)) {
+//                    $user_id = $user->id;
+//                    $user->password = $this->security->hash($this->security->getSaltBytes());
+////                $user->save();
+//                } else {
+//                    return $this->responseJson(self::PARAMS_ERROR_CODE, "手机验证码错误");
+//                }
+//            } else {
+//                $user_id = $user->id;
+//            }
+            $user_id = $user->id;
+
+
+
+            if ($user_id) {
+
+                try {
+                    $address_info = $_POST['address'];
+                    if(empty($linkAddress_id)){
+                        $address_id = $userComponent->getAddressId($user_id, $address_info);
+                    }else{
+                        $linkAddressModel = HdUserAddress::findFirst($linkAddress_id);
+                        $linkAddressModel->address = $address_info;
+                        $linkAddressModel->save();
+                    }
+
+                    $linkman_info = $_POST['name'];
+                    if(empty($linkman_id)){
+                        $linkman_id = $userComponent->getLinkmanId($user_id, $mobile, $linkman_info);
+                    }else{
+                        $linkmanModel = HdUserLinkman::findFirst($linkman_id);
+                        $linkmanModel->name = $linkman_info;
+                        $linkmanModel->mobile = $mobile;
+                        $linkmanModel->save();
+                    }
+                    if(empty($carid)){
+                        $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
+                    }else{
+                        $autoModel = HdUserAuto::findFirst($carid);
+                        $autoModel->number = $carnum;
+                        $autoModel->models = $modelsExact_id;
+                        $autoModel->save();
+                    }
+                    return $this->responseJson(self::SUCCESS_CODE, '修改成功');
+                    exit;
+                }catch (Exception $e){
+                    return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
+                }
+
+            } else {
+                return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
+            }
+
+        }
     }
 }

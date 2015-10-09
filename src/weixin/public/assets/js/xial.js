@@ -99,6 +99,15 @@ $(document).ready(function(){
     });
 
 
+    function initializeDefault(){
+        $.each($('dd.dd-product'),function(k,v){
+            if($(this).attr('featured')=='1'){
+                $(this).trigger('click');
+            }  
+        }); 
+    }
+    initializeDefault();
+
 });
 $.fn.toggle = function( fn ) {
                 // Save reference to arguments for access in closure

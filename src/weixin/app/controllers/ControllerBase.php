@@ -8,6 +8,9 @@ class ControllerBase extends Controller
     public $loginCodeUrl='http://api.handao.dev/user/logincode';
     public $loginUrl='http://api.handao.dev/user/login';
 
+    function initialize(){
+
+    }
     /**
      * 重新刷新
      */
