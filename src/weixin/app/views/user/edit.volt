@@ -7,6 +7,13 @@
         font-size: 14px;
         text-indent: 10px;
     }
+    select{
+        height: 32px;
+        width: 25%;
+        border: 1px solid #ccc;
+        font-size: 14px;
+        text-indent: 10px;
+    }
 </style>
 <div class="content">
     <div class="qh">
@@ -31,7 +38,31 @@
 
                 <li>车牌号：<span><input  id="carnum" name="carnum" value="{%if carInfo is not empty%}{{carInfo.number}}{%endif%}" /></span></li>
             </ul>
-            <p>车信息：<span><input value="{%if carInfo is not empty%}{{carInfo.getAutoInfo()}}{%endif%}"></span></p>
+            <p>车信息：
+                <span>
+                    <select>
+                        <option value="0">请选择</option>
+                        {%for row in brands %}
+                        <option value="{{row.id}}" {%if row.id == modelExact.brands_id%} selected="selected" {%endif%}  >{{row.initials}} - {{row.name}}</option>
+                        {%endfor%}
+                    </select>
+                </span>
+            <span>
+                    <select>
+                        <option value="0">请选择</option>
+                        {%for row in autoModels %}
+                        <option value="{{row.id}}" {%if row.id == modelExact.models_id%} selected="selected" {%endif%}  >{{row.name}}</option>
+                        {%endfor%}
+                    </select>
+                </span>
+            <span>
+                    <select>
+                        <option value="0">请选择</option>
+                        {%for row in autoModelsExacts %}
+                        <option value="{{row.id}}" {%if row.id == modelExact.brands_id%} selected="selected" {%endif%}  >{{row.name}}</option>
+                        {%endfor%}
+                    </select>
+                </span>
 
         </div>
     </div>

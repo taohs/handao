@@ -123,6 +123,26 @@ class UserController extends ControllerBase
 
         $this->indexAction();
 
+        $modelExact = $this->view->getVar('modelExact');
+
+        $brandsComponent = new BrandsComponent();
+        $brands = $brandsComponent->getAutoBrands();
+        $autoModels = HdAutoModels::find(array(
+            'conditions' => 'brands_id=:brandsId:',
+            'bind' => array('brandsId' => $modelExact->brands_id)
+        ));
+
+        $autoModelsExacts = HdAutoModelsExact::find(array(
+            'conditions' => 'models_id=:modelsId:',
+            'bind' => array('modelsId' => $modelExact->models_id)
+        ));
+
+
+
+        $this->view->setVar('brands',$brands);
+        $this->view->setVar('autoModels',$autoModels);
+        $this->view->setVar('autoModelsExacts',$autoModelsExacts);
+
 
     }
 

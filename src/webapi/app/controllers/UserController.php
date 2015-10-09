@@ -93,6 +93,7 @@ class UserController extends ControllerBase
         $origin = $this->request->getPost('origin', \Phalcon\Filter::FILTER_STRING);
         $linkman_id = $this->request->getPost('linkman_id', \Phalcon\Filter::FILTER_STRING);
         $linkAddress_id = $this->request->getPost('linkAddress_id', \Phalcon\Filter::FILTER_STRING);
+        $carid = $this->request->getPost('carid', \Phalcon\Filter::FILTER_STRING);
 
 
         $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH . '/cache/post.log');
@@ -173,7 +174,14 @@ class UserController extends ControllerBase
                         $linkmanModel->mobile = $mobile;
                         $linkmanModel->save();
                     }
-//                    $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
+                    if(empty($carid)){
+                        $auto_id = $userComponent->getAutoModelsId($user_id, $modelsExact_id, $carnum);
+                    }else{
+                        $autoModel = HdUserAuto::findFirst($carid);
+                        $autoModel->number = $carnum;
+                        $autoModel->models = $modelsExact_id;
+                        $autoModel->save();
+                    }
                     return $this->responseJson(self::SUCCESS_CODE, '修改成功');
                     exit;
                 }catch (Exception $e){
