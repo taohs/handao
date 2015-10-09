@@ -1,6 +1,6 @@
 <h2 class="sub-header">车辆</h2>
 <div class="table-responsive">
-    <a href="/member/updateauto?user_id={{user_id}}" class="btn btn-primary">新增</a>
+<!--    <a href="/member/updateauto?user_id={{user_id}}" class="btn btn-primary">新增</a>-->
     <a href="/member/list" class="btn btn-primary">返回</a>
     {{flash.output()}}
     <table class="table table-striped">
