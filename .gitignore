@@ -8,4 +8,5 @@ src/weixin/app/cache/
 src/weixin/cache/
 src/webapi/app/cache/
 src/webapi/cache/
+*/config.php
 .DS_Store
