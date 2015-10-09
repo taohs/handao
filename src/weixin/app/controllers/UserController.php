@@ -53,6 +53,7 @@ class UserController extends ControllerBase
         ));
         $modelExact = HdAutoModelsExact::findFirst($carInfo->models);
 
+        $this->view->setVar('auth',$auth);
         $this->view->setVar('linkman',$linkman);
         $this->view->setVar('linkAddress',$linkAddress);
         $this->view->setVar('carInfo',$carInfo);
@@ -74,11 +75,12 @@ class UserController extends ControllerBase
             $name = $this->request->getPost('name', \Phalcon\Filter::FILTER_STRING);
             $address = $this->request->getPost('address', \Phalcon\Filter::FILTER_STRING);
             $carnum = $this->request->getPost('carnum', \Phalcon\Filter::FILTER_STRING);
-            $exact_id = $this->request->getPost('exact_id', \Phalcon\Filter::FILTER_STRING);
+            $exact_id = $this->request->getPost('inputAutoModelExact', \Phalcon\Filter::FILTER_STRING);
             $linkman_id = $this->request->getPost('linkmanId', \Phalcon\Filter::FILTER_STRING);
             $linkAddress_id = $this->request->getPost('linkAddressId', \Phalcon\Filter::FILTER_STRING);
 
             $carid = $this->request->getPost('carId',\Phalcon\Filter::FILTER_FLOAT);
+            $inputAutoModelExact = $this->request->getPost('inputAutoModelExact',\Phalcon\Filter::FILTER_FLOAT);
             //todo 没有做 提交空信息处理；；
             //todo 没有过滤手机号码；
             //todo 大爷的，通宵改bug；；

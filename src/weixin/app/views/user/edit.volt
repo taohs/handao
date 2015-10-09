@@ -33,7 +33,8 @@
             </h1>
             <ul class="clearfix">
                 <li>联系人：<span><input id="name" name="name" value="{%if linkman is not empty%}{{linkman.name}}{%endif%}"></span></li>
-                <li>联系电话：<span><input id="mobile" name="mobile" value="{%if linkman is not empty%}{{linkman.mobile}}{%endif%}"/></span></li>
+<!--                <li>联系电话：<span><input id="mobile" name="mobile" value="{%if linkman is not empty%}{{linkman.mobile}}{%endif%}"/></span></li>-->
+<!--                <li>联系电话：<span><input id="mobile" name="mobile" value="{{auth.mobile}}" readonly="readonly"  style="background: #e9e8e7;"/></span></li>-->
                 <li>联系地址：<span><input id="address" name="address" value="{%if linkAddress is not empty%}{{linkAddress.address}}{%endif%}"/></span></li>
 
                 <li>车牌号：<span><input  id="carnum" name="carnum" value="{%if carInfo is not empty%}{{carInfo.number}}{%endif%}" /></span></li>
@@ -59,7 +60,7 @@
                     <select name="inputAutoModelExact" id="inputAutoModelExact">
                         <option value="0">请选择</option>
                         {%for row in autoModelsExacts %}
-                        <option value="{{row.id}}" {%if row.id == modelExact.brands_id%} selected="selected" {%endif%}  >{{row.name}}</option>
+                        <option value="{{row.id}}" {%if row.id == modelExact.id%} selected="selected" {%endif%}  >{{row.name}}</option>
                         {%endfor%}
                     </select>
                 </span>
