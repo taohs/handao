@@ -5,7 +5,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
+            <th>工号</th>
             <th>用户名</th>
             <th>手机号</th>
             <th>姓名</th>
