@@ -84,7 +84,8 @@ class UserController extends ControllerBase
             //todo 没有做 提交空信息处理；；
             //todo 没有过滤手机号码；
             //todo 大爷的，通宵改bug；；
-
+            $auth  = $this->session->get('auth');
+            $mobile=$auth->mobile;
             if (!preg_match('/^1[3-9]{1}[0-9]{9}$/', $mobile)) {
                 $this->flash->error("手机格式不正确");
                 return $this->response->redirect('user/index');
@@ -114,9 +115,9 @@ class UserController extends ControllerBase
 
             $json = json_decode($response,true);
             if($json['statusCode']=='000000'){
-                return $this->response->redirect('/order/success/'.$json['data']['order_id']);
+                return $this->response->redirect('/user/index');
             }else{
-                return $this->response->redirect('/order/fail');
+                return $this->response->redirect('/user/edit');
             }
 
 
