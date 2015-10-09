@@ -40,7 +40,7 @@
             </ul>
             <p>车信息：
                 <span>
-                    <select>
+                    <select name="inputBrands" id="inputBrands">
                         <option value="0">请选择</option>
                         {%for row in brands %}
                         <option value="{{row.id}}" {%if row.id == modelExact.brands_id%} selected="selected" {%endif%}  >{{row.initials}} - {{row.name}}</option>
@@ -48,7 +48,7 @@
                     </select>
                 </span>
             <span>
-                    <select>
+                    <select  name="inputAutoModels" id="inputAutoModels">
                         <option value="0">请选择</option>
                         {%for row in autoModels %}
                         <option value="{{row.id}}" {%if row.id == modelExact.models_id%} selected="selected" {%endif%}  >{{row.name}}</option>
@@ -56,7 +56,7 @@
                     </select>
                 </span>
             <span>
-                    <select>
+                    <select name="inputAutoModelExact" id="inputAutoModelExact">
                         <option value="0">请选择</option>
                         {%for row in autoModelsExacts %}
                         <option value="{{row.id}}" {%if row.id == modelExact.brands_id%} selected="selected" {%endif%}  >{{row.name}}</option>
@@ -75,5 +75,70 @@
     </form>
 
 </div>
+<script type="text/javascript">
+    $('#inputBrands').change(function () {
+        $.getJSON('/auto/brandsoption/' + $(this).val(), function (data) {
+            $('#inputAutoModels').html('');
+            $('#inputAutoModelExact').html('');
+            $.each(data.models, function (v, n) {
+                var option = '<option value="' + v + '">' + n + '</option>';
+                $('#inputAutoModels').append(option);
+            });
+            $.each(data.modelExact, function (v, n) {
+                var option = '<option value="' + v + '">' + n + '</option>';
+                $('#inputAutoModelExact').append(option);
+            });
+            doBuild();
+        });
+    });
+
+    $('#inputAutoModels').change(function () {
+        $.getJSON('/auto/modelsOption/' + $(this).val(), function (data) {
+            $('#inputAutoModelExact').html('');
+            $.each(data, function (v, n) {
+                var option = '<option value="' + v + '">' + n + '</option>';
+                $('#inputAutoModelExact').append(option);
+            });
+            doBuild();
+        });
+    });
+
+    $('#inputAutoModelExact').change(function () {
+        $.getJSON('/products/getModelsExactRecommend/' + $(this).val(), function (data) {
+            buildProductsCategory(data);
+        });
+    });
+
+    function doBuild(){
+        $.getJSON('/products/getModelsExactRecommend/' + $('#inputAutoModelExact').val(), function (data) {
+            buildProductsCategory(data);
+        });
+    }
+
+    function buildProductsCategory(json) {
+        $('.productsCategory').remove();
+        $.each(json, function (k, v) {
+            var template_head = '<div class="form-group productsCategory">' +
+                '<label class="col-sm-2 control-label" for="inputProducts">' + v.name + '</label>' +
+                '<div class="col-sm-10">' +
+                '<select class="form-control" name="inputProducts[]">' +
+                '<option>请选择</option>';
+            for (i = 0; i < v.data.length; i++) {
+                template_head += '<option value="' + v.data[i].id + '"';
+                if (v.data[i].featured == 1) {
+                    template_head += 'selected="selected"';
+                }
+                template_head += '"> ' + v.data[i].name + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong style="aligin:right;">￥' + v.data[i].member_price + '</strong></option>';
+            }
+            var template_foot = '</select>' +
+                '</div>' +
+                '</div>';
+            var template = template_head + template_foot;
+            $('#form-remark').before(template);
+        });
+    }
+
+</script>
+
 </body>
 </html>
