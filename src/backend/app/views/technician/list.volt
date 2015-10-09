@@ -20,7 +20,6 @@
             <td>{{row.username}}</td>
             <td>{{row.mobile}}</td>
             <td>{{row.name}}</td>
-
             <td>
                 <a href="/technician/updateuser/{{row.id}}">编辑技师</a>
                 <a href="/technician/resetpassword/{{row.id}}">重置密码</a>
