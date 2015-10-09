@@ -21,7 +21,7 @@
 <div class="top">
     <p>
         <a href="/index/index" class="logo"><img src="{{url('assets/images/logo.png')}}" width="98" height="44" alt=""/></a>
-        2015-08-12&nbsp;&nbsp;欢迎您，张三
+        欢迎您，{{userData.mobile}}
         <a href="/index/logout">退出</a>
     </p>
 </div>
