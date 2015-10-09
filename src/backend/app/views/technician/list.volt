@@ -23,7 +23,7 @@
 
             <td>
                 <a href="/technician/updateuser/{{row.id}}">编辑技师</a>
-                <a href="/technician/resetPassword/{{row.id}}">重置密码</a>
+                <a href="/technician/resetpassword/{{row.id}}">重置密码</a>
                 <a href="/technician/delete/{{row.id}}" class="delete">删除</a>
                 <a href="/technician/active/{{row.id}}" class="active">{%if(row.active==0)%}激活{%else%}停用{%endif%}</a>
             </td>

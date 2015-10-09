@@ -78,7 +78,7 @@ class UserController extends ControllerBase
             $linkman_id = $this->request->getPost('linkmanId', \Phalcon\Filter::FILTER_STRING);
             $linkAddress_id = $this->request->getPost('linkAddressId', \Phalcon\Filter::FILTER_STRING);
 
-
+            $carid = $this->request->getPost('carId',\Phalcon\Filter::FILTER_FLOAT);
             //todo 没有做 提交空信息处理；；
             //todo 没有过滤手机号码；
             //todo 大爷的，通宵改bug；；
@@ -95,13 +95,13 @@ class UserController extends ControllerBase
                 $this->flash->error("地址不能为空");
                 return $this->response->redirect('user/index');
             }
-//            if (empty($carnum)) {
-//                $this->flash->error("车牌号不能为空");
-//                return $this->response->redirect('user/index');
-//            }
+            if (empty($carnum)) {
+                $this->flash->error("车牌号不能为空");
+                return $this->response->redirect('user/index');
+            }
             $auth = $this->session->get('auth');
             $data = array(
-                'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,
+                'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$carnum,'carid'=>$carid,
                 'modelsExact_id'=>$exact_id,'user_id'=>$auth->id,'linkman_id'=>$linkman_id,'linkAddress_id'=>$linkAddress_id
             );
 
