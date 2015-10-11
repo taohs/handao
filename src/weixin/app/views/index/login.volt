@@ -23,16 +23,16 @@
 
         <p><input type="text" placeholder="请输入电话" name="mobile" id="mobile" maxlength="11"></p>
 
-        <p class="yzm">
-            <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="图形验证码"
-                   required="" style="width: 120px;">
-            <img title="点击刷新" src="/index/captcha" align="absbottom"
-                 onclick="this.src='/index/captcha?'+Math.random();"/>
-        </p>
+<!--        <p class="yzm">-->
+<!--            <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="图形验证码"-->
+<!--                   required="" style="width: 120px;">-->
+<!--            <img title="点击刷新" src="/index/captcha" align="absbottom"-->
+<!--                 onclick="this.src='/index/captcha?'+Math.random();"/>-->
+<!--        </p>-->
 
         <p class="yzm">
-            <input type="text" placeholder="短信验证码" name="code" style="width: 120px;">
-            <input type="button" value="获取验证码" class="getCode" style="width: 200px;text-align: center;margin-left: 30px;">
+            <input type="text" placeholder="短信验证码" name="code" maxlength="6" style="width: 120px;">
+            <input type="button" value="获取验证码" class="getCode" style="width: 150px;text-align: center;margin-left: 10px;background:#57b;color:#fff;border:none;">
         </p>
 
 

@@ -48,7 +48,8 @@
             </div>
         </div>
         <div class="k">
-            <p class="re">商品名称：  {{autoName}}  上门保养 </p>
+            <p class="re" style="text-align: left;">保养车型：   </p>
+            <p class="re" style="text-align: left;padding:0 5px 10px 5px;height: auto;line-height: 26px;"> {{autoName}} </p>
             <table class="table" cellspacing="0">
                 <tbody>
                 <tr class="t">
