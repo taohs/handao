@@ -49,7 +49,7 @@
                 {% for row in page.items %}
                 <tr>
                     <td>{{row.id}}</td>
-                    <td>{{element.getTime(row.book_time)}}</td>
+                    <td>{{row.book_time}}</td>
                     <td>{% for product in row.getProducts(row.products)%}
 
                         {{product}} <hr>

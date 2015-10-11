@@ -50,9 +50,11 @@
                                     laydate({elem: '#demo'})
                                 }();</script>
                             <select name="bookTime[]" id="time_select">
-                                <option value="8:00-12:00 上午">9:00 - 12:00 上午</option>
-                                <option value="12:00-14:00 中午">12:00 - 18:00 中午</option>
-                                <option value="14:00-18:00 下午">18:00 - 22:00 下午</option>
+                                <option value="08:00-12:00 上午">08:00 - 12:00 上午</option>
+                                <option value="12:00-14:00 中午">12:00 - 14:00 中午</option>
+                                <option value="14:00-18:00 下午">14:00 - 18:00 下午</option>
+                                <!--                        <option value="18:00-24:00 晚上">18:00 - 24:00 晚上</option>-->
+                                <!--                        <option value="00:00-08:00 凌晨">00:00 - 08:00 凌晨</option>-->
                             </select>
                             <span class="sp2">*</span>
                         </li>

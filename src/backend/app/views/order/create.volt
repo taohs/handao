@@ -36,12 +36,22 @@
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputBookTime">预约时间：</label>
-            <div class="col-sm-10">
+            <div class="col-sm-10" style="padding-left: 0; ">
 <!--                <input type="datetime-local" class="form-control" name="inputBookTime" id="inputBookTime" value=""/>-->
-                <div class=" col-sm-12 input-append date " id="datetimepicker" data-date="{{date('Y-m-d H:i:s')}}" data-date-format="yyyy-mm-dd hh:ii:ss">
-                    <input name="inputBookTime" class="span2 form-control" size="16" type="text" value="{{date('Y-m-d H:i:s')}}">
+                <div class=" col-sm-6 input-append date  "  data-date="{{date('Y-m-d H:i:s')}}" data-date-format="yyyy-mm-dd hh:ii:ss">
+                    <input name="inputBookTime" class="span2 form-control" size="16" type="date" value="{{date('Y-m-d H:i:s')}}">
                     <span class="add-on"><i class="icon-remove"></i></span>
                     <span class="add-on"><i class="icon-th"></i></span>
+                </div>
+
+                <div class="col-sm-6 ">
+                    <select class="form-control" name="bookTime">
+                        <option value="08:00-12:00 上午">08:00 - 12:00 上午</option>
+                        <option value="12:00-14:00 中午">12:00 - 14:00 中午</option>
+                        <option value="14:00-18:00 下午">14:00 - 18:00 下午</option>
+<!--                        <option value="18:00-24:00 晚上">18:00 - 24:00 晚上</option>-->
+<!--                        <option value="00:00-08:00 凌晨">00:00 - 08:00 凌晨</option>-->
+                    </select>
                 </div>
             </div>
         </div>

@@ -34,11 +34,21 @@
             <div class="col-sm-10">
                 <input type="text" class="form-control" name="inputAddress" id="inputAddress" value="{{model.address_info}}"/>
             </div>
+
         </div>
         <div class="form-group">
             <label class="col-sm-2 control-label" for="inputBookTime">预约时间：</label>
-            <div class="col-sm-10">
-                <input type="datetime" class="form-control" name="inputBookTime" id="inputBookTime" value="{{model.book_time}}"/>
+            <div class="col-sm-4">
+                <input type="datetime" class="form-control" name="inputBookTime" id="inputBookTime" value="{{bookTimeDay}}"/>
+            </div>
+            <div class="col-sm-6 ">
+                <select class="form-control" name="bookTime">
+                    <option value="08:00-12:00 上午" {%if bookTimeHour == "08:00-12:00 上午" %} selected="selected" {%endif%} > 08:00 - 12:00 上午</option>
+                    <option value="12:00-14:00 中午" {%if bookTimeHour == "12:00-14:00 中午" %} selected="selected" {%endif%} >12:00 - 14:00 中午</option>
+                    <option value="14:00-18:00 下午" {%if bookTimeHour == "14:00-18:00 下午" %} selected="selected" {%endif%} >14:00 - 18:00 下午</option>
+                    <!--                        <option value="18:00-24:00 晚上" {%if bookTimeHour == "18:00-24:00 晚上" %} selected="selected" {%endif%} >18:00 - 24:00 晚上</option>-->
+                    <!--                        <option value="00:00-08:00 凌晨" {%if bookTimeHour == "00:00-08:00 凌晨" %} selected="selected" {%endif%} >00:00 - 08:00 凌晨</option>-->
+                </select>
             </div>
         </div>
 

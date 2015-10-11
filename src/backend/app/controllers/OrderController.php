@@ -106,10 +106,13 @@ class OrderController extends ControllerBase
 
         $this->saveOrder($id);
 
-
+        $bookTimeDay = mb_substr($model->book_time,0,10,'utf8');
+        $bookTimeHour= trim(mb_substr($model->book_time,10,mb_strlen($model->book_time),'utf-8'));
 
         $modelProducts = $model->getHdOrderProduct();
         $this->view->setVar('model', $model);
+        $this->view->setVar('bookTimeDay', $bookTimeDay);
+        $this->view->setVar('bookTimeHour', $bookTimeHour);
         $this->view->setVar('recommendArray', $recommendArray);
         $this->view->setVar('modelLinkman', $model->getLinkman());
         $this->view->setVar('modelAuto', $modelAuto);
@@ -372,6 +375,8 @@ class OrderController extends ControllerBase
             $address = $this->request->getPost('inputAddress', \Phalcon\Filter::FILTER_STRING);
             $productList = $this->request->getPost('inputProducts', \Phalcon\Filter::FILTER_INT);
             $inputBookTime = $this->request->getPost('inputBookTime', \Phalcon\Filter::FILTER_STRING);
+            $bookTime = $this->request->getPost('bookTime', \Phalcon\Filter::FILTER_STRING);
+            $apiBookTime  =  array($inputBookTime,$bookTime);
             $inputRemark = $this->request->getPost('inputRemark', \Phalcon\Filter::FILTER_INT);
             $modelExact = $this->request->getPost('inputAutoModelExact', \Phalcon\Filter::FILTER_INT);
             $autoNumber = $this->request->getPost('inputAutoNumber', \Phalcon\Filter::FILTER_STRING);
@@ -404,7 +409,7 @@ class OrderController extends ControllerBase
             $data = array(
                 'origin'=>self::ORIGIN,
                 'oid'=>$id,
-                'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$autoNumber,'bookTime'=>$inputBookTime,'remark'=>$remark,
+                'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$autoNumber,'bookTime'=>$apiBookTime,'remark'=>$remark,
                 'total'=>$orderPrice,'models_id'=>$modelExact,'modelsExact_id'=>$modelExact,'productName'=>$productName,'orderDataId'=>$orderDataId
             );
 

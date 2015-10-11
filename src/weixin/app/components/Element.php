@@ -38,6 +38,10 @@ class Element
         return substr($datetime,11,5);
     }
 
+    function getBookTime($datetime){
+        return strtr($datetime,' ',"<br>");
+    }
+
     public function getTireNameByPosition($position){
         switch($position){
             case 1:
