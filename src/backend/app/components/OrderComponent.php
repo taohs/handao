@@ -34,4 +34,13 @@ class OrderComponent extends \Phalcon\Mvc\User\Component
         self::STATUS_RESULT_CANCEL => '订单取消',
         self::STATUS_RESULT_SUCCESS => '订单完成',
     );
+
+    public function createOrder($data){
+        $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
+        $fileLogger->log('request',json_encode($data));
+        $apiUrl = $this->config->api->gateway . 'order/order';
+        $response  = $this->restful->post($apiUrl,$data);
+        $fileLogger->log('response',$response);
+        return $response;
+    }
 }

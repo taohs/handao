@@ -37,4 +37,7 @@ return new \Phalcon\Config( array(
             'maxLength' => '20'
         )
     ),
+    'api'=>array(
+        'gateway'=>'http://api.handao365.com/'
+    )
 ) );

@@ -413,10 +413,8 @@ class OrderController extends ControllerBase
                 'total'=>$orderPrice,'models_id'=>$modelExact,'modelsExact_id'=>$modelExact,'productName'=>$productName,'orderDataId'=>$orderDataId
             );
 
-            $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
-            $fileLogger->log('request',json_encode($data));
-            $response  = $this->restful->post('http://api.handao365.dev/order/order',$data);
-            $fileLogger->log('response',$response);
+            $orderComponent = new OrderComponent();
+            $response = $orderComponent->createOrder($data);
 
             $json = json_decode($response,true);
             if($json['statusCode']=='000000'){
