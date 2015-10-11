@@ -44,15 +44,14 @@ class IndexController extends ControllerBase
             if ($this->security->checkToken($this->session->get('$PHALCON/CSRF/KEY$'), $this->security->getSessionToken())) {
                 if (isset($_POST["inputCode"])) {
                     $validate = $_POST["inputCode"];
-
-                    if ($validate != $this->session->get("authnum_session")) {
-//判断session值与用户输入的验证码是否一致;
-//                        echo "<font color=red>输入有误</font>";
-                        $this->flash->error('验证码错误');
-                        return $this->refresh();
-                    } else {
-//                        echo "<font color=green>通过验证</font>";
-                    }
+                /**
+                 * 取消登录图形验证码；
+                 */
+//                    if ($validate != $this->session->get("authnum_session")) {
+//                    //判断session值与用户输入的验证码是否一致;
+//                        $this->flash->error('验证码错误');
+//                        return $this->refresh();
+//                    }
                 }
 
 

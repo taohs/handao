@@ -172,12 +172,13 @@ input {
     font-size: 18px;
     color: #777474;
     background: #e9e8e7;
-    color: #FF5416;
+
     border-bottom: 2px solid #c5c1c1;
 }
 
 .qh .choice a.active {
     border-bottom: 2px solid #FF5416;
+    color: #FF5416;
 }
 
 .list .sx {
@@ -291,7 +292,6 @@ input {
     font-size: 18px;
     color: #777474;
     background: #e9e8e7;
-    color: #FF5416;
     border-bottom: 2px solid #c5c1c1;
 }
 

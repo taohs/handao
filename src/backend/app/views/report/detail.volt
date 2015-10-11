@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -171,16 +172,16 @@
         {% for row in tireModel %}
         <p>{{element.getTireNameByPosition(row.position)}}</p>
         <ul>
-        <li>胎压：<span>{% if row.pressure=="1" %}正常{%else%}不正常{% endif %}</span></li>
-        <li>出厂日子是否可检查：<span>{% if row.factory_day_checkable=="1" %}可检查{%else%}不可检查{% endif %}</span></li>
-        <li>出厂日期：<span>{% if row.factory_day=="1" %}正常{%else%}不正常{% endif %}</span></li>
-        <li>花纹深度：<span>{% if row.tread_depth=="1" %}正常{%else%}不正常{% endif %}</span></li>
-        <li>老化程度：<span>{% if row.aging=="1" %}轻微{%else%}严重{% endif %}</span></li>
-        <li>胎面<span>{% if row.tread=="1" %}正常{%else%}不正常{% endif %}</span></li>
-        <li>胎侧：<span>{% if row.sidewall=="1" %}正常{%else%}不正常{% endif %}</span></li>
-        <li>刹车片是否可检查：<span>{% if row.brake_pads_checkable=="1" %}可检查{%else%}不可检查{% endif %}</span></li>
-        <li>刹车片厚度：<span>{% if row.brake_pads_thickness=="1" %}正常{%else%}不正常{% endif %}</span></li>
-        <li>刹车盘：<span>{% if row.brake_dish=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>胎压：<span>{% if row.pressure=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>出厂日子是否可检查：<span>{% if row.factory_day_checkable=="1" %}可检查{%else%}不可检查{% endif %}</span></li>
+            <li>出厂日期：<span>{% if row.factory_day=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>花纹深度：<span>{% if row.tread_depth=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>老化程度：<span>{% if row.aging=="1" %}轻微{%else%}严重{% endif %}</span></li>
+            <li>胎面<span>{% if row.tread=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>胎侧：<span>{% if row.sidewall=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>刹车片是否可检查：<span>{% if row.brake_pads_checkable=="1" %}可检查{%else%}不可检查{% endif %}</span></li>
+            <li>刹车片厚度：<span>{% if row.brake_pads_thickness=="1" %}正常{%else%}不正常{% endif %}</span></li>
+            <li>刹车盘：<span>{% if row.brake_dish=="1" %}正常{%else%}不正常{% endif %}</span></li>
         </ul>
         {% endfor %}
 

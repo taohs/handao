@@ -13,6 +13,8 @@
  */?>
 
 <h2 class="sub-header">订单列表</h2>
+{{flash.output()}}
+
 <div class="table-responsive">
     <a href="create" class="btn btn-primary">新建订单</a>
     <table class="table table-striped">
@@ -54,6 +56,9 @@
                 {{link_to( dispatcher.getControllerName()~"/status/" ~ model.id,'状态',true,'class':'abc')}}
                 {{link_to( dispatcher.getControllerName()~"/pay/" ~ model.id,'支付',true,'class':'abc')}}
                 {{link_to(dispatcher.getControllerName()~"/assign/" ~ model.id,'技师')}}
+                {% if 3>2 %}
+                {{link_to( "report/index/" ~ model.id,'报告')}}
+                {% endif %}
             </td>
         </tr>
         {% set technician = null %}

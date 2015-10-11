@@ -60,6 +60,7 @@ class OrderController extends ControllerBase
         $modelsExact_id = $this->request->getPost('modelsExact_id');
         $productName = $this->request->getPost('productName');
         $orderDataId = $this->request->getPost('orderDataId');
+        $oid = $this->request->getPost('oid',\Phalcon\Filter::FILTER_INT);
 
 
         /**
@@ -117,17 +118,18 @@ class OrderController extends ControllerBase
 
         if ($mobile) {
 
-
-
-
-            if ($origin == self::ORIGIN_PORTAL) {
+            /**
+             * 门户网站需要验证短信验证码。
+             * 微信和后台不需要验证短信验证码。
+             */
+            if ($origin == self::ORIGIN_PORTAL or $origin == self::ORIGIN_BACKEND) {
                 $user = $userComponent->getUserByMobile($mobile);
 
                 if (empty($user) or !$user) {
                     return $this->responseJson(self::PARAMS_ERROR_CODE, "用户不存在");
                 }
 
-                if ($this->security->checkHash($captcha, $user->password)) {
+                if ($this->security->checkHash($captcha, $user->password) or $origin == self::ORIGIN_BACKEND ) {
                     $user_id = $user->id;
                     $user->password = $this->security->hash($this->security->getSaltBytes());
 //                $user->save();
@@ -155,7 +157,7 @@ class OrderController extends ControllerBase
                 return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
             }
 
-            $HdOrder = new HdOrder();
+            $HdOrder = empty($oid) ? new HdOrder() : HdOrder::findFirst($oid);
             $HdOrder->user_id = $user_id;
             $HdOrder->auto_id = $auto_id;
             $HdOrder->products = serialize($productName);
@@ -188,6 +190,10 @@ class OrderController extends ControllerBase
                 return $this->responseJson(self::SUCCESS_CODE, "预约成功", array('order_id' => $order_id));
             }
         }
+    }
+
+    public function editAction($oid){
+
     }
 
     public function successAction($oid)

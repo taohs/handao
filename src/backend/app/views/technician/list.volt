@@ -9,6 +9,7 @@
             <th>用户名</th>
             <th>手机号</th>
             <th>姓名</th>
+            <th>状态</th>
 
             <th>操作</th>
         </tr>
@@ -20,6 +21,9 @@
             <td>{{row.username}}</td>
             <td>{{row.mobile}}</td>
             <td>{{row.name}}</td>
+            <td>{%if(row.active==1)%}<em style="color: green;">激活</em>{%else%}<em style="color: red">停用</em>{%endif%}</td>
+
+
             <td>
                 <a href="/technician/updateuser/{{row.id}}">编辑技师</a>
                 <a href="/technician/resetpassword/{{row.id}}">重置密码</a>
