@@ -23,31 +23,32 @@
         <div class="biao">
             <table>
                 <colgroup>
-                    <col width="13%">
-                    <col width="7%">
+                    <col width="8%">
+                    <col width="12%">
                     <col width="15%">
                     <col width="15%">
-                    <col width="25%">
+                    <col width="15%">
                     <col width="10%">
                     <col width="10%">
-                    <col width="5%">
+                    <col width="15%">
+
+
                 </colgroup>
                 <tbody>
                 <tr>
                     <th>订单号</th>
-                    <th>预约时间</th>
+                    <th>时间</th>
                     <th>养护项目</th>
-                    <th>订单金额</th>
+                    <th>金额</th>
                     <th>联系地址</th>
                     <th>联系人</th>
-                    <th>联系电话</th>
+                    <th>手机</th>
                     <th>报告</th>
                 </tr>
 
                 {% for row in page.items %}
                 <tr>
                     <td>{{row.id}}</td>
-
                     <td>{{element.getTime(row.book_time)}}</td>
                     <td>{% for product in row.getProducts(row.products)%}
 
@@ -59,14 +60,16 @@
                     <td>{{row.HdUserAddress.address}}</td>
                     <td>{{row.HdUserLinkman.name}}</td>
                     <td>{{row.HdUserLinkman.mobile}}</td>
+
                     {% if row.status != orderSuccessStatus  %}
                         {% if status == 'finished' %}
-                        <td> <a href="/report/detail/{{row.id}}">查看</a> <a href="/worker/updatereport/{{row.id}}">修改</a> </td>
+                        <td> <a style="color: #fff;background: #1bbc9b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px;border-radius:5px;" href="/report/detail/{{row.id}}">查看</a>
+                            <a  style="color: #fff;background: #57b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px;border-radius:5px;" href="/worker/updatereport/{{row.id}}">修改</a> </td>
                         {% else %}
-                        <td> <a href="/worker/createreport/{{row.id}}">填写报告</a> </td>
+                        <td> <a style="color: #fff;background: #57b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px; border-radius:5px;" href="/worker/createreport/{{row.id}}" >填写报告</a> </td>
                         {% endif %}
                     {% else %}
-                        <td><a href="/report/detail/{{row.id}}">查看</a> </td>
+                        <td> <a style="color: #fff;background: #57b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px;border-radius:5px;" href="/report/detail/{{row.id}}">查看</a> </td>
                     {% endif %}
                 </tr>
                 {% endfor %}

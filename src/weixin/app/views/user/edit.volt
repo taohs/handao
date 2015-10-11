@@ -8,8 +8,9 @@
         text-indent: 10px;
     }
     select{
+        border-radius: 0px;
         height: 32px;
-        width: 25%;
+        width: 100%;
         border: 1px solid #ccc;
         font-size: 14px;
         text-indent: 10px;
@@ -33,7 +34,8 @@
 
                 <li>车牌号：<span><input  id="carnum" name="carnum" value="{%if carInfo is not empty%}{{carInfo.number}}{%endif%}" /></span></li>
             </ul>
-            <p>车信息：
+            <p>车信息：</p>
+            <p>
                 <span>
                     <select name="inputBrands" id="inputBrands">
                         <option value="0">请选择</option>
@@ -42,6 +44,8 @@
                         {%endfor%}
                     </select>
                 </span>
+                </p>
+            <p>
             <span>
                     <select  name="inputAutoModels" id="inputAutoModels">
                         <option value="0">请选择</option>
@@ -50,6 +54,8 @@
                         {%endfor%}
                     </select>
                 </span>
+                </p>
+            <p>
             <span>
                     <select name="inputAutoModelExact" id="inputAutoModelExact">
                         <option value="0">请选择</option>
@@ -58,14 +64,16 @@
                         {%endfor%}
                     </select>
                 </span>
-
+            </p>
+            <p>
+                <input type="submit" value="提交" style="background: #ff5416 none repeat scroll 0 0;border: 0 none;border-radius: 3px;color: #fff;font-size: 1.375em;height: 66px;width: 100%;"></p>
         </div>
     </div>
     <footer>
         <input type="hidden" name="linkmanId" value="{%if linkman is not empty%}{{linkman.id}}{%endif%}" />
         <input type="hidden" name="linkAddressId" value="{%if linkAddress is not empty%}{{linkAddress.id}}{%endif%}" />
         <input type="hidden" name="carId" value="{%if carInfo is not empty%}{{carInfo.id}}{%endif%}" />
-        <input type="submit" value="提交">
+
     </footer>
     </form>
 

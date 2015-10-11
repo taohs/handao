@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="{{url('/assets/css/member.css')}}">
+
 </head>
 <body>
 <header>
@@ -387,7 +387,9 @@
     </div>
 </div>
 <footer>
+    {%if submit %}
     <input type="submit" value="确认提交">
+    {%endif%}
 </footer>
 </form>
 </body>
