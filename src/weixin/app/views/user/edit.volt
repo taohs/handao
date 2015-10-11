@@ -8,8 +8,9 @@
         text-indent: 10px;
     }
     select{
+        border-radius: 0px;
         height: 32px;
-        width: 99%;
+        width: 100%;
         border: 1px solid #ccc;
         font-size: 14px;
         text-indent: 10px;
@@ -43,7 +44,7 @@
                         {%endfor%}
                     </select>
                 </span>
-            </p>
+                </p>
             <p>
             <span>
                     <select  name="inputAutoModels" id="inputAutoModels">
