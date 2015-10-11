@@ -30,7 +30,6 @@ class UserController extends ControllerBase
             if( $sessionTime + 60 > time()){
                 echo json_encode(array('statusCode'=>10001,'statusMsg'=>'您点击发送验证码频率过高'));
             }else{
-
                 $code = $this->getCode();
                 $user->password = $this->security->hash($code);
                 if ($user->save()) {
