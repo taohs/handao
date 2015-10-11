@@ -23,18 +23,28 @@ class UserController extends ControllerBase
         $mobile = $this->request->getPost( 'mobile' );
         $user = $this->getUserByMobile($mobile);
         $smsComponent = new SmsComponent();
+        $sessionMobile = 'm'.$mobile;
         if ($user) {
-            $code = $this->getCode();
-            $user->password = $this->security->hash($code);
-            if ($user->save()) {
-                $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
-                echo json_encode($smsResult);
+
+            $sessionTime = $this->session->get($sessionMobile);
+            if( $sessionTime + 60 > time()){
+                echo json_encode(array('statusCode'=>10001,'statusMsg'=>'您点击发送验证码频率过高'));
+            }else{
+
+                $code = $this->getCode();
+                $user->password = $this->security->hash($code);
+                if ($user->save()) {
+                    $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
+                    echo json_encode($smsResult);
+                    $this->session->set($sessionMobile,time());
+                }else{
+                    echo json_encode(array('statusCode'=>10000,'statusMsg'=>'发送失败'));
+                }
             }
         } else {
             $mobileValidator = new MobileValidator();
-            $sessionTime = $this->session->get('mobile');
+            $sessionTime = $this->session->get($sessionMobile);
             if($mobileValidator->validate($mobile) ){
-
                 if( $sessionTime + 60 > time()){
                     echo json_encode(array('statusCode'=>10001,'statusMsg'=>'您点击发送验证码频率过高'));
                 }else{
@@ -46,7 +56,7 @@ class UserController extends ControllerBase
                     $HdUser->update_time = date( "Y-m-d H:i:s" );
                     $HdUser->create_time = date( "Y-m-d H:i:s" );
                     if ($HdUser->save()) {
-                        $this->session->set('mobile',time());
+                        $this->session->set($sessionMobile,time());
                         $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
                         echo json_encode($smsResult);
                     }else{
