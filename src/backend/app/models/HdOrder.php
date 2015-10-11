@@ -215,6 +215,12 @@ class HdOrder extends \Phalcon\Mvc\Model
             return false;
         return HdTechnician::findFirst($this->technician_id);
     }
+    public function getAddress()
+    {
+        if (empty ($this->address_id))
+            return false;
+        return HdUserAddress::findFirst($this->address_id);
+    }
 
 
     public function beforeCreate()

@@ -37,4 +37,50 @@ class Element
     function getTime($datetime){
         return substr($datetime,10,10);
     }
+
+    public function getTireNameByPosition($position){
+        switch($position){
+            case 1:
+                return '左前';
+                break;
+            case 2:
+                return '左后';
+                break;
+            case 3:
+                return '右前';
+                break;
+            case 4:
+                return '右后';
+                break;
+            case 5:
+                return '备胎';
+                break;
+            case 6:
+                return '备胎';
+                break;
+            default:
+                return '左前';
+                break;
+        }
+    }
+
+    public function getReportLight($value){
+        switch($value){
+            case 1:
+                return '亮';
+                break;
+            case 0.8:
+                return '昏暗';
+                break;
+            case 0.5:
+                return '只亮一个';
+                break;
+            case 0:
+                return '亮';
+                break;
+            default:
+                return '不亮';
+                break;
+        }
+    }
 }
