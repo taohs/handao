@@ -190,6 +190,10 @@ class OrderController extends ControllerBase
         }
     }
 
+    public function editAction($oid){
+
+    }
+
     public function successAction($oid)
     {
         $order = HdOrder::findFirst($oid);
