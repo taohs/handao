@@ -134,9 +134,30 @@ class IndexController extends ControllerBase
             }
         }
         $mobile = $this->request->getPost('mobile');
-        $webApi = new WebapiComponent();
-        $re = $webApi->webApiGetCode($mobile);
-        echo json_encode($re);
+        $sessionMobile = 'mobile';
+        $sessionTime = $this->session->get($sessionMobile);
+        if($sessionTime + 60 > time()){
+            echo json_encode(array('statusCode'=>'100000','statusMsg'=>'验证码只能一分钟发一次','time'=>time(),'sessiontime'=>$sessionTime));
+
+            exit;
+        }else{
+            $this->session->set($sessionMobile,time());
+            $webApi = new WebapiComponent();
+            $re = $webApi->webApiGetCode($mobile);
+
+            echo json_encode($re);
+//            exit;
+            if((is_object($re)&& $re->statusCode=='000000' )|| (is_array($re) && $re['statusCode']=='000000')){
+
+            }else{
+                $this->session->set($sessionMobile,0);
+            }
+            exit;
+        }
+
+        //$webApi = new WebapiComponent();
+        //$re = $webApi->webApiGetCode($mobile);
+        //echo json_encode($re);
         exit;
     }
 

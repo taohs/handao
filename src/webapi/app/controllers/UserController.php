@@ -23,26 +23,44 @@ class UserController extends ControllerBase
         $mobile = $this->request->getPost( 'mobile' );
         $user = $this->getUserByMobile($mobile);
         $smsComponent = new SmsComponent();
+        $sessionMobile = 'm'.$mobile;
         if ($user) {
-            $code = $this->getCode();
-            $user->password = $this->security->hash($code);
-            if ($user->save()) {
-                $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
-                echo json_encode($smsResult);
+
+            $sessionTime = $this->session->get($sessionMobile);
+            if( $sessionTime + 60 > time()){
+                echo json_encode(array('statusCode'=>10001,'statusMsg'=>'您点击发送验证码频率过高'));
+            }else{
+                $code = $this->getCode();
+                $user->password = $this->security->hash($code);
+                if ($user->save()) {
+                    $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
+                    echo json_encode($smsResult);
+                    $this->session->set($sessionMobile,time());
+                }else{
+                    echo json_encode(array('statusCode'=>10000,'statusMsg'=>'发送失败'));
+                }
             }
         } else {
             $mobileValidator = new MobileValidator();
-            if($mobileValidator->validate($mobile)){
-                $code = $this->getCode();
-                $HdUser = new HdUser();
-                $HdUser->mobile = $mobile;
-                $HdUser->username = $mobile;
-                $HdUser->password = $this->security->hash( $code );
-                $HdUser->update_time = date( "Y-m-d H:i:s" );
-                $HdUser->create_time = date( "Y-m-d H:i:s" );
-                if ($HdUser->save()) {
-                    $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
-                    echo json_encode($smsResult);
+            $sessionTime = $this->session->get($sessionMobile);
+            if($mobileValidator->validate($mobile) ){
+                if( $sessionTime + 60 > time()){
+                    echo json_encode(array('statusCode'=>10001,'statusMsg'=>'您点击发送验证码频率过高'));
+                }else{
+                    $code = $this->getCode();
+                    $HdUser = new HdUser();
+                    $HdUser->mobile = $mobile;
+                    $HdUser->username = $mobile;
+                    $HdUser->password = $this->security->hash( $code );
+                    $HdUser->update_time = date( "Y-m-d H:i:s" );
+                    $HdUser->create_time = date( "Y-m-d H:i:s" );
+                    if ($HdUser->save()) {
+                        $this->session->set($sessionMobile,time());
+                        $smsResult = $smsComponent->sendMessage($mobile, array($code),SmsComponent::LOGIN_CODE);
+                        echo json_encode($smsResult);
+                    }else{
+                        echo json_encode(array('statusCode'=>10000,'statusMsg'=>'发送失败'));
+                    }
                 }
             }else{
                 echo json_encode(array('statusCode'=>10000,'statusMsg'=>'手机格式不正确'));
