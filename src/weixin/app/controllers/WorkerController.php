@@ -112,34 +112,66 @@ class WorkerController extends ControllerBase
             return $this->response->redirect('worker/login');
         }
 
+
+
         if ($status != $finished) {
-            $orders = HdOrder::find(array(
-                'conditions' => 'technician_id=:technician: and status in ({status:array})',
-                'bind' => array(
-                    'technician' => $auth->id,
-                    'status' => array(
-                        OrderComponent::STATUS_ASSIGN_PAYED,
-                        OrderComponent::STATUS_ASSIGN_SERVICE,
-                        OrderComponent::STATUS_ASSIGN_STAFF
-                    )
-                )
+            $dd = implode(",",array(
+                OrderComponent::STATUS_ASSIGN_PAYED,
+                OrderComponent::STATUS_ASSIGN_SERVICE,
+                OrderComponent::STATUS_ASSIGN_STAFF
             ));
+            $sql = "select DISTINCT hdorder.* from HdOrder hdorder left join HdUserAutoReport hdreport where hdorder.technician_id=:technician: and hdorder.status IN ($dd) and hdreport.id is  NULL ";
+            $query = $this->modelsManager->createQuery($sql);
+            $orders = $query->execute(array(
+                'technician' => $auth->id,
+//                'status' => implode(",",array(
+//                    OrderComponent::STATUS_ASSIGN_PAYED,
+//                    OrderComponent::STATUS_ASSIGN_SERVICE,
+//                    OrderComponent::STATUS_ASSIGN_STAFF
+//                ))
+            ));
+
+//            $orders = HdOrder::find(array(
+//                'conditions' => 'technician_id=:technician: and status in ({status:array})',
+//                'bind' => array(
+//                    'technician' => $auth->id,
+//                    'status' => array(
+//                        OrderComponent::STATUS_ASSIGN_PAYED,
+//                        OrderComponent::STATUS_ASSIGN_SERVICE,
+//                        OrderComponent::STATUS_ASSIGN_STAFF
+//                    )
+//                )
+//            ));
         } else {
-            $orders = HdOrder::find(array(
-                'conditions' => 'technician_id=:technician: and status in ({status:array})',
-                'bind' => array(
-                    'technician' => $auth->id,
-                    'status' => array(
-                        OrderComponent::STATUS_ASSIGN_FEEDBACK,
-                        OrderComponent::STATUS_RESULT_SUCCESS,
-                    )
-                )
+            $dd = implode(",",array(
+                OrderComponent::STATUS_ASSIGN_FEEDBACK,
+                OrderComponent::STATUS_RESULT_SUCCESS,
             ));
+            $sql = "select DISTINCT hdorder.* from HdOrder hdorder left join HdUserAutoReport hdreport where hdorder.technician_id=:technician: and hdorder.status IN ($dd) and hdreport.id is NOT NULL ";
+            $query = $this->modelsManager->createQuery($sql);
+            $orders = $query->execute(array(
+                'technician' => $auth->id,
+//                'status' => implode(",",array(
+//                    OrderComponent::STATUS_ASSIGN_PAYED,
+//                    OrderComponent::STATUS_ASSIGN_SERVICE,
+//                    OrderComponent::STATUS_ASSIGN_STAFF
+//                ))
+            ));
+//            $orders = HdOrder::find(array(
+//                'conditions' => 'technician_id=:technician: and status in ({status:array})',
+//                'bind' => array(
+//                    'technician' => $auth->id,
+//                    'status' => array(
+//                        OrderComponent::STATUS_ASSIGN_FEEDBACK,
+//                        OrderComponent::STATUS_RESULT_SUCCESS,
+//                    )
+//                )
+//            ));
         }
 
         $paginate = new Phalcon\Paginator\Adapter\Model(array(
             'data' => $orders,
-            'limit' => 1,
+            'limit' => 10,
             'page' => $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT)
         ));
 

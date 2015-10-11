@@ -27,10 +27,10 @@
                     <col width="12%">
                     <col width="15%">
                     <col width="15%">
-                    <col width="20%">
+                    <col width="15%">
                     <col width="10%">
                     <col width="10%">
-                    <col width="10%">
+                    <col width="15%">
 
 
                 </colgroup>
@@ -63,12 +63,13 @@
 
                     {% if row.status != orderSuccessStatus  %}
                         {% if status == 'finished' %}
-                        <tdstyle="background: #57b;"> <a style="color: #fff;" href="/report/detail/{{row.id}}">查看</a> <a href="/worker/updatereport/{{row.id}}">修改</a> </td>
+                        <td> <a style="color: #fff;background: #1bbc9b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px;border-radius:5px;" href="/report/detail/{{row.id}}">查看</a>
+                            <a  style="color: #fff;background: #57b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px;border-radius:5px;" href="/worker/updatereport/{{row.id}}">修改</a> </td>
                         {% else %}
-                        <td style="background: #57b;"> <a style="color: #fff;" href="/worker/createreport/{{row.id}}" >填写报告</a> </td>
+                        <td> <a style="color: #fff;background: #57b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px; border-radius:5px;" href="/worker/createreport/{{row.id}}" >填写报告</a> </td>
                         {% endif %}
                     {% else %}
-                        <td style="background: #57b;"><a style="color: #fff;" href="/report/detail/{{row.id}}">查看</a> </td>
+                        <td> <a style="color: #fff;background: #57b;display: inline-block;padding: 5px 10px; line-height: 26px;margin: 10px 2px;border-radius:5px;" href="/report/detail/{{row.id}}">查看</a> </td>
                     {% endif %}
                 </tr>
                 {% endfor %}
