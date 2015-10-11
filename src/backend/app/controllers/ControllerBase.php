@@ -11,6 +11,8 @@ class ControllerBase extends Controller
 
     public $auth;
 
+    const ORIGIN = 'backend';
+
     /**
      * @inheritdoc
      * 初始化方法
