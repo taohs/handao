@@ -60,6 +60,7 @@ class OrderController extends ControllerBase
         $modelsExact_id = $this->request->getPost('modelsExact_id');
         $productName = $this->request->getPost('productName');
         $orderDataId = $this->request->getPost('orderDataId');
+        $oid = $this->request->getPost('oid',\Phalcon\Filter::FILTER_INT);
 
 
         /**
@@ -156,7 +157,7 @@ class OrderController extends ControllerBase
                 return $this->responseJson(self::PARAMS_ERROR_CODE, '用户不存在');
             }
 
-            $HdOrder = new HdOrder();
+            $HdOrder = empty($oid) ? new HdOrder() : HdOrder::findFirst($oid);
             $HdOrder->user_id = $user_id;
             $HdOrder->auto_id = $auto_id;
             $HdOrder->products = serialize($productName);

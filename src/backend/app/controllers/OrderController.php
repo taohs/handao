@@ -401,7 +401,7 @@ class OrderController extends ControllerBase
             $auth = $this->session->get('auth');
             $data = array(
                 'origin'=>self::ORIGIN,
-
+                'oid'=>$id,
                 'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$autoNumber,'bookTime'=>$inputBookTime,'remark'=>$remark,
                 'total'=>$orderPrice,'models_id'=>$modelExact,'modelsExact_id'=>$modelExact,'productName'=>$productName,'orderDataId'=>$orderDataId
             );
