@@ -182,14 +182,14 @@ class WorkerController extends ControllerBase
             'bind' => array('orderId' => $order->id)
         ));
 
-        if ($modelExist) {
-            $this->flash->error("该订单已经提交报告");
-        }
+
 
         if ($this->request->getPost()) {
 
 
             if ($modelExist) {
+                return $this->response->redirect('/worker/success');
+
                 return $this->refresh();
             }
             /**
@@ -238,6 +238,13 @@ class WorkerController extends ControllerBase
 
 
 //            return $this->refresh();
+        }else{
+            if ($modelExist) {
+                $this->flash->error("该订单已经提交报告");
+                $this->view->setVar('submit',false);
+            }else{
+                $this->view->setVar('submit',true);
+            }
         }
 
 
@@ -368,6 +375,14 @@ class WorkerController extends ControllerBase
         $this->view->setVar('tireModel', $tireModel);
         $this->view->setVar('otherModel', $otherModel);
         $this->view->setVar('userData', $auth);
+    }
+
+    function successAction(){
+        $this->view->setMainView('order');
+    }
+
+    function failAction(){
+        $this->view->setMainView('order');
     }
 
     protected function useProducts()

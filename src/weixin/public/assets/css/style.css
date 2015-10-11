@@ -352,7 +352,18 @@ footer input {
 .maincon p{ font-size:14px; line-height:27px;}
 .maincon h2{ color:#ff5416; border-bottom: 1px #ccc solid; line-height:46px; margin-bottom:20px;}
 
-	   
+
+.alert-danger {
+    border: 1px solid #fadb4b;
+    background: #ffffcc;
+    color: #ff9900;
+    font-size: 13px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+}
 	   
 	   
 	   
