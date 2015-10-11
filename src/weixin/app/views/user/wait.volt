@@ -12,21 +12,21 @@
         <div class="biao">
             <table>
                 <colgroup>
-                    <col width="13%">
                     <col width="7%">
-                    <col width="15%">
-                    <col width="15%">
-                    <col width="25%">
+                    <col width="23%">
+                    <col width="20%">
                     <col width="10%">
+                    <col width="15%">
+                    <col width="20%">
                     <col width="15%">
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th>订单号</th>
+                    <th>ID</th>
                     <th>预约时间</th>
-                    <th>养护项目</th>
-                    <th>订单金额</th>
-                    <th>联系地址</th>
+                    <th>项目</th>
+                    <th>金额</th>
+                    <th>地址</th>
                     <th>联系人</th>
                     <th>联系电话</th>
                 </tr>
@@ -35,7 +35,7 @@
                 <tr>
                     <td>{{row.id}}</td>
 
-                    <td>{{element.getTime(row.book_time)}}</td>
+                    <td>{{row.book_time}}</td>
                     <td>
                         {% set products = row.getProducts(row.products) %}
                         {% if products is not empty %}
