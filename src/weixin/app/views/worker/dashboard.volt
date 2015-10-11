@@ -1,3 +1,4 @@
+
 <div class="top">
     <p>
         <a href="/worker/index" class="logo"><img src="{{url('/assets/images/logo.png')}}" width="98" height="44" alt=""/></a>
@@ -8,8 +9,8 @@
 <div class="content">
     <div class="qh">
         <p class="choice">
-            <a href="/worker/dashboard" {%if status!=finished %}class="active"{%endif%}>待养护</a>
-            <a href="/worker/dashboard/finished"{%if status==finished %}class="active"{%endif%}>已养护</a>
+            <a style="width: 50%;" href="/worker/dashboard" {%if status!=finished %}class="active"{%endif%}>待养护</a>
+            <a style="width: 50%;" href="/worker/dashboard/finished"{%if status==finished %}class="active"{%endif%}>已养护</a>
         </p>
     </div>
     <div class="list show">
