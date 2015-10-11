@@ -34,11 +34,11 @@
             <li>
                 <p class="p1"><span class="sp1">*</span>服务时间段：</p>
                 <select name="bookTime[]" id="bookTimeHour">
-                    <option value="8:00-12:00 上午">8:00 - 12:00 上午</option>
+                    <option value="8:00-12:00 上午">08:00 - 12:00 上午</option>
                     <option value="12:00-14:00 中午">12:00 - 14:00 中午</option>
                     <option value="14:00-18:00 下午">14:00 - 18:00 下午</option>
-                    <option value="18:00-24:00 晚上">18:00 - 24:00 晚上</option>
-                    <option value="00:00-08:00 凌晨">00:00 - 08:00 凌晨</option>
+<!--                    <option value="18:00-24:00 晚上">18:00 - 24:00 晚上</option>-->
+<!--                    <option value="00:00-08:00 凌晨">00:00 - 08:00 凌晨</option>-->
                 </select>
             </li>
         </ul>
