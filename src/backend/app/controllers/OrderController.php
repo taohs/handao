@@ -375,6 +375,53 @@ class OrderController extends ControllerBase
             $autoNumber = $this->request->getPost('inputAutoNumber', \Phalcon\Filter::FILTER_STRING);
             $remark = $this->request->getPost('inputRemark', \Phalcon\Filter::FILTER_STRING);
 
+
+            /**
+             * 初始化商品
+             */
+            $products = HdProduct::find(array('conditions' => 'id in ({id:array})', 'bind' => array('id' => $productList), 'order' => 'category'));
+            $orderProduct = array();
+            $productName = $orderDataId =array();
+            $orderPrice = 150;
+            foreach ($products as $p) {
+                //初始化名称：
+                $orderProduct[$p->category] = $p->name;
+                $productName[] =  $p->getHdProductCategory()->name .':'. $p->name;
+                $orderDataIdTemp = array();
+                $orderDataIdTemp['category_id'] =  $p->category;
+                $orderDataIdTemp['product_id'] =  $p->id;
+                $orderDataIdTemp['price'] =  $p->member_price;
+                $orderDataId[] =$orderDataIdTemp;
+                //总价格：
+                $orderPrice += $p->member_price;
+
+            }
+
+
+            $auth = $this->session->get('auth');
+            $data = array(
+                'origin'=>self::ORIGIN,
+
+                'mobile'=>$mobile,'name'=>$name,'address'=>$address,'carnum'=>$autoNumber,'bookTime'=>$inputBookTime,'remark'=>$remark,
+                'total'=>$orderPrice,'models_id'=>$modelExact,'modelsExact_id'=>$modelExact,'productName'=>$productName,'orderDataId'=>$orderDataId
+            );
+
+            $fileLogger = new Phalcon\Logger\Adapter\File(APP_PATH.'/cache/interface.log');
+            $fileLogger->log('request',json_encode($data));
+            $response  = $this->restful->post('http://api.handao365.dev/order/order',$data);
+            $fileLogger->log('response',$response);
+
+            $json = json_decode($response,true);
+            if($json['statusCode']=='000000'){
+                $this->flash->success($json['statusMsg']);
+            }else{
+                $this->flash->error($json['statusMsg']);
+
+            }
+            return $this->refresh();
+
+
+
             /**
              * 初始化用户和联系人
              */
@@ -395,19 +442,9 @@ class OrderController extends ControllerBase
              */
             $addressObject = $this->getOrderAddress($objectMember, $address);
 
-            /**
-             * 初始化商品
-             */
-            $products = HdProduct::find(array('conditions' => 'id in ({id:array})', 'bind' => array('id' => $productList), 'order' => 'category'));
-            $orderProduct = array();
-            $orderPrice = 150;
-            foreach ($products as $p) {
-                //初始化名称：
-                $orderProduct[$p->category] = $p->name;
-                //总价格：
-                $orderPrice += $p->member_price;
 
-            }
+
+
 
             $this->db->begin();
             /**
