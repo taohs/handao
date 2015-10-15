@@ -414,3 +414,6 @@ response body = {"templateSMS":{"dateCreated":"20151011210947","smsMessageSid":"
 request body = {'to':'13983059952','templateId':'37645','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['6325',]}
 request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=4F662524E51AF48C22EE7D1752365FBE
 response body = {"templateSMS":{"dateCreated":"20151011211139","smsMessageSid":"2015101121113921921072"},"statusCode":"000000"}
+request body = {'to':'13883388101','templateId':'37645','appId':'aaf98f894fa5766f014fa67028f5013b','datas':['1622',]}
+request url = https://app.cloopen.com:8883/2013-12-26/Accounts/aaf98f894fa5766f014fa5d222570088/SMS/TemplateSMS?sig=670AB1F879329EDF47186E4D710A6B1D
+response body = {"templateSMS":{"dateCreated":"20151015202930","smsMessageSid":"2015101520293025621191"},"statusCode":"000000"}

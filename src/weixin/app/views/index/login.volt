@@ -21,7 +21,7 @@
 
     <form action="" method="post">
 
-        <p><input type="text" placeholder="请输入电话" name="mobile" id="mobile" maxlength="11"></p>
+        <p><input type="text" placeholder="请输入您的手机号码" name="mobile" id="mobile" maxlength="11"></p>
 
 <!--        <p class="yzm">-->
 <!--            <input type="text" maxlength="4" name="inputCode" id="inputCode" class="form-control" placeholder="图形验证码"-->
