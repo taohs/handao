@@ -11,8 +11,14 @@
 <div class="top">
     <p>
         <a href="/" class="logo"><img src="{{url('assets/images/LOGO-yellow.png')}}" width="70" height="70" alt=""/></a>
-        欢迎您，汉道客官。
+        欢迎您，
+        {% if userData is not empty %}
+        {{userData.mobile}}
+        <a href="/index/logout">退出</a>
+        {%else%}
+        汉道客官。
         <a href="/index/login">请登录</a>
+        {%endif%}
     </p>
 </div>
 <div class="content">

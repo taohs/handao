@@ -15,6 +15,6 @@
 class AboutController extends ControllerBase
 {
     function indexAction(){
-        echo 1;
+       $this->view->setVar('userData',$this->session->get('auth'));
     }
 }
