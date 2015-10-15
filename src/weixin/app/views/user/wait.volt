@@ -22,13 +22,13 @@
                 </colgroup>
                 <tbody>
                 <tr>
-                    <th>ID</th>
+                    <th>订单号</th>
                     <th>预约时间</th>
-                    <th>项目</th>
+                    <th>保养项目</th>
                     <th>金额</th>
                     <th>地址</th>
-                    <th>联系人</th>
-                    <th>联系电话</th>
+<!--                    <th>联系人</th>-->
+<!--                    <th>联系电话</th>-->
                 </tr>
 
                 {% for row in page.items %}
@@ -47,8 +47,8 @@
 
                     <td>{{row.total}}</td>
                     <td>{{row.HdUserAddress.address}}</td>
-                    <td>{{row.HdUserLinkman.name}}</td>
-                    <td>{{row.HdUserLinkman.mobile}}</td>
+<!--                    <td>{{row.HdUserLinkman.name}}</td>-->
+<!--                    <td>{{row.HdUserLinkman.mobile}}</td>-->
                 </tr>
                 {% endfor %}
 

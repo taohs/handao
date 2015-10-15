@@ -59,6 +59,7 @@
                 {% if 3>2 %}
                 {{link_to( "report/index/" ~ model.id,'报告')}}
                 {% endif %}
+                <a class="delete" href="javascript:void();" link="/{{dispatcher.getControllerName()~'/delete/' ~ model.id}}"  >删除</a>
             </td>
         </tr>
         {% set technician = null %}
@@ -78,4 +79,13 @@
         <?php echo "您正在第 ", $paginate->current, "/", $paginate->total_pages,'页';  ?>
     </div>
 </div>
+<script>
+    $('.delete').click(function () {
+
+       var a = confirm("确认要删除该订单吗");
+        if(a==true){
+           window.open($(this).attr('link'),'_self');
+        }
+    });
+</script>
 

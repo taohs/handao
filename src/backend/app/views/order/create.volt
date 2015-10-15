@@ -12,7 +12,7 @@
  * @package PHP
  */
 ?>
-<h2 class="sub-header">新建订单</h2>
+<h2 class="sub-header">订单-新增</h2>
 <div class="container col-md-8 ">
     {{flash.output()}}
     <form class="form-horizontal" method="post">

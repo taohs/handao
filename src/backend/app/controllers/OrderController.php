@@ -12,7 +12,11 @@ class OrderController extends ControllerBase
     {
 
         $paginate = new Phalcon\Paginator\Adapter\Model(array(
-            'data' => HdOrder::find(array('order'=>'id desc')),
+            'data' => HdOrder::find(array(
+                'conditions'=>'status <> :cancel:',
+                'order'=>'id desc',
+                'bind'=>array('cancel'=>OrderComponent::STATUS_RESULT_CANCEL)
+            )),
             'page' => $this->request->getQuery('page', \Phalcon\Filter::FILTER_INT),
             'limit' => $this->config->paginate->limit,
 //            'order'=>'id desc'
@@ -135,7 +139,16 @@ class OrderController extends ControllerBase
 
     public function deleteAction($id)
     {
+        $id = $this->filter->sanitize($id,'int');
 
+        $orderModel = HdOrder::findFirst($id);
+        $orderModel->status = OrderComponent::STATUS_RESULT_CANCEL;
+        if($orderModel->save()){
+            $this->flash->success("删除成功");
+        }else{
+            $this->flash->error("删除失败");
+        }
+        return $this->response->redirect($this->request->getHTTPReferer());
     }
 
     /**
