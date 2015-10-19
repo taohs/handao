@@ -53,7 +53,7 @@ class AppointmentController extends ControllerBase
         }
 
         $recommend = HdAutoProductRecommend::find( array( 'conditions' => 'exact_id = :exact_id:', 'bind' => array( 'exact_id' => $exact_id ) ) );
-        $product_id_str = "0";
+        $product_id_str = "0";//初始化值，能够保证在无配件的情况下sql不出错。
         $i = 0;
         foreach ($recommend as $row) {
             $i==0?$dian = '':$dian = ',';
