@@ -386,10 +386,12 @@ class WorkerController extends ControllerBase
                 $summaryObject->total = floor(0.25 * $report_lights + 0.3 * $report_oilFilterBattery + 0.3 * $report_tire + 0.15 * $report_other);
                 $summaryObject->save();
                 $this->db->commit();
-                $this->flash->success('保存成功');
+//                $this->flash->success('保存成功');
+                return $this->response->redirect('/worker/success');
             } catch (Exception $e) {
-                $this->flash->error('保存失败');
+//                $this->flash->error('保存失败');
                 $this->db->rollback();
+                return $this->response->redirect('/worker/dashboard');
 
             }
 
