@@ -120,7 +120,7 @@ class WorkerController extends ControllerBase
                 OrderComponent::STATUS_ASSIGN_SERVICE,
                 OrderComponent::STATUS_ASSIGN_STAFF
             ));
-            $sql = "select DISTINCT hdorder.* from HdOrder hdorder left join HdUserAutoReport hdreport where hdorder.technician_id=:technician: and hdorder.status IN ($dd) and hdreport.id is  NULL ";
+            $sql = "select DISTINCT hdorder.* from HdOrder hdorder left join HdUserAutoReport hdreport on hdorder.id=hdreport.order_id where hdorder.technician_id=:technician: and hdorder.status IN ($dd) and hdreport.id is  NULL ";
             $query = $this->modelsManager->createQuery($sql);
             $orders = $query->execute(array(
                 'technician' => $auth->id,
@@ -147,7 +147,7 @@ class WorkerController extends ControllerBase
                 OrderComponent::STATUS_ASSIGN_FEEDBACK,
                 OrderComponent::STATUS_RESULT_SUCCESS,
             ));
-            $sql = "select DISTINCT hdorder.* from HdOrder hdorder left join HdUserAutoReport hdreport where hdorder.technician_id=:technician: and hdorder.status IN ($dd) and hdreport.id is NOT NULL ";
+            $sql = "select DISTINCT hdorder.* from HdOrder hdorder left join HdUserAutoReport hdreport on hdorder.id=hdreport.order_id where hdorder.technician_id=:technician: and hdorder.status IN ($dd) and hdreport.id is NOT NULL ";
             $query = $this->modelsManager->createQuery($sql);
             $orders = $query->execute(array(
                 'technician' => $auth->id,
